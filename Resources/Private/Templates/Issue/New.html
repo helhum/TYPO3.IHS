@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+
+<f:layout name="Default" />
+
+<f:section name="Title">New issue</f:section>
+
+<f:section name="Content">
+	<p>Just fill out the following form to create a new issue:</p>
+
+	<f:form action="create" objectName="newIssue">
+		<ol>
+			<li>
+				<label for="title">Title</label>
+				<f:form.textfield property="title" id="title" />
+			</li>
+		
+			<li>
+				<label for="abstract">Abstract</label>
+				<f:form.textarea property="abstract" id="abstract" />
+			</li>
+		
+			<li>
+				<label for="description">Description</label>
+				<f:form.textarea property="description" id="description" />
+			</li>
+		
+			<li>
+				<label for="vulnerabilityType">Vulnerability Type</label>
+				<f:form.textarea property="vulnerabilityType" id="vulnerabilityType" />
+			</li>
+		
+			<li>
+				<label for="reporter">Reporter</label>
+				<f:form.textarea property="reporter" id="reporter" />
+			</li>
+		
+			<li>
+				<label for="product">Issue</label>
+				<f:form.select options="{products}" id="product"/>
+			</li>
+		
+			<li>
+				<label for="affectedVersions">Affected Versions</label>
+				<f:form.textfield property="affectedVersions" id="affectedVersions" />
+			</li>
+		
+			<li>
+				<label for="state">State</label>
+				<f:form.textfield property="state" id="state" />
+			</li>
+		
+			<li>
+				<label for="CVE">CVE</label>
+				<f:form.textfield property="CVE" id="CVE" />
+			</li>
+		
+			<li>
+				<label for="CVSS">CVSS</label>
+				<f:form.textfield property="CVSS" id="CVSS" />
+			</li>
+		
+			<li>
+				<label>LINKS</label>
+			</li>
+		
+			<li>
+				<f:form.submit value="Create" />
+			</li>
+		</ol>
+	</f:form>
+</f:section>
+
+</html>
