@@ -55,6 +55,7 @@ class AdvisoryFactory {
 		$advisory->setIdentifier($this->generateIdentifier($issue->getProduct(), $now->format('Y'), $count));
 		$advisory->setTitle($advisory->getIdentifier());
 
+
 		return $advisory;
 
 	}

@@ -22,9 +22,9 @@ class AdvisoryRepository extends Repository {
 		$end = \DateTime::createFromFormat('d.m.Y', '31.12.' . $year);
 		$constraints = array();
 
-		$constraints[] = $query->equals('advisory.issues.product', $product);
-		$constraints[] = $query->greaterThanOrEqual('advisory.publishDate', $beginning);
-		$constraints[] = $query->lessThanOrEqual('advisory.publishDate', $end);
+		$constraints[] = $query->equals('issues.product', $product);
+		$constraints[] = $query->greaterThanOrEqual('publishDate', $beginning);
+		$constraints[] = $query->lessThanOrEqual('publishDate', $end);
 
 		return $query->matching($query->logicalAnd($constraints))->execute();
 	}
@@ -35,9 +35,14 @@ class AdvisoryRepository extends Repository {
 		$end = \DateTime::createFromFormat('d.m.Y', '31.12.' . $year);
 		$constraints = array();
 
-		$constraints[] = $query->equals('advisory.issues.product', $product);
-		$constraints[] = $query->greaterThanOrEqual('advisory.publishDate', $beginning);
-		$constraints[] = $query->lessThanOrEqual('advisory.publishDate', $end);
+		$constraints[] = $query->equals('issues.product', $product);
+		$constraints[] = $query->logicalOr(
+			$query->logicalAnd(
+				$query->greaterThanOrEqual('publishingDate', $beginning),
+				$query->lessThanOrEqual('publishingDate', $end)
+			),
+			$query->equals('publishingDate', NULL)
+		);
 
 		return $query->matching($query->logicalAnd($constraints))->count();
 	}

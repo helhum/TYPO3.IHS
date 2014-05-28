@@ -61,9 +61,10 @@ class IssueController extends ActionController {
 	 * @return void
 	 */
 	public function createAdvisoryAction(Issue $issue) {
-		xdebug_break();
 		$advisory = $this->advisoryFactory->createFromIssue($issue);
 		$this->advisoryRepository->add($advisory);
+		$issue->setAdvisory($advisory);
+		$this->issueRepository->update($issue);
 		$this->redirect('index', 'advisory');
 	}
 
