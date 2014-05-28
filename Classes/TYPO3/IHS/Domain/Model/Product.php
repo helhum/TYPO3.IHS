@@ -16,11 +16,24 @@ class Product {
 
 	/**
 	 * @var string
-	 * @Flow\Identity
 	 * @Flow\Validate(type="NotEmpty")
-	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=255 })
+	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=128 })
 	 */
-	protected $identifier;
+	protected $name;
+
+	/**
+	 * @param string $name
+	 */
+	public function setName($name) {
+		$this->name = $name;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getName() {
+		return $this->name;
+	}
 
 
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+
+<f:section name="Content">
+			<li>
+				<label for="title">Title</label>
+				<f:form.textfield property="title" id="title" />
+			</li>
+
+			<li>
+				<label for="abstract">Abstract</label>
+				<f:form.textarea property="abstract" id="abstract" />
+			</li>
+
+			<li>
+				<label for="description">Description</label>
+				<f:form.textarea property="description" id="description" />
+			</li>
+
+			<li>
+				<label for="vulnerabilityType">Vulnerability Type</label>
+				<f:form.textarea property="vulnerabilityType" id="vulnerabilityType" />
+			</li>
+
+			<li>
+				<label for="reporter">Reporter</label>
+				<f:form.textarea property="reporter" id="reporter" />
+			</li>
+
+			<li>
+				<label for="product">Product</label>
+				<f:form.select options="{products}" property="product" id="product" optionLabelField="name"/>
+			</li>
+
+			<li>
+				<label for="affectedVersions">Affected Versions</label>
+				<f:form.textfield property="affectedVersions" id="affectedVersions" />
+			</li>
+
+			<li>
+				<label for="state">State</label>
+				<f:form.textfield property="state" id="state" />
+			</li>
+
+			<li>
+				<label for="CVE">CVE</label>
+				<f:form.textfield property="CVE" id="CVE" />
+			</li>
+
+			<li>
+				<label for="CVSS">CVSS</label>
+				<f:form.textfield property="CVSS" id="CVSS" />
+			</li>
+
+			<li>
+				<label>LINKS</label>
+				<ul>
+					<li>Title: <f:form.textfield property="links.0.title"  /></li>
+					<li>URI: <f:form.textfield property="links.0.uri"  /></li>
+				</ul>
+			</li>
+</f:section>
+</html>

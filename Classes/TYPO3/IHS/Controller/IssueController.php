@@ -8,9 +8,18 @@ namespace TYPO3\IHS\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
+use TYPO3\Flow\Property\PropertyMappingConfiguration;
+use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\IHS\Domain\Model\Issue;
+use TYPO3\IHS\Domain\Repository\ProductRepository;
 
 class IssueController extends ActionController {
+
+	/**
+	 * @Flow\Inject
+	 * @var ProductRepository
+	 */
+	protected $productRepository;
 
 	/**
 	 * @Flow\Inject
@@ -37,6 +46,8 @@ class IssueController extends ActionController {
 	 * @return void
 	 */
 	public function newAction() {
+		$products = $this->productRepository->findAll();
+		$this->view->assign('products', $products);
 	}
 
 	/**
@@ -54,7 +65,16 @@ class IssueController extends ActionController {
 	 * @return void
 	 */
 	public function editAction(Issue $issue) {
+		$products = $this->productRepository->findAll();
+		$this->view->assign('products', $products);
 		$this->view->assign('issue', $issue);
+	}
+
+	protected function initializeUpdateAction() {
+		/** @var PropertyMappingConfiguration $mappingConfiguration */
+		$mappingConfiguration = $this->arguments['issue']->getPropertyMappingConfiguration();
+		$mappingConfiguration->forProperty('links.0')->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+
 	}
 
 	/**

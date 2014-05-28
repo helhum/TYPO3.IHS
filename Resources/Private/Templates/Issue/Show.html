@@ -1,14 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+
+
 <f:layout name="Default" />
 
 <f:section name="Title">Show issue"{issue.name}"</f:section>
 
 <f:section name="Content">
 	<table>
-		<tr>
-			<th>Identifier</th>
-			<td>{issue.identifier}</td>
-		</tr>
-	
 		<tr>
 			<th>Title</th>
 			<td>{issue.title}</td>
@@ -36,7 +37,7 @@
 	
 		<tr>
 			<th>Product</th>
-			<td>{issue.product}</td>
+			<td>{issue.product.name}</td>
 		</tr>
 	
 		<tr>
@@ -61,8 +62,9 @@
 	
 		<tr>
 			<th>Links</th>
-			<td>{issue.links}</td>
+			<td>{issue.links.title}</td>
 		</tr>
 	</table>
 	<f:link.action action="index">Back</f:link.action>
 </f:section>
+</html>

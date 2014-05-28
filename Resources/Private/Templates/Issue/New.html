@@ -8,64 +8,25 @@
 <f:section name="Title">New issue</f:section>
 
 <f:section name="Content">
+
+	<f:form.validationResults for="newIssue">
+		<f:if condition="{validationResults.flattenedErrors}">
+			<ul>
+			<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
+				<li>
+				{propertyPath}: <ul>
+					<f:for each="{errors}" as="error"><li>{error}</li></f:for>
+					</ul>
+				</li>
+			</f:for></ul>
+	</f:if>
+	</f:form.validationResults>
+
 	<p>Just fill out the following form to create a new issue:</p>
 
 	<f:form action="create" objectName="newIssue">
 		<ol>
-			<li>
-				<label for="title">Title</label>
-				<f:form.textfield property="title" id="title" />
-			</li>
-		
-			<li>
-				<label for="abstract">Abstract</label>
-				<f:form.textarea property="abstract" id="abstract" />
-			</li>
-		
-			<li>
-				<label for="description">Description</label>
-				<f:form.textarea property="description" id="description" />
-			</li>
-		
-			<li>
-				<label for="vulnerabilityType">Vulnerability Type</label>
-				<f:form.textarea property="vulnerabilityType" id="vulnerabilityType" />
-			</li>
-		
-			<li>
-				<label for="reporter">Reporter</label>
-				<f:form.textarea property="reporter" id="reporter" />
-			</li>
-		
-			<li>
-				<label for="product">Issue</label>
-				<f:form.select options="{products}" id="product"/>
-			</li>
-		
-			<li>
-				<label for="affectedVersions">Affected Versions</label>
-				<f:form.textfield property="affectedVersions" id="affectedVersions" />
-			</li>
-		
-			<li>
-				<label for="state">State</label>
-				<f:form.textfield property="state" id="state" />
-			</li>
-		
-			<li>
-				<label for="CVE">CVE</label>
-				<f:form.textfield property="CVE" id="CVE" />
-			</li>
-		
-			<li>
-				<label for="CVSS">CVSS</label>
-				<f:form.textfield property="CVSS" id="CVSS" />
-			</li>
-		
-			<li>
-				<label>LINKS</label>
-			</li>
-		
+			<f:render partial="Issue/FormFields" section="Content" arguments="{_all}"/>
 			<li>
 				<f:form.submit value="Create" />
 			</li>

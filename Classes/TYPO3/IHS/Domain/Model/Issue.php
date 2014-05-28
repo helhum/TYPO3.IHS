@@ -6,6 +6,7 @@ namespace TYPO3\IHS\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use Doctrine\Common\Collections\Collection;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,14 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @Flow\Entity
  */
 class Issue {
-
-	/**
-	 * @var string
-	 * @Flow\Identity
-	 * @Flow\Validate(type="NotEmpty")
-	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=255 })
-	 */
-	protected $identifier;
 
 	/**
 	 * @var string
@@ -51,7 +44,7 @@ class Issue {
 
 	/**
 	 * @var Product
-	 * @ORM\OneToOne
+	 * @ORM\ManyToOne
 	 */
 	protected $product;
 
@@ -76,7 +69,7 @@ class Issue {
 	protected $CVSS;
 
 	/**
-	 * @var Link
+	 * @var Collection<Link>
 	 * @ORM\ManyToMany
 	 */
 	protected $links;
@@ -152,42 +145,28 @@ class Issue {
 	}
 
 	/**
-	 * @param string $issueIdentifier
-	 */
-	public function setIssueIdentifier($issueIdentifier) {
-		$this->issueIdentifier = $issueIdentifier;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getIssueIdentifier() {
-		return $this->issueIdentifier;
-	}
-
-	/**
-	 * @param \TYPO3\IHS\Domain\Model\Link $links
+	 * @param Link $links
 	 */
 	public function setLinks($links) {
 		$this->links = $links;
 	}
 
 	/**
-	 * @return \TYPO3\IHS\Domain\Model\Link
+	 * @return Collection<Link>
 	 */
 	public function getLinks() {
 		return $this->links;
 	}
 
 	/**
-	 * @param \TYPO3\IHS\Domain\Model\Product $product
+	 * @param Product $product
 	 */
 	public function setProduct($product) {
 		$this->product = $product;
 	}
 
 	/**
-	 * @return \TYPO3\IHS\Domain\Model\Product
+	 * @return Product
 	 */
 	public function getProduct() {
 		return $this->product;

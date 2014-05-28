@@ -10,17 +10,60 @@ use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Flow\Entity
+ * @Flow\ValueObject
  */
 class Link {
 
 	/**
-	 * @var string
-	 * @Flow\Identity
-	 * @Flow\Validate(type="NotEmpty")
-	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=255 })
+	 * @param string $title
+	 * @param string $description
+	 * @param string $uri
 	 */
-	protected $identifier;
+	public function __construct($uri, $title = '', $description = '') {
+		$this->uri = $uri;
+		$this->title = $title;
+		$this->description = $description;
+	}
+
+	/**
+	 * @var string
+	 * @Flow\Validate(type="NotEmpty")
+	 * @Flow\Validate(type="StringLength", options={ "minimum"=3, "maximum"=512 })
+	 */
+	protected $uri;
+
+	/**
+	 * @var string
+	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=128 })
+	 */
+	protected $title;
+
+	/**
+	 * @var string
+	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=512 })
+	 */
+	protected $description;
+
+	/**
+	 * @return string
+	 */
+	public function getDescription() {
+		return $this->description;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getTitle() {
+		return $this->title;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getUri() {
+		return $this->uri;
+	}
 
 
 }
