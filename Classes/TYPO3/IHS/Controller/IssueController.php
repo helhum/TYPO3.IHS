@@ -10,7 +10,9 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\Flow\Property\PropertyMappingConfiguration;
 use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
+use TYPO3\IHS\Domain\Factory\AdvisoryFactory;
 use TYPO3\IHS\Domain\Model\Issue;
+use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
 use TYPO3\IHS\Domain\Repository\ProductRepository;
 
 class IssueController extends ActionController {
@@ -20,6 +22,18 @@ class IssueController extends ActionController {
 	 * @var ProductRepository
 	 */
 	protected $productRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var AdvisoryRepository
+	 */
+	protected $advisoryRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var AdvisoryFactory
+	 */
+	protected $advisoryFactory;
 
 	/**
 	 * @Flow\Inject
@@ -40,6 +54,17 @@ class IssueController extends ActionController {
 	 */
 	public function showAction(Issue $issue) {
 		$this->view->assign('issue', $issue);
+	}
+
+	/**
+	 * @param \TYPO3\IHS\Domain\Model\Issue $issue
+	 * @return void
+	 */
+	public function createAdvisoryAction(Issue $issue) {
+		xdebug_break();
+		$advisory = $this->advisoryFactory->createFromIssue($issue);
+		$this->advisoryRepository->add($advisory);
+		$this->redirect('index', 'advisory');
 	}
 
 	/**

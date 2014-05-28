@@ -1,0 +1,18 @@
+<f:layout name="Default" />
+
+<f:section name="Title">Edit advisory "{advisory.identifier}: {advisory.title}"</f:section>
+
+<f:section name="Content">
+	<f:form action="update" object="{advisory}" objectName="advisory">
+		<ol>
+			<li>
+				<label for="title">Title</label>
+				<f:form.textfield property="title" id="title" />
+			</li>
+		
+			<li>
+				<f:form.submit value="Update" />
+			</li>
+		</ol>
+	</f:form>
+</f:section>

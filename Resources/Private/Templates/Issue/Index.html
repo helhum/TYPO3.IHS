@@ -16,6 +16,9 @@
 					<li>
 						<f:link.action action="show" arguments="{issue: issue}">{issue.title}</f:link.action>
 						<f:link.action action="edit" arguments="{issue: issue}">Edit</f:link.action>
+						<f:form action="createAdvisory" arguments="{issue: issue}">
+							<f:form.submit value="Create Advisory" />
+						</f:form>
 						<f:form action="delete" arguments="{issue: issue}">
 							<f:form.submit value="Delete" />
 						</f:form>

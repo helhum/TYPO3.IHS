@@ -9,6 +9,7 @@ namespace TYPO3\IHS\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\IHS\Domain\Model\Product;
+use TYPO3\IHS\Domain\Model\ProductType;
 
 class ProductController extends ActionController {
 
@@ -37,6 +38,8 @@ class ProductController extends ActionController {
 	 * @return void
 	 */
 	public function newAction() {
+		$type = new ProductType();
+		$this->view->assign('types', array_flip($type->getConstants()));
 	}
 
 	/**

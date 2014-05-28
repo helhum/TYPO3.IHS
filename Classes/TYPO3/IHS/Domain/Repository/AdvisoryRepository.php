@@ -16,4 +16,30 @@ class AdvisoryRepository extends Repository {
 
 	// add customized methods here
 
+	public function findByProductAndYear($product, $year) {
+		$query = $this->createQuery();
+		$beginning = \DateTime::createFromFormat('d.m.Y', '1.1.' . $year);
+		$end = \DateTime::createFromFormat('d.m.Y', '31.12.' . $year);
+		$constraints = array();
+
+		$constraints[] = $query->equals('advisory.issues.product', $product);
+		$constraints[] = $query->greaterThanOrEqual('advisory.publishDate', $beginning);
+		$constraints[] = $query->lessThanOrEqual('advisory.publishDate', $end);
+
+		return $query->matching($query->logicalAnd($constraints))->execute();
+	}
+
+	public function countByProductAndYear($product, $year) {
+		$query = $this->createQuery();
+		$beginning = \DateTime::createFromFormat('d.m.Y', '1.1.' . $year);
+		$end = \DateTime::createFromFormat('d.m.Y', '31.12.' . $year);
+		$constraints = array();
+
+		$constraints[] = $query->equals('advisory.issues.product', $product);
+		$constraints[] = $query->greaterThanOrEqual('advisory.publishDate', $beginning);
+		$constraints[] = $query->lessThanOrEqual('advisory.publishDate', $end);
+
+		return $query->matching($query->logicalAnd($constraints))->count();
+	}
+
 }

@@ -16,6 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Issue {
 
 	/**
+	 * @var \DateTime
+	 */
+	protected $creationDate;
+
+	/**
 	 * @var string
 	 * @Flow\Validate(type="NotEmpty")
 	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=512 })
@@ -44,7 +49,8 @@ class Issue {
 
 	/**
 	 * @var Product
-	 * @ORM\ManyToOne
+	 * @Flow\Validate(type="NotEmpty")
+	 * @ORM\ManyToOne(cascade={"persist"})
 	 */
 	protected $product;
 
@@ -56,7 +62,7 @@ class Issue {
 	/**
 	 * @var string
 	 */
-	protected $state;
+	protected $state = '';
 
 	/**
 	 * @var string
@@ -69,165 +75,222 @@ class Issue {
 	protected $CVSS;
 
 	/**
+	 * @var Advisory
+	 * @ORM\ManyToOne(inversedBy="issues")
+	 */
+	protected $advisory;
+
+	/**
+	 * @var Collection<Solution>
+	 * @ORM\OneToMany(mappedBy="issue")
+	 */
+	protected $solutions;
+
+	/**
 	 * @var Collection<Link>
 	 * @ORM\ManyToMany
 	 */
 	protected $links;
 
+	public function __construct() {
+		$this->creationDate = new \DateTime();
+	}
+
 	/**
-	 * @param mixed $CVE
+	 * @param string $CVE
 	 */
 	public function setCVE($CVE) {
 		$this->CVE = $CVE;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getCVE() {
 		return $this->CVE;
 	}
 
 	/**
-	 * @param mixed $CVSS
+	 * @param string $CVSS
 	 */
 	public function setCVSS($CVSS) {
 		$this->CVSS = $CVSS;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getCVSS() {
 		return $this->CVSS;
 	}
 
 	/**
-	 * @param mixed $abstract
+	 * @param string $abstract
 	 */
 	public function setAbstract($abstract) {
 		$this->abstract = $abstract;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getAbstract() {
 		return $this->abstract;
 	}
 
 	/**
-	 * @param mixed $affectedVersions
+	 * @param \TYPO3\IHS\Domain\Model\Advisory $advisory
+	 */
+	public function setAdvisory($advisory) {
+		$this->advisory = $advisory;
+	}
+
+	/**
+	 * @return \TYPO3\IHS\Domain\Model\Advisory
+	 */
+	public function getAdvisory() {
+		return $this->advisory;
+	}
+
+	/**
+	 * @param string $affectedVersions
 	 */
 	public function setAffectedVersions($affectedVersions) {
 		$this->affectedVersions = $affectedVersions;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getAffectedVersions() {
 		return $this->affectedVersions;
 	}
 
 	/**
-	 * @param mixed $description
+	 * @param \DateTime $creationDate
+	 */
+	public function setCreationDate($creationDate) {
+		$this->creationDate = $creationDate;
+	}
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getCreationDate() {
+		return $this->creationDate;
+	}
+
+	/**
+	 * @param string $description
 	 */
 	public function setDescription($description) {
 		$this->description = $description;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getDescription() {
 		return $this->description;
 	}
 
 	/**
-	 * @param Link $links
+	 * @param \Doctrine\Common\Collections\Collection $links
 	 */
 	public function setLinks($links) {
 		$this->links = $links;
 	}
 
 	/**
-	 * @return Collection<Link>
+	 * @return \Doctrine\Common\Collections\Collection
 	 */
 	public function getLinks() {
 		return $this->links;
 	}
 
 	/**
-	 * @param Product $product
+	 * @param \TYPO3\IHS\Domain\Model\Product $product
 	 */
 	public function setProduct($product) {
 		$this->product = $product;
 	}
 
 	/**
-	 * @return Product
+	 * @return \TYPO3\IHS\Domain\Model\Product
 	 */
 	public function getProduct() {
 		return $this->product;
 	}
 
 	/**
-	 * @param mixed $reporter
+	 * @param string $reporter
 	 */
 	public function setReporter($reporter) {
 		$this->reporter = $reporter;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getReporter() {
 		return $this->reporter;
 	}
 
 	/**
-	 * @param mixed $state
+	 * @param \Doctrine\Common\Collections\Collection $solutions
+	 */
+	public function setSolutions($solutions) {
+		$this->solutions = $solutions;
+	}
+
+	/**
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getSolutions() {
+		return $this->solutions;
+	}
+
+	/**
+	 * @param string $state
 	 */
 	public function setState($state) {
 		$this->state = $state;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getState() {
 		return $this->state;
 	}
 
 	/**
-	 * @param mixed $title
+	 * @param string $title
 	 */
 	public function setTitle($title) {
 		$this->title = $title;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getTitle() {
 		return $this->title;
 	}
 
 	/**
-	 * @param mixed $vulnerabilityType
+	 * @param string $vulnerabilityType
 	 */
 	public function setVulnerabilityType($vulnerabilityType) {
 		$this->vulnerabilityType = $vulnerabilityType;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getVulnerabilityType() {
 		return $this->vulnerabilityType;
 	}
-
 
 
 }

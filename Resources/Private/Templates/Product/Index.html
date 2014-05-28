@@ -8,6 +8,7 @@
 			<ul>
 				<f:for each="{products}" as="product">
 					<li>
+						Type: {product.type}
 						<f:link.action action="show" arguments="{product: product}">{product.name}</f:link.action>
 						<f:link.action action="edit" arguments="{product: product}">Edit</f:link.action>
 						<f:form action="delete" arguments="{product: product}">

@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @Flow\Entity
  */
 class Product {
+	const TYPE_CMS_EXTENSION = 'EXT';
+	const TYPE_TYPO3_PRODUCT = 'TYPO3';
+	const TYPE_FLOW_PACKAGE = 'PACK';
 
 	/**
 	 * @var string
@@ -20,6 +23,13 @@ class Product {
 	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=128 })
 	 */
 	protected $name;
+
+	/**
+	 * @var ProductType
+	 * @ORM\ManyToOne(cascade={"persist"})
+	 *
+	 */
+	protected $type;
 
 	/**
 	 * @param string $name
@@ -34,6 +44,21 @@ class Product {
 	public function getName() {
 		return $this->name;
 	}
+
+	/**
+	 * @param ProductType $type
+	 */
+	public function setType($type) {
+		$this->type = new ProductType((string)$type);
+	}
+
+	/**
+	 * @return ProductType
+	 */
+	public function getType() {
+		return $this->type;
+	}
+
 
 
 }

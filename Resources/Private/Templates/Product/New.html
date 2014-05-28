@@ -1,9 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+
 <f:layout name="Default" />
 
 <f:section name="Title">New product</f:section>
 
 <f:section name="Content">
 	<p>Just fill out the following form to create a new product:</p>
+	<f:form.validationResults for="newProduct">
+		<f:if condition="{validationResults.flattenedErrors}">
+			<ul>
+			<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
+				<li>
+				{propertyPath}: <ul>
+					<f:for each="{errors}" as="error"><li>{error}</li></f:for>
+					</ul>
+				</li>
+			</f:for></ul>
+		</f:if>
+	</f:form.validationResults>
 
 	<f:form action="create" objectName="newProduct">
 		<ol>
@@ -13,8 +30,14 @@
 			</li>
 		
 			<li>
+				<label for="type">Type</label>
+				<f:form.select options="{types}" property="type.value" id="type" />
+			</li>
+
+			<li>
 				<f:form.submit value="Create" />
 			</li>
 		</ol>
 	</f:form>
 </f:section>
+</html>
