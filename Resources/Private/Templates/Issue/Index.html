@@ -18,11 +18,9 @@
 						<f:link.action action="edit" arguments="{issue: issue}">Edit</f:link.action>
 						<f:if condition="{issue.advisory}">
 						<f:else>
-							<f:if condition="{issue.solutions}">
 							<f:form action="createAdvisory" arguments="{issue: issue}">
 								<f:form.submit value="Create Advisory" />
 							</f:form>
-							</f:if>
 						</f:else>
 						</f:if>
 						<f:form action="delete" arguments="{issue: issue}">
