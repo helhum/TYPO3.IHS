@@ -237,14 +237,18 @@ class Issue {
 	}
 
 	/**
-	 * @param \Doctrine\Common\Collections\Collection $solutions
+	 * @param \Doctrine\Common\Collections\Collection<Solution> $solutions
 	 */
 	public function setSolutions($solutions) {
+		/** @var Solution $solution */
+		foreach ($solutions as $solution) {
+			$solution->setIssue($this);
+		}
 		$this->solutions = $solutions;
 	}
 
 	/**
-	 * @return \Doctrine\Common\Collections\Collection
+	 * @return \Doctrine\Common\Collections\Collection<Solution>
 	 */
 	public function getSolutions() {
 		return $this->solutions;

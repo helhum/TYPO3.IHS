@@ -8,6 +8,8 @@ namespace TYPO3\IHS\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
+use TYPO3\Flow\Property\PropertyMappingConfiguration;
+use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\IHS\Domain\Model\Product;
 use TYPO3\IHS\Domain\Model\ProductType;
 
@@ -57,7 +59,16 @@ class ProductController extends ActionController {
 	 * @return void
 	 */
 	public function editAction(Product $product) {
+		$type = new ProductType();
+		$this->view->assign('types', array_flip($type->getConstants()));
 		$this->view->assign('product', $product);
+	}
+
+	protected function initializeUpdateAction() {
+		/** @var PropertyMappingConfiguration $mappingConfiguration */
+		$mappingConfiguration = $this->arguments['product']->getPropertyMappingConfiguration();
+		$mappingConfiguration->forProperty('type')->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+
 	}
 
 	/**

@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+
 <f:layout name="Default" />
 
 <f:section name="Title">Edit product "{product.name}"</f:section>
@@ -6,12 +11,18 @@
 	<f:form action="update" object="{product}" objectName="product">
 		<ol>
 			<li>
-				<label for="name">Name</label>
+				<label for="name">Product Name</label>
 				<f:form.textfield property="name" id="name" />
 			</li>
+
+			<li>
+				<label for="shortName">Product Short Name</label>
+				<f:form.textfield property="shortName" id="shortName" />
+			</li>
+
 			<li>
 				<label for="type">Type</label>
-				<f:form.textfield property="type.value" id="type" />
+				<f:form.select options="{types}" property="type.value" id="type" />
 			</li>
 
 			<li>
@@ -20,3 +31,5 @@
 		</ol>
 	</f:form>
 </f:section>
+
+</html>

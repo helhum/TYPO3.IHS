@@ -25,10 +25,15 @@
 	<f:form action="create" objectName="newProduct">
 		<ol>
 			<li>
-				<label for="name">Product</label>
+				<label for="name">Product Name</label>
 				<f:form.textfield property="name" id="name" />
 			</li>
 		
+			<li>
+				<label for="shortName">Product Short Name</label>
+				<f:form.textfield property="shortName" id="shortName" />
+			</li>
+
 			<li>
 				<label for="type">Type</label>
 				<f:form.select options="{types}" property="type.value" id="type" />

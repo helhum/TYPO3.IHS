@@ -24,6 +24,13 @@ class Product {
 	 */
 	protected $name;
 
+
+	/**
+	 * @var string
+	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=128 })
+	 */
+	protected $shortName;
+
 	/**
 	 * @var ProductType
 	 * @ORM\ManyToOne(cascade={"persist"})
@@ -59,6 +66,17 @@ class Product {
 		return $this->type;
 	}
 
+	/**
+	 * @param mixed $shortName
+	 */
+	public function setShortName($shortName) {
+		$this->shortName = $shortName;
+	}
 
-
+	/**
+	 * @return mixed
+	 */
+	public function getShortName() {
+		return $this->shortName;
+	}
 }
