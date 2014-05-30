@@ -44,7 +44,7 @@ trait ArgumentMappingTrait {
 	protected function allowMappingForArgumentAndCollectionProperty($argumentName, $property) {
 		/** @var PropertyMappingConfiguration $mappingConfiguration */
 		$mappingConfiguration = $this->arguments[$argumentName]->getPropertyMappingConfiguration();
-//		$mappingConfiguration->forProperty($property)->allowAllProperties();
+		$mappingConfiguration->forProperty($property)->allowAllProperties();
 
 
 		// This is unfortunately not enough, so we must do the loop below
