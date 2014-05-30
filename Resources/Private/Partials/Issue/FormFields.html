@@ -56,5 +56,14 @@
 					<li>URI: <f:form.textfield property="links.0.uri"  /></li>
 				</ul>
 			</li>
+
+			<li>
+				<h4>Solutions</h4>
+				<ul>
+					<f:for each="{issue.solutions}" as="solution" key="number">
+						<li>Description: <f:form.textfield property="solutions.{number}.description" /></li>
+					</f:for>
+				</ul>
+		</li>
 </f:section>
 </html>
