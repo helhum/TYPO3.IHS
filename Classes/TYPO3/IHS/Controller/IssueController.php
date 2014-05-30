@@ -76,6 +76,25 @@ class IssueController extends ActionController {
 		$this->view->assign('products', $products);
 	}
 
+	protected function initializeCreateAction() {
+		/** @var PropertyMappingConfiguration $mappingConfiguration */
+		$mappingConfiguration = $this->arguments['newIssue']->getPropertyMappingConfiguration();
+		$mappingConfiguration->forProperty('links.*')
+			->allowAllProperties()
+			->setTypeConverterOption(
+				'TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter',
+				\TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED,
+				TRUE
+			);
+		$mappingConfiguration->forProperty('solutions.*')
+			->allowAllProperties()
+			->setTypeConverterOption(
+				'TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter',
+				\TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED,
+				TRUE
+			);
+	}
+
 	/**
 	 * @param \TYPO3\IHS\Domain\Model\Issue $newIssue
 	 * @return void
@@ -99,8 +118,20 @@ class IssueController extends ActionController {
 	protected function initializeUpdateAction() {
 		/** @var PropertyMappingConfiguration $mappingConfiguration */
 		$mappingConfiguration = $this->arguments['issue']->getPropertyMappingConfiguration();
-		$mappingConfiguration->forProperty('links.0')->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
-
+		$mappingConfiguration->forProperty('links.*')
+			->allowAllProperties()
+			->setTypeConverterOption(
+				'TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter',
+				\TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED,
+				TRUE
+			);
+		$mappingConfiguration->forProperty('solutions.*')
+			->allowAllProperties()
+			->setTypeConverterOption(
+				'TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter',
+				\TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED,
+				TRUE
+			);
 	}
 
 	/**
