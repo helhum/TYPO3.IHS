@@ -10,6 +10,10 @@
 
 <f:section name="Content">
 	<f:form action="update" object="{issue}" objectName="issue">
+		<f:alias map="{errorContext: 'issue'}">
+			<f:render partial="FormErrors" arguments="{_all}" />
+		</f:alias>
+
 		<ol>
 			<f:render partial="Issue/FormFields" section="Content" arguments="{object: issue}"/>
 			<li>

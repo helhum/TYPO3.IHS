@@ -9,18 +9,9 @@
 
 <f:section name="Content">
 
-	<f:form.validationResults for="newIssue">
-		<f:if condition="{validationResults.flattenedErrors}">
-			<ul>
-			<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
-				<li>
-				{propertyPath}: <ul>
-					<f:for each="{errors}" as="error"><li>{error}</li></f:for>
-					</ul>
-				</li>
-			</f:for></ul>
-		</f:if>
-	</f:form.validationResults>
+	<f:alias map="{errorContext: 'newIssue'}">
+		<f:render partial="FormErrors" arguments="{_all}" />
+	</f:alias>
 
 	<p>Just fill out the following form to create a new issue:</p>
 
