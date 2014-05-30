@@ -57,7 +57,7 @@ class Advisory {
 
 	/**
 	 * @var Collection<Link>
-	 * @ORM\ManyToMany
+	 * @ORM\ManyToMany(cascade={"persist"})
 	 */
 	protected $links;
 
