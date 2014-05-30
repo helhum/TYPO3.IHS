@@ -15,7 +15,7 @@
 		</f:alias>
 
 		<ol>
-			<f:render partial="Issue/FormFields" section="Content" arguments="{object: issue}"/>
+			<f:render partial="Issue/FormFields" section="Content" arguments="{object: issue, products: products}"/>
 			<li>
 				<f:form.submit value="Update" />
 			</li>
