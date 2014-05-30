@@ -56,11 +56,7 @@
 
 			<li>
 				<h4>Solutions</h4>
-				<ul>
-					<f:for each="{issue.solutions}" as="solution" key="number">
-						<li>Description: <f:form.textfield property="solutions.{number}.description" /></li>
-					</f:for>
-				</ul>
+				<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields'}"/>
 		</li>
 </f:section>
 </html>
