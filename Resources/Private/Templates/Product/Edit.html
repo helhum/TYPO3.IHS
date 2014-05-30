@@ -26,6 +26,10 @@
 			</li>
 
 			<li>
+				<label>Versions</label>
+				<f:render partial="ObjectCollection" section="Content" arguments="{objects: product.versions, partial:'ProductVersion/FormFields'}"/>
+			</li>
+			<li>
 				<f:form.submit value="Update" />
 			</li>
 		</ol>

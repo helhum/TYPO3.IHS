@@ -8,12 +8,13 @@ namespace TYPO3\IHS\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
-use TYPO3\Flow\Property\PropertyMappingConfiguration;
-use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
+use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\IHS\Domain\Model\Product;
 use TYPO3\IHS\Domain\Model\ProductType;
 
 class ProductController extends ActionController {
+
+	use ArgumentMappingTrait;
 
 	/**
 	 * @Flow\Inject
@@ -45,6 +46,13 @@ class ProductController extends ActionController {
 	}
 
 	/**
+	 * Initialize property mapping configuration
+	 */
+	protected function initializeCreateAction() {
+		$this->allowMappingForArgumentAndCollectionProperty('newProduct', 'versions');
+	}
+
+	/**
 	 * @param \TYPO3\IHS\Domain\Model\Product $newProduct
 	 * @return void
 	 */
@@ -64,11 +72,12 @@ class ProductController extends ActionController {
 		$this->view->assign('product', $product);
 	}
 
+	/**
+	 * Initialize property mapping configuration
+	 */
 	protected function initializeUpdateAction() {
-		/** @var PropertyMappingConfiguration $mappingConfiguration */
-		$mappingConfiguration = $this->arguments['product']->getPropertyMappingConfiguration();
-		$mappingConfiguration->forProperty('type')->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
-
+		$this->allowCreationForArgumentAndProperty('product', 'type');
+		$this->allowMappingForArgumentAndCollectionProperty('product', 'versions');
 	}
 
 	/**
@@ -90,5 +99,4 @@ class ProductController extends ActionController {
 		$this->addFlashMessage('Deleted a product.');
 		$this->redirect('index');
 	}
-
 }

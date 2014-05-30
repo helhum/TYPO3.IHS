@@ -8,14 +8,15 @@ namespace TYPO3\IHS\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
-use TYPO3\Flow\Property\PropertyMappingConfiguration;
-use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
+use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\IHS\Domain\Factory\AdvisoryFactory;
 use TYPO3\IHS\Domain\Model\Issue;
 use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
 use TYPO3\IHS\Domain\Repository\ProductRepository;
 
 class IssueController extends ActionController {
+
+	use ArgumentMappingTrait;
 
 	/**
 	 * @Flow\Inject
@@ -76,23 +77,12 @@ class IssueController extends ActionController {
 		$this->view->assign('products', $products);
 	}
 
+	/**
+	 * Initialize property mapping configuration
+	 */
 	protected function initializeCreateAction() {
-		/** @var PropertyMappingConfiguration $mappingConfiguration */
-		$mappingConfiguration = $this->arguments['newIssue']->getPropertyMappingConfiguration();
-		$mappingConfiguration->forProperty('links.*')
-			->allowAllProperties()
-			->setTypeConverterOption(
-				'TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter',
-				\TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED,
-				TRUE
-			);
-		$mappingConfiguration->forProperty('solutions.*')
-			->allowAllProperties()
-			->setTypeConverterOption(
-				'TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter',
-				\TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED,
-				TRUE
-			);
+		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'links');
+		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'solutions');
 	}
 
 	/**
@@ -115,23 +105,12 @@ class IssueController extends ActionController {
 		$this->view->assign('issue', $issue);
 	}
 
+	/**
+	 * Initialize property mapping configuration
+	 */
 	protected function initializeUpdateAction() {
-		/** @var PropertyMappingConfiguration $mappingConfiguration */
-		$mappingConfiguration = $this->arguments['issue']->getPropertyMappingConfiguration();
-		$mappingConfiguration->forProperty('links.*')
-			->allowAllProperties()
-			->setTypeConverterOption(
-				'TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter',
-				\TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED,
-				TRUE
-			);
-		$mappingConfiguration->forProperty('solutions.*')
-			->allowAllProperties()
-			->setTypeConverterOption(
-				'TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter',
-				\TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED,
-				TRUE
-			);
+		$this->allowMappingForArgumentAndCollectionProperty('issue', 'links');
+		$this->allowMappingForArgumentAndCollectionProperty('issue', 'solutions');
 	}
 
 	/**

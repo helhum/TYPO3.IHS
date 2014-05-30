@@ -6,6 +6,7 @@ namespace TYPO3\IHS\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use Doctrine\Common\Collections\Collection;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,7 +25,6 @@ class Product {
 	 */
 	protected $name;
 
-
 	/**
 	 * @var string
 	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=128 })
@@ -37,6 +37,13 @@ class Product {
 	 *
 	 */
 	protected $type;
+
+	/**
+	 * @var Collection<ProductVersion>
+	 * @ORM\ManyToMany(cascade={"persist"})
+	 * @ORM\OrderBy({"versionNumber" = "ASC"})
+	 */
+	protected $versions;
 
 	/**
 	 * @param string $name
@@ -78,5 +85,19 @@ class Product {
 	 */
 	public function getShortName() {
 		return $this->shortName;
+	}
+
+	/**
+	 * @param \Doctrine\Common\Collections\Collection $versions
+	 */
+	public function setVersions($versions) {
+		$this->versions = $versions;
+	}
+
+	/**
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getVersions() {
+		return $this->versions;
 	}
 }
