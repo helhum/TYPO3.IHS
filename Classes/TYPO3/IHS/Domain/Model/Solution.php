@@ -23,6 +23,7 @@ class Solution {
 
 	/**
 	 * @var string
+	 * @ORM\Column(nullable=true)
 	 */
 	protected $fixedInVersion;
 
