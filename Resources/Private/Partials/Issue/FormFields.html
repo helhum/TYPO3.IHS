@@ -50,13 +50,17 @@
 			</li>
 
 			<li>
-				<label>LINKS</label>
-				<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields'}"/>
+				<fieldset>
+					<legend>Links</legend>
+					<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields'}"/>
+				</fieldset>
 			</li>
 
 			<li>
-				<h4>Solutions</h4>
-				<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields'}"/>
+				<fieldset>
+					<legend>Solutions</legend>
+					<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields'}"/>
+				</fieldset>
 		</li>
 </f:section>
 </html>

@@ -5,8 +5,10 @@
 
 <f:section name="Content">
 	<ul>
-		<li>Title: <f:form.textfield property="links.{iterationIndex}.title"  /></li>
-		<li>URI: <f:form.textfield property="links.{iterationIndex}.uri"  /></li>
+		<label for="links.title">Title:</label>
+		<f:form.textfield property="links.{iterationIndex}.title" id="links.title" />
+		<label for="links.uri">URI:</label>
+		<f:form.textfield property="links.{iterationIndex}.uri" id="links.uri" />
 	</ul>
 </f:section>
 </html>
