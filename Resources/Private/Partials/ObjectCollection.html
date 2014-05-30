@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+
+<f:section name="Content">
+	<div class="dynamic-fields">
+		<div class="field-template" data-html="
+			<f:format.htmlentities>
+				<f:render partial="{partial}" arguments="{iterationIndex: '_placeholder_'}" section="Content"/>
+			</f:format.htmlentities>
+		">
+		</div>
+		<f:if condition="{objects}">
+			<div class="present-fields">
+				<f:for each="{objects}" as="object" iteration="iterator">
+					<f:render partial="{partial}" arguments="{iterationIndex: iterator.index}" section="Content"/>
+				</f:for>
+			</div>
+		</f:if>
+		<div class="additional-fields"></div>
+
+
+		<button class="add-field">Add Link</button>
+	</div>
+</f:section>
+</html>

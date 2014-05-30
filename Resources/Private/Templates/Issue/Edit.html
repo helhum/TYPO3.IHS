@@ -11,7 +11,7 @@
 <f:section name="Content">
 	<f:form action="update" object="{issue}" objectName="issue">
 		<ol>
-			<f:render partial="Issue/FormFields" section="Content" arguments="{_all}"/>
+			<f:render partial="Issue/FormFields" section="Content" arguments="{object: issue}"/>
 			<li>
 				<f:form.submit value="Update" />
 			</li>
