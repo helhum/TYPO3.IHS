@@ -4,11 +4,13 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<ul>
+	<li>
 		<label for="links.title">Title:</label>
 		<f:form.textfield property="links.{iterationIndex}.title" id="links.title" />
+	</li>
+	<li>
 		<label for="links.uri">URI:</label>
 		<f:form.textfield property="links.{iterationIndex}.uri" id="links.uri" />
-	</ul>
+	</li>
 </f:section>
 </html>

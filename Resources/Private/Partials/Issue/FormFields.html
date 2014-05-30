@@ -52,14 +52,18 @@
 			<li>
 				<fieldset>
 					<legend>Links</legend>
-					<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields'}"/>
+					<ul>
+						<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields'}"/>
+					</ul>
 				</fieldset>
 			</li>
 
 			<li>
 				<fieldset>
 					<legend>Solutions</legend>
-					<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields'}"/>
+					<ul>
+						<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields'}"/>
+					</ul>
 				</fieldset>
 		</li>
 </f:section>

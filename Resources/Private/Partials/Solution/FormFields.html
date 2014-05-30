@@ -4,9 +4,14 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<label for="solution.description">Description:</label>
-	<f:form.textarea property="solutions.{iterationIndex}.description" id="solution.description" />
-	<label for="solution.fixedInVersions">Fixed in versions:</label>
-	<f:form.textarea property="solutions.{iterationIndex}.fixedInVersion" id="solution.fixedInVersion" />
+	<li>
+		<label for="solution.description">Description:</label>
+		<f:form.textarea property="solutions.{iterationIndex}.description" id="solution.description" />
+	</li>
+
+	<li>
+		<label for="solution.fixedInVersions">Fixed in versions:</label>
+		<f:form.textarea property="solutions.{iterationIndex}.fixedInVersion" id="solution.fixedInVersion" />
+	</li>
 </f:section>
 </html>
