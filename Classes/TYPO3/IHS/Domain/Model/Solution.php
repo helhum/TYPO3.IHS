@@ -22,10 +22,11 @@ class Solution {
 	protected $issue;
 
 	/**
-	 * @var string
-	 * @ORM\Column(nullable=true)
+	 * @var Collection<ProductVersion>
+	 * @ORM\ManyToMany(cascade={"persist"})
+	 * @ORM\OrderBy({"versionNumber" = "ASC"})
 	 */
-	protected $fixedInVersion;
+	protected $fixedInVersions;
 
 	/**
 	 * @var string
@@ -53,28 +54,14 @@ class Solution {
 	}
 
 	/**
-	 * @param string $fixedInVersion
-	 */
-	public function setFixedInVersion($fixedInVersion) {
-		$this->fixedInVersion = $fixedInVersion;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getFixedInVersion() {
-		return $this->fixedInVersion;
-	}
-
-	/**
-	 * @param \TYPO3\IHS\Domain\Model\Issue $issue
+	 * @param Issue $issue
 	 */
 	public function setIssue($issue) {
 		$this->issue = $issue;
 	}
 
 	/**
-	 * @return \TYPO3\IHS\Domain\Model\Issue
+	 * @return Issue
 	 */
 	public function getIssue() {
 		return $this->issue;
@@ -94,6 +81,17 @@ class Solution {
 		return $this->links;
 	}
 
+	/**
+	 * @param Collection<ProductVersion> $fixedInVersions
+	 */
+	public function setFixedInVersions($fixedInVersions) {
+		$this->fixedInVersions = $fixedInVersions;
+	}
 
-
+	/**
+	 * @return Collection<ProductVersion>
+	 */
+	public function getFixedInVersions() {
+		return $this->fixedInVersions;
+	}
 }

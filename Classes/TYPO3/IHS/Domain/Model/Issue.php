@@ -55,7 +55,9 @@ class Issue {
 	protected $product;
 
 	/**
-	 * @var string
+	 * @var Collection<ProductVersion>
+	 * @ORM\ManyToMany(cascade={"persist"})
+	 * @ORM\OrderBy({"versionNumber" = "ASC"})
 	 */
 	protected $affectedVersions;
 
@@ -153,14 +155,14 @@ class Issue {
 	}
 
 	/**
-	 * @param string $affectedVersions
+	 * @param Collection<ProductVersion> $fixedInVersions
 	 */
 	public function setAffectedVersions($affectedVersions) {
 		$this->affectedVersions = $affectedVersions;
 	}
 
 	/**
-	 * @return string
+	 * @return Collection<ProductVersion>
 	 */
 	public function getAffectedVersions() {
 		return $this->affectedVersions;
