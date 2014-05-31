@@ -42,7 +42,11 @@
 	
 		<tr>
 			<th>Affected versions</th>
-			<td>{issue.affectedVersions}</td>
+			<td>
+				<f:for each="{issue.affectedVersions}" as="affectedVersion">
+				{affectedVersion.humanReadableVersionNumber},
+				</f:for>
+			</td>
 		</tr>
 	
 		<tr>
