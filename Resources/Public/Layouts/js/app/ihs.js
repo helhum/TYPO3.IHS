@@ -6,10 +6,10 @@
 
 		this.$element = $(element);
 
-		this.$presentFields = this.$element.find(".present-fields");
-		this.$additionalLinkFieldsContainer = this.$element.find(".additional-fields");
-		this.$button = this.$element.find("button.add-field");
-		this.htmlTemplate = this.$element.find(".field-template").data("html");
+		this.$presentFields = this.$element.children(".present-fields").first();
+		this.$additionalLinkFieldsContainer = this.$element.children(".additional-fields").first();
+		this.$button = this.$element.children("button.add-field").first();
+		this.htmlTemplate = this.$element.children(".field-template").first().data("html");
 		this.iterationIndex = this.$presentFields.children().length;
 		this.argumentName = this.htmlTemplate.match(/"([^"]*)\[_placeholder_\]([^"]*)"/)[1];
 
