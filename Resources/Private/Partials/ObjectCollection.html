@@ -12,15 +12,17 @@
 		">
 		</div>
 
-		<f:if condition="{objects}">
-			<div class="present-fields">
+
+		<div class="present-fields">
+			<f:if condition="{objects}">
 
 				<f:for each="{objects}" as="object" iteration="iterator">
 					<f:render partial="{partial}" arguments="{iterationIndex: iterator.index, arguments: arguments}" section="Content"/>
 				</f:for>
 
-			</div>
-		</f:if>
+			</f:if>
+		</div>
+
 		<div class="additional-fields"></div>
 		<button class="add-field">Add</button>
 	</div>
