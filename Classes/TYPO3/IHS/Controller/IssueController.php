@@ -81,6 +81,7 @@ class IssueController extends ActionController {
 	 * Initialize property mapping configuration
 	 */
 	protected function initializeCreateAction() {
+		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'affectedVersions');
 		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'links');
 		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'solutions', 'fixedInVersions');
 	}
@@ -109,6 +110,7 @@ class IssueController extends ActionController {
 	 * Initialize property mapping configuration
 	 */
 	protected function initializeUpdateAction() {
+		$this->allowMappingForArgumentAndCollectionProperty('issue', 'affectedVersions');
 		$this->allowMappingForArgumentAndCollectionProperty('issue', 'links');
 		$this->allowMappingForArgumentAndCollectionProperty('issue', 'solutions', 'fixedInVersions');
 	}
