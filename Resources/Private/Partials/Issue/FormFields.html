@@ -31,12 +31,12 @@
 
 			<li>
 				<label for="product">Product</label>
-				<f:form.select property="product" options="{products}" optionLabelField="qualifiedName" sortByOptionLabel="true" prependOptionLabel="- select one -" />
+				<f:form.select property="product" id="product" options="{products}" optionLabelField="qualifiedName" sortByOptionLabel="true" prependOptionLabel="- select one -" />
 			</li>
 
 			<li>
 				<label for="affectedVersions">Affected Versions</label>
-				<f:form.textfield property="affectedVersions" id="affectedVersions" />
+				<f:form.select property="affectedVersions" id="affectedVersions" options="{object.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" />
 			</li>
 
 			<li>
@@ -62,7 +62,7 @@
 				<fieldset>
 					<legend>Solutions</legend>
 					<ul>
-						<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields'}"/>
+						<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}}"/>
 					</ul>
 				</fieldset>
 		</li>

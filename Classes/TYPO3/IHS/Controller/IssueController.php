@@ -82,7 +82,7 @@ class IssueController extends ActionController {
 	 */
 	protected function initializeCreateAction() {
 		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'links');
-		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'solutions');
+		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'solutions', 'fixedInVersions');
 	}
 
 	/**
@@ -110,7 +110,7 @@ class IssueController extends ActionController {
 	 */
 	protected function initializeUpdateAction() {
 		$this->allowMappingForArgumentAndCollectionProperty('issue', 'links');
-		$this->allowMappingForArgumentAndCollectionProperty('issue', 'solutions');
+		$this->allowMappingForArgumentAndCollectionProperty('issue', 'solutions', 'fixedInVersions');
 	}
 
 	/**

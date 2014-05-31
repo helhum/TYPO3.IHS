@@ -41,7 +41,7 @@ trait ArgumentMappingTrait {
 	 * @param string $argumentName Argument Name of the to be mapped object
 	 * @param string $property Property which must be a collection of objects of the to be mapped object
 	 */
-	protected function allowMappingForArgumentAndCollectionProperty($argumentName, $property) {
+	protected function allowMappingForArgumentAndCollectionProperty($argumentName, $property, $subProperty = NULL) {
 		/** @var PropertyMappingConfiguration $mappingConfiguration */
 		$mappingConfiguration = $this->arguments[$argumentName]->getPropertyMappingConfiguration();
 		$mappingConfiguration->forProperty($property)->allowAllProperties();
@@ -63,6 +63,9 @@ trait ArgumentMappingTrait {
 				$mappingConfiguration->forProperty($property . '.' . $propertyIndex)
 					->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
 					->allowAllProperties();
+				if ($subProperty !== NULL) {
+					$mappingConfiguration->forProperty($property . '.' . $propertyIndex . '.' . $subProperty)->allowAllProperties();
+				}
 			}
 		}
 	}

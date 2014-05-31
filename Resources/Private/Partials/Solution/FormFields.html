@@ -5,13 +5,13 @@
 
 <f:section name="Content">
 	<li>
-		<label for="solution.description">Description:</label>
-		<f:form.textarea property="solutions.{iterationIndex}.description" id="solution.description" />
+		<label for="solution-description">Description:</label>
+		<f:form.textarea property="solutions.{iterationIndex}.description" id="solution-description" />
 	</li>
 
 	<li>
-		<label for="solution.fixedInVersions">Fixed in versions:</label>
-		<f:form.textarea property="solutions.{iterationIndex}.fixedInVersion" id="solution.fixedInVersion" />
+		<label for="solution-fixedInVersions">Fixed in versions:</label>
+		<f:form.select property="solutions.{iterationIndex}.fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" />
 	</li>
 </f:section>
 </html>
