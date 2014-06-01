@@ -30,14 +30,40 @@ class Solution {
 
 	/**
 	 * @var string
+	 * @ORM\Column(type="text")
+	 */
+	protected $abstract;
+
+	/**
+	 * @var string
+	 * @ORM\Column(type="text")
 	 */
 	protected $description;
+
+	/**
+	 * @var string
+	 */
+	protected $author;
 
 	/**
 	 * @var Collection<Link>
 	 * @ORM\ManyToMany(cascade={"persist"})
 	 */
 	protected $links;
+
+	/**
+	 * @param string $abstract
+	 */
+	public function setAbstract($abstract) {
+		$this->abstract = $abstract;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAbstract() {
+		return $this->abstract;
+	}
 
 	/**
 	 * @param string $description
@@ -93,5 +119,19 @@ class Solution {
 	 */
 	public function getFixedInVersions() {
 		return $this->fixedInVersions;
+	}
+
+	/**
+	 * @param string $author
+	 */
+	public function setAuthor($author) {
+		$this->author = $author;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAuthor() {
+		return $this->author;
 	}
 }

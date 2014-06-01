@@ -47,11 +47,13 @@ class Advisory {
 
 	/**
 	 * @var string
+	 * @ORM\Column(type="text")
 	 */
 	protected $abstract = '';
 
 	/**
 	 * @var string
+	 * @ORM\Column(type="text")
 	 */
 	protected $description = '';
 

@@ -22,22 +22,25 @@ class Issue {
 
 	/**
 	 * @var string
-	 * @Flow\Validate(type="NotEmpty")
 	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=512 })
 	 */
 	protected $title;
 
 	/**
 	 * @var string
+	 * @ORM\Column(type="text")
 	 */
 	protected $abstract;
 
 	/**
 	 * @var string
+	 * @ORM\Column(type="text")
 	 */
 	protected $description;
 
 	/**
+	 * @Flow\Validate(type="NotEmpty")
+	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=512 })
 	 * @var string
 	 */
 	protected $vulnerabilityType;

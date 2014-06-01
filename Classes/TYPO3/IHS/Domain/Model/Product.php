@@ -59,6 +59,9 @@ class Product {
 		return $this->name;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getQualifiedName() {
 		return $this->getType()->getValue() . ' :: ' . $this->getShortName();
 	}
