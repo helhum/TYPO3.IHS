@@ -67,6 +67,21 @@ class Advisory {
 	}
 
 	/**
+	 * Calculates the severity based on CVSS Scores of related issues
+	 *
+	 * @return string
+	 */
+	public function getOverallSeverity() {
+		foreach ($this->issues as $issue) {
+			// TODO: Do calculation
+		}
+
+
+		return 'Medium';
+	}
+
+
+	/**
 	 * @param string $abstract
 	 */
 	public function setAbstract($abstract) {

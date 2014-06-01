@@ -98,6 +98,11 @@ class Issue {
 		$this->creationDate = new \DateTime();
 	}
 
+	public function getSeverity() {
+		// TODO: calculate severity from CVSS
+		return 'Medium';
+	}
+
 	/**
 	 * @param string $CVE
 	 */

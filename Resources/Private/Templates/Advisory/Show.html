@@ -1,13 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+
+<f:section name="Title"/>
+
 <f:layout name="Default" />
 
-<f:section name="Title">Show advisory"{advisory.name}"</f:section>
-
 <f:section name="Content">
-	<table>
-		<tr>
-			<th>Name</th>
-			<td>{advisory.name}</td>
-		</tr>
-	</table>
-	<f:link.action action="index">Back</f:link.action>
+
+<article>
+	<h1>{advisory.identifier}: {advisory.title}</h1>
+	<section class="abstract">
+		{advisory.abstract}
+	</section>
+	<p>&nbsp;</p>
+	<p><strong>Component Type:</strong> {advisory.issues.0.product.name}</p>
+
+	<p>
+		<strong>Vulnerability Types:</strong>
+		<f:for each="{advisory.issues}" as="issue" iteration="iterator">
+			{issue.vulnerabilityType}<f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
+		</f:for>
+	</p>
+
+	<p><strong>Overall Severity:</strong> {advisory.overallSeverity}</p>
+
+	<p><strong>Release Date:</strong> <f:format.date date="{advisory.publishingDate}" format="F j, Y"/></p>
+	<p>&nbsp;</p>
+	<f:for each="{advisory.issues}" as="issue">
+		<article>
+			<p><strong>Vulnerability Type:</strong> {issue.vulnerabilityType}</p>
+			<p>
+				<strong>Affected Versions:</strong>
+				<f:for each="{issue.affectedVersions}" as="version" iteration="iterator">
+					{version.humanReadableVersionNumber}<f:if condition="{iterator.isLast}"><f:else> ,</f:else></f:if>
+				</f:for>
+			</p>
+			<p><strong>Severity:</strong> {issue.severity}</p>
+			<p><strong>Suggested CVSS v2.0:</strong> <a href="http://jvnrss.ise.chuo-u.ac.jp/jtg/cvss/cvss2.cgi?vector=%28{issue.CVSS}%29&amp;g=3&amp;lang=en" title="CVSS calculator" target="_blank">{issue.CVSS}</a></p>
+			<p><strong>CVE:</strong> <f:if condition="{issue.CVE}"><f:then>{issue.CVE}</f:then><f:else>None assigned yet.</f:else></f:if></p>
+			<p><strong>Problem Description:</strong> {issue.abstract}</p>
+			<f:format.raw>{issue.description}</f:format.raw>
+			<f:for each="{issue.solutions}" as="solution">
+				<p><strong>Solution:</strong> {solution.abstract}</p>
+				<f:format.raw>{solution.description}</f:format.raw>
+			</f:for>
+			<p><strong>Reported by:</strong> {issue.reporter}</p>
+			<p><strong>Fixed by:</strong> Not Implemented yet</p>
+		</article>
+		<p>&nbsp;</p>
+	</f:for>
+	<p>&nbsp;</p>
+	<p><strong>General Advice:</strong> Follow the recommendations that are given in the&nbsp;<a href="http://docs.typo3.org/typo3cms/SecurityGuide/" title="Opens external link in new window" target="_blank">TYPO3 Security Guide</a>. Please subscribe to the <a href="http://lists.typo3.org/cgi-bin/mailman/listinfo/typo3-announce" target="_blank">typo3-announce</a> mailing list.</p>
+	<p><strong>General Note:</strong> All security related code&nbsp;changes are tagged so that you can easily look them up on our <a href="https://review.typo3.org/#/q/status:merged+project:Packages/TYPO3.CMS+topic:security,n,z" target="_blank">review system</a>.</p>
+
+</article>
+
+<f:link.action action="index">Back</f:link.action>
+
+
 </f:section>
+
+</html>
