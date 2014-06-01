@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+{namespace ihs=TYPO3\IHS\ViewHelpers}
 <head>
 	<meta charset="utf-8">
 	<title><f:render section="Title" /></title>
@@ -75,7 +76,15 @@
 
 				<div class="nav-collapse collapse">
 					<p class="navbar-text pull-right">
-						Logged in as <a href="#" class="navbar-link">Username</a>
+						<f:security.ifAuthenticated>
+						<f:then>
+							Logged in as <a href="#" class="navbar-link"><f:link.action action="logout" package="TYPO3.IHS" controller="Login"><ihs:security.account>{account.accountIdentifier}</ihs:security.account></f:link.action></a>
+						</f:then>
+						<f:else>
+							<f:link.action action="login" package="TYPO3.IHS" controller="Login">Login</f:link.action>
+						</f:else>
+						</f:security.ifAuthenticated>
+
 					</p>
 					<ul class="nav">
 						<li class="active"><a href="/">Home</a></li>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+
+<f:layout name="Default" />
+
+<f:section name="Title">Enter Credentials</f:section>
+
+<f:section name="Content">
+	<f:form name="login" action="authenticate" method="post">
+		<label for="username">Username:</label>
+		<f:form.textfield id="username" type="text" placeholder="Username" name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][username]" additionalAttributes="{autofocus: 'autofocus'}" value="{username}" tabindex="1"/>
+		<label for="username">Password:</label>
+		<f:form.textfield id="password" type="password" placeholder="Password" name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][password]" tabindex="2"/>
+		<br />
+		<f:form.button type="submit" class="btn" tabindex="3">Login</f:form.button>
+	</f:form>
+</f:section>
+
+</html>

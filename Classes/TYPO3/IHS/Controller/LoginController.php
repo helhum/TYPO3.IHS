@@ -1,0 +1,60 @@
+<?php
+namespace TYPO3\IHS\Controller;
+
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2014 Helmut Hummel <helmut.hummel@typo3.org>
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *  A copy is found in the text file GPL.txt and important notices to the license
+ *  from the author is found in LICENSE.txt distributed with these scripts.
+ *
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+use TYPO3\Flow\Security\Authentication\Controller\AbstractAuthenticationController;
+
+/**
+ * Class AuthenticationController
+ */
+class LoginController extends AbstractAuthenticationController {
+
+	/**
+	 * Redirects to a potentially intercepted request. Returns an error message if there has been none.
+	 *
+	 * @param \TYPO3\Flow\Mvc\ActionRequest $originalRequest The request that was intercepted by the security framework, NULL if there was none
+	 * @return string
+	 */
+	protected function onAuthenticationSuccess(\TYPO3\Flow\Mvc\ActionRequest $originalRequest = NULL) {
+		if ($originalRequest !== NULL) {
+			$this->redirectToRequest($originalRequest);
+		}
+
+		$this->redirect('Index', 'Issue');
+	}
+
+	/**
+	 * Redirect to Advisory Controller after logout
+	 */
+	public function logoutAction() {
+		parent::logoutAction();
+		$this->redirect('index', 'Advisory', 'TYPO3.IHS');
+	}
+
+
+}

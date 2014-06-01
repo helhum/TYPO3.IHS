@@ -1,0 +1,17 @@
+TYPO3:
+  Flow:
+    security:
+      authentication:
+        authenticationStrategy: oneToken
+        providers:
+          DefaultProvider:
+            provider: 'PersistedUsernamePasswordProvider'
+#            requestPatterns:
+#              controllerObjectName: 'TYPO3\Neos\Controller\.*|TYPO3\Neos\Service\.*|TYPO3\Media\Controller\.*'
+#            entryPoint: 'WebRedirect'
+#            entryPointOptions:
+#              routeValues:
+#                '@package':    'TYPO3.Neos'
+#                '@controller': 'Login'
+#                '@action':     'index'
+#                '@format':     'html'
