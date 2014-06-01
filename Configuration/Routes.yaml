@@ -1,0 +1,36 @@
+#                                                                        #
+# Default routes configuration for the Welcome package                   #
+#                                                                        #
+
+-
+  name: 'Advisory'
+  uriPattern: 'security-bulletins/{advisory}(.{@format})'
+  defaults:
+    '@package':       'TYPO3.IHS'
+    '@controller':    'Advisory'
+    '@action':        'show'
+    '@format':        'html'
+-
+  name: 'Advisory list'
+  uriPattern: 'security-bulletins'
+  defaults:
+    '@package':       'TYPO3.IHS'
+    '@controller':    'Advisory'
+    '@action':        'index'
+    '@format':        'html'
+-
+  name: 'IHS'
+  uriPattern: '{@controller}/{@action}(.{@format})'
+  defaults:
+    '@package':    'TYPO3.IHS'
+    '@format':    'html'
+  appendExceedingArguments: true
+
+-
+  name: 'fallback (which redirects to advisory list)'
+  uriPattern: ''
+  defaults:
+    '@package':    'TYPO3.IHS'
+    '@controller': 'Standard'
+    '@action':     'redirect'
+    '@format':     'html'
