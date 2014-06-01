@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+
 <f:layout name="Default" />
 
 <f:section name="Title">A list of products</f:section>
@@ -5,22 +10,38 @@
 <f:section name="Content">
 	<f:if condition="{products}">
 		<f:then>
-			<ul>
-				<f:for each="{products}" as="product">
-					<li>
-						Type: {product.type}
-						<f:link.action action="show" arguments="{product: product}">{product.name}</f:link.action>
-						<f:link.action action="edit" arguments="{product: product}">Edit</f:link.action>
-						<f:form action="delete" arguments="{product: product}">
-							<f:form.submit value="Delete" />
-						</f:form>
-					</li>
-				</f:for>
-			</ul>
+		<table class="table table-hover">
+		<thead>
+		<tr>
+			<th>Type</th>
+			<th>Name</th>
+			<th>Actions</th>
+		</tr>
+		</thead>
+		<tbody>
+		<f:for each="{products}" as="product">
+			<tr>
+				<td class="span1">
+					{product.type}
+				</td>
+				<td class="span5">
+					<f:link.action action="show" arguments="{product: product}">"{product.name}" {product.shortName}</f:link.action>
+				</td>
+				<td class="actions span3">
+					<f:link.action action="edit" class="btn btn-warning" arguments="{product: product}">Edit</f:link.action>
+					<f:form action="delete" arguments="{product: product}">
+						<f:form.submit class="btn btn-danger" value="Delete" />
+					</f:form>
+				</td>
+			</tr>
+		</f:for>
+		</tbody>
+		</table>
 		</f:then>
 		<f:else>
 			<p>No products created yet.</p>
 		</f:else>
 	</f:if>
-	<p><f:link.action action="new">Create a new product</f:link.action></p>
+	<p><f:link.action class="btn" action="new">Create a new product</f:link.action></p>
 </f:section>
+</html>

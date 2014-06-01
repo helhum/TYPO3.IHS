@@ -1,0 +1,19 @@
+.actions {
+	overflow: hidden;
+}
+.actions .btn {
+	float: left;
+	margin-right: 1em;
+}
+
+.actions form {
+	margin: 0;
+}
+
+.articles h2 {
+	font-size: 1.5em;
+}
+
+.articles article {
+	margin-bottom: 3em;
+}

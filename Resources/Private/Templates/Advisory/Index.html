@@ -1,25 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+
 <f:layout name="Default" />
 
-<f:section name="Title">A list of advisories</f:section>
+<f:section name="Title">TYPO3 Security Bulletins</f:section>
 
 <f:section name="Content">
+<div class="articles">
 	<f:if condition="{advisories}">
 		<f:then>
-			<ul>
-				<f:for each="{advisories}" as="advisory">
-					<li>
-						<f:link.action action="show" arguments="{advisory: advisory}">{advisory.title}</f:link.action>
-						<f:link.action action="edit" arguments="{advisory: advisory}">Edit</f:link.action>
+			<f:for each="{advisories}" as="advisory">
+				<article><div class="b-news-item">
+					<h2><f:link.action action="show" arguments="{advisory: advisory}">{advisory.identifier}: {advisory.title}</f:link.action></h2>
+					<p class="b-news-item-info cl">
+						<span class="b-news-item-author">Category: {advisory.issues.0.product.type}</span>
+						<span class="b-news-item-date"><f:format.date date="{advisory.publishingDate}" format="F j, Y"/></span>
+					</p>
+					<p class="b-news-item-subheader">{advisory.abstract}</p>
+					<div class="actions">
+						<f:link.action class="btn" action="show" arguments="{advisory: advisory}">Details</f:link.action>
+						<f:link.action class="btn btn-warning" action="edit" arguments="{advisory: advisory}">Edit</f:link.action>
 						<f:form action="delete" arguments="{advisory: advisory}">
-							<f:form.submit value="Delete" />
+							<f:form.submit class="btn btn-danger" value="Delete" />
 						</f:form>
-					</li>
-				</f:for>
-			</ul>
+					</div>
+				</div></article>
+			</f:for>
 		</f:then>
 		<f:else>
 			<p>No advisories created yet.</p>
 		</f:else>
 	</f:if>
-	<p><f:link.action action="new">Create a new advisory</f:link.action></p>
+	<p><f:link.action class="btn" action="new">Create a new advisory</f:link.action></p>
+</div>
 </f:section>
+</html>

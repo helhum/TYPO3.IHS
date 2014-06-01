@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
-
 <f:layout name="Default" />
 
 <f:section name="Title">A list of issues</f:section>
@@ -11,31 +10,47 @@
 <f:section name="Content">
 	<f:if condition="{issues}">
 		<f:then>
-			<ul>
-				<f:for each="{issues}" as="issue">
-					<li>
-						<f:link.action action="show" arguments="{issue: issue}">{issue.title}</f:link.action>
-						<f:link.action action="edit" arguments="{issue: issue}">Edit</f:link.action>
-						<f:if condition="{issue.advisory}">
-						<f:else>
-							<f:if condition="{issue.solutions}">
-							<f:form action="createAdvisory" arguments="{issue: issue}">
-								<f:form.submit value="Create Advisory" />
-							</f:form>
-							</f:if>
-						</f:else>
-						</f:if>
-						<f:form action="delete" arguments="{issue: issue}">
-							<f:form.submit value="Delete" />
+		<table class="table table-hover">
+		<thead>
+		<tr>
+			<th>Product</th>
+			<th>Vulnerability Type</th>
+			<th>Actions</th>
+		</tr>
+		</thead>
+		<tbody>
+		<f:for each="{issues}" as="issue">
+			<tr>
+				<td class="span3">
+					<f:link.action action="show" arguments="{issue: issue}">{issue.product.qualifiedName}</f:link.action>
+				</td>
+				<td class="span5">
+					{issue.vulnerabilityType}
+				</td>
+				<td class="actions span4">
+					<f:link.action action="edit" class="btn btn-warning" arguments="{issue: issue}">Edit</f:link.action>
+					<f:form action="delete" arguments="{issue: issue}">
+						<f:form.submit class="btn btn-danger" value="Delete" />
+					</f:form>
+					<f:if condition="{issue.advisory}">
+					<f:else>
+						<f:if condition="{issue.solutions}">
+						<f:form action="createAdvisory" arguments="{issue: issue}">
+							<f:form.submit class="btn" value="Create Advisory" />
 						</f:form>
-					</li>
-				</f:for>
-			</ul>
+						</f:if>
+					</f:else>
+					</f:if>
+				</td>
+			</tr>
+		</f:for>
+		</tbody>
+		</table>
 		</f:then>
 		<f:else>
 			<p>No issues created yet.</p>
 		</f:else>
 	</f:if>
-	<p><f:link.action action="new">Create a new issue</f:link.action></p>
+	<p><f:link.action class="btn" action="new">Create a new issue</f:link.action></p>
 </f:section>
 </html>

@@ -5,6 +5,16 @@
 
 <f:section name="Content">
 	<li>
+		<label for="solution-author">Author:</label>
+		<f:form.textarea property="solutions.{iterationIndex}.author" id="solution-author" />
+	</li>
+
+	<li>
+		<label for="solution-abstract">Abstract:</label>
+		<f:form.textarea property="solutions.{iterationIndex}.abstract" id="solution-abstract" />
+	</li>
+
+	<li>
 		<label for="solution-description">Description:</label>
 		<f:form.textarea property="solutions.{iterationIndex}.description" id="solution-description" />
 	</li>
