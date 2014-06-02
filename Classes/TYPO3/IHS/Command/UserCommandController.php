@@ -153,7 +153,7 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * @return void
 	 */
 	public function addRoleCommand($username, $role) {
-		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'Typo3BackendProvider');
+		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'DefaultProvider');
 		if (!$account instanceof \TYPO3\Flow\Security\Account) {
 			$this->outputLine('User "%s" does not exists.', array($username));
 			$this->quit(1);
@@ -186,7 +186,7 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * @return void
 	 */
 	public function removeRoleCommand($username, $role) {
-		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'Typo3BackendProvider');
+		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'DefaultProvider');
 		if (!$account instanceof \TYPO3\Flow\Security\Account) {
 			$this->outputLine('User "%s" does not exists.', array($username));
 			$this->quit(1);
@@ -222,7 +222,7 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * @return void
 	 */
 	public function showCommand($username) {
-		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'Typo3BackendProvider');
+		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'DefaultProvider');
 		if (!($account instanceof \TYPO3\Flow\Security\Account)) {
 			$this->outputLine('The username "%s" is not in use', array($username));
 			$this->quit(1);

@@ -35,6 +35,20 @@ use TYPO3\Flow\Security\Authentication\Controller\AbstractAuthenticationControll
 class LoginController extends AbstractAuthenticationController {
 
 	/**
+	 * Renders the login form
+	 */
+	public function indexAction() {
+	}
+
+	/**
+	 * Redirect to Advisory Controller after logout
+	 */
+	public function logoutAction() {
+		parent::logoutAction();
+		$this->redirect('index', 'Advisory', 'TYPO3.IHS');
+	}
+
+	/**
 	 * Redirects to a potentially intercepted request. Returns an error message if there has been none.
 	 *
 	 * @param \TYPO3\Flow\Mvc\ActionRequest $originalRequest The request that was intercepted by the security framework, NULL if there was none
@@ -47,14 +61,4 @@ class LoginController extends AbstractAuthenticationController {
 
 		$this->redirect('Index', 'Issue');
 	}
-
-	/**
-	 * Redirect to Advisory Controller after logout
-	 */
-	public function logoutAction() {
-		parent::logoutAction();
-		$this->redirect('index', 'Advisory', 'TYPO3.IHS');
-	}
-
-
 }

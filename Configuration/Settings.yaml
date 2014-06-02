@@ -6,12 +6,12 @@ TYPO3:
         providers:
           DefaultProvider:
             provider: 'PersistedUsernamePasswordProvider'
-#            requestPatterns:
-#              controllerObjectName: 'TYPO3\Neos\Controller\.*|TYPO3\Neos\Service\.*|TYPO3\Media\Controller\.*'
-#            entryPoint: 'WebRedirect'
-#            entryPointOptions:
-#              routeValues:
-#                '@package':    'TYPO3.Neos'
-#                '@controller': 'Login'
-#                '@action':     'index'
-#                '@format':     'html'
+            requestPatterns:
+              controllerObjectName: 'TYPO3\IHS\Controller\.*'
+            entryPoint: 'WebRedirect'
+            entryPointOptions:
+              routeValues:
+                '@package':    'TYPO3.IHS'
+                '@controller': 'Login'
+                '@action':     'index'
+                '@format':     'html'
