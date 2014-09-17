@@ -1,5 +1,4 @@
 /Build/
-/Configuration/
 /Data/
 /Packages/Framework/
 /Packages/Libraries/
@@ -9,3 +8,7 @@
 /Upgrading.txt
 /flow
 /flow.bat
+
+# exclude everything except Routes.yaml
+/Configuration/*
+!/Configuration/Routes.yaml
