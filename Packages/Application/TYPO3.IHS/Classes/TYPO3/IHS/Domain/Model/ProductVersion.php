@@ -15,15 +15,20 @@ use Doctrine\ORM\Mapping as ORM;
 class ProductVersion {
 
 	/**
+	 * A version like "3.12.1" is stored as "3012001" integer
+	 *
 	 * @var int
 	 * @Flow\Validate(type="NotEmpty")
 	 */
 	protected $versionNumber;
 
 	/**
-	 * @param int $versionNumber
+	 * @param int|string $versionNumber
 	 */
 	public function __construct($versionNumber) {
+		if (is_string($versionNumber)) {
+			$versionNumber = self::getVersionNumberFromHumanReadableVersion($versionNumber);
+		}
 		$this->versionNumber = $versionNumber;
 	}
 
@@ -53,6 +58,6 @@ class ProductVersion {
 	 */
 	static public function getVersionNumberFromHumanReadableVersion($versionString) {
 		$versionParts = explode('.', $versionString);
-		return (int)(((int)$versionParts[0] . str_pad((int)$versionParts[1], 3, '0', STR_PAD_LEFT)) . str_pad((int)$versionParts[2], 3, '0', STR_PAD_LEFT));
+		return (int)(((int)$versionParts[0] . str_pad((int)(isset($versionParts[1]) ? $versionParts[1] : ''), 3, '0', STR_PAD_LEFT)) . str_pad((int)(isset($versionParts[2]) ? $versionParts[2] : ''), 3, '0', STR_PAD_LEFT));
 	}
 }

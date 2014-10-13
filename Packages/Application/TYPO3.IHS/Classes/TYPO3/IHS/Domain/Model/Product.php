@@ -6,6 +6,7 @@ namespace TYPO3\IHS\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
@@ -44,6 +45,10 @@ class Product {
 	 * @ORM\OrderBy({"versionNumber" = "ASC"})
 	 */
 	protected $versions;
+
+	public function __construct() {
+		$this->versions = new ArrayCollection();
+	}
 
 	/**
 	 * @param string $name
@@ -106,5 +111,15 @@ class Product {
 	 */
 	public function getVersions() {
 		return $this->versions;
+	}
+
+	public function hasVersion(ProductVersion $productVersion) {
+		foreach ($this->versions as $version) {
+			/* @var $version ProductVersion */
+			if ($version->getVersionNumber() == $productVersion->getVersionNumber()) {
+				return TRUE;
+			}
+		}
+		return FALSE;
 	}
 }

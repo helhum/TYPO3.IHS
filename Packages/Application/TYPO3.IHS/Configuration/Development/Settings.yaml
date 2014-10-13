@@ -1,0 +1,6 @@
+TYPO3:
+  IHS:
+    import:
+      log:
+        backendOptions:
+          severityThreshold: '%LOG_DEBUG%'

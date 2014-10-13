@@ -8,12 +8,18 @@ namespace TYPO3\IHS\Domain\Repository;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\Repository;
+use TYPO3\IHS\Domain\Model\Product;
 
 /**
  * @Flow\Scope("singleton")
  */
 class ProductRepository extends Repository {
 
-	// add customized methods here
-
+	public function addOrUpdate(Product $product) {
+		if ($this->persistenceManager->isNewObject($product)) {
+			$this->add($product);
+		} else {
+			$this->update($product);
+		}
+	}
 }

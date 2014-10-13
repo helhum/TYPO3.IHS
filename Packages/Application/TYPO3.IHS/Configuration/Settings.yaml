@@ -15,3 +15,17 @@ TYPO3:
                 '@controller': 'Login'
                 '@action':     'index'
                 '@format':     'html'
+
+TYPO3:
+  IHS:
+    import:
+      log:
+        logger: TYPO3\Flow\Log\Logger
+        backend: TYPO3\Flow\Log\Backend\FileBackend
+        backendOptions:
+          logFileURL: '%FLOW_PATH_DATA%Logs/Ihs_Import.log'
+          createParentDirectories: TRUE
+          severityThreshold: '%LOG_INFO%'
+          maximumLogFileSize: 10485760
+          logFilesToKeep: 1
+          logMessageOrigin: FALSE

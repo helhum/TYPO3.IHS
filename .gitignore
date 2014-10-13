@@ -8,6 +8,7 @@
 /Upgrading.txt
 /flow
 /flow.bat
+/.idea/
 
 # exclude everything except Routes.yaml
 /Configuration/*

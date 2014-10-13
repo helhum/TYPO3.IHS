@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extensions>
+    <extension extensionkey="a1_teasermenu">
+        <downloadcounter>4652</downloadcounter>
+        <version version="0.1.0">
+            <title>A1 Teasermenu</title>
+            <description>Displays a teaser for advanced subpages or a selection of advanced pages</description>
+            <state>stable</state>
+            <reviewstate>0</reviewstate>
+            <category>plugin</category>
+            <downloadcounter>4662</downloadcounter>
+            <lastuploaddate>1088427240</lastuploaddate>
+            <uploadcomment/>
+            <dependencies>a:4:{i:0;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:5:"typo3";s:12:"versionRange";s:0:"";}i:1;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:3:"php";s:12:"versionRange";s:0:"";}i:2;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:3:"cms";s:12:"versionRange";s:0:"";}i:3;a:3:{s:4:"kind";s:9:"conflicts";s:12:"extensionKey";s:0:"";s:12:"versionRange";s:0:"";}}</dependencies>
+            <authorname>Mirko Balluff</authorname>
+            <authoremail>balluff@amt1.de</authoremail>
+            <authorcompany/>
+            <ownerusername>amt1</ownerusername>
+            <t3xfilemd5>3a4ec198b6ea8d0bc2d69d9b7400398f</t3xfilemd5>
+        </version>
+    </extension>
+</extensions>

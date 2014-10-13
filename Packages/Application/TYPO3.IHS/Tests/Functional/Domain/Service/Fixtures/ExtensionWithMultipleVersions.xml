@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extensions>
+    <extension extensionkey="a1_ttnews">
+        <downloadcounter>7617</downloadcounter>
+        <version version="0.1.0">
+            <title>News</title>
+            <description>News plus caching</description>
+            <state>alpha</state>
+            <reviewstate>0</reviewstate>
+            <category>fe</category>
+            <downloadcounter>56</downloadcounter>
+            <lastuploaddate>1081855441</lastuploaddate>
+            <uploadcomment/>
+            <dependencies>a:4:{i:0;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:5:"typo3";s:12:"versionRange";s:0:"";}i:1;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:3:"php";s:12:"versionRange";s:0:"";}i:2;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:7:"tt_news";s:12:"versionRange";s:0:"";}i:3;a:3:{s:4:"kind";s:9:"conflicts";s:12:"extensionKey";s:0:"";s:12:"versionRange";s:0:"";}}</dependencies>
+            <authorname>Martin Erichsen</authorname>
+            <authoremail>erichsen@amt1.biz</authoremail>
+            <authorcompany>AMT1 / Agentur fr Kommunikation GmbH</authorcompany>
+            <ownerusername>amt1</ownerusername>
+            <t3xfilemd5>22ed43a21a841a8abf0193db873b5a59</t3xfilemd5>
+        </version>
+        <version version="0.2.0">
+            <title>News</title>
+            <description>News plus caching</description>
+            <state>beta</state>
+            <reviewstate>0</reviewstate>
+            <category>fe</category>
+            <downloadcounter>65</downloadcounter>
+            <lastuploaddate>1081952242</lastuploaddate>
+            <uploadcomment>This extension extends News and adds caching of the tt_news module.</uploadcomment>
+            <dependencies>a:4:{i:0;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:5:"typo3";s:12:"versionRange";s:0:"";}i:1;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:3:"php";s:12:"versionRange";s:0:"";}i:2;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:7:"tt_news";s:12:"versionRange";s:0:"";}i:3;a:3:{s:4:"kind";s:9:"conflicts";s:12:"extensionKey";s:0:"";s:12:"versionRange";s:0:"";}}</dependencies>
+            <authorname>Martin Erichsen</authorname>
+            <authoremail>erichsen@amt1.biz</authoremail>
+            <authorcompany>AMT1 / Agentur fr Kommunikation GmbH</authorcompany>
+            <ownerusername>amt1</ownerusername>
+            <t3xfilemd5>cf62eb82558b45cf56bc456ae2da5960</t3xfilemd5>
+        </version>
+        <version version="0.2.1">
+            <title>News</title>
+            <description>News plus caching</description>
+            <state>alpha</state>
+            <reviewstate>0</reviewstate>
+            <category>fe</category>
+            <downloadcounter>145</downloadcounter>
+            <lastuploaddate>1081963472</lastuploaddate>
+            <uploadcomment>Fixed parsing. Now the bodytext is parsed correctly and custom tags are repaced.</uploadcomment>
+            <dependencies>a:4:{i:0;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:5:"typo3";s:12:"versionRange";s:0:"";}i:1;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:3:"php";s:12:"versionRange";s:0:"";}i:2;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:7:"tt_news";s:12:"versionRange";s:0:"";}i:3;a:3:{s:4:"kind";s:9:"conflicts";s:12:"extensionKey";s:0:"";s:12:"versionRange";s:0:"";}}</dependencies>
+            <authorname>Martin Erichsen</authorname>
+            <authoremail>erichsen@amt1.biz</authoremail>
+            <authorcompany>AMT1 / Agentur fr Kommunikation GmbH</authorcompany>
+            <ownerusername>amt1</ownerusername>
+            <t3xfilemd5>ab1edd03aeaa796faab811b1f6fe7390</t3xfilemd5>
+        </version>
+        <version version="0.2.2">
+            <title>News</title>
+            <description>News plus caching</description>
+            <state>alpha</state>
+            <reviewstate>0</reviewstate>
+            <category>fe</category>
+            <downloadcounter>82</downloadcounter>
+            <lastuploaddate>1082451163</lastuploaddate>
+            <uploadcomment>Fixed caching in LIST view.</uploadcomment>
+            <dependencies>a:4:{i:0;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:5:"typo3";s:12:"versionRange";s:0:"";}i:1;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:3:"php";s:12:"versionRange";s:0:"";}i:2;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:7:"tt_news";s:12:"versionRange";s:0:"";}i:3;a:3:{s:4:"kind";s:9:"conflicts";s:12:"extensionKey";s:0:"";s:12:"versionRange";s:0:"";}}</dependencies>
+            <authorname>Martin Erichsen</authorname>
+            <authoremail>erichsen@amt1.biz</authoremail>
+            <authorcompany>AMT1 / Agentur fr Kommunikation GmbH</authorcompany>
+            <ownerusername>amt1</ownerusername>
+            <t3xfilemd5>3e8b3260a791a1ac8e13bad0b72f63d4</t3xfilemd5>
+        </version>
+        <version version="0.3.0">
+            <title>News</title>
+            <description>News plus caching</description>
+            <state>stable</state>
+            <reviewstate>0</reviewstate>
+            <category>fe</category>
+            <downloadcounter>3230</downloadcounter>
+            <lastuploaddate>1090939467</lastuploaddate>
+            <uploadcomment/>
+            <dependencies>a:4:{i:0;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:5:"typo3";s:12:"versionRange";s:0:"";}i:1;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:3:"php";s:12:"versionRange";s:0:"";}i:2;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:7:"tt_news";s:12:"versionRange";s:0:"";}i:3;a:3:{s:4:"kind";s:9:"conflicts";s:12:"extensionKey";s:0:"";s:12:"versionRange";s:0:"";}}</dependencies>
+            <authorname>Martin Erichsen</authorname>
+            <authoremail>erichsen@amt1.biz</authoremail>
+            <authorcompany>AMT1 / Agentur fr Kommunikation GmbH</authorcompany>
+            <ownerusername>amt1</ownerusername>
+            <t3xfilemd5>328ac37eb3294eab0f3c5ea301f53597</t3xfilemd5>
+        </version>
+        <version version="0.4.0">
+            <title>News</title>
+            <description>News plus caching</description>
+            <state>obsolete</state>
+            <reviewstate>0</reviewstate>
+            <category>fe</category>
+            <downloadcounter>4039</downloadcounter>
+            <lastuploaddate>1100365009</lastuploaddate>
+            <uploadcomment>Fixed itemLinkTarget in SingleView. Now frames are supported correctly. Thanks to Marco Bresch.</uploadcomment>
+            <dependencies>a:4:{i:0;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:5:"typo3";s:12:"versionRange";s:0:"";}i:1;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:3:"php";s:12:"versionRange";s:0:"";}i:2;a:3:{s:4:"kind";s:7:"depends";s:12:"extensionKey";s:7:"tt_news";s:12:"versionRange";s:0:"";}i:3;a:3:{s:4:"kind";s:9:"conflicts";s:12:"extensionKey";s:0:"";s:12:"versionRange";s:0:"";}}</dependencies>
+            <authorname>Martin Erichsen</authorname>
+            <authoremail>erichsen@amt1.biz</authoremail>
+            <authorcompany>AMT1 / Agentur fr Kommunikation GmbH</authorcompany>
+            <ownerusername>amt1</ownerusername>
+            <t3xfilemd5>2b538611d7fd2a2aed658b6452c9e9a2</t3xfilemd5>
+        </version>
+    </extension>
+</extensions>
