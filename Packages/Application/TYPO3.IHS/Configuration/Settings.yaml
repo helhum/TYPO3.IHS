@@ -15,8 +15,6 @@ TYPO3:
                 '@controller': 'Login'
                 '@action':     'index'
                 '@format':     'html'
-
-TYPO3:
   IHS:
     import:
       log:

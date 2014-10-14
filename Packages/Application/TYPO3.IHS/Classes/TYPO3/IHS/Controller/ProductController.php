@@ -38,28 +38,10 @@ class ProductController extends ActionController {
 	}
 
 	/**
-	 * @return void
-	 */
-	public function newAction() {
-		$type = new ProductType();
-		$this->view->assign('types', array_flip($type->getConstants()));
-	}
-
-	/**
 	 * Initialize property mapping configuration
 	 */
 	protected function initializeCreateAction() {
 		$this->allowMappingForArgumentAndCollectionProperty('newProduct', 'versions');
-	}
-
-	/**
-	 * @param \TYPO3\IHS\Domain\Model\Product $newProduct
-	 * @return void
-	 */
-	public function createAction(Product $newProduct) {
-		$this->productRepository->add($newProduct);
-		$this->addFlashMessage('Created a new product.');
-		$this->redirect('index');
 	}
 
 	/**
