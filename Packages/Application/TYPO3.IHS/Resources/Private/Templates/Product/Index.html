@@ -5,38 +5,14 @@
 
 <f:layout name="Default" />
 
-<f:section name="Title">A list of products</f:section>
+<f:section name="Title">Amount of products</f:section>
 
 <f:section name="Content">
+
+
 	<f:if condition="{products}">
 		<f:then>
-		<table class="table table-hover">
-		<thead>
-		<tr>
-			<th>Type</th>
-			<th>Name</th>
-			<th>Actions</th>
-		</tr>
-		</thead>
-		<tbody>
-		<f:for each="{products}" as="product">
-			<tr>
-				<td class="span1">
-					{product.type}
-				</td>
-				<td class="span5">
-					<f:link.action action="show" arguments="{product: product}">"{product.name}" {product.shortName}</f:link.action>
-				</td>
-				<td class="actions span3">
-					<f:link.action action="edit" class="btn btn-warning" arguments="{product: product}">Edit</f:link.action>
-					<f:form action="delete" arguments="{product: product}">
-						<f:form.submit class="btn btn-danger" value="Delete" />
-					</f:form>
-				</td>
-			</tr>
-		</f:for>
-		</tbody>
-		</table>
+            <span class="label label-info"><f:count subject="{products}" /></span> products imported.
 		</f:then>
 		<f:else>
 			<p>No products imported yet.</p>
