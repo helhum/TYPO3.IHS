@@ -8,6 +8,7 @@
 <f:section name="Title">A list of issues</f:section>
 
 <f:section name="Content">
+	<p><f:link.action class="btn btn-primary" action="new">Create a new issue</f:link.action></p>
 	<f:if condition="{issues}">
 		<f:then>
 		<table class="table table-hover">
@@ -28,7 +29,7 @@
 					{issue.vulnerabilityType}
 				</td>
 				<td class="actions span4">
-					<f:link.action action="edit" class="btn btn-warning" arguments="{issue: issue}">Edit</f:link.action>
+					<f:link.action action="edit" class="btn btn-primary" arguments="{issue: issue}">Edit</f:link.action>
 					<f:form action="delete" arguments="{issue: issue}">
 						<f:form.submit class="btn btn-danger" value="Delete" />
 					</f:form>
@@ -51,6 +52,5 @@
 			<p>No issues created yet.</p>
 		</f:else>
 	</f:if>
-	<p><f:link.action class="btn" action="new">Create a new issue</f:link.action></p>
 </f:section>
 </html>

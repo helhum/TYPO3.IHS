@@ -6,10 +6,10 @@
 
 <f:layout name="Default" />
 
-<f:section name="Title">Show issue"{issue.name}"</f:section>
+<f:section name="Title">Show issue "{issue.title}"</f:section>
 
 <f:section name="Content">
-	<table>
+	<table class="table table-hover">
 		<tr>
 			<th>Title</th>
 			<td>{issue.title}</td>
@@ -37,14 +37,14 @@
 	
 		<tr>
 			<th>Product</th>
-			<td>{issue.product.name}</td>
+			<td>{issue.product.qualifiedName}</td>
 		</tr>
 	
 		<tr>
 			<th>Affected versions</th>
 			<td>
 				<f:for each="{issue.affectedVersions}" as="affectedVersion">
-				{affectedVersion.humanReadableVersionNumber},
+					{affectedVersion.humanReadableVersionNumber} <br />
 				</f:for>
 			</td>
 		</tr>
@@ -66,7 +66,29 @@
 	
 		<tr>
 			<th>Links</th>
-			<td>{issue.links.title}</td>
+			<td>
+				<f:if condition="{issue.links}">
+					<f:then>
+						{issue.links.title}
+					</f:then>
+					<f:else>
+						<em>No links added yet.</em>
+					</f:else>
+				</f:if>
+			</td>
+		</tr>
+		<tr>
+			<th>Solutions</th>
+			<td>
+				<f:if condition="{issue.solutions}">
+					<f:then>
+						{issue.solutions.title}
+					</f:then>
+					<f:else>
+						<em>No solutions added yet.</em>
+					</f:else>
+				</f:if>
+			</td>
 		</tr>
 	</table>
 	<f:link.action action="index">Back</f:link.action>

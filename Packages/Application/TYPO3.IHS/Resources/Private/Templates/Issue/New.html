@@ -18,11 +18,8 @@
 	<f:form action="create" objectName="newIssue">
 		<ol>
 			<f:render partial="Issue/FormFields" section="Content" arguments="{_all}"/>
-			<li>
-				<f:form.submit value="Create" />
-			</li>
 		</ol>
+		<f:link.action class="btn" action="index">Cancel</f:link.action> <f:form.submit class="btn btn-primary" value="Create" />
 	</f:form>
 </f:section>
-
 </html>

@@ -16,10 +16,9 @@
 
 		<ol>
 			<f:render partial="Issue/FormFields" section="Content" arguments="{object: issue, products: products}"/>
-			<li>
-				<f:form.submit value="Update" />
-			</li>
 		</ol>
+
+		<f:link.action class="btn" action="index">Cancel</f:link.action> <f:form.submit class="btn btn-primary" value="Update" />
 	</f:form>
 </f:section>
 </html>

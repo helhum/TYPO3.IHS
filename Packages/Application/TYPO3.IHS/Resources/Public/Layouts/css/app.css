@@ -35,6 +35,19 @@ input.f3-form-error {
 	border: 1px #FF0000 solid;
 }
 
+/* issue form fields */
+select#product {
+	display: none;
+}
+
+#affected-versions {
+	display: none;
+}
+
+#product-autocomplete-remote-source, #version-autocomplete-remote-source {
+	display: none;
+}
+
 .actions {
 	overflow: hidden;
 }

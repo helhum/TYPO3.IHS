@@ -134,5 +134,4 @@ class IssueController extends ActionController {
 		$this->addFlashMessage('Deleted a issue.');
 		$this->redirect('index');
 	}
-
 }

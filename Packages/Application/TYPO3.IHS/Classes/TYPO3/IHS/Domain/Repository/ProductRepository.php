@@ -22,4 +22,23 @@ class ProductRepository extends Repository {
 			$this->update($product);
 		}
 	}
+
+	/**
+	 * Finds products matching a given term
+	 *
+	 * @param string $term
+	 * @return Products
+	 */
+	public function findProductsByTerm($term) {
+
+		$query = $this->createQuery();
+		$query->matching(
+			$query->logicalOr(
+				$query->like('name', '%' . $term . '%'),
+				$query->like('shortName', '%' . $term . '%')
+			)
+		);
+
+		return $query->execute();
+	}
 }
