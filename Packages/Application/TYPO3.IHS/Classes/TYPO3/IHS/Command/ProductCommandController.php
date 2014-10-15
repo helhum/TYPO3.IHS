@@ -27,15 +27,36 @@ class ProductCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $extensionXMLParser;
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\IHS\Domain\Service\ImportPackagistFromJSONService
+	 */
+	protected $packagistImporter;
+
+	/**
 	 * Parse a certain xml file with a list of extensions from the root path
 	 *
 	 * @param string $source path to the source xml file
 	 * @return void
 	 */
 	public function importCommand($source) {
+		$this->outputLine('Parsed '. $source);
 		$this->extensionXMLParser->setXmlFile($source);
 		$this->extensionXMLParser->createXmlReader();
 		$this->extensionXMLParser->parseXML();
-		$this->outputLine('Parsed '. $source);
+	}
+
+	/**
+	 * Creates new product with name, shortName and versions from external json
+	 *
+	 * @param string $name
+	 * @param string $shortName
+	 * @param string $type
+	 * @param string $packagistUrl
+	 * @return void
+	 */
+	public function importPackagistCommand($name, $shortName, $type, $packagistUrl) {
+		$this->outputLine('creating:  '. $name.' '.$shortName.' '.$type.' '.$packagistUrl);
+
+		$this->packagistImporter->createProduct($name, $shortName, $type, $packagistUrl);
 	}
 }
