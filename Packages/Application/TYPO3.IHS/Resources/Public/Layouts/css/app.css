@@ -1,6 +1,16 @@
-body {
+html, body {
+	height: 100%;
+}
+
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	margin: 0 auto -70px;
+}
+
+#wrap .container {
 	padding-top: 60px;
-	padding-bottom: 40px;
+	padding-bottom: 120px;
 }
 
 .sidebar-nav {
@@ -43,4 +53,12 @@ input.f3-form-error {
 
 .articles article {
 	margin-bottom: 3em;
+}
+
+footer {
+	height: 60px;
+	line-height: 60px;
+	vertical-align: middle;
+	text-align: right;
+	color: #ccc;
 }
