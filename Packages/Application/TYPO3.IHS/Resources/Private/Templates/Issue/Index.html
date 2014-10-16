@@ -29,6 +29,7 @@
 					{issue.vulnerabilityType}
 				</td>
 				<td class="actions span4">
+					<f:link.action action="createAdvisory" class="btn btn-primary" arguments="{issue: issue}">Create Advisory</f:link.action>
 					<f:link.action action="edit" class="btn btn-primary" arguments="{issue: issue}">Edit</f:link.action>
 					<f:form action="delete" arguments="{issue: issue}">
 						<f:form.submit class="btn btn-danger" value="Delete" />

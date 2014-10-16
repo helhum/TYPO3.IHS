@@ -25,11 +25,13 @@
 				<label for="description">Description</label>
 				<f:form.textarea property="description" id="description" />
 			</li>
-
 			<li>
-				<f:form.submit value="Update" />
+				<label for="publishingDate">Publishingdate</label>
+				<f:form.textfield property="publishingDate" id="publishingDate" />
 			</li>
+
 		</ol>
+		<f:link.action class="btn" action="index">Cancel</f:link.action> <f:form.submit class="btn btn-primary" value="Update" />
 	</f:form>
 </f:section>
 

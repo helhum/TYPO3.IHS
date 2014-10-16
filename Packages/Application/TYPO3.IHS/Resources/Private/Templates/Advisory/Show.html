@@ -10,7 +10,8 @@
 <f:section name="Content">
 
 <article>
-	<h1>{advisory.identifier}: {advisory.title}</h1>
+	<h1>{advisory.identifier}:{advisory.title}</h1>
+	<f:link.action class="btn btn-primary" action="edit" arguments="{advisory: advisory}">Edit</f:link.action>
 	<section class="abstract">
 		{advisory.abstract}
 	</section>

@@ -4,68 +4,68 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-			<li>
-				<label for="title">Title</label>
-				<f:form.textfield property="title" id="title" />
-			</li>
+	<li>
+		<label for="title">Title</label>
+		<f:form.textfield property="title" id="title" />
+	</li>
 
-			<li>
-				<label for="abstract">Abstract</label>
-				<f:form.textarea property="abstract" id="abstract" />
-			</li>
+	<li>
+		<label for="abstract">Abstract</label>
+		<f:form.textarea property="abstract" id="abstract" />
+	</li>
 
-			<li>
-				<label for="description">Description</label>
-				<f:form.textarea property="description" id="description" />
-			</li>
+	<li>
+		<label for="description">Description</label>
+		<f:form.textarea property="description" id="description" />
+	</li>
 
-			<li>
-				<label for="vulnerabilityType">Vulnerability Type</label>
-				<f:form.textarea property="vulnerabilityType" id="vulnerabilityType" />
-			</li>
+	<li>
+		<label for="vulnerabilityType">Vulnerability Type</label>
+		<f:form.textarea property="vulnerabilityType" id="vulnerabilityType" />
+	</li>
 
-			<li>
-				<label for="reporter">Reporter</label>
-				<f:form.textarea property="reporter" id="reporter" />
-			</li>
+	<li>
+		<label for="reporter">Reporter</label>
+		<f:form.textarea property="reporter" id="reporter" />
+	</li>
 
-			<li>
-				<label for="product">Product</label>
-				<f:form.select property="product" id="product" options="{products}" optionLabelField="name" sortByOptionLabel="true" prependOptionLabel="- select one -"/>
-				<input type="text" id="productAjax" placeholder="type product to find" autocomplete="off" productsUrl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" versionsUrl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}"/>
-			</li>
+	<li>
+		<label for="product">Product</label>
+		<f:form.select property="product" id="product" options="{products}" optionLabelField="name" sortByOptionLabel="true" prependOptionLabel="- select one -"/>
+		<input type="text" id="productAjax" placeholder="type product to find" autocomplete="off" productsUrl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" versionsUrl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}"/>
+	</li>
 
-			<li id="affected-versions">
-				<label for="affectedVersions">Affected Versions</label>
-				<f:form.select property="affectedVersions" id="affectedVersions" options="{object.product.versions}" optionLabelField="humanReadableVersionNumber" size="3" multiple="multiple" />
-			</li>
+	<li id="affected-versions">
+		<label for="affectedVersions">Affected Versions</label>
+		<f:form.select property="affectedVersions" id="affectedVersions" options="{object.product.versions}" optionLabelField="humanReadableVersionNumber" size="3" multiple="multiple" />
+	</li>
 
-			<li>
-				<label for="CVE">CVE</label>
-				<f:form.textfield property="CVE" id="CVE" />
-			</li>
+	<li>
+		<label for="CVE">CVE</label>
+		<f:form.textfield property="CVE" id="CVE" />
+	</li>
 
-			<li>
-				<label for="CVSS">CVSS</label>
-				<f:form.textfield property="CVSS" id="CVSS" />
-			</li>
+	<li>
+		<label for="CVSS">CVSS</label>
+		<f:form.textfield property="CVSS" id="CVSS" />
+	</li>
 
-			<li>
-				<fieldset>
-					<legend>Links</legend>
-					<ul>
-						<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields'}"/>
-					</ul>
-				</fieldset>
-			</li>
+	<li>
+		<fieldset>
+			<legend>Links</legend>
+			<ul>
+				<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields'}"/>
+			</ul>
+		</fieldset>
+	</li>
 
-			<li>
-				<fieldset>
-					<legend>Solutions</legend>
-					<ul>
-						<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}}"/>
-					</ul>
-				</fieldset>
-		</li>
+	<li>
+		<fieldset>
+			<legend>Solutions</legend>
+			<ul>
+				<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}}"/>
+			</ul>
+		</fieldset>
+	</li>
 </f:section>
 </html>

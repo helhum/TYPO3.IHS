@@ -52,6 +52,7 @@ class AdvisoryFactory {
 
 		$advisory = new Advisory();
 		$advisory->addIssue($issue);
+		//TODO: does not work for case (create first, create second, delete first, create new one) -> same identifier
 		$advisory->setIdentifier($this->generateIdentifier($issue->getProduct(), $now->format('Y'), $count));
 		$advisory->setTitle($advisory->getIdentifier());
 

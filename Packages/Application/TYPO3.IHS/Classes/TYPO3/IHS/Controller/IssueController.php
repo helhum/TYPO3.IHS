@@ -66,6 +66,8 @@ class IssueController extends ActionController {
 		$this->advisoryRepository->add($advisory);
 		$issue->setAdvisory($advisory);
 		$this->issueRepository->update($issue);
+		$this->persistenceManager->persistAll();
+		//TODO: redirect to show advisory?!
 		$this->redirect('index', 'advisory');
 	}
 

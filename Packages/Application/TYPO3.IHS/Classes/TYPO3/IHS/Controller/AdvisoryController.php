@@ -9,6 +9,7 @@ namespace TYPO3\IHS\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\IHS\Domain\Model\Advisory;
+use TYPO3\IHS\Domain\Repository\IssueRepository;
 
 class AdvisoryController extends ActionController {
 
@@ -17,6 +18,12 @@ class AdvisoryController extends ActionController {
 	 * @var \TYPO3\IHS\Domain\Repository\AdvisoryRepository
 	 */
 	protected $advisoryRepository;
+
+	/**
+	 * @Flow\Inject
+	 * @var IssueRepository
+	 */
+	protected $issueRepository;
 
 	/**
 	 * @return void
@@ -31,22 +38,6 @@ class AdvisoryController extends ActionController {
 	 */
 	public function showAction(Advisory $advisory) {
 		$this->view->assign('advisory', $advisory);
-	}
-
-	/**
-	 * @return void
-	 */
-	public function newAction() {
-	}
-
-	/**
-	 * @param \TYPO3\IHS\Domain\Model\Advisory $newAdvisory
-	 * @return void
-	 */
-	public function createAction(Advisory $newAdvisory) {
-		$this->advisoryRepository->add($newAdvisory);
-		$this->addFlashMessage('Created a new advisory.');
-		$this->redirect('index');
 	}
 
 	/**
