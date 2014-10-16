@@ -6,11 +6,11 @@
 </head>
 <body>
 	<f:section name="Main">
-		{namespace menu=TYPO3\IHS\ViewHelpers}
+		{namespace ihs=TYPO3\IHS\ViewHelpers}
 		<ul class="nav">
-			<li class="<menu:renderMenuActiveForCurrentController controllerName='Advisory' />"><f:link.action action="index" package="TYPO3.IHS" controller="Advisory">Advisories</f:link.action></li>
-			<li class="<menu:renderMenuActiveForCurrentController controllerName='Issue' />"><f:link.action action="index" package="TYPO3.IHS" controller="Issue">Issues</f:link.action></li>
-			<li class="<menu:renderMenuActiveForCurrentController controllerName='Product' />"><f:link.action action="index" package="TYPO3.IHS" controller="Product">Products</f:link.action></li>
+			<li class="{ihs:renderMenuActiveForCurrentController(controllerName:'Advisory')}"><f:link.action action="index" package="TYPO3.IHS" controller="Advisory">Advisories</f:link.action></li>
+			<li class="{ihs:renderMenuActiveForCurrentController(controllerName:'Issue')}"><f:link.action action="index" package="TYPO3.IHS" controller="Issue">Issues</f:link.action></li>
+			<li class="{ihs:renderMenuActiveForCurrentController(controllerName:'Product')}"><f:link.action action="index" package="TYPO3.IHS" controller="Product">Products</f:link.action></li>
 		</ul>
 	</f:section>
 </body>
