@@ -10,6 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\Flow\Persistence\PersistenceManagerInterface;
+use TYPO3\IHS\Domain\Model\Product;
 
 class ProductController extends ActionController {
 
@@ -33,7 +34,22 @@ class ProductController extends ActionController {
 	 * @return void
 	 */
 	public function indexAction() {
-		$this->view->assign('products', $this->productRepository->findAll());
+		//get products counted by type
+		$products = $this->productRepository->findAll();
+
+		$productsByType = array();
+		foreach($products as $product) {
+			/** @var $product Product */
+			$type = $product->getType()->getValue();
+			echo $type;
+
+			if (!array_key_exists($type, $productsByType)) {
+				$productsByType[$type] = 1;
+			} else {
+				$productsByType[$type]++;
+			}
+		}
+		$this->view->assign('productsByType', $productsByType);
 	}
 
 	/**

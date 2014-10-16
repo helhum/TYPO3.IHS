@@ -10,9 +10,13 @@
 <f:section name="Content">
 
 
-	<f:if condition="{products}">
+	<f:if condition="{productsByType}">
 		<f:then>
-            <span class="label label-info"><f:count subject="{products}" /></span> products imported.
+			<f:for each="{productsByType}" as="amount" key="key">
+				<p>
+					<strong>{key}:</strong> <span class="label label-info">{amount} products imported.</span>
+				</p>
+			</f:for>
 		</f:then>
 		<f:else>
 			<p>No products imported yet.</p>
