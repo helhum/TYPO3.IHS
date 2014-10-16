@@ -35,8 +35,6 @@
 
 <body>
 	<div id="wrap">
-		<f:flashMessages class="flashmessages" />
-
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
@@ -71,6 +69,15 @@
 				<!--/span-->
 				<div class="span12">
 					<h1><f:render section="Title" /></h1>
+					<f:flashMessages as="flashMessages">
+						<div class="alert alert-info">
+							<f:for each="{flashMessages}" as="flashMessage">
+								<p>{flashMessage}</p>
+							</f:for>
+						</div>
+					</f:flashMessages>
+
+
 					<f:render section="Content" />
 				</div>
 				<!--/span-->
