@@ -57,24 +57,17 @@
 						</f:security.ifAuthenticated>
 
 					</p>
-					<ul class="nav">
-						<li class="active"><a href="/">Home</a></li>
-						<li><a href="#about">About</a></li>
-						<li><a href="#contact">Contact</a></li>
-					</ul>
+					<f:render partial="Menu" section="Main" />
 				</div>
 				<!--/.nav-collapse -->
 			</div>
 		</div>
 	</div>
 
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row-fluid">
-			<div class="span3">
-				<f:render partial="Menu" section="test" />
-			</div>
 			<!--/span-->
-			<div class="span9">
+			<div class="span12">
 				<h1><f:render section="Title" /></h1>
 				<f:render section="Content" />
 			</div>

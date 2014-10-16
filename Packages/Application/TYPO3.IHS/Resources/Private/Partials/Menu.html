@@ -5,20 +5,13 @@
 	<title>Template: New Person</title>
 </head>
 <body>
-<f:section name="test">
-			<div class="well sidebar-nav">
-				<ul class="nav nav-list">
-					<li class="nav-header">IHS</li>
-					<li><f:link.action action="index" package="TYPO3.IHS" controller="Advisory">Advisories</f:link.action></li>
-					<li><f:link.action action="index" package="TYPO3.IHS" controller="Issue">Issues</f:link.action></li>
-					<li><f:link.action action="index" package="TYPO3.IHS" controller="Product">Products</f:link.action></li>
-				</ul>
-			</div>
-			<!--/.well -->
-</f:section>
-<f:section name="main">
-
-</f:section>
-
+	<f:section name="Main">
+		{namespace menu=TYPO3\IHS\ViewHelpers}
+		<ul class="nav">
+			<li class="<menu:renderMenuActiveForCurrentController controllerName='Advisory' />"><f:link.action action="index" package="TYPO3.IHS" controller="Advisory">Advisories</f:link.action></li>
+			<li class="<menu:renderMenuActiveForCurrentController controllerName='Issue' />"><f:link.action action="index" package="TYPO3.IHS" controller="Issue">Issues</f:link.action></li>
+			<li class="<menu:renderMenuActiveForCurrentController controllerName='Product' />"><f:link.action action="index" package="TYPO3.IHS" controller="Product">Products</f:link.action></li>
+		</ul>
+	</f:section>
 </body>
 </html>
