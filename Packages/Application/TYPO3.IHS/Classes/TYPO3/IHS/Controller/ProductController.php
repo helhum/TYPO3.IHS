@@ -41,8 +41,6 @@ class ProductController extends ActionController {
 		foreach($products as $product) {
 			/** @var $product Product */
 			$type = $product->getType()->getValue();
-			echo $type;
-
 			if (!array_key_exists($type, $productsByType)) {
 				$productsByType[$type] = 1;
 			} else {
