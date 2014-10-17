@@ -11,6 +11,7 @@ use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\Flow\Persistence\PersistenceManagerInterface;
 use TYPO3\IHS\Domain\Model\Product;
+use TYPO3\IHS\Domain\Model\ProductType;
 
 class ProductController extends ActionController {
 
@@ -57,7 +58,7 @@ class ProductController extends ActionController {
 	 * @return json $result
 	 */
 	public function getProductsAsJSONAction($term) {
-		$products = $this->productRepository->findProductsByTerm($term);
+		$products = $this->productRepository->findByTerm($term);
 
 		$result = array();
 		$i = 0;
@@ -89,6 +90,21 @@ class ProductController extends ActionController {
 		}
 
 		return json_encode($result);
+	}
+
+	/**
+	 * returns all types as json
+	 *
+	 * @return json $result
+	 */
+	public function getProductTypesAsJSONAction() {
+		$types = array();
+
+		array_push($types, array('value' => ProductType::CMS_EXTENSION, 'label' => "EXT::CMS EXTENSION" ));
+		array_push($types, array('value' => ProductType::TYPO3_PRODUCT, 'label' => "TYPO3::TYPO3 PRODUCT" ));
+		array_push($types, array('value' => ProductType::FLOW_PACKAGE, 'label' => "PACK::FLOW PACKAGE" ));
+
+		return json_encode($types);
 	}
 
 }

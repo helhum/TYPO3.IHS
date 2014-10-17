@@ -29,7 +29,7 @@ class ProductRepository extends Repository {
 	 * @param string $term
 	 * @return Products
 	 */
-	public function findProductsByTerm($term) {
+	public function findByTerm($term) {
 
 		$query = $this->createQuery();
 		$query->matching(

@@ -39,4 +39,53 @@ class AdvisoryRepository extends Repository {
 		return $query->matching($query->logicalAnd($constraints))->count();
 	}
 
+	/**
+	 *
+	 *
+	 * @param array $searchRequest
+	 * @return Object
+	 */
+	public function findBySearchRequest($searchRequest) {
+		$term = FALSE;
+		$category = FALSE;
+		$vulnerabilityType = FALSE;
+
+		if (array_key_exists("text", $searchRequest)) {
+			$term = $searchRequest["text"];
+		}
+
+		if (array_key_exists("category", $searchRequest)) {
+			$category = $searchRequest["category"];
+		}
+
+		if (array_key_exists("vulnerability type", $searchRequest)) {
+			$vulnerabilityType = $searchRequest["vulnerability type"];
+		}
+
+		$query = $this->createQuery();
+		$constraints = array();
+
+		if ($term) {
+			$constraints[] =
+				$query->logicalOr(
+					$query->like('title', '%' . $term . '%'),
+					$query->like('description', '%' . $term . '%'),
+					$query->like('identifier', '%' . $term . '%'),
+					$query->like('issues.abstract', '%' . $term . '%')
+				);
+		}
+
+		if ($category) {
+			$constraints[] =
+				$query->equals('issues.product.type.value', $category);
+		}
+
+		if ($vulnerabilityType) {
+			$constraints[] =
+				$query->equals('issues.vulnerabilityType', $vulnerabilityType);
+		}
+
+		return $query->matching($query->logicalAnd($constraints))->execute();
+	}
+
 }

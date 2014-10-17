@@ -34,12 +34,11 @@ use TYPO3\IHS\Enumeration\AbstractEnumeration;
  * @Flow\ValueObject
  */
 class ProductType extends AbstractEnumeration {
-	
 	const __default = self::TYPO3_PRODUCT;
 
 	const CMS_EXTENSION = 'EXT';
 	const TYPO3_PRODUCT = 'TYPO3';
-	const FLOW_PACKAGE = 'PACK';
+	const FLOW_PACKAGE = 'PACK'; // CORE Pack, COMM Pack
 	
 	/**
 	 * @var string

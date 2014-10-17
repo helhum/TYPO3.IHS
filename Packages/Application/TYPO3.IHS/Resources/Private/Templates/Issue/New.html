@@ -8,12 +8,11 @@
 <f:section name="Title">New issue</f:section>
 
 <f:section name="Content">
+	<p>Just fill out the following form to create a new issue:</p>
 
 	<f:alias map="{errorContext: 'newIssue'}">
 		<f:render partial="FormErrors" arguments="{_all}" />
 	</f:alias>
-
-	<p>Just fill out the following form to create a new issue:</p>
 
 	<f:form action="create" objectName="newIssue">
 		<ol>

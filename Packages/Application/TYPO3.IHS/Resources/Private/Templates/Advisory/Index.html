@@ -8,34 +8,36 @@
 <f:section name="Title">TYPO3 Security Bulletins</f:section>
 
 <f:section name="Content">
-	<f:widget.autocomplete objects="{advisories}" for="foo" searchProperty="foo"/>
-	<div class="articles">
-		<f:if condition="{advisories}">
-			<f:then>
-				<f:for each="{advisories}" as="advisory">
-					<article>
-						<div class="b-news-item">
-							<h2><f:link.action action="show" arguments="{advisory: advisory}">{advisory.identifier}:{advisory.title}</f:link.action></h2>
-							<p class="b-news-item-info cl">
-								<span class="b-news-item-author">Category: {advisory.issues.0.product.type}</span>
-								<span class="b-news-item-date"><f:format.date date="{advisory.publishingDate}" format="F j, Y"/></span>
-							</p>
-							<p class="b-news-item-subheader">{advisory.abstract}</p>
-							<div class="actions">
-								<f:link.action class="btn" action="show" arguments="{advisory: advisory}">Details</f:link.action>
-								<f:link.action class="btn btn-primary" action="edit" arguments="{advisory: advisory}">Edit</f:link.action>
-								<f:form action="delete" arguments="{advisory: advisory}">
-									<f:form.submit class="btn btn-danger" value="Delete" />
-								</f:form>
-							</div>
-						</div>
-					</article>
-				</f:for>
-			</f:then>
-			<f:else>
-				<p>No advisories created yet.</p>
-			</f:else>
-		</f:if>
+	<div class="advisory-visualsearch" searchUrl="{f:uri.action(action:'search', controller:'Advisory', package:'TYPO3.IHS')}"></div>
+
+
+
+	<div class="row-fluid">
+		<div class="span3 saved-searches-container">
+			<div class="well">
+				<h3>Favorites</h3>
+				<ul class="saved-searches unstyled">
+				</ul>
+			</div>
+		</div>
+		<div class="span9 list-of-advisories">
+			<div class="loading-overlay">
+			<span>
+				<img src="{f:uri.resource(path: 'layouts/img/ajax-loader.gif')}" />
+			</span>
+			</div>
+			<div class="articles">
+				<f:if condition="{advisories}">
+					<f:then>
+						<f:render partial="Advisory/ListOfAdvisories" section="Content" arguments="{advisories: advisories}"/>
+					</f:then>
+					<f:else>
+						<p>No advisories created yet.</p>
+					</f:else>
+				</f:if>
+			</div>
+		</div>
 	</div>
+
 </f:section>
 </html>

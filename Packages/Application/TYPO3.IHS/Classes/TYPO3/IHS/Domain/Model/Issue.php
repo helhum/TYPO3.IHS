@@ -22,6 +22,7 @@ class Issue {
 
 	/**
 	 * @var string
+	 * @Flow\Validate(type="NotEmpty")
 	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=512 })
 	 */
 	protected $title;
