@@ -6,6 +6,7 @@ namespace TYPO3\IHS\Domain\Model;
  *                                                                        *
  *                                                                        */
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,7 +36,7 @@ class Issue {
 
 	/**
 	 * @var string
-	 * @ORM\Column(type="text")
+	 * @ORM\Column(type="text", nullable=true)
 	 */
 	protected $description;
 
@@ -48,6 +49,7 @@ class Issue {
 
 	/**
 	 * @var string
+	 * @ORM\Column(nullable=true)
 	 */
 	protected $reporter;
 
@@ -100,6 +102,7 @@ class Issue {
 
 	public function __construct() {
 		$this->creationDate = new \DateTime();
+		$this->solutions = new ArrayCollection();
 	}
 
 	public function getSeverity() {
@@ -266,6 +269,13 @@ class Issue {
 	}
 
 	/**
+	 * @param Solution $solution
+	 */
+	public function addSolution(Solution $solution) {
+		$this->solutions->add($solution);
+	}
+
+	/**
 	 * @param string $state
 	 */
 	public function setState($state) {
@@ -306,6 +316,5 @@ class Issue {
 	public function getVulnerabilityType() {
 		return $this->vulnerabilityType;
 	}
-
 
 }

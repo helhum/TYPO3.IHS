@@ -57,13 +57,19 @@ class Advisory {
 
 	/**
 	 * @var string
+	 * @ORM\Column(nullable=true)
+	 */
+	protected $author;
+
+	/**
+	 * @var string
 	 * @ORM\Column(type="text")
 	 */
 	protected $abstract = '';
 
 	/**
 	 * @var string
-	 * @ORM\Column(type="text")
+	 * @ORM\Column(type="text", nullable=true)
 	 */
 	protected $description = '';
 
@@ -76,6 +82,7 @@ class Advisory {
 
 	public function __construct() {
 		$this->issues = new ArrayCollection();
+		$this->links = new ArrayCollection();
 		$this->creationDate = new \DateTime();
 		$this->published = FALSE;
 	}
@@ -111,6 +118,20 @@ class Advisory {
 	 */
 	public function getAbstract() {
 		return $this->abstract;
+	}
+
+	/**
+	 * @param string $author
+	 */
+	public function setAuthor($author) {
+		$this->author = $author;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAuthor() {
+		return $this->author;
 	}
 
 	/**
@@ -174,6 +195,13 @@ class Advisory {
 	 */
 	public function getLinks() {
 		return $this->links;
+	}
+
+	/**
+	 * @param Link $link
+	 */
+	public function addLink(Link $link) {
+		$this->links->add($link);
 	}
 
 	/**
