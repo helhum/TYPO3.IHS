@@ -82,6 +82,7 @@ class IssueController extends ActionController {
 
 		$products = $this->productRepository->findAll();
 		$this->view->assign('products', $products);
+		$this->view->assign('solutionsAvailable', FALSE);
 	}
 
 	/**
@@ -111,6 +112,7 @@ class IssueController extends ActionController {
 		$products = $this->productRepository->findAll();
 		$this->view->assign('products', $products);
 		$this->view->assign('issue', $issue);
+		$this->view->assign('solutionsAvailable', TRUE);
 	}
 
 	/**

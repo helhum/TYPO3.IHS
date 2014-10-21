@@ -59,14 +59,21 @@
 		</fieldset>
 	</li>
 
-	<li>
-		<fieldset>
-			<legend>Solutions</legend>
-			<ul>
-				<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}}"/>
-			</ul>
-		</fieldset>
-	</li>
+	<f:if condition="{solutionsAvailable}">
+		<f:then>
+			<li>
+				<fieldset>
+					<legend>Solutions</legend>
+					<ul>
+						<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}}"/>
+					</ul>
+				</fieldset>
+			</li>
+		</f:then>
+		<f:else>
+			<p>You can add a solution after the issue has been created.</p>
+		</f:else>
+	</f:if>
 
 	<f:if condition="advisory">
 		<f:then>
