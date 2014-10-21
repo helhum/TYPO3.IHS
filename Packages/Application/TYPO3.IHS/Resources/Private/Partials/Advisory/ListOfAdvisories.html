@@ -9,13 +9,14 @@
 			<div class="b-news-item">
 				<h2><f:link.action action="show" arguments="{advisory: advisory}">{advisory.identifier}:{advisory.title}</f:link.action></h2>
 				<p class="b-news-item-info cl">
-					<span class="b-news-item-author">Category: {advisory.issues.0.product.type}</span>
+					<span class="b-news-item-author">Category: {advisory.issues.0.product.type}</span> <br />
 					<span class="b-news-item-date">Published: <f:format.date date="{advisory.publishingDate}" format="F j, Y"/></span>
 				</p>
 				<p class="b-news-item-subheader">{advisory.abstract}</p>
 				<div class="actions">
 					<f:link.action class="btn" action="show" arguments="{advisory: advisory}">Details</f:link.action>
 					<f:link.action class="btn btn-primary" action="edit" arguments="{advisory: advisory}">Edit</f:link.action>
+					<f:link.action action="new" controller="issue" class="btn" arguments="{advisory: advisory}">Create Issue</f:link.action>
 				</div>
 			</div>
 		</article>

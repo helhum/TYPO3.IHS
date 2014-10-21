@@ -72,9 +72,14 @@ class IssueController extends ActionController {
 	}
 
 	/**
+	 * @param \TYPO3\IHS\Domain\Model\Advisory $advisory
 	 * @return void
 	 */
-	public function newAction() {
+	public function newAction(\TYPO3\IHS\Domain\Model\Advisory $advisory = NULL) {
+		if ($advisory) {
+			$this->view->assign('advisory', $advisory);
+		}
+
 		$products = $this->productRepository->findAll();
 		$this->view->assign('products', $products);
 	}

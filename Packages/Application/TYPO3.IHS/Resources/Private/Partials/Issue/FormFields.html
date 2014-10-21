@@ -67,5 +67,12 @@
 			</ul>
 		</fieldset>
 	</li>
+
+	<f:if condition="advisory">
+		<f:then>
+			<f:form.hidden property="advisory" value="{advisory}" />
+		</f:then>
+	</f:if>
+
 </f:section>
 </html>

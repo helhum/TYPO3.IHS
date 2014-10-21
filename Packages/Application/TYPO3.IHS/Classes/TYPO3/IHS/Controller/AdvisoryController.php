@@ -6,7 +6,6 @@ namespace TYPO3\IHS\Controller;
  *                                                                        *
  *                                                                        */
 
-use Doctrine\DBAL\Types\JsonArrayType;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\IHS\Domain\Model\Advisory;
