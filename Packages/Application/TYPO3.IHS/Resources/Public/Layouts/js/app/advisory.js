@@ -140,7 +140,7 @@ function handleSavedSearches() {
 			searchString = getSearchStringFromJSON(decodeURIComponent(getURLParameter('search')), false);
 		}
 
-		visualSearch.searchBox.setQuery(searchString);
+		visualSearch.searchBox.value(searchString);
 	}
 
 	function getSearchStringFromJSON(searchStringAsJSON, humanReadable) {
@@ -151,7 +151,7 @@ function handleSavedSearches() {
 			if (searchPart && searchPart.text) {
 				searchString = searchString + searchPart.text;
 			} else {
-				searchString = searchString + _.keys(searchPart)[0] + ": " + searchPart[_.keys(searchPart)[0]];
+				searchString = searchString + "\"" + _.keys(searchPart)[0] + "\": \"" + searchPart[_.keys(searchPart)[0]] + "\"";
 			}
 
 			if (humanReadable) {

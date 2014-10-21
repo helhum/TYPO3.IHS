@@ -115,6 +115,10 @@ footer {
 	margin-right: 54px;
 }
 
+.VS-interface.ui-autocomplete .ui-menu-item:hover {
+	font-weight: normal !important;
+}
+
 /*advisory list*/
 .advisory-visualsearch {
 	margin-bottom: 20px;
