@@ -16,6 +16,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Advisory {
 
+	/**
+	 * @var \DateTime
+	 */
+	protected $creationDate;
 
 	/**
 	 * @var string
@@ -67,6 +71,7 @@ class Advisory {
 
 	public function __construct() {
 		$this->issues = new ArrayCollection();
+		$this->creationDate = new \DateTime();
 	}
 
 	/**
@@ -78,11 +83,15 @@ class Advisory {
 		foreach ($this->issues as $issue) {
 			// TODO: Do calculation
 		}
-
-
 		return 'Medium';
 	}
 
+	/**
+	 * @return \DateTime
+	 */
+	public function getCreationDate() {
+		return $this->creationDate;
+	}
 
 	/**
 	 * @param string $abstract

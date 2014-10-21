@@ -30,7 +30,7 @@ class AdvisoryController extends ActionController {
 	 *
 	 * @var array
 	 */
-	protected $supportedMediaTypes = array('application/json', 'text/html');
+	protected $supportedMediaTypes = array('text/html', 'text/xml');
 
 	/**
 	 * @param string $search
@@ -98,5 +98,15 @@ class AdvisoryController extends ActionController {
 		}
 
 		return $advisories;
+	}
+
+	/**
+	 * @return void
+	 */
+	public function rssFeedAction() {
+		$currentDate = new \DateTime();
+		$this->view->assign('currentDate', $currentDate);
+		$advisories = $this->advisoryRepository->findAll();
+		$this->view->assign('advisories', $advisories);
 	}
 }
