@@ -73,16 +73,6 @@ class AdvisoryController extends ActionController {
 	}
 
 	/**
-	 * @param \TYPO3\IHS\Domain\Model\Advisory $advisory
-	 * @return void
-	 */
-	public function deleteAction(Advisory $advisory) {
-		$this->advisoryRepository->remove($advisory);
-		$this->addFlashMessage('Deleted a advisory.');
-		$this->redirect('index');
-	}
-
-	/**
 	 * @param string $searchRequest
 	 * @return void
 	 */
