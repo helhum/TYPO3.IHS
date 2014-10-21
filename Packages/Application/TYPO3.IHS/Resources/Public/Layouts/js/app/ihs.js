@@ -43,4 +43,10 @@
 		}
 	);
 
+	$("input.datetimepicker").datetimepicker({
+		timeFormat: "hh:mm",
+		dateFormat: "dd.mm.yy",
+		separator: ' - '
+	});
+
 })(jQuery);

@@ -9,6 +9,10 @@
 <f:section name="Title">Edit advisory "{advisory.identifier}: {advisory.title}"</f:section>
 
 <f:section name="Content">
+	<f:alias map="{errorContext: 'advisory'}">
+		<f:render partial="FormErrors" arguments="{_all}" />
+	</f:alias>
+
 	<f:form action="update" object="{advisory}" objectName="advisory">
 		<ol>
 			<li>
@@ -27,7 +31,8 @@
 			</li>
 			<li>
 				<label for="publishingDate">Publishingdate</label>
-				<f:form.textfield property="publishingDate" id="publishingDate" />
+				<f:form.textfield class="datetimepicker" name="advisory[publishingDate][date]" value="{advisory.publishingDate->f:format.date(format:'d.m.Y - H:i')}" id="publishingDate" />
+				<f:form.hidden name="advisory[publishingDate][dateFormat]" value="d.m.Y - H:i" />
 			</li>
 
 		</ol>

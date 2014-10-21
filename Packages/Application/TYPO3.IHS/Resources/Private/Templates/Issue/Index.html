@@ -35,10 +35,8 @@
 						</f:then>
 						<f:else>
 							<f:if condition="{issue.solutions}">
-								Solution
+								<f:link.action action="createAdvisory" class="btn btn-primary" arguments="{issue: issue}">Create Advisory</f:link.action>
 							</f:if>
-							<f:link.action action="createAdvisory" class="btn btn-primary" arguments="{issue: issue}">Create Advisory</f:link.action>
-
 						</f:else>
 					</f:if>
 

@@ -35,6 +35,7 @@ class Advisory {
 	/**
 	 * @var \DateTime
 	 * @ORM\Column(nullable=true)
+	 * @Flow\Validate(type="DateTime")
 	 */
 	protected $publishingDate;
 
