@@ -1,3 +1,4 @@
+{namespace ihs=TYPO3\IHS\ViewHelpers}
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
@@ -15,32 +16,32 @@
 			<th>Title</th>
 			<td>{issue.title}</td>
 		</tr>
-	
+
 		<tr>
 			<th>Abstract</th>
-			<td>{issue.abstract}</td>
+			<td><ihs:format.markdown>{issue.abstract}</ihs:format.markdown></td>
 		</tr>
-	
+
 		<tr>
 			<th>Description</th>
 			<td>{issue.description}</td>
 		</tr>
-	
+
 		<tr>
 			<th>Vulnerability type</th>
 			<td>{issue.vulnerabilityType}</td>
 		</tr>
-	
+
 		<tr>
 			<th>Reporter</th>
 			<td>{issue.reporter}</td>
 		</tr>
-	
+
 		<tr>
 			<th>Product</th>
 			<td>{issue.product.qualifiedName}</td>
 		</tr>
-	
+
 		<tr>
 			<th>Affected versions</th>
 			<td>
@@ -49,22 +50,22 @@
 				</f:for>
 			</td>
 		</tr>
-	
+
 		<tr>
 			<th>State</th>
 			<td>{issue.state}</td>
 		</tr>
-	
+
 		<tr>
 			<th>Cve</th>
 			<td>{issue.CVE}</td>
 		</tr>
-	
+
 		<tr>
 			<th>Cvss</th>
 			<td>{issue.CVSS}</td>
 		</tr>
-	
+
 		<tr>
 			<th>Links</th>
 			<td>
