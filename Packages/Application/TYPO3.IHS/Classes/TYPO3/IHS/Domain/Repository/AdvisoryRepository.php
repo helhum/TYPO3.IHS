@@ -43,9 +43,10 @@ class AdvisoryRepository extends Repository {
 	 *
 	 *
 	 * @param array $searchRequest
+	 * @param boolean $published
 	 * @return Object
 	 */
-	public function findBySearchRequest($searchRequest) {
+	public function findBySearchRequest($searchRequest, $published = TRUE) {
 		$term = FALSE;
 		$category = FALSE;
 		$vulnerabilityType = FALSE;
@@ -85,7 +86,25 @@ class AdvisoryRepository extends Repository {
 				$query->equals('issues.vulnerabilityType', $vulnerabilityType);
 		}
 
+		$constraints[] =
+			$query->equals('published', $published);
+
+
 		return $query->matching($query->logicalAnd($constraints))->execute();
+	}
+
+	/**
+	 *
+	 *
+	 * @return Object
+	 */
+	public function findPublished() {
+		$query = $this->createQuery();
+		$query->matching(
+			$query->equals('published', TRUE)
+		);
+
+		return $query->execute();
 	}
 
 }

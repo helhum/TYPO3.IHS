@@ -37,6 +37,11 @@ class Advisory {
 	protected $issues;
 
 	/**
+	 * @var boolean
+	 */
+	protected $published;
+
+	/**
 	 * @var \DateTime
 	 * @ORM\Column(nullable=true)
 	 * @Flow\Validate(type="DateTime")
@@ -72,6 +77,7 @@ class Advisory {
 	public function __construct() {
 		$this->issues = new ArrayCollection();
 		$this->creationDate = new \DateTime();
+		$this->published = FALSE;
 	}
 
 	/**
@@ -168,6 +174,20 @@ class Advisory {
 	 */
 	public function getLinks() {
 		return $this->links;
+	}
+
+	/**
+	 * @param boolean $published
+	 */
+	public function setPublished($published) {
+		$this->published = $published;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function getPublished() {
+		return $this->published;
 	}
 
 	/**

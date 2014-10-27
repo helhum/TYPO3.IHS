@@ -52,14 +52,13 @@
 					<div class="nav-collapse collapse">
 						<p class="navbar-text pull-right">
 							<f:security.ifAuthenticated>
-							<f:then>
-								Logged in as <a href="#" class="navbar-link"><f:link.action action="logout" package="TYPO3.IHS" controller="Login"><ihs:security.account>{account.accountIdentifier}</ihs:security.account></f:link.action></a>
-							</f:then>
-							<f:else>
-								<f:link.action action="login" package="TYPO3.IHS" controller="Login">Login</f:link.action>
-							</f:else>
+								<f:then>
+									Logged in as <ihs:security.account>{account.accountIdentifier}</ihs:security.account> | <a href="#" class="navbar-link"><f:link.action action="logout" package="TYPO3.IHS" controller="Login">logout</f:link.action></a>
+								</f:then>
+								<f:else>
+									<f:link.action action="login" package="TYPO3.IHS" controller="Login">Login</f:link.action>
+								</f:else>
 							</f:security.ifAuthenticated>
-
 						</p>
 						<f:render partial="Menu" section="Main" />
 					</div>
@@ -80,7 +79,6 @@
 							</f:for>
 						</div>
 					</f:flashMessages>
-
 
 					<f:render section="Content" />
 				</div>

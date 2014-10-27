@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+	<channel>
+
+		<title>IHS Advisories</title>
+		<description>List of Advisories</description>
+		<language>en</language>
+		<link>http://ihs.dev/</link>
+		<lastBuildDate>{currentDate -> f:format.date(format:'d.m.Y - H:i')}</lastBuildDate>
+
+		<f:for each="{advisories}" as="advisory">
+			<item>
+				<title>{advisory.title}</title>
+				<description>{advisory.description}</description>
+				<link><f:uri.action action="show" absolute="TRUE" arguments="{advisory: advisory}" /></link>
+				<pubDate>{advisory.creationDate -> f:format.date(format:'d.m.Y - H:i')}</pubDate>
+				<guid><f:uri.action action="show" absolute="TRUE" arguments="{advisory: advisory}" /></guid>
+			</item>
+		</f:for>
+	</channel>
+</rss>

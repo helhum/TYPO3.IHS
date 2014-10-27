@@ -10,6 +10,7 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\IHS\Domain\Model\Advisory;
 use TYPO3\IHS\Domain\Repository\IssueRepository;
+use TYPO3\Flow\Security\Context;
 
 class AdvisoryController extends ActionController {
 
@@ -26,6 +27,13 @@ class AdvisoryController extends ActionController {
 	protected $issueRepository;
 
 	/**
+	 * @Flow\Inject
+	 * @var Context
+	 */
+	protected $securityContext;
+
+
+	/**
 	 * A list of IANA media types which are supported by this controller
 	 *
 	 * @var array
@@ -37,11 +45,8 @@ class AdvisoryController extends ActionController {
 	 * @return void
 	 */
 	public function indexAction($search = null) {
-		if ($search) {
-			$advisories = $this->getSearchResults($search);
-		} else {
-			$advisories = $this->advisoryRepository->findAll();
-		}
+		$advisories = $this->getSearchResults($search);
+
 		$this->view->assign('advisories', $advisories);
 	}
 
@@ -87,14 +92,24 @@ class AdvisoryController extends ActionController {
 	 */
 	protected function getSearchResults($searchRequest) {
 		$searchRequestAsArray = array();
-		foreach(json_decode($searchRequest, true) as $key => $value) {
-			$searchRequestAsArray[key($value)] = $value[key($value)];
+		if ($searchRequest) {
+			foreach(json_decode($searchRequest, true) as $key => $value) {
+				$searchRequestAsArray[key($value)] = $value[key($value)];
+			}
 		}
 
-		if (count($searchRequestAsArray) > 0) {
-			$advisories = $this->advisoryRepository->findBySearchRequest($searchRequestAsArray);
+		if ($this->securityContext->hasRole('AuthenticatedUser')) {
+			if (count($searchRequestAsArray) > 0) {
+				$advisories = $this->advisoryRepository->findBySearchRequest($searchRequestAsArray, FALSE);
+			} else {
+				$advisories = $this->advisoryRepository->findAll();
+			}
 		} else {
-			$advisories = $this->advisoryRepository->findAll();
+			if (count($searchRequestAsArray) > 0) {
+				$advisories = $this->advisoryRepository->findBySearchRequest($searchRequestAsArray, TRUE);
+			} else {
+				$advisories = $this->advisoryRepository->findPublished();
+			}
 		}
 
 		return $advisories;
@@ -106,7 +121,22 @@ class AdvisoryController extends ActionController {
 	public function rssFeedAction() {
 		$currentDate = new \DateTime();
 		$this->view->assign('currentDate', $currentDate);
-		$advisories = $this->advisoryRepository->findAll();
+		$advisories = $this->advisoryRepository->findPublished();
 		$this->view->assign('advisories', $advisories);
+	}
+
+	/**
+	 * @param \TYPO3\IHS\Domain\Model\Advisory $advisory
+	 * @return void
+	 */
+	public function publishAction(Advisory $advisory) {
+		$advisory->setPublished(TRUE);
+		$advisory->setPublishingDate(new \DateTime());
+		$this->advisoryRepository->update($advisory);
+		$this->persistenceManager->persistAll();
+
+		$this->addFlashMessage('Published Advisory. You can now change the publishingdate if you want');
+
+		$this->redirect('show', 'advisory', NULL, array('advisory' => $advisory));
 	}
 }

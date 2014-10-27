@@ -27,10 +27,10 @@
   appendExceedingArguments: true
 
 -
-  name: 'fallback (which redirects to advisory list)'
+  name: 'fallback to advisory list'
   uriPattern: ''
   defaults:
     '@package':    'TYPO3.IHS'
-    '@controller': 'Standard'
-    '@action':     'redirect'
+    '@controller': 'Advisory'
+    '@action':     'index'
     '@format':     'html'
