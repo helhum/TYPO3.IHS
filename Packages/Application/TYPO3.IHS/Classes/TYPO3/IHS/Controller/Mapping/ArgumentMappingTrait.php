@@ -41,7 +41,7 @@ trait ArgumentMappingTrait {
 	 * @param string $argumentName Argument Name of the to be mapped object
 	 * @param string $property Property which must be a collection of objects of the to be mapped object
 	 */
-	protected function allowMappingForArgumentAndCollectionProperty($argumentName, $property, $subProperty = NULL) {
+	protected function allowMappingForArgumentAndCollectionProperty($argumentName, $property, $subProperty = NULL, $subPropertyIsCollection = FALSE) {
 		/** @var PropertyMappingConfiguration $mappingConfiguration */
 		$mappingConfiguration = $this->arguments[$argumentName]->getPropertyMappingConfiguration();
 		$mappingConfiguration->allowAllProperties();
@@ -64,8 +64,21 @@ trait ArgumentMappingTrait {
 				$mappingConfiguration->forProperty($property . '.' . $propertyIndex)
 					->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
 					->allowAllProperties();
+
 				if ($subProperty !== NULL) {
 					$mappingConfiguration->forProperty($property . '.' . $propertyIndex . '.' . $subProperty)->allowAllProperties();
+
+					if ($subPropertyIsCollection && isset($requestArgument[$property][$propertyIndex][$subProperty]) && is_array($requestArgument[$property][$propertyIndex][$subProperty])) {
+						foreach (array_keys($requestArgument[$property][$propertyIndex][$subProperty]) as $subPropertyIndex) {
+							if (!is_int($subPropertyIndex)) {
+								// This is obviously not a collection, so skip
+								continue;
+							}
+							$mappingConfiguration->forProperty($property . '.' . $propertyIndex . '.' . $subProperty . '.' . $subPropertyIndex)
+								->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
+								->allowAllProperties();
+						}
+					}
 				}
 			}
 		}

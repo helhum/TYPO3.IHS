@@ -28,7 +28,7 @@
 		<fieldset>
 			<legend>Links</legend>
 			<ul>
-				<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields'}"/>
+				<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields', propertyPrefix: 'solutions.{iterationIndex}.'}"/>
 			</ul>
 		</fieldset>
 	</li>

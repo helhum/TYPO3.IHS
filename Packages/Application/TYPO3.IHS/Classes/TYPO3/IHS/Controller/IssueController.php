@@ -92,6 +92,7 @@ class IssueController extends ActionController {
 		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'affectedVersions');
 		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'links');
 		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'solutions', 'fixedInVersions');
+		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'solutions', 'links', TRUE);
 	}
 
 	/**
@@ -122,6 +123,7 @@ class IssueController extends ActionController {
 		$this->allowMappingForArgumentAndCollectionProperty('issue', 'affectedVersions');
 		$this->allowMappingForArgumentAndCollectionProperty('issue', 'links');
 		$this->allowMappingForArgumentAndCollectionProperty('issue', 'solutions', 'fixedInVersions');
+		$this->allowMappingForArgumentAndCollectionProperty('issue', 'solutions', 'links', TRUE);
 	}
 
 	/**
