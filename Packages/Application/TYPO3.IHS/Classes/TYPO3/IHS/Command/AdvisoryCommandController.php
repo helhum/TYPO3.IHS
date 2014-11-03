@@ -127,29 +127,33 @@ class AdvisoryCommandController extends CommandController {
 
 		$this->parseHeader($xpath, $article);
 
-		$link = new Link($singleAdvisoryUrl, 'Original URL');
-		$this->currentAdvisory->addLink($link);
+		if ($this->persistenceManager->isNewObject($this->currentAdvisory)) {
+			$link = new Link($singleAdvisoryUrl, 'Original URL');
+			$this->currentAdvisory->addLink($link);
 
-		// CONTENT
-		$bodyElements = $xpath->query('./div[2]//p[position()>1]|./div[2]//h2', $article);
-		foreach ($bodyElements as $element) {
-			$elementHtml = $element->ownerDocument->saveHTML($element);
-			foreach ($this->settings['mappings'] as $mapping) {
-				if (preg_match($mapping['regex'], $elementHtml, $matches)) {
-					if ($mapping['object'] != $this->currentObjectType) {
-						$this->changeCurrentObject($mapping);
+			// CONTENT
+			$bodyElements = $xpath->query('./div[2]//p[position()>1]|./div[2]//h2', $article);
+			foreach ($bodyElements as $element) {
+				$elementHtml = $element->ownerDocument->saveHTML($element);
+				foreach ($this->settings['mappings'] as $mapping) {
+					if (preg_match($mapping['regex'], $elementHtml, $matches)) {
+						if ($mapping['object'] != $this->currentObjectType) {
+							$this->changeCurrentObject($mapping);
+						}
+
+						$this->mapMatches($matches, $mapping);
+						break;
 					}
-
-					$this->mapMatches($matches, $mapping);
-					break;
 				}
 			}
+
+			$this->advisoryRepository->add($this->currentAdvisory);
+		} else {
+			$this->advisoryRepository->update($this->currentAdvisory);
 		}
 
 		$this->outputLine('=====================================');
 		$this->outputLine('');
-
-		$this->advisoryRepository->add($this->currentAdvisory);
 	}
 
 	/**
@@ -159,20 +163,21 @@ class AdvisoryCommandController extends CommandController {
 	 * @param $article
 	 */
 	protected function parseHeader($xpath, $article) {
-		$this->currentAdvisory = new Advisory();
 		$this->currentObjectName = 'advisory';
-
 		$heading = $xpath->query('//h1', $article)->item(0)->nodeValue;
-		$this->currentAdvisory->setIdentifier(trim(substr($heading, 0, strpos($heading, ':'))));
-		if ($this->advisoryRepository->findByIdentifier($this->currentAdvisory->getIdentifier())) {
-			$this->outputLine(sprintf('Advisory %s already exists!', $this->currentAdvisory->getIdentifier()));
-			return;
+		$identifier = trim(substr($heading, 0, strpos($heading, ':')));
+
+		$this->currentAdvisory = $this->advisoryRepository->findByIdentifier($identifier);
+		if ($this->currentAdvisory === NULL) {
+			$this->outputLine('Importing advisory %s', array($identifier));
+			$this->currentAdvisory = new Advisory();
+			$this->currentAdvisory->setIdentifier($identifier);
+		} else {
+			$this->outputLine('Updating advisory %s', array($identifier));
 		}
 
 		$this->currentAdvisory->setTitle(trim(substr($heading, strpos($heading, ':') + 1, strlen($heading))));
 		$this->currentAdvisory->setDescription($xpath->query('./div[2]//p[1]', $article)->item(0)->nodeValue);
-
-		$this->outputLine(sprintf('Importing advisory %s', $this->currentAdvisory->getIdentifier()));
 
 		$header = $xpath->query('./div[1]//p[2]', $article)->item(0);
 		// Author
@@ -196,6 +201,12 @@ class AdvisoryCommandController extends CommandController {
 				$this->currentProduct = $this->productRepository->findOneByName($category);
 			break;
 		}
+
+		// Publishing Date
+		$publishingDate = $xpath->query('./div[1]//p[1]', $article)->item(0)->nodeValue;
+		$date = new \DateTime($publishingDate);
+		$this->currentAdvisory->setPublishingDate($date);
+		$this->currentAdvisory->setPublished(TRUE);
 	}
 
 	/**
@@ -279,14 +290,6 @@ class AdvisoryCommandController extends CommandController {
 	protected function mapMatches($matches, $mapping) {
 		$value = $matches[$mapping['match']];
 		switch ($mapping['property']) {
-			case 'publishingDate':
-				try {
-					$date = new \DateTime($value);
-					$this->currentObject->setPublishingDate($date);
-				} catch (\Exception $e) {
-					$this->outputLine(sprintf('%s is not a valid date.', $value));
-				}
-			break;
 			case 'vulnerabilityType':
 				$this->currentObject->setVulnerabilityType($value);
 			break;

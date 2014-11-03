@@ -33,11 +33,6 @@ TYPO3:
       advisory:
         mappings:
           -
-            object: advisory
-            property: publishingDate
-            regex: '/(.+Release Date:.+\s)(\w+ \d{2}, \d{4})/'
-            match: 2
-          -
             object: issue
             property: vulnerabilityType
             regex: '/(.+<strong>Vulnerability Type:<\/strong>\s)([\w\s]+)/'
