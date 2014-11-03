@@ -33,7 +33,7 @@ class AdvisoryRepository extends Repository {
 					$query->greaterThanOrEqual('publishingDate', $beginning),
 					$query->lessThanOrEqual('publishingDate', $end)
 				),
-				$query->equals('publishingDate', NULL)
+				$query->equals('published', FALSE)
 			);
 
 		return $query->matching($query->logicalAnd($constraints))->count();
@@ -86,9 +86,17 @@ class AdvisoryRepository extends Repository {
 				$query->equals('issues.vulnerabilityType', $vulnerabilityType);
 		}
 
-		$constraints[] =
-			$query->equals('published', $published);
+		if ($published === TRUE) {
+			$constraints[] =
+				$query->equals('published', $published);
+		}
 
+		$query->setOrderings(array(
+				'published' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_ASCENDING,
+				'publishingDate' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING,
+				'creationDate' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING
+			)
+		);
 
 		return $query->matching($query->logicalAnd($constraints))->execute();
 	}
@@ -102,6 +110,28 @@ class AdvisoryRepository extends Repository {
 		$query = $this->createQuery();
 		$query->matching(
 			$query->equals('published', TRUE)
+		);
+
+		$query->setOrderings(array(
+				'publishingDate' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING,
+			)
+		);
+
+		return $query->execute();
+	}
+
+	/**
+	 *
+	 *
+	 * @return Object
+	 */
+	public function findAllOrdered() {
+		$query = $this->createQuery();
+		$query->setOrderings(array(
+				'published' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_ASCENDING,
+				'publishingDate' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING,
+				'creationDate' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING
+			)
 		);
 
 		return $query->execute();

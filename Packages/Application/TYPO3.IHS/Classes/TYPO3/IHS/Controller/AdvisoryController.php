@@ -102,7 +102,7 @@ class AdvisoryController extends ActionController {
 			if (count($searchRequestAsArray) > 0) {
 				$advisories = $this->advisoryRepository->findBySearchRequest($searchRequestAsArray, FALSE);
 			} else {
-				$advisories = $this->advisoryRepository->findAll();
+				$advisories = $this->advisoryRepository->findAllOrdered();
 			}
 		} else {
 			if (count($searchRequestAsArray) > 0) {
@@ -136,21 +136,6 @@ class AdvisoryController extends ActionController {
 		$this->persistenceManager->persistAll();
 
 		$this->addFlashMessage('Published Advisory. You can now change the publishingdate if you want');
-
-		$this->redirect('show', 'advisory', NULL, array('advisory' => $advisory));
-	}
-
-	/**
-	 * @param \TYPO3\IHS\Domain\Model\Advisory $advisory
-	 * @return void
-	 */
-	public function unpublishAction(Advisory $advisory) {
-		$advisory->setPublished(FALSE);
-		$advisory->setPublishingDate(NULL);
-		$this->advisoryRepository->update($advisory);
-		$this->persistenceManager->persistAll();
-
-		$this->addFlashMessage('Unpublished Advisory.');
 
 		$this->redirect('show', 'advisory', NULL, array('advisory' => $advisory));
 	}

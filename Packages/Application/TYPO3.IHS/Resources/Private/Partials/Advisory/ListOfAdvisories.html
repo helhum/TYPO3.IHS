@@ -39,11 +39,6 @@
 									Create Issue
 								</f:link.action>
 								<f:if condition="{advisory.published}">
-									<f:then>
-										<f:link.action action="unpublish" class="btn btn-danger" arguments="{advisory: advisory}">
-											Unpublish
-										</f:link.action>
-									</f:then>
 									<f:else>
 										<f:link.action action="publish" class="btn btn-success" arguments="{advisory: advisory}">
 											Publish
