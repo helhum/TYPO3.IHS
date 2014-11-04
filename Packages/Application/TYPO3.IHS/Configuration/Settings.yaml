@@ -1,5 +1,8 @@
 TYPO3:
   Flow:
+    object:
+      excludeClasses:
+        'simplepie.*': ['.*']
     security:
       authentication:
         authenticationStrategy: oneToken
@@ -27,3 +30,70 @@ TYPO3:
           maximumLogFileSize: 10485760
           logFilesToKeep: 1
           logMessageOrigin: FALSE
+      advisory:
+        mappings:
+          -
+            object: issue
+            property: vulnerabilityType
+            regex: '/(.+<strong>Vulnerability Type:<\/strong>\s)([\w\s]+)/'
+            match: 2
+          -
+            object: issue
+            property: cvss
+            regex: '/(.+<strong>Suggested CVSS .+:<\/strong>\s)([\w\s:\/]+)/'
+            match: 2
+          -
+            object: issue
+            property: cvss
+            regex: '/Suggested CVSS .+ <a.+>(.+)<\/a>(?:&nbsp;|\s).+/'
+            match: 1
+          -
+            object: issue
+            property: cve
+            regex: '/(.+CVE:.+\s)([\w\d\-]+)/'
+            match: 2
+          -
+            object: issue
+            property: cve
+            regex: '/CVE.+:\s+<a.+>(.*)<\/a>/'
+            match: 1
+          -
+            object: issue
+            property: abstract
+            regex: '/(?:.+Problem Description:<\/strong>)(.+)/'
+            match: 1
+          -
+            object: solution
+            property: abstract
+            regex: '/(.+Solution:<\/strong>\s)(.+)/'
+            match: 2
+          -
+            object: solution
+            property: description
+            regex: '/(.+Credits:<\/strong>\s)(.+)/'
+            match: 2
+          -
+            object: issue
+            property: product
+            regex: '/(?:.+Extension:<\/strong>\s)(?:.+(?:\((.+)\)))/'
+            match: 1
+          -
+            object: issue
+            property: description
+            regex: '/(?:.+<strong>Affected Versions:<\/strong>\s)(.+)/'
+            match: 1
+          -
+            object: issue
+            property: componentType
+            regex: '/(?:.+<strong>Component Type:<\/strong>\s)(.+)/'
+            match: 1
+          -
+            object: skip
+            property: skip
+            regex: '/(?:.+<strong>(Bulletin Update|Severity):<\/strong>\s)(.+)/'
+            match: 1
+          -
+            object: keep
+            property: description
+            regex: '/.+/'
+            match: 0

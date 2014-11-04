@@ -7,17 +7,16 @@
 	<div class="dynamic-fields">
 		<div class="field-template" data-html="
 			<f:format.htmlentities>
-				<f:render partial="{partial}" arguments="{iterationIndex: '_placeholder_', arguments: arguments}" section="Content"/>
+				<f:render partial="{partial}" arguments="{iterationIndex: '_placeholder_', arguments: arguments, propertyPrefix: propertyPrefix}" section="Content"/>
 			</f:format.htmlentities>
 		">
 		</div>
-
 
 		<div class="present-fields">
 			<f:if condition="{objects}">
 
 				<f:for each="{objects}" as="object" iteration="iterator">
-					<f:render partial="{partial}" arguments="{iterationIndex: iterator.index, arguments: arguments}" section="Content"/>
+					<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, propertyPrefix: propertyPrefix}" section="Content"/>
 				</f:for>
 
 			</f:if>
