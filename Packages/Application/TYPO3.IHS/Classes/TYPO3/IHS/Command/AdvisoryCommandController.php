@@ -49,12 +49,6 @@ class AdvisoryCommandController extends CommandController {
 	protected $productRepository;
 
 	/**
-	 * @Flow\inject
-	 * @var ReflectionService
-	 */
-	protected $reflectionService;
-
-	/**
 	 * @var Advisory
 	 */
 	protected $currentAdvisory;
@@ -117,7 +111,14 @@ class AdvisoryCommandController extends CommandController {
 	 * @param string $singleAdvisoryUrl
 	 */
 	public function importCommand($singleAdvisoryUrl) {
-		$html = file_get_contents($singleAdvisoryUrl);
+		$this->currentObject = NULL;
+		$this->currentObjectType = '';
+		$this->currentAdvisory = NULL;
+		$this->currentIssue = NULL;
+		$this->currentSolution = NULL;
+		$this->currentProduct = NULL;
+
+		$html = str_replace('&nbsp;', ' ', file_get_contents($singleAdvisoryUrl));
 		$dom = new \DOMDocument();
 		libxml_use_internal_errors(true);
 		$dom->loadHTML($html);
@@ -142,7 +143,7 @@ class AdvisoryCommandController extends CommandController {
 						}
 
 						$this->mapMatches($matches, $mapping);
-						break;
+						continue 2;
 					}
 				}
 			}
@@ -175,6 +176,7 @@ class AdvisoryCommandController extends CommandController {
 		} else {
 			$this->outputLine('Updating advisory %s', array($identifier));
 		}
+		$this->currentObject = $this->currentAdvisory;
 
 		$this->currentAdvisory->setTitle(trim(substr($heading, strpos($heading, ':') + 1, strlen($heading))));
 		$this->currentAdvisory->setDescription($xpath->query('./div[2]//p[1]', $article)->item(0)->nodeValue);
@@ -234,50 +236,25 @@ class AdvisoryCommandController extends CommandController {
 					}
 				break;
 				case 'solution':
-					$this->currentIssue->setTitle(sprintf('%s in %s', $this->currentIssue->getVulnerabilityType(), ($this->currentProduct != NULL) ? $this->currentProduct->getName() : ''));
-					if ($this->isIssueValid()) {
-						$this->currentAdvisory->addIssue($this->currentIssue);
-						$this->currentIssue->setAdvisory($this->currentAdvisory);
+					if ($this->currentIssue) {
+						$this->currentIssue->setTitle(sprintf('%s in %s', $this->currentIssue->getVulnerabilityType(), ($this->currentProduct != NULL) ? $this->currentProduct->getName() : ''));
+						if ($this->isIssueValid()) {
+							$this->currentAdvisory->addIssue($this->currentIssue);
+							$this->currentIssue->setAdvisory($this->currentAdvisory);
 
-						$this->issueRepository->add($this->currentIssue);
-					} else {
-						$this->outputLine('Issue could not be created.');
+							$this->issueRepository->add($this->currentIssue);
+							$this->outputLine('Issue could be created.');
+						} else {
+							$this->outputLine('Issue could not be created.');
+						}
+
+						$this->currentSolution = new Solution();
+						$this->currentObject = $this->currentSolution;
 					}
-
-					$this->currentSolution = new Solution();
-					$this->currentObject = $this->currentSolution;
 				break;
 			}
 
 			$this->currentObjectType = ($mapping['object'] != 'keep' && $mapping['object'] != 'skip') ? $mapping['object'] : $this->currentObjectType;
-		}
-	}
-
-	/**
-	 * Check if Issue is valid and set the advisory
-	 * Also adds it to the repository
-	 *
-	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
-	 */
-	protected function finalizeIssue() {
-		$this->currentIssue->setTitle(sprintf('%s in %s', $this->currentIssue->getVulnerabilityType(), ($this->currentProduct != NULL) ? $this->currentProduct->getName() : ''));
-		if ($this->isIssueValid() && $this->persistenceManager->isNewObject($this->currentIssue)) {
-			$this->currentAdvisory->addIssue($this->currentIssue);
-			$this->currentIssue->setAdvisory($this->currentAdvisory);
-
-			$this->issueRepository->add($this->currentIssue);
-		} else {
-			$this->outputLine('Issue could not be created.');
-		}
-	}
-
-	/**
-	 * Check if Solution is valid and set the issue
-	 */
-	protected function finalizeSolution() {
-		if ($this->isSolutionValid()) {
-			$this->currentSolution->setIssue($this->currentIssue);
-			$this->currentIssue->getSolutions()->add($this->currentSolution);
 		}
 	}
 
@@ -327,7 +304,7 @@ class AdvisoryCommandController extends CommandController {
 		$errors = array();
 
 		if (empty($abstract)) {
-			$result = FALSE;
+			$this->currentIssue->setAbstract('');
 			$errors[] = 'Issue without Abstract found.';
 		}
 
