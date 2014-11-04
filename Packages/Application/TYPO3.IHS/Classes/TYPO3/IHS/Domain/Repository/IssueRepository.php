@@ -8,6 +8,7 @@ namespace TYPO3\IHS\Domain\Repository;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\Doctrine\Repository;
+use TYPO3\Flow\Reflection\ObjectAccess;
 
 /**
  * @Flow\Scope("singleton")
@@ -55,27 +56,24 @@ class IssueRepository extends Repository {
 			}
 		}
 
-		// use doctrine query builder for more flexibility
-		$qb = $this->createQueryBuilder('customIhsQuery');
-
-		$qb
-			->select('i')
-			->from('TYPO3\IHS\Domain\Model\Issue', 'i');
+		$q = $this->createQuery();
+		// workaround: query should have a getQueryBuilder() method.
+		$qb = ObjectAccess::getProperty($q, 'queryBuilder', TRUE);
 
 		if ($term) {
 			$qb
 				->andWhere(
 					$qb->expr()->orX(
-						$qb->expr()->like('i.title', ':term'),
-						$qb->expr()->like('i.abstract', ':term'),
-						$qb->expr()->like('i.description', ':term')
+						$qb->expr()->like('e.title', ':term'),
+						$qb->expr()->like('e.abstract', ':term'),
+						$qb->expr()->like('e.description', ':term')
 					)
 				)
 				->setParameter('term', "%$term%");
 		}
 
 		if ($productType OR $product) {
-			$qb->join('i.product', 'p');
+			$qb->join('e.product', 'p');
 		}
 
 		if ($productType) {
@@ -93,26 +91,24 @@ class IssueRepository extends Repository {
 
 		if ($hasSolution === TRUE) {
 			$qb
-				->leftJoin('i.solutions', 's')
-				->groupBy('i')
+				->leftJoin('e.solutions', 's')
+				->groupBy('e')
 				->having('COUNT(s) > 0');
 		} elseif ($hasSolution === FALSE) {
 			$qb
-				->leftJoin('i.solutions', 's')
-				->groupBy('i')
+				->leftJoin('e.solutions', 's')
+				->groupBy('e')
 				->having('COUNT(s) = 0');
 		}
 
 		if ($hasAdvisory === TRUE) {
-			$qb->andWhere($qb->expr()->isNotNull('i.advisory'));
+			$qb->andWhere($qb->expr()->isNotNull('e.advisory'));
 		} elseif ($hasAdvisory === FALSE) {
-			$qb->andWhere($qb->expr()->isNull('i.advisory'));
+			$qb->andWhere($qb->expr()->isNull('e.advisory'));
 		}
 
-		$qb->orderBy('i.creationDate', 'DESC');
-
-
-		return $qb->getQuery()->execute();
+		$qb->orderBy('e.creationDate', 'DESC');
+		return $q->execute();
 	}
 
 	/**
@@ -121,15 +117,13 @@ class IssueRepository extends Repository {
 	 * @return Object
 	 */
 	public function findAllOrdered() {
-		$qb = $this->createQueryBuilder('customIhsQuery');
+		$q = $this->createQuery();
+		// workaround: query should have a getQueryBuilder() method.
+		$qb = ObjectAccess::getProperty($q, 'queryBuilder', TRUE);
 
-		$qb
-			->select('i')
-			->from('TYPO3\IHS\Domain\Model\Issue', 'i');
+		$qb->andWhere($qb->expr()->isNull('e.advisory'));
+		$qb->orderBy('e.creationDate', 'DESC');
 
-		$qb->andWhere($qb->expr()->isNull('i.advisory'));
-		$qb->orderBy('i.creationDate', 'DESC');
-
-		return $qb->getQuery()->execute();
+		return $q->execute();
 	}
 }

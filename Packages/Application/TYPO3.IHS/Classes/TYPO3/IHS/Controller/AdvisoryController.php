@@ -78,16 +78,6 @@ class AdvisoryController extends ActionController {
 
 	/**
 	 * @param string $searchRequest
-	 * @return void
-	 */
-	public function searchAction($searchRequest) {
-		$advisories = $this->getSearchResults($searchRequest);
-
-		$this->view->assign('advisories', $advisories);
-	}
-
-	/**
-	 * @param string $searchRequest
 	 * @return Object
 	 */
 	protected function getSearchResults($searchRequest) {

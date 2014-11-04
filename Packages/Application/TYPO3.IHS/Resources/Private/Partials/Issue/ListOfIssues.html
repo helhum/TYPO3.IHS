@@ -4,50 +4,52 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<table class="table table-hover">
-		<thead>
-		<tr>
-			<th>Title</th>
-			<th>Product</th>
-			<th>Vulnerability Type</th>
-			<th>Creation date</th>
-			<th>Actions</th>
-		</tr>
-		</thead>
-		<tbody>
-		<f:for each="{issues}" as="issue">
+	<f:widget.paginate objects="{issues}" as="paginatedIssues" configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 1}">
+		<table class="table table-hover">
+			<thead>
 			<tr>
-				<td class="span2">
-					<f:link.action action="show" arguments="{issue: issue}">{issue.title}</f:link.action>
-				</td>
-				<td class="span2">
-					{issue.product.qualifiedName}
-				</td>
-				<td class="span2">
-					{issue.vulnerabilityType}
-				</td>
-				<td class="span2">
-					<f:format.date date="{issue.creationDate}" format="d.m.Y - H:i"/>
-				</td>
-				<td class="actions span4">
-					<f:if condition="{issue.advisory}">
-						<f:then>
-							<f:link.action action="show" controller="Advisory" class="btn" arguments="{advisory: issue.advisory}">Show Advisory</f:link.action>
-						</f:then>
-						<f:else>
-							<f:if condition="{issue.solutions}">
-								<f:link.action action="createAdvisory" class="btn btn-primary" arguments="{issue: issue}">Create Advisory</f:link.action>
-							</f:if>
-						</f:else>
-					</f:if>
-
-					<f:link.action action="edit" class="btn btn-primary" arguments="{issue: issue}">Edit</f:link.action>
-					<f:form action="delete" arguments="{issue: issue}">
-						<f:form.submit class="btn btn-danger" value="Delete" />
-					</f:form>
-				</td>
+				<th>Title</th>
+				<th>Product</th>
+				<th>Vulnerability Type</th>
+				<th>Creation date</th>
+				<th>Actions</th>
 			</tr>
-		</f:for>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<f:for each="{paginatedIssues}" as="issue">
+					<tr>
+						<td class="span2">
+							<f:link.action action="show" arguments="{issue: issue}">{issue.title}</f:link.action>
+						</td>
+						<td class="span2">
+							{issue.product.qualifiedName}
+						</td>
+						<td class="span2">
+							{issue.vulnerabilityType}
+						</td>
+						<td class="span2">
+							<f:format.date date="{issue.creationDate}" format="d.m.Y - H:i"/>
+						</td>
+						<td class="actions span4">
+							<f:if condition="{issue.advisory}">
+								<f:then>
+									<f:link.action action="show" controller="Advisory" class="btn" arguments="{advisory: issue.advisory}">Show Advisory</f:link.action>
+								</f:then>
+								<f:else>
+									<f:if condition="{issue.solutions}">
+										<f:link.action action="createAdvisory" class="btn btn-primary" arguments="{issue: issue}">Create Advisory</f:link.action>
+									</f:if>
+								</f:else>
+							</f:if>
+
+							<f:link.action action="edit" class="btn btn-primary" arguments="{issue: issue}">Edit</f:link.action>
+							<f:form action="delete" arguments="{issue: issue}">
+								<f:form.submit class="btn btn-danger" value="Delete" />
+							</f:form>
+						</td>
+					</tr>
+				</f:for>
+			</tbody>
+		</table>
+	</f:widget.paginate>
 </f:section>

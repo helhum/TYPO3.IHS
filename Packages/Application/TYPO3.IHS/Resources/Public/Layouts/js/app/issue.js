@@ -25,9 +25,10 @@ $( document ).ready(function(){
 					contentType: "application/json; charset=utf-8",
 					url: $('.issue-visualsearch').attr('searchUrl'),
 					dataType: "html",
-					data: {searchRequest: searchQueryJSON},
+					data: {search: searchQueryJSON},
 					success: function(data) {
-						$(".list-of-issues .issues").html(data);
+						var result = $('<div />').append(data).find('.list-of-issues .issues').html();
+						$(".list-of-issues .issues").html(result);
 
 						// replace current url
 						if(issueVisualSearch.searchBox.value()) {

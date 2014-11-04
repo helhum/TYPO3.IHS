@@ -4,54 +4,56 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<f:for each="{advisories}" as="advisory">
-		<article>
-			<div class="b-news-item">
-				<h2>
-					<f:link.action action="show" arguments="{advisory: advisory}">
-						{advisory.identifier}:{advisory.title}
-					</f:link.action>
-				</h2>
-				<p class="b-news-item-info cl">
-					<span class="b-news-item-author">Category: {advisory.issues.0.product.type}</span> <br/>
-					<f:if condition="{advisory.published}">
+	<f:widget.paginate objects="{advisories}" as="paginatedAdvisories" configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 1}">
+		<f:for each="{paginatedAdvisories}" as="advisory">
+			<article>
+				<div class="b-news-item">
+					<h2>
+						<f:link.action action="show" arguments="{advisory: advisory}">
+							{advisory.identifier}:{advisory.title}
+						</f:link.action>
+					</h2>
+					<p class="b-news-item-info cl">
+						<span class="b-news-item-author">Category: {advisory.issues.0.product.type}</span> <br/>
+						<f:if condition="{advisory.published}">
+							<f:then>
+								<span class="b-news-item-date">Published: <span class="label label-success"><f:format.date date="{advisory.publishingDate}" format="d.m.Y - H:i"/></span></span>
+							</f:then>
+							<f:else>
+								<span class="b-news-item-date">Published: <span class="label">not published</span></span>
+							</f:else>
+						</f:if>
+
+					</p>
+					<p class="b-news-item-subheader">{advisory.abstract}</p>
+
+					<f:security.ifAuthenticated>
 						<f:then>
-							<span class="b-news-item-date">Published: <span class="label label-success"><f:format.date date="{advisory.publishingDate}" format="d.m.Y - H:i"/></span></span>
+							<div class="btn-toolbar">
+								<div class="btn-group">
+									<f:link.action class="btn" action="show" arguments="{advisory: advisory}">Details</f:link.action>
+									<f:link.action class="btn btn-primary" action="edit" arguments="{advisory: advisory}">Edit</f:link.action>
+								</div>
+								<div class="btn-group">
+									<f:link.action action="new" controller="issue" class="btn" arguments="{advisory: advisory}">
+										Create Issue
+									</f:link.action>
+									<f:if condition="{advisory.published}">
+										<f:else>
+											<f:link.action action="publish" class="btn btn-success" arguments="{advisory: advisory}">
+												Publish
+											</f:link.action>
+										</f:else>
+									</f:if>
+								</div>
+							</div>
 						</f:then>
 						<f:else>
-							<span class="b-news-item-date">Published: <span class="label">not published</span></span>
+							<f:link.action class="btn" action="show" arguments="{advisory: advisory}">Details</f:link.action>
 						</f:else>
-					</f:if>
-
-				</p>
-				<p class="b-news-item-subheader">{advisory.abstract}</p>
-
-				<f:security.ifAuthenticated>
-					<f:then>
-						<div class="btn-toolbar">
-							<div class="btn-group">
-								<f:link.action class="btn" action="show" arguments="{advisory: advisory}">Details</f:link.action>
-								<f:link.action class="btn btn-primary" action="edit" arguments="{advisory: advisory}">Edit</f:link.action>
-							</div>
-							<div class="btn-group">
-								<f:link.action action="new" controller="issue" class="btn" arguments="{advisory: advisory}">
-									Create Issue
-								</f:link.action>
-								<f:if condition="{advisory.published}">
-									<f:else>
-										<f:link.action action="publish" class="btn btn-success" arguments="{advisory: advisory}">
-											Publish
-										</f:link.action>
-									</f:else>
-								</f:if>
-							</div>
-						</div>
-					</f:then>
-					<f:else>
-						<f:link.action class="btn" action="show" arguments="{advisory: advisory}">Details</f:link.action>
-					</f:else>
-				</f:security.ifAuthenticated>
-			</div>
-		</article>
-	</f:for>
+					</f:security.ifAuthenticated>
+				</div>
+			</article>
+		</f:for>
+	</f:widget.paginate>
 </f:section>

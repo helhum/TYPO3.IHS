@@ -23,9 +23,10 @@ $( document ).ready(function(){
 					contentType: "application/json; charset=utf-8",
 					url: $('.advisory-visualsearch').attr('searchUrl'),
 					dataType: "html",
-					data: {searchRequest: searchQueryJSON},
+					data: {search: searchQueryJSON},
 					success: function(data) {
-						$(".list-of-advisories .articles").html(data);
+						var result = $('<div />').append(data).find('.list-of-advisories .articles').html();
+						$(".list-of-advisories .articles").html(result);
 
 						// replace current url
 						if(advisoryVisualSearch.searchBox.value()) {

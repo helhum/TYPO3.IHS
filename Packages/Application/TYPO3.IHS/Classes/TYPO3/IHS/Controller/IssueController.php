@@ -151,16 +151,6 @@ class IssueController extends ActionController {
 
 	/**
 	 * @param string $searchRequest
-	 * @return void
-	 */
-	public function searchAction($searchRequest) {
-		$issues = $this->getSearchResults($searchRequest);
-
-		$this->view->assign('issues', $issues);
-	}
-
-	/**
-	 * @param string $searchRequest
 	 * @return Object
 	 */
 	protected function getSearchResults($searchRequest) {
