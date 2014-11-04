@@ -2,6 +2,8 @@ html, body {
 	height: 100%;
 }
 
+/*general styles*/
+
 #wrap {
 	min-height: 100%;
 	height: auto !important;
@@ -15,37 +17,6 @@ html, body {
 
 .sidebar-nav {
 	padding: 9px 0;
-}
-
-@media (max-width: 980px) {
-	/* Enable use of floated navbar text */
-	.navbar-text.pull-right {
-		float: none;
-		padding-left: 5px;
-		padding-right: 5px;
-	}
-}
-textarea.f3-form-error {
-	background-color:#FF9F9F;
-	border: 1px #FF0000 solid;
-}
-
-input.f3-form-error {
-	background-color:#FF9F9F;
-	border: 1px #FF0000 solid;
-}
-
-/* issue form fields */
-select#product {
-	display: none;
-}
-
-#affected-versions {
-	display: none;
-}
-
-#product-autocomplete-remote-source, #version-autocomplete-remote-source {
-	display: none;
 }
 
 .actions {
@@ -68,6 +39,23 @@ select#product {
 	margin-bottom: 3em;
 }
 
+.loading-overlay {
+	display: none;
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	text-align: center;
+	background: rgba(255, 255, 255, 0.7);
+}
+
+.loading-overlay span {
+	position: relative;
+	top: 50%;
+	font-size: 20px;
+}
+
 footer {
 	height: 60px;
 	line-height: 60px;
@@ -76,8 +64,46 @@ footer {
 	color: #ccc;
 }
 
+@media (max-width: 980px) {
+	/* Enable use of floated navbar text */
+	.navbar-text.pull-right {
+		float: none;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}
+textarea.f3-form-error {
+	background-color:#FF9F9F;
+	border: 1px #FF0000 solid;
+}
+
+input.f3-form-error {
+	background-color:#FF9F9F;
+	border: 1px #FF0000 solid;
+}
+
+.list-of-advisories, .list-of-issues {
+	position: relative;
+}
+
+/* issue form fields */
+select#product {
+	display: none;
+}
+
+#affected-versions {
+	display: none;
+}
+
+#product-autocomplete-remote-source, #version-autocomplete-remote-source {
+	display: none;
+}
 
 /*visualsearch*/
+
+.visualsearch {
+	margin-bottom: 20px;
+}
 
 .VS-icon-cancel{
 	right: 36px !important;
@@ -115,38 +141,8 @@ footer {
 	margin-right: 54px;
 }
 
-.VS-interface.ui-autocomplete .ui-menu-item:hover {
+.VS-interface.ui-autocomplete .ui-menu-item {
 	font-weight: normal !important;
-}
-
-/*advisory list*/
-.advisory-visualsearch {
-	margin-bottom: 20px;
-}
-
-.list-of-advisories {
-	position: relative;
-}
-
-.loading-overlay {
-	display: none;
-	position: absolute;
-	top: 0px;
-	width: 100%;
-	height: 100%;
-	vertical-align: middle;
-	text-align: center;
-	background: rgba(255, 255, 255, 0.7);
-}
-
-.loading-overlay span {
-	position: relative;
-	top: 50%;
-	font-size: 20px;
-}
-
-.searchquery-output-container {
-	float: left;
 }
 
 .remove-saved-search {

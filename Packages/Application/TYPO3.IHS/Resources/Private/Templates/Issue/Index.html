@@ -9,50 +9,34 @@
 
 <f:section name="Content">
 	<p><f:link.action class="btn btn-primary" action="new">Create a new issue</f:link.action></p>
-	<f:if condition="{issues}">
-		<f:then>
-		<table class="table table-hover">
-		<thead>
-		<tr>
-			<th>Product</th>
-			<th>Vulnerability Type</th>
-			<th>Actions</th>
-		</tr>
-		</thead>
-		<tbody>
-		<f:for each="{issues}" as="issue">
-			<tr>
-				<td class="span3">
-					<f:link.action action="show" arguments="{issue: issue}">{issue.product.qualifiedName}</f:link.action>
-				</td>
-				<td class="span5">
-					{issue.vulnerabilityType}
-				</td>
-				<td class="actions span4">
-					<f:if condition="{issue.advisory}">
-						<f:then>
-							<f:link.action action="show" controller="Advisory" class="btn" arguments="{advisory: issue.advisory}">Show Advisory</f:link.action>
-						</f:then>
-						<f:else>
-							<f:if condition="{issue.solutions}">
-								<f:link.action action="createAdvisory" class="btn btn-primary" arguments="{issue: issue}">Create Advisory</f:link.action>
-							</f:if>
-						</f:else>
-					</f:if>
+	<div class="issue-visualsearch visualsearch" searchUrl="{f:uri.action(action:'search', controller:'Issue', package:'TYPO3.IHS')}"></div>
 
-					<f:link.action action="edit" class="btn btn-primary" arguments="{issue: issue}">Edit</f:link.action>
-					<f:form action="delete" arguments="{issue: issue}">
-						<f:form.submit class="btn btn-danger" value="Delete" />
-					</f:form>
-				</td>
-			</tr>
-		</f:for>
-		</tbody>
-		</table>
-		</f:then>
-		<f:else>
-			<p>No issues created yet.</p>
-		</f:else>
-	</f:if>
+	<div class="row-fluid issues">
+		<div class="span3 saved-searches-container">
+			<div class="well">
+				<h3>Favorites</h3>
+				<ul class="saved-searches unstyled">
+				</ul>
+			</div>
+		</div>
+		<div class="span9 list-of-issues">
+			<div class="loading-overlay">
+			<span>
+				<img src="{f:uri.resource(path: 'layouts/img/ajax-loader.gif')}" />
+			</span>
+			</div>
+			<div class="issues">
+				<f:if condition="{issues}">
+					<f:then>
+						<f:render partial="Issue/ListOfIssues" section="Content" arguments="{issues: issues}"/>
+					</f:then>
+					<f:else>
+						<p>No issues created yet.</p>
+					</f:else>
+				</f:if>
+			</div>
+		</div>
+	</div>
+
 </f:section>
 </html>

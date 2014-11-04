@@ -52,8 +52,42 @@
 })(jQuery);
 
 jQuery(document).ready(function() {
+	// overwriting visualsearch searchbox template
+	// added save search button
+	window.JST['search_box'] = _.template('<div class="VS-search <% if (readOnly) { %>VS-readonly<% } %>">\n  <div class="VS-search-box-wrapper VS-search-box">\n    <div class="VS-icon VS-icon-search"></div>\n    <div class="VS-placeholder"></div>\n    <div class="VS-search-inner"></div>\n    <div class="VS-icon VS-icon-cancel VS-cancel-search-box" title="clear search"></div> <div class="VS-icon VS-save-search-box" title="save search"><i class="icon-star-empty"></i></div>\n  </div>\n</div>');
+
 	$(".markdown").markdown({
 		autofocus:false,
 		savable:false
 	});
 });
+
+
+function getURLParameter(name) {
+	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+
+function getSearchStringFromJSON(searchStringAsJSON, humanReadable) {
+	var searchQuery = JSON.parse(searchStringAsJSON);
+	var searchString = "";
+
+	$(searchQuery).each(function(key, searchPart) {
+		if (searchPart && searchPart.text) {
+			searchString = searchString + searchPart.text;
+		} else {
+			searchString = searchString + "\"" + _.keys(searchPart)[0] + "\": \"" + searchPart[_.keys(searchPart)[0]] + "\"";
+		}
+
+		if (humanReadable) {
+			searchString = searchString + ", ";
+		} else {
+			searchString = searchString + " ";
+		}
+	});
+
+	if (humanReadable) {
+		searchString = searchString.substring(0, searchString.length - 2); //remove last ", "
+	}
+
+	return searchString;
+}

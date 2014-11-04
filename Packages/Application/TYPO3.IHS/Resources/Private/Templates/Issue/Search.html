@@ -1,0 +1,8 @@
+<f:if condition="{issues}">
+	<f:then>
+		<f:render partial="Issue/ListOfIssues" section="Content" arguments="{issues: issues}"/>
+	</f:then>
+	<f:else>
+		<p>No Issues found.</p>
+	</f:else>
+</f:if>

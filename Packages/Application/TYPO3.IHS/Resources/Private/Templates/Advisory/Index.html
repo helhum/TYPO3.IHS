@@ -8,10 +8,10 @@
 <f:section name="Title">TYPO3 Security Bulletins</f:section>
 
 <f:section name="Content">
-	<div class="advisory-visualsearch" searchUrl="{f:uri.action(action:'search', controller:'Advisory', package:'TYPO3.IHS')}"></div>
 	<a href="{f:uri.action(action: 'rssFeed', format:'xml')}" rel="alternate" type="application/rss+xml" title="RSS">Rss Feed</a>
+	<div class="advisory-visualsearch" searchUrl="{f:uri.action(action:'search', controller:'Advisory', package:'TYPO3.IHS')}"></div>
 
-	<div class="row-fluid">
+	<div class="row-fluid advisories">
 		<div class="span3 saved-searches-container">
 			<div class="well">
 				<h3>Favorites</h3>
@@ -37,6 +37,5 @@
 			</div>
 		</div>
 	</div>
-
 </f:section>
 </html>

@@ -16,11 +16,10 @@
 					<span class="b-news-item-author">Category: {advisory.issues.0.product.type}</span> <br/>
 					<f:if condition="{advisory.published}">
 						<f:then>
-							<span class="b-news-item-date">Published: <f:format.date date="{advisory.publishingDate}"
-							                                                         format="F j, Y - H:i"/></span>
+							<span class="b-news-item-date">Published: <span class="label label-success"><f:format.date date="{advisory.publishingDate}" format="d.m.Y - H:i"/></span></span>
 						</f:then>
 						<f:else>
-							<span class="b-news-item-date">Published: not published</span>
+							<span class="b-news-item-date">Published: <span class="label">not published</span></span>
 						</f:else>
 					</f:if>
 

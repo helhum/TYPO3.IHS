@@ -43,10 +43,13 @@ class IssueController extends ActionController {
 	protected $issueRepository;
 
 	/**
+	 * @param string $search
 	 * @return void
 	 */
-	public function indexAction() {
-		$this->view->assign('issues', $this->issueRepository->findAll());
+	public function indexAction($search = NULL) {
+		$issues = $this->getSearchResults($search);
+
+		$this->view->assign('issues', $issues);
 	}
 
 	/**
@@ -142,5 +145,36 @@ class IssueController extends ActionController {
 		$this->issueRepository->remove($issue);
 		$this->addFlashMessage('Deleted a issue.');
 		$this->redirect('index');
+	}
+
+	/**
+	 * @param string $searchRequest
+	 * @return void
+	 */
+	public function searchAction($searchRequest) {
+		$issues = $this->getSearchResults($searchRequest);
+
+		$this->view->assign('issues', $issues);
+	}
+
+	/**
+	 * @param string $searchRequest
+	 * @return Object
+	 */
+	protected function getSearchResults($searchRequest) {
+		$searchRequestAsArray = array();
+		if ($searchRequest) {
+			foreach(json_decode($searchRequest, true) as $key => $value) {
+				$searchRequestAsArray[key($value)] = $value[key($value)];
+			}
+		}
+
+		if (count($searchRequestAsArray) > 0) {
+			$issues = $this->issueRepository->findBySearchRequest($searchRequestAsArray);
+		} else {
+			$issues = $this->issueRepository->findAllOrdered();
+		}
+
+		return $issues;
 	}
 }
