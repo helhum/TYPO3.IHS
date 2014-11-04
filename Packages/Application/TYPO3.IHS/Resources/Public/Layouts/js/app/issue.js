@@ -96,7 +96,9 @@ $( document ).ready(function(){
 		}
 	});
 
-	handleSavedIssueSearches();
+	if ($('.issue-visualsearch').length > 0) {
+		handleSavedIssueSearches();
+	}
 
 	// autocompletion for products
 	var cache = {};
