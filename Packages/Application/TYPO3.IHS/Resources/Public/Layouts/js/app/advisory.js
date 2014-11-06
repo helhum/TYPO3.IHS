@@ -92,7 +92,7 @@ $( document ).ready(function(){
 
 							// get current product type if selected and filter products
 							var productType = null;
-							$.each( issueVisualSearch.searchQuery.facets(), function( key, facet ) {
+							$.each( advisoryVisualSearch.searchQuery.facets(), function( key, facet ) {
 								if (facet['product type']) {
 									productType = facet['product type'];
 								}
@@ -105,7 +105,11 @@ $( document ).ready(function(){
 								data: {term: searchTerm, withIssue: true, productType: productType},
 								success: function(products) {
 									productsCache[searchTerm] = products;
-									callback(products);
+									if (products.length > 0) {
+										callback(products);
+									} else {
+										callback(['no product found']);
+									}
 								},
 								complete: function() {
 									ajaxRequest= false;

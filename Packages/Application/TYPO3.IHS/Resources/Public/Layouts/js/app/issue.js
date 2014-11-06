@@ -108,7 +108,11 @@ $( document ).ready(function(){
 								data: {term: searchTerm, withIssue: true, productType: productType},
 								success: function(products) {
 									productsCache[searchTerm] = products;
-									callback(products);
+									if (products.length > 0) {
+										callback(products);
+									} else {
+										callback(['no product found']);
+									}
 								},
 								complete: function() {
 									ajaxRequest= false;
