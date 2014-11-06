@@ -55,10 +55,17 @@ class ProductController extends ActionController {
 	 * returns all products as json matching a given termn
 	 *
 	 * @param string $term
+	 * @param boolean $withIssue
+	 * @param string $productType
 	 * @return json $result
 	 */
-	public function getProductsAsJSONAction($term) {
-		$products = $this->productRepository->findByTerm($term);
+	public function getProductsAsJSONAction($term, $withIssue = FALSE, $productType = NULL) {
+		if ($withIssue) {
+			$products = $this->productRepository->findByTermAndHasIssue($term, $productType);
+		} else {
+			$products = $this->productRepository->findByTerm($term, $productType);
+		}
+
 
 		$result = array();
 		$i = 0;

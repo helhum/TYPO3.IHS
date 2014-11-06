@@ -2,9 +2,9 @@ var issueVisualSearch = false; // global instance of visual search for issues
 
 $( document ).ready(function(){
 	// visual search
-	var runningSearchRequest = false;
 	var facetsCache = {};
 	var productsCache = {};
+	var ajaxRequest = false;
 
 	issueVisualSearch = VS.init({
 		container : $('.issue-visualsearch'),
@@ -17,10 +17,10 @@ $( document ).ready(function(){
 				$(".loading-overlay").show();
 
 				// abort running ajax request
-				if (runningSearchRequest) {
-					runningSearchRequest.abort();
+				if (ajaxRequest) {
+					ajaxRequest.abort();
 				}
-				runningSearchRequest = $.ajax({
+				ajaxRequest = $.ajax({
 					type: "GET",
 					contentType: "application/json; charset=utf-8",
 					url: $('.issue-visualsearch').attr('searchUrl'),
@@ -38,6 +38,7 @@ $( document ).ready(function(){
 						}
 					},
 					complete: function() {
+						ajaxRequest = false;
 						$(".loading-overlay").hide();
 					},
 					error: function() {
@@ -55,20 +56,28 @@ $( document ).ready(function(){
 			valueMatches: function(facet, searchTerm, callback) {
 				switch (facet) {
 					case 'product type':
+						productsCache = {}; // clear products cache when changing product type
+
 						if (facetsCache['product type']) {
 							callback(facetsCache['product type']);
 						} else {
-							$.ajax({
+							if (ajaxRequest) {
+								ajaxRequest.abort();
+							}
+
+							ajaxRequest = $.ajax({
 								type: "GET",
 								url: "/product/getProductTypesAsJSON",
 								dataType: "json",
 								success: function(types) {
-									callback(types);
 									facetsCache['product type'] = types;
+									callback(types);
+								},
+								complete: function() {
+									ajaxRequest= false;
 								}
 							});
 						}
-
 						break;
 					case 'has solution':
 						callback(['yes', 'no']);
@@ -80,14 +89,29 @@ $( document ).ready(function(){
 						if (searchTerm in productsCache) {
 							callback(productsCache[searchTerm]);
 						} else {
-							$.ajax({
+							if (ajaxRequest) {
+								ajaxRequest.abort();
+							}
+
+							// get current product type if selected and filter products
+							var productType = null;
+							$.each( issueVisualSearch.searchQuery.facets(), function( key, facet ) {
+								if (facet['product type']) {
+									productType = facet['product type'];
+								}
+							});
+
+							ajaxRequest = $.ajax({
 								type: "GET",
 								url: "/product/getProductsAsJSON",
 								dataType: "json",
-								data: {term: searchTerm},
+								data: {term: searchTerm, withIssue: true, productType: productType},
 								success: function(products) {
 									productsCache[searchTerm] = products;
 									callback(products);
+								},
+								complete: function() {
+									ajaxRequest= false;
 								}
 							});
 						}

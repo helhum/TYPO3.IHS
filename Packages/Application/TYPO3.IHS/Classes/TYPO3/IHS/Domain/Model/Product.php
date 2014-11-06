@@ -46,8 +46,15 @@ class Product {
 	 */
 	protected $versions;
 
+	/**
+	 * @var Collection<Issue>
+	 * @ORM\OneToMany(mappedBy="product")
+	 */
+	protected $issues;
+
 	public function __construct() {
 		$this->versions = new ArrayCollection();
+		$this->issues = new ArrayCollection();
 	}
 
 	/**
@@ -121,5 +128,12 @@ class Product {
 			}
 		}
 		return FALSE;
+	}
+
+	/**
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getIssues() {
+		return $this->issues;
 	}
 }
