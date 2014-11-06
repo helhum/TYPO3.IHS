@@ -2,7 +2,10 @@ var advisoryVisualSearch = false; // global instance of visual search for adviso
 
 $( document ).ready(function(){
 	var runningSearchRequest = false;
-	var facets = [];
+	var facetsCache = {};
+	var productsCache = {};
+	var ajaxRequest = false;
+
 
 	advisoryVisualSearch = VS.init({
 		container : $('.advisory-visualsearch'),
@@ -47,29 +50,68 @@ $( document ).ready(function(){
 			},
 			facetMatches: function(callback) {
 				callback([
-					'category', 'vulnerability type'
+					'vulnerability type', 'product', 'product type'
 				]);
 			},
 			valueMatches: function(facet, searchTerm, callback) {
 				switch (facet) {
-					case 'category':
-						if (facets['category']) {
-							callback(facets['category']);
+					case 'vulnerability type':
+						callback(['low', 'medium', 'high']);
+						break;
+					case 'product type':
+						productsCache = {}; // clear products cache when changing product type
+
+						if (facetsCache['product type']) {
+							callback(facetsCache['product type']);
 						} else {
-							$.ajax({
+							if (ajaxRequest) {
+								ajaxRequest.abort();
+							}
+
+							ajaxRequest = $.ajax({
 								type: "GET",
 								url: "/product/getProductTypesAsJSON",
 								dataType: "json",
 								success: function(types) {
+									facetsCache['product type'] = types;
 									callback(types);
-									facets['category'] = types;
+								},
+								complete: function() {
+									ajaxRequest= false;
 								}
 							});
 						}
-
 						break;
-					case 'vulnerability type':
-						callback(['low', 'medium', 'high']);
+					case 'product':
+						if (searchTerm in productsCache) {
+							callback(productsCache[searchTerm]);
+						} else {
+							if (ajaxRequest) {
+								ajaxRequest.abort();
+							}
+
+							// get current product type if selected and filter products
+							var productType = null;
+							$.each( issueVisualSearch.searchQuery.facets(), function( key, facet ) {
+								if (facet['product type']) {
+									productType = facet['product type'];
+								}
+							});
+
+							ajaxRequest = $.ajax({
+								type: "GET",
+								url: "/product/getProductsAsJSON",
+								dataType: "json",
+								data: {term: searchTerm, withIssue: true, productType: productType},
+								success: function(products) {
+									productsCache[searchTerm] = products;
+									callback(products);
+								},
+								complete: function() {
+									ajaxRequest= false;
+								}
+							});
+						}
 						break;
 				}
 			}

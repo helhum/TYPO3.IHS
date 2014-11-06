@@ -48,23 +48,29 @@ class AdvisoryRepository extends Repository {
 	 */
 	public function findBySearchRequest($searchRequest, $published = TRUE) {
 		$term = FALSE;
-		$category = FALSE;
 		$vulnerabilityType = FALSE;
+		$productType = FALSE;
+		$product = FALSE;
 
 		if (array_key_exists("text", $searchRequest)) {
 			$term = $searchRequest["text"];
-		}
-
-		if (array_key_exists("category", $searchRequest)) {
-			$category = $searchRequest["category"];
 		}
 
 		if (array_key_exists("vulnerability type", $searchRequest)) {
 			$vulnerabilityType = $searchRequest["vulnerability type"];
 		}
 
-		$query = $this->createQuery();
+		if (array_key_exists("product type", $searchRequest)) {
+			$productType = $searchRequest["product type"];
+		}
+
+		if (array_key_exists("product", $searchRequest)) {
+			$product = $searchRequest["product"];
+		}
+
+
 		$constraints = array();
+		$query = $this->createQuery();
 
 		if ($term) {
 			$constraints[] =
@@ -76,9 +82,14 @@ class AdvisoryRepository extends Repository {
 				);
 		}
 
-		if ($category) {
+		if ($productType) {
 			$constraints[] =
-				$query->equals('issues.product.type.value', $category);
+				$query->equals('issues.product.type.value', $productType);
+		}
+
+		if ($product) {
+			$constraints[] =
+				$query->equals('issues.product.name', $product);
 		}
 
 		if ($vulnerabilityType) {
