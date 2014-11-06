@@ -4,7 +4,6 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<f:widget.paginate objects="{issues}" as="paginatedIssues" configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 1}">
 		<table class="table table-hover">
 			<thead>
 			<tr>
@@ -16,7 +15,7 @@
 			</tr>
 			</thead>
 			<tbody>
-				<f:for each="{paginatedIssues}" as="issue">
+				<f:for each="{issues}" as="issue">
 					<tr>
 						<td class="span2">
 							<f:link.action action="show" arguments="{issue: issue}">{issue.title}</f:link.action>
@@ -51,5 +50,4 @@
 				</f:for>
 			</tbody>
 		</table>
-	</f:widget.paginate>
 </f:section>

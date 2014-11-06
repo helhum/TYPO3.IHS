@@ -51,7 +51,7 @@ class IssueRepository extends Repository {
 		if (array_key_exists("has advisory", $searchRequest)) {
 			if ($searchRequest["has advisory"] == "yes") {
 				$hasAdvisory = TRUE;
-			} elseif ($searchRequest["has advisory"] == "no") {
+			} else {
 				$hasAdvisory = FALSE;
 			}
 		}
@@ -121,7 +121,7 @@ class IssueRepository extends Repository {
 		// workaround: query should have a getQueryBuilder() method.
 		$qb = ObjectAccess::getProperty($q, 'queryBuilder', TRUE);
 
-		$qb->andWhere($qb->expr()->isNull('e.advisory'));
+		//$qb->andWhere($qb->expr()->isNull('e.advisory'));
 		$qb->orderBy('e.creationDate', 'DESC');
 
 		return $q->execute();

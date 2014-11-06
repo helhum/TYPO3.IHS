@@ -217,10 +217,6 @@ function handleSavedIssueSearches() {
 		var searchString = "";
 		if (getURLParameter('search')) {
 			searchString = getSearchStringFromJSON(decodeURIComponent(getURLParameter('search')), false);
-		} else {
-			// default is to show issues without advisories
-			searchString = getSearchStringFromJSON('[{"has advisory":"no"}]', false)
-			window.history.replaceState(null, null, window.location.pathname + "?search="+encodeURIComponent('[{"has advisory":"no"}]'));
 		}
 
 		issueVisualSearch.searchBox.value(searchString);

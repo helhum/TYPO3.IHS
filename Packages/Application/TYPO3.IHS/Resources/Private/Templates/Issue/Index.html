@@ -26,7 +26,10 @@
 			</span>
 			</div>
 			<div class="issues">
-				<f:if condition="{issues}">
+				<!-- WORKAROUND: Counting issues does not work here, because of an advanced HAVING and GROUP BY clause which makes the COUNT query fail.
+				     This is a FLOW BUG: Query::count() does not work with these kinds of advanced queries and may need to be refactored/rewritten
+				-->
+				<f:if condition="{issues.first}">
 					<f:then>
 						<f:render partial="Issue/ListOfIssues" section="Content" arguments="{issues: issues}"/>
 					</f:then>

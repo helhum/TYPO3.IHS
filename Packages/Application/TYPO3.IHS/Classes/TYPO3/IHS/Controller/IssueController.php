@@ -161,11 +161,7 @@ class IssueController extends ActionController {
 			}
 		}
 
-		if (count($searchRequestAsArray) > 0) {
-			$issues = $this->issueRepository->findBySearchRequest($searchRequestAsArray);
-		} else {
-			$issues = $this->issueRepository->findAllOrdered();
-		}
+		$issues = $this->issueRepository->findBySearchRequest($searchRequestAsArray);
 
 		return $issues;
 	}
