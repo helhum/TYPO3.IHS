@@ -31,6 +31,12 @@ html, body {
 	margin: 0;
 }
 
+.btn-text, .btn-text:hover, .btn-text:active {
+	background: none;
+	border: none;
+	cursor: default;
+}
+
 .articles h2 {
 	font-size: 1.5em;
 }

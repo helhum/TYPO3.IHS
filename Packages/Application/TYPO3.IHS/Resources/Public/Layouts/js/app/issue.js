@@ -31,7 +31,7 @@ $( document ).ready(function(){
 						$(".list-of-issues .issues").html(result);
 
 						// replace current url
-						if(issueVisualSearch.searchBox.value()) {
+						if(searchQueryJSON) {
 							window.history.replaceState(null, null, window.location.pathname + "?search="+encodeURIComponent(searchQueryJSON));
 						} else {
 							window.history.replaceState(null, null, window.location.pathname);

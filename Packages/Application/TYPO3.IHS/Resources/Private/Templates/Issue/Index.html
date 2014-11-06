@@ -8,7 +8,16 @@
 <f:section name="Title">A list of issues</f:section>
 
 <f:section name="Content">
-	<p><f:link.action class="btn btn-primary" action="new">Create a new issue</f:link.action></p>
+	<p>
+		<div class="btn-toolbar">
+			<f:link.action class="btn btn-primary" action="new">Create a new issue</f:link.action>
+			<span class="btn btn-text">Quick Filter:</span>
+			<div class="btn-group">
+				<f:link.action class="btn" action="index" arguments='{search: quickFilterHasSolution}'>Has Solution</f:link.action>
+				<f:link.action class="btn" action="index" arguments='{search: quickFilterHasAdvisory}'>Has Advisory</f:link.action>
+			</div>
+		</div>
+	</p>
 	<div class="issue-visualsearch visualsearch" searchUrl="{f:uri.action(action:'index', controller:'Issue', package:'TYPO3.IHS')}"></div>
 
 	<div class="row-fluid issues">
