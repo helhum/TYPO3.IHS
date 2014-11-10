@@ -41,9 +41,9 @@ class Issue {
 	protected $description;
 
 	/**
+	 * @var VulnerabilityType
 	 * @Flow\Validate(type="NotEmpty")
-	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=512 })
-	 * @var string
+	 * @ORM\ManyToOne(cascade={"persist"})
 	 */
 	protected $vulnerabilityType;
 
@@ -304,9 +304,9 @@ class Issue {
 	}
 
 	/**
-	 * @param string $vulnerabilityType
+	 * @param VulnerabilityType $vulnerabilityType
 	 */
-	public function setVulnerabilityType($vulnerabilityType) {
+	public function setVulnerabilityType(VulnerabilityType $vulnerabilityType) {
 		$this->vulnerabilityType = $vulnerabilityType;
 	}
 

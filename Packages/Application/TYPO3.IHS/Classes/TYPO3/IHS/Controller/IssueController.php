@@ -100,6 +100,7 @@ class IssueController extends ActionController {
 		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'links');
 		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'solutions', 'fixedInVersions');
 		$this->allowMappingForArgumentAndCollectionProperty('newIssue', 'solutions', 'links', TRUE);
+		$this->allowCreationForArgumentAndProperty('newIssue', 'vulnerabilityType');
 	}
 
 	/**
@@ -115,6 +116,7 @@ class IssueController extends ActionController {
 	/**
 	 * @param \TYPO3\IHS\Domain\Model\Issue $issue
 	 * @return void
+	 * @Flow\IgnoreValidation(argumentName="issue")
 	 */
 	public function editAction(Issue $issue) {
 		$products = $this->productRepository->findAll();
@@ -131,6 +133,7 @@ class IssueController extends ActionController {
 		$this->allowMappingForArgumentAndCollectionProperty('issue', 'links');
 		$this->allowMappingForArgumentAndCollectionProperty('issue', 'solutions', 'fixedInVersions');
 		$this->allowMappingForArgumentAndCollectionProperty('issue', 'solutions', 'links', TRUE);
+		$this->allowCreationForArgumentAndProperty('issue', 'vulnerabilityType');
 	}
 
 	/**
@@ -146,6 +149,7 @@ class IssueController extends ActionController {
 	/**
 	 * @param \TYPO3\IHS\Domain\Model\Issue $issue
 	 * @return void
+	 * @Flow\IgnoreValidation(argumentName="issue")
 	 */
 	public function deleteAction(Issue $issue) {
 		$this->issueRepository->remove($issue);
