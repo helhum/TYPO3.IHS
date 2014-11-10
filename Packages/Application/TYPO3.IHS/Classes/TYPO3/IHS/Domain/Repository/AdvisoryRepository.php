@@ -23,17 +23,14 @@ class AdvisoryRepository extends Repository {
 	public function countByProductAndYear(Product $product, $year) {
 		$query = $this->createQuery();
 		$beginning = \DateTime::createFromFormat('d.m.Y H:i', '1.1.' . $year . ' 00:01');
-		$end = \DateTime::createFromFormat('d.m.Y', '31.12.' . $year . ' 23:59');
+		$end = \DateTime::createFromFormat('d.m.Y H:i', '31.12.' . $year . ' 23:59');
 		$constraints = array();
 
 		$constraints[] = $query->equals('issues.product.type', $product->getType());
 		$constraints[] =
-			$query->logicalOr(
-				$query->logicalAnd(
-					$query->greaterThanOrEqual('publishingDate', $beginning),
-					$query->lessThanOrEqual('publishingDate', $end)
-				),
-				$query->equals('published', FALSE)
+			$query->logicalAnd(
+				$query->greaterThanOrEqual('creationDate', $beginning),
+				$query->lessThanOrEqual('creationDate', $end)
 			);
 
 		return $query->matching($query->logicalAnd($constraints))->count();
