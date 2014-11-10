@@ -35,7 +35,7 @@ TYPO3:
           -
             object: issue
             property: vulnerabilityType
-            regex: '/(.+<strong>Vulnerability Type:<\/strong>\s)([\w\s]+)/'
+            regex: '/(.+<strong>Vulnerability Type:<\/strong>\s)([\w\s\-]+)/'
             match: 2
           -
             object: issue
