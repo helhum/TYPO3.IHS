@@ -73,11 +73,11 @@
 				<div class="span12">
 					<h1><f:render section="Title" /></h1>
 					<f:flashMessages as="flashMessages">
-						<div class="alert alert-info">
-							<f:for each="{flashMessages}" as="flashMessage">
+						<f:for each="{flashMessages}" as="flashMessage">
+							<div class="alert alert-{flashMessage.severity}">
 								<p>{flashMessage}</p>
-							</f:for>
-						</div>
+							</div>
+						</f:for>
 					</f:flashMessages>
 
 					<f:render section="Content" />

@@ -3,6 +3,29 @@ html, body {
 }
 
 /*general styles*/
+.alert-OK {
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	color: #468847;
+}
+
+.alert-Notice, .alert-Info {
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	color: #3a87ad;
+}
+
+.alert-Warning {
+	background-color: #fcf8e3;
+	border-color: #fbeed5;
+	color: #c09853;
+}
+
+.alert-Error {
+	background-color: #f2dede;
+	border-color: #eed3d7;
+	color: #b94a48;
+}
 
 #wrap {
 	min-height: 100%;
