@@ -155,7 +155,6 @@ $( document ).ready(function(){
 				$("select#product").val(ui.item.id);
 
 				if(ui.item.id != currentValue) {
-					$("select#affectedVersions").html(""); // clear version list from prev request
 					getVersionsForProduct(ui.item.id);
 				}
 			}
@@ -171,10 +170,20 @@ $( document ).ready(function(){
 			}
 		});
 
+	if($("select#product").hasClass('f3-form-error')) {
+		$("input#productAjax").addClass('f3-form-error');
+	}
+
 
 	if($("select#product").val()) {
 		$("input#productAjax").val($("select#product option:selected").text());
-		$("#affected-versions").show();
+
+		// get versions for product if none exists
+		if (!$("#affected-versions option:first-child").val()) {
+			getVersionsForProduct($("select#product option:selected").val())
+		} else {
+			$("#affected-versions").show();
+		}
 	}
 });
 
@@ -187,6 +196,7 @@ function getVersionsForProduct(identifier) {
 		dataType: "json"
 	})
 	.success(function( data ) {
+		$("select#affectedVersions").html(""); // clear version list from prev request
 		$("#affected-versions").slideDown();
 		$(data).each(function(key, data) {
 			$("select#affectedVersions").append("<option value='"+data.id+"'>"+data.value+"</option>")

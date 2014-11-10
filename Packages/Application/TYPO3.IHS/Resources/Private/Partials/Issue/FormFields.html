@@ -31,7 +31,7 @@
 
 	<li>
 		<label for="product">Product</label>
-		<f:form.select property="product" id="product" options="{products}" optionLabelField="name" sortByOptionLabel="true" prependOptionLabel="- select one -"/>
+		<f:form.select property="product" id="product" options="{products}" optionLabelField="nameAndShortName" sortByOptionLabel="true" prependOptionLabel="- select one -"/>
 		<input type="text" id="productAjax" placeholder="type product to find" autocomplete="off" productsUrl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" versionsUrl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}"/>
 	</li>
 

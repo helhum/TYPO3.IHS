@@ -71,7 +71,7 @@ class ProductController extends ActionController {
 		$i = 0;
 		foreach($products as $product) {
 			$identifier = $this->persistenceManager->getIdentifierByObject($product);
-			array_push($result, array('id' => $identifier, 'label' => $product->getType() . '::' . $product->getName() . ' ('. $product->getShortName() . ')', 'value' => $product->getName()));
+			array_push($result, array('id' => $identifier, 'label' => $product->getType() . '::' . $product->getNameAndShortName(), 'value' => $product->getNameAndShortName()));
 			$i++;
 			if ($i == 10) {
 				break;

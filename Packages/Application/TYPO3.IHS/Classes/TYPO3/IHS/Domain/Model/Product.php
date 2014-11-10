@@ -79,6 +79,13 @@ class Product {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getNameAndShortName() {
+		return $this->getName() . ' (' . $this->getShortName() . ')';
+	}
+
+	/**
 	 * @param ProductType $type
 	 */
 	public function setType($type) {
