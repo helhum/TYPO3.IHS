@@ -25,7 +25,7 @@
 	<p>
 		<strong>Vulnerability Types: </strong>
 		<f:for each="{advisory.issues}" as="issue" iteration="iterator">
-			{issue.vulnerabilityType}<f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
+			{issue.vulnerabilityType.value}<f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
 		</f:for>
 	</p>
 
@@ -35,7 +35,7 @@
 	<p>&nbsp;</p>
 	<f:for each="{advisory.issues}" as="issue">
 		<article>
-			<p><strong>Vulnerability Type: </strong>{issue.vulnerabilityType}</p>
+			<p><strong>Vulnerability Type: </strong>{issue.vulnerabilityType.value}</p>
 			<p>
 				<strong>Affected Versions: </strong>
 				<f:for each="{issue.affectedVersions}" as="version" iteration="iterator">

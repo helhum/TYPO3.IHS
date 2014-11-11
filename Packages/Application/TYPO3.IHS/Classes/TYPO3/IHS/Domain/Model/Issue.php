@@ -311,7 +311,7 @@ class Issue {
 	}
 
 	/**
-	 * @return string
+	 * @return VulnerabilityType
 	 */
 	public function getVulnerabilityType() {
 		return $this->vulnerabilityType;

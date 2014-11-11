@@ -8,12 +8,12 @@ namespace TYPO3\IHS\Command;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Cli\CommandController;
-use TYPO3\Flow\Reflection\ReflectionService;
 use TYPO3\IHS\Domain\Model\Advisory;
 use TYPO3\IHS\Domain\Model\Issue;
 use TYPO3\IHS\Domain\Model\Link;
 use TYPO3\IHS\Domain\Model\Product;
 use TYPO3\IHS\Domain\Model\Solution;
+use TYPO3\IHS\Domain\Model\VulnerabilityType;
 use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
 use TYPO3\IHS\Domain\Repository\IssueRepository;
 use TYPO3\IHS\Domain\Repository\ProductRepository;
@@ -237,7 +237,7 @@ class AdvisoryCommandController extends CommandController {
 				break;
 				case 'solution':
 					if ($this->currentIssue) {
-						$this->currentIssue->setTitle(sprintf('%s in %s', $this->currentIssue->getVulnerabilityType(), ($this->currentProduct != NULL) ? $this->currentProduct->getName() : ''));
+						$this->currentIssue->setTitle(sprintf('%s in %s', ($this->currentIssue->getVulnerabilityType() !== NULL) ? $this->currentIssue->getVulnerabilityType()->getValue() : '', ($this->currentProduct != NULL) ? $this->currentProduct->getName() : ''));
 						if ($this->isIssueValid()) {
 							$this->currentAdvisory->addIssue($this->currentIssue);
 							$this->currentIssue->setAdvisory($this->currentAdvisory);
@@ -268,7 +268,7 @@ class AdvisoryCommandController extends CommandController {
 		$value = $matches[$mapping['match']];
 		switch ($mapping['property']) {
 			case 'vulnerabilityType':
-				$this->currentObject->setVulnerabilityType($value);
+				$this->currentObject->setVulnerabilityType(new VulnerabilityType(trim($value)));
 			break;
 			case 'cvss':
 				$this->currentObject->setCVSS($value);
@@ -321,7 +321,7 @@ class AdvisoryCommandController extends CommandController {
 		}
 
 		$vulnerabilityType = $this->currentIssue->getVulnerabilityType();
-		if (empty($vulnerabilityType)) {
+		if ($this->currentIssue->getVulnerabilityType() === NULL) {
 			$result = FALSE;
 			$errors[] = 'Issue without Vulnerability Type found.';
 		}
