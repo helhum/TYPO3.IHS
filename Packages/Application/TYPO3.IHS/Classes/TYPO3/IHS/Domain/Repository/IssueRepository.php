@@ -97,8 +97,8 @@ class IssueRepository extends Repository {
 
 		if ($product) {
 			$qb
-				->andWhere('p.name = :productName')
-				->setParameter('productName', $product);
+				->andWhere('p.shortName = :product')
+				->setParameter('product', $product);
 		}
 
 		if ($hasSolution === TRUE) {

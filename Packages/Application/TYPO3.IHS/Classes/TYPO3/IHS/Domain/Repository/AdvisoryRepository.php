@@ -86,7 +86,7 @@ class AdvisoryRepository extends Repository {
 
 		if ($product) {
 			$constraints[] =
-				$query->equals('issues.product.name', $product);
+				$query->equals('issues.product.shortName', $product);
 		}
 
 		if ($vulnerabilityType) {

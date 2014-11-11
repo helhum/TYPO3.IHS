@@ -55,24 +55,33 @@ class ProductController extends ActionController {
 	 * returns all products as json matching a given termn
 	 *
 	 * @param string $term
-	 * @param boolean $withIssue
 	 * @param string $productType
+	 * @param boolean $withIssue
 	 * @return json $result
 	 */
-	public function getProductsAsJSONAction($term, $withIssue = FALSE, $productType = NULL) {
-		if ($withIssue) {
-			$products = $this->productRepository->findByTermAndHasIssue($term, $productType);
-		} else {
-			$products = $this->productRepository->findByTerm($term, $productType);
-		}
-
+	public function getProductsAsJSONAction($term, $productType = NULL, $withIssue = FALSE) {
+		$products = $this->productRepository->findByTerm($term, $productType, $withIssue);
+		$productsWithMatchingShortName = $this->productRepository->findByTermMatchingShortName($term, $productType, $withIssue);
 
 		$result = array();
+		$existingProducts = array();
 		$i = 0;
+		foreach($productsWithMatchingShortName as $product) {
+			$identifier = $this->persistenceManager->getIdentifierByObject($product);
+			array_push($result, array('id' => $identifier, 'label' => $product->getType() . '::' . $product->getNameAndShortName(), 'value' => $product->getShortName()));
+
+			$existingProducts[$identifier] = true;
+			$i++;
+		}
+
 		foreach($products as $product) {
 			$identifier = $this->persistenceManager->getIdentifierByObject($product);
-			array_push($result, array('id' => $identifier, 'label' => $product->getType() . '::' . $product->getNameAndShortName(), 'value' => $product->getNameAndShortName()));
-			$i++;
+
+			if (!array_key_exists($identifier, $existingProducts)) {
+				array_push($result, array('id' => $identifier, 'label' => $product->getType() . '::' . $product->getNameAndShortName(), 'value' => $product->getShortName()));
+				$i++;
+			}
+
 			if ($i == 10) {
 				break;
 			}

@@ -29,9 +29,10 @@ class ProductRepository extends Repository {
 	 *
 	 * @param string $term
 	 * @param string $productType
+	 * @param boolean $hasIssue
 	 * @return Products
 	 */
-	public function findByTerm($term, $productType) {
+	public function findByTerm($term, $productType, $hasIssue = FALSE) {
 
 		$q = $this->createQuery();
 		// workaround: query should have a getQueryBuilder() method.
@@ -51,35 +52,34 @@ class ProductRepository extends Repository {
 				->leftJoin('e.type', 't')
 				->andWhere('t.value = :productType')
 				->setParameter('productType', $productType);
+		}
+
+		if ($hasIssue) {
+			$qb
+				->join('e.issues', 'i')
+				->groupBy('e')
+				->having('COUNT(i) > 0');
 		}
 
 		return $q->execute();
 	}
 
 	/**
-	 * Finds products matching a given term and are connected with an issue
+	 * Finds products by shortName matching a given term
 	 *
 	 * @param string $term
 	 * @param string $productType
+	 * @param boolean $hasIssue
 	 * @return Products
 	 */
-	public function findByTermAndHasIssue($term, $productType) {
-
+	public function findByTermMatchingShortName($term, $productType, $hasIssue = FALSE) {
 		$q = $this->createQuery();
 		// workaround: query should have a getQueryBuilder() method.
 		$qb = ObjectAccess::getProperty($q, 'queryBuilder', TRUE);
 
 		$qb
-			->join('e.issues', 'i')
-			->groupBy('e')
-			->having('COUNT(i) > 0')
-			->andWhere(
-				$qb->expr()->orX(
-					$qb->expr()->like('e.name', ':term'),
-					$qb->expr()->like('e.shortName', ':term')
-				)
-			)
-			->setParameter('term', "%$term%");
+			->andWhere('e.shortName = :term')
+			->setParameter('term', $term);
 
 		if ($productType) {
 			$qb
@@ -88,6 +88,14 @@ class ProductRepository extends Repository {
 				->setParameter('productType', $productType);
 		}
 
+		if ($hasIssue) {
+			$qb
+				->join('e.issues', 'i')
+				->groupBy('e')
+				->having('COUNT(i) > 0');
+		}
+
 		return $q->execute();
 	}
+
 }

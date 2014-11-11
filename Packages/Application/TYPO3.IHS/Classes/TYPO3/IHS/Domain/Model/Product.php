@@ -82,7 +82,7 @@ class Product {
 	 * @return string
 	 */
 	public function getNameAndShortName() {
-		return $this->getType()->getValue() . ' (' . $this->getShortName() . ')';
+		return $this->getName() . ' (' . $this->getShortName() . ')';
 	}
 
 	/**
