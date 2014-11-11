@@ -9,11 +9,18 @@ namespace TYPO3\IHS\Domain\Repository;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\Doctrine\Repository;
 use TYPO3\Flow\Reflection\ObjectAccess;
+use TYPO3\Flow\Persistence\Doctrine\PersistenceManager;
 
 /**
  * @Flow\Scope("singleton")
  */
 class IssueRepository extends Repository {
+
+	/**
+	 * @Flow\Inject
+	 * @var PersistenceManager
+	 */
+	protected $persistenceManager;
 
 	/**
 	 *
@@ -27,6 +34,7 @@ class IssueRepository extends Repository {
 		$hasSolution = NULL;
 		$hasAdvisory = NULL;
 		$product = FALSE;
+		$vulnerabilityType = FALSE;
 
 		if (array_key_exists("text", $searchRequest)) {
 			$term = $searchRequest["text"];
@@ -54,6 +62,10 @@ class IssueRepository extends Repository {
 			} else {
 				$hasAdvisory = FALSE;
 			}
+		}
+
+		if (array_key_exists("vulnerability type", $searchRequest)) {
+			$vulnerabilityType = $searchRequest["vulnerability type"];
 		}
 
 		$q = $this->createQuery();
@@ -107,6 +119,13 @@ class IssueRepository extends Repository {
 			$qb->andWhere($qb->expr()->isNull('e.advisory'));
 		}
 
+		if ($vulnerabilityType) {
+			$qb
+				->join('e.vulnerabilityType', 't')
+				->andWhere('t.value = :vulnerabilityType')
+				->setParameter('vulnerabilityType', $vulnerabilityType);
+		}
+
 		$qb->orderBy('e.creationDate', 'DESC');
 		return $q->execute();
 	}
@@ -123,6 +142,30 @@ class IssueRepository extends Repository {
 
 		//$qb->andWhere($qb->expr()->isNull('e.advisory'));
 		$qb->orderBy('e.creationDate', 'DESC');
+
+		return $q->execute();
+	}
+
+	/**
+	 *
+	 * @param string $searchTerm
+	 * @return Object
+	 */
+	public function findAllVulnerabilityTypes($searchTerm) {
+		$q = $this->createQuery();
+		// workaround: query should have a getQueryBuilder() method.
+		/** @var $qb \Doctrine\ORM\QueryBuilder **/
+		$qb = ObjectAccess::getProperty($q, 'queryBuilder', TRUE);
+		$qb
+			->resetDQLParts()
+			->select('t')
+			->from('TYPO3\IHS\Domain\Model\VulnerabilityType', 't');
+
+		if ($searchTerm) {
+			$qb
+				->andWhere('t.value = :searchTerm')
+				->setParameter('searchTerm', $searchTerm);
+		}
 
 		return $q->execute();
 	}

@@ -5,7 +5,7 @@ $( document ).ready(function(){
 	var facetsCache = {};
 	var productsCache = {};
 	var ajaxRequest = false;
-
+	var vulnerabilityTypeCache = {};
 
 	advisoryVisualSearch = VS.init({
 		container : $('.advisory-visualsearch'),
@@ -56,7 +56,31 @@ $( document ).ready(function(){
 			valueMatches: function(facet, searchTerm, callback) {
 				switch (facet) {
 					case 'vulnerability type':
-						callback(['low', 'medium', 'high']);
+						if (searchTerm in vulnerabilityTypeCache) {
+							callback(vulnerabilityTypeCache[searchTerm]);
+						} else {
+							if (ajaxRequest) {
+								ajaxRequest.abort();
+							}
+
+							ajaxRequest = $.ajax({
+								type: "GET",
+								url: "/issue/getVulnerabilityTypesAsJSON",
+								dataType: "json",
+								data: {term: searchTerm},
+								success: function(vulnerabilityTypes) {
+									vulnerabilityTypeCache[searchTerm] = vulnerabilityTypes;
+									if (vulnerabilityTypes.length > 0) {
+										callback(vulnerabilityTypes);
+									} else {
+										callback(['no vulnerabilitytypes found']);
+									}
+								},
+								complete: function() {
+									ajaxRequest= false;
+								}
+							});
+						}
 						break;
 					case 'product type':
 						productsCache = {}; // clear products cache when changing product type

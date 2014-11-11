@@ -91,7 +91,7 @@ class AdvisoryRepository extends Repository {
 
 		if ($vulnerabilityType) {
 			$constraints[] =
-				$query->equals('issues.vulnerabilityType', $vulnerabilityType);
+				$query->equals('issues.vulnerabilityType.value', $vulnerabilityType);
 		}
 
 		if ($published === TRUE) {

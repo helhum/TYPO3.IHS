@@ -17,6 +17,8 @@ class ProductController extends ActionController {
 
 	use ArgumentMappingTrait;
 
+	protected $supportedFormats = array("html", "json");
+
 	/**
 	 * @Flow\Inject
 	 * @var \TYPO3\IHS\Domain\Repository\ProductRepository
@@ -28,8 +30,6 @@ class ProductController extends ActionController {
 	 * @var PersistenceManagerInterface
 	 */
 	protected $persistenceManager;
-
-	protected $supportedFormats = array("html", "json");
 
 	/**
 	 * @return void
@@ -102,7 +102,7 @@ class ProductController extends ActionController {
 	/**
 	 * returns all types as json
 	 *
-	 * @return json $result
+	 * @return json $types
 	 */
 	public function getProductTypesAsJSONAction() {
 		$types = array();
@@ -113,5 +113,4 @@ class ProductController extends ActionController {
 
 		return json_encode($types);
 	}
-
 }

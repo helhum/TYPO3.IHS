@@ -18,6 +18,8 @@ class IssueController extends ActionController {
 
 	use ArgumentMappingTrait;
 
+	protected $supportedFormats = array("html", "json");
+
 	/**
 	 * @Flow\Inject
 	 * @var ProductRepository
@@ -41,6 +43,7 @@ class IssueController extends ActionController {
 	 * @var \TYPO3\IHS\Domain\Repository\IssueRepository
 	 */
 	protected $issueRepository;
+
 
 	/**
 	 * @param string $search
@@ -172,5 +175,23 @@ class IssueController extends ActionController {
 		$issues = $this->issueRepository->findBySearchRequest($searchRequestAsArray);
 
 		return $issues;
+	}
+
+	/**
+	 * returns all VulnerabilityTypes as json
+	 *
+	 * @param string $searchTerm
+	 * @return json $types
+	 */
+	public function getVulnerabilityTypesAsJSONAction($searchTerm = NULL) {
+		$vulnerabilityTypes = $this->issueRepository->findAllVulnerabilityTypes($searchTerm);
+
+		$types = array();
+		foreach($vulnerabilityTypes as $vulnerabilityType) {
+			array_push($types, $vulnerabilityType->getValue());
+		}
+
+		return json_encode($types);
+
 	}
 }
