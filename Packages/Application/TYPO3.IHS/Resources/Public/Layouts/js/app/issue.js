@@ -179,7 +179,7 @@ $( document ).ready(function(){
 		$("input#productAjax").val($("select#product option:selected").text());
 
 		// get versions for product if none exists
-		if (!$("#affected-versions option:first-child").val()) {
+		if (!$("#affected-versions option:first-child").val() && $("#affected-versions option").length == 1) {
 			getVersionsForProduct($("select#product option:selected").val())
 		} else {
 			$("#affected-versions").show();
@@ -200,6 +200,11 @@ function getVersionsForProduct(identifier) {
 		$("#affected-versions").slideDown();
 		$(data).each(function(key, data) {
 			$("select#affectedVersions").append("<option value='"+data.id+"'>"+data.value+"</option>")
+		});
+		// select options
+		selectedVersions = JSON.parse($("#selected-affected-versions").html());
+		$(selectedVersions).each(function(key, value) {
+			$("select#affectedVersions option[value='" + value + "']").prop('selected', true)
 		});
 	});
 }

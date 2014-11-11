@@ -141,6 +141,10 @@ select#product {
 	display: none;
 }
 
+#selected-affected-versions {
+	display: none;
+}
+
 /*visualsearch*/
 
 .visualsearch {
