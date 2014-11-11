@@ -20,7 +20,7 @@
 		<f:form.textarea property="description" class="markdown" data="{iconlibrary: 'fa'}" id="description" />
 	</li>
 
-	<li>
+	<li vulnerabilityTypeUrl="{f:uri.action(action:'getVulnerabilityTypesAsJSON', controller:'Issue', package:'TYPO3.IHS')}">
 		<label for="vulnerabilityType">Vulnerability Type</label>
 		<f:form.textfield property="vulnerabilityType.value" id="vulnerabilityType" />
 	</li>

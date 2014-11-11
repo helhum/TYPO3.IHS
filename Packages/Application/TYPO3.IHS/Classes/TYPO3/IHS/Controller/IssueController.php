@@ -180,11 +180,11 @@ class IssueController extends ActionController {
 	/**
 	 * returns all VulnerabilityTypes as json
 	 *
-	 * @param string $searchTerm
+	 * @param string $term
 	 * @return json $types
 	 */
-	public function getVulnerabilityTypesAsJSONAction($searchTerm = NULL) {
-		$vulnerabilityTypes = $this->issueRepository->findAllVulnerabilityTypes($searchTerm);
+	public function getVulnerabilityTypesAsJSONAction($term = NULL) {
+		$vulnerabilityTypes = $this->issueRepository->findAllVulnerabilityTypes($term);
 
 		$types = array();
 		foreach($vulnerabilityTypes as $vulnerabilityType) {

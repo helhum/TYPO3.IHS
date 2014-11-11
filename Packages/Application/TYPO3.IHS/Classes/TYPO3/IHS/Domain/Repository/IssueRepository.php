@@ -148,10 +148,10 @@ class IssueRepository extends Repository {
 
 	/**
 	 *
-	 * @param string $searchTerm
+	 * @param string $term
 	 * @return Object
 	 */
-	public function findAllVulnerabilityTypes($searchTerm) {
+	public function findAllVulnerabilityTypes($term) {
 		$q = $this->createQuery();
 		// workaround: query should have a getQueryBuilder() method.
 		/** @var $qb \Doctrine\ORM\QueryBuilder **/
@@ -159,13 +159,18 @@ class IssueRepository extends Repository {
 		$qb
 			->resetDQLParts()
 			->select('t')
-			->from('TYPO3\IHS\Domain\Model\VulnerabilityType', 't');
+			->from('TYPO3\IHS\Domain\Model\VulnerabilityType', 't')
+		;
 
-		if ($searchTerm) {
+		if ($term) {
 			$qb
-				->andWhere('t.value = :searchTerm')
-				->setParameter('searchTerm', $searchTerm);
+				->andWhere(
+					$qb->expr()->like('t.value', ':term')
+				)
+				->setParameter('term', "%$term%");
 		}
+
+		$qb->orderBy('t.value', 'ASC');
 
 		return $q->execute();
 	}

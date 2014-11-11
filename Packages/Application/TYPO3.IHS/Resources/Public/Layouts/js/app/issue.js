@@ -158,23 +158,21 @@ $( document ).ready(function(){
 	}
 
 	// autocompletion for products
-	var cache = {};
-	var lastTerm = "";
+	var productAutocompletionLastTerm = "";
 	$("input#productAjax")
 		.autocomplete({
 			minLength: 1,
 			max:10,
 			source: function( request, response ) {
 				var term = request.term;
-				if ( term in cache ) {
-					response( cache[ term ] );
+				productAutocompletionLastTerm = term;
+				if ( term in productsCache ) {
+					response( productsCache[ term ] );
 					return;
-				} else {
-					lastTerm = term;
 				}
 
 				$.getJSON( $("input#productAjax").attr("productsUrl"), request, function( data, status, xhr ) {
-					cache[ term ] = data;
+					productsCache[ term ] = data;
 					response( data );
 				});
 			},
@@ -189,7 +187,7 @@ $( document ).ready(function(){
 		})
 		.click(function(){
 			if($(this).val()) {
-				$(this).autocomplete( "search", lastTerm);
+				$(this).autocomplete( "search", productAutocompletionLastTerm);
 			}
 		})
 		.on("keyup", function() {
@@ -198,11 +196,12 @@ $( document ).ready(function(){
 			}
 		});
 
+	// set form error class to autocompletion field if product field has one
 	if($("select#product").hasClass('f3-form-error')) {
 		$("input#productAjax").addClass('f3-form-error');
 	}
 
-
+	// if there is a selected product populate autocompletion field and get versions for this product
 	if($("select#product").val()) {
 		$("input#productAjax").val($("select#product option:selected").text());
 
@@ -213,6 +212,32 @@ $( document ).ready(function(){
 			$("#affected-versions").show();
 		}
 	}
+
+	// autocompletion for vulnerability type
+	var vulnerabilityTypeAutocompletionLastTerm = "";
+	var vulnerabilityTypesCache = {};
+	$("input#vulnerabilityType")
+		.autocomplete({
+			minLength: 0,
+			max:10,
+			source: function( request, response ) {
+				var term = request.term;
+				vulnerabilityTypeAutocompletionLastTerm = term;
+				if ( term in vulnerabilityTypesCache ) {
+					response( vulnerabilityTypesCache[ term ] );
+					return;
+				}
+
+				$.getJSON( $("input#vulnerabilityType").closest('li').attr("vulnerabilityTypeUrl"), request, function( data, status, xhr ) {
+					vulnerabilityTypesCache[ term ] = data;
+					response( data );
+				});
+			}
+		})
+		.click(function(){
+			$(this).autocomplete( "search", vulnerabilityTypeAutocompletionLastTerm);
+		})
+
 });
 
 
