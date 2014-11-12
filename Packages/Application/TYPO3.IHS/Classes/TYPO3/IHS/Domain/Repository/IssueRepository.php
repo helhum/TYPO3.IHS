@@ -90,8 +90,8 @@ class IssueRepository extends Repository {
 
 		if ($productType) {
 			$qb
-				->join('p.type', 't')
-				->andWhere('t.value = :productType')
+				->join('p.type', 'pt')
+				->andWhere('pt.value = :productType')
 				->setParameter('productType', $productType);
 		}
 
