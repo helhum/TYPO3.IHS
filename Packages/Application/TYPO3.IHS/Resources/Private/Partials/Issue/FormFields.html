@@ -7,69 +7,69 @@
 	{namespace ihs=TYPO3\IHS\ViewHelpers}
 	<li>
 		<label for="title">Title</label>
-		<f:form.textfield property="title" id="title" />
+		<f:form.textfield property="{propertyPrefix}title" id="title" value="{object.title}" />
 	</li>
 
 	<li>
 		<label for="abstract">Abstract</label>
-		<f:form.textarea property="abstract" class="markdown" data="{iconlibrary: 'fa'}" id="abstract" />
+		<f:form.textarea property="{propertyPrefix}abstract" class="markdown" data="{iconlibrary: 'fa'}" id="abstract" value="{object.abstract}" />
 	</li>
 
 	<li>
 		<label for="description">Description</label>
-		<f:form.textarea property="description" class="markdown" data="{iconlibrary: 'fa'}" id="description" />
+		<f:form.textarea property="{propertyPrefix}description" class="markdown" data="{iconlibrary: 'fa'}" id="description" value="{object.description}" />
 	</li>
 
 	<li vulnerabilityTypeUrl="{f:uri.action(action:'getVulnerabilityTypesAsJSON', controller:'Issue', package:'TYPO3.IHS')}">
 		<label for="vulnerabilityType">Vulnerability Type</label>
-		<f:form.textfield property="vulnerabilityType.value" id="vulnerabilityType" />
+		<f:form.textarea property="{propertyPrefix}vulnerabilityType.value" id="vulnerabilityType" value="{object.vulnerabilityType.value}" />
 	</li>
 
 	<li>
 		<label for="reporter">Reporter</label>
-		<f:form.textarea property="reporter" id="reporter" />
+		<f:form.textarea property="{propertyPrefix}reporter" id="reporter" value="{object.reporter}" />
 	</li>
 
 	<li>
 		<label for="product">Product</label>
-		<f:form.select property="product" id="product" options="{products}" optionLabelField="nameAndShortName" sortByOptionLabel="true" prependOptionLabel="- select one -"/>
+		<f:form.select property="{propertyPrefix}product" id="product" options="{options.products}" optionLabelField="nameAndShortName" sortByOptionLabel="true" prependOptionLabel="- select one -" value="{object.product}" />
 		<input type="text" id="productAjax" placeholder="type product to find" autocomplete="off" productsUrl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" versionsUrl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}"/>
 	</li>
 
 	<li id="affected-versions">
 		<label for="affectedVersions">Affected Versions</label>
-		<f:form.select property="affectedVersions" id="affectedVersions" options="{object.product.versions}" optionLabelField="humanReadableVersionNumber" size="3" multiple="multiple" />
+		<f:form.select property="{propertyPrefix}affectedVersions" id="affectedVersions" options="{object.product.versions}" optionLabelField="humanReadableVersionNumber" size="3" multiple="multiple" value="{object.affectedVersions}" />
 		<div id="selected-affected-versions">
-			<ihs:form.lastSubmittedValue property="affectedVersions" />
+			<ihs:form.lastSubmittedValue property="{propertyPrefix}affectedVersions" />
 		</div>
 	</li>
 
 	<li>
 		<label for="CVE">CVE</label>
-		<f:form.textfield property="CVE" id="CVE" />
+		<f:form.textfield property="{propertyPrefix}CVE" id="CVE" value="{object.cve}" />
 	</li>
 
 	<li>
 		<label for="CVSS">CVSS</label>
-		<f:form.textfield property="CVSS" id="CVSS" />
+		<f:form.textfield property="{propertyPrefix}CVSS" id="CVSS" value="{object.cvss}" />
 	</li>
 
 	<li>
 		<fieldset>
 			<legend>Links</legend>
 			<ul>
-				<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields'}"/>
+				<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.'}"/>
 			</ul>
 		</fieldset>
 	</li>
 
-	<f:if condition="{solutionsAvailable}">
+	<f:if condition="{options.solutionsAvailable}">
 		<f:then>
 			<li>
 				<fieldset>
 					<legend>Solutions</legend>
 					<ul>
-						<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}}"/>
+						<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.'}"/>
 					</ul>
 				</fieldset>
 			</li>
@@ -81,7 +81,7 @@
 
 	<f:if condition="advisory">
 		<f:then>
-			<f:form.hidden property="advisory" value="{advisory}" />
+			<f:form.hidden property="{propertyPrefix}advisory" value="{advisory}" />
 		</f:then>
 	</f:if>
 

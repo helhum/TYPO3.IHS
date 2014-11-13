@@ -1,7 +1,6 @@
 (function($) {
-
-
 	function DynamicField(element) {
+		console.log('test');
 		var self = this;
 
 		this.$element = $(element);
@@ -29,26 +28,31 @@
 
 			self.$additionalLinkFieldsContainer.append(self.getHtmlForIndex(self.iterationIndex));
 			self.iterationIndex++;
-
+			init();
 		});
 
 		this.getHtmlForIndex = function (index) {
-			return this.htmlTemplate.replace(/\]\[_placeholder_\]\[/g, "][" + index + "][");
-		}
+			return this.htmlTemplate.replace(/^(.+?)(\[_placeholder_\])(\[.+\])(?:\[_placeholder_\]){0,1}(.+)$/gm, "$1[" + index + "]$3$4");
+		};
+
+		this.$element.removeClass('dynamic-fields');
 	}
 
-	$(".dynamic-fields").each(
-		function(index, element) {
-			new DynamicField(element);
-		}
-	);
+	function init() {
+		$(".dynamic-fields").each(
+			function(index, element) {
+				console.log('field');
+				new DynamicField(element);
+			}
+		);
+	}
+	init();
 
 	$("input.datetimepicker").datetimepicker({
 		timeFormat: "hh:mm",
 		dateFormat: "dd.mm.yy",
 		separator: ' - '
 	});
-
 })(jQuery);
 
 jQuery(document).ready(function() {
@@ -61,7 +65,6 @@ jQuery(document).ready(function() {
 		savable:false
 	});
 });
-
 
 function getURLParameter(name) {
 	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null

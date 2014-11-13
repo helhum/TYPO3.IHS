@@ -8,15 +8,20 @@ namespace TYPO3\IHS\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
-use TYPO3\IHS\Domain\Model\Advisory;
-use TYPO3\IHS\Domain\Repository\IssueRepository;
 use TYPO3\Flow\Security\Context;
+use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
+use TYPO3\IHS\Domain\Model\Advisory;
+use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
+use TYPO3\IHS\Domain\Repository\IssueRepository;
+use TYPO3\IHS\Domain\Repository\ProductRepository;
 
 class AdvisoryController extends ActionController {
 
+	use ArgumentMappingTrait;
+
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\IHS\Domain\Repository\AdvisoryRepository
+	 * @var AdvisoryRepository
 	 */
 	protected $advisoryRepository;
 
@@ -28,10 +33,15 @@ class AdvisoryController extends ActionController {
 
 	/**
 	 * @Flow\Inject
+	 * @var ProductRepository
+	 */
+	protected $productRepository;
+
+	/**
+	 * @Flow\Inject
 	 * @var Context
 	 */
 	protected $securityContext;
-
 
 	/**
 	 * A list of IANA media types which are supported by this controller
@@ -63,7 +73,19 @@ class AdvisoryController extends ActionController {
 	 * @return void
 	 */
 	public function editAction(Advisory $advisory) {
+		$products = $this->productRepository->findAll();
+
 		$this->view->assign('advisory', $advisory);
+		$this->view->assign('products', $products);
+	}
+
+	protected function initializeUpdateAction() {
+		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'affectedVersions');
+		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'vulnerabilityType');
+		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'links', NULL, TRUE);
+		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'solutions', NULL, TRUE);
+		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'solutions', 'fixedInVersions');
+		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'solutions', 'links', TRUE);
 	}
 
 	/**

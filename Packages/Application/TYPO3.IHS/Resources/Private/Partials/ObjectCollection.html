@@ -7,7 +7,7 @@
 	<div class="dynamic-fields">
 		<div class="field-template" data-html="
 			<f:format.htmlentities>
-				<f:render partial="{partial}" arguments="{iterationIndex: '_placeholder_', arguments: arguments, propertyPrefix: propertyPrefix}" section="Content"/>
+				<f:render partial="{partial}" arguments="{arguments: arguments, propertyPrefix: '{propertyPrefix}_placeholder_.'}" section="Content"/>
 			</f:format.htmlentities>
 		">
 		</div>
@@ -16,7 +16,14 @@
 			<f:if condition="{objects}">
 
 				<f:for each="{objects}" as="object" iteration="iterator">
-					<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, propertyPrefix: propertyPrefix}" section="Content"/>
+					<f:if condition="{propertyPrefix}">
+						<f:then>
+							<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, options: options, propertyPrefix: '{propertyPrefix}{iterator.index}.'}" section="Content"/>
+						</f:then>
+						<f:else>
+							<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, options: options}" section="Content"/>
+						</f:else>
+					</f:if>
 				</f:for>
 
 			</f:if>

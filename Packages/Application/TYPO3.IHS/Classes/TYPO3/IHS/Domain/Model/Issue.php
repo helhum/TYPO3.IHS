@@ -90,7 +90,7 @@ class Issue {
 
 	/**
 	 * @var Collection<Solution>
-	 * @ORM\OneToMany(mappedBy="issue")
+	 * @ORM\OneToMany(cascade={"persist"},mappedBy="issue")
 	 */
 	protected $solutions;
 
