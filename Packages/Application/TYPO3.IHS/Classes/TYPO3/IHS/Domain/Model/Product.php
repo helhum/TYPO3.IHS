@@ -127,6 +127,10 @@ class Product {
 		return $this->versions;
 	}
 
+	/**
+	 * @param ProductVersion $productVersion
+	 * @return boolean
+	 */
 	public function hasVersion(ProductVersion $productVersion) {
 		foreach ($this->versions as $version) {
 			/* @var $version ProductVersion */
@@ -135,6 +139,13 @@ class Product {
 			}
 		}
 		return FALSE;
+	}
+
+	/**
+	 * @param ProductVersion $version
+	 */
+	public function addVersion(ProductVersion $version) {
+		$this->versions->add($version);
 	}
 
 	/**

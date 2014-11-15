@@ -85,6 +85,11 @@ html, body {
 	font-size: 20px;
 }
 
+.add-field {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
 footer {
 	height: 60px;
 	line-height: 60px;
@@ -143,6 +148,17 @@ select#product {
 
 #selected-affected-versions {
 	display: none;
+}
+
+.add-new-versions {
+	display: block;
+	box-sizing: border-box;
+	width: 220px;
+}
+
+#version-modal textarea {
+	width: 100%;
+	box-sizing: border-box;
 }
 
 /*visualsearch*/

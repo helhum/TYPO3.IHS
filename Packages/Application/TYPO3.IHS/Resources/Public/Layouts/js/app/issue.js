@@ -238,6 +238,48 @@ $( document ).ready(function(){
 			$(this).autocomplete( "search", vulnerabilityTypeAutocompletionLastTerm);
 		})
 
+	// create new versions when adding solutions
+	var currentVersionsField = null;
+	$('#new-versions-modal').on('show', function () {
+		$(this).find('.modal-body').html("loading...")
+	});
+	$('.add-new-versions').on('click', function() {
+		currentVersionsField = $(this).closest('li').find('select#solution-fixedInVersions');
+	});
+	$('.create-versions').on('click', function(e) {
+		e.preventDefault();
+		$(this).button('loading');
+		$('#version-modal .modal-body .status-message').remove();
+		var versions = $('#product-new-versions').val().split('\n');
+		var versionsJSON = JSON.stringify(versions);
+
+		var productIdentifier = $('select#product').val();
+
+		$.ajax({
+			type: "GET",
+			url: $(this).attr("href"),
+			dataType: "json",
+			data: {versions: versionsJSON, productIdentifier: productIdentifier},
+			success: function(data) {
+				if (data.status = "success") {
+					//todo add productversions to select fields
+					var createdVersions = data.createdVersions;
+					$(createdVersions).each(function(key, value) {
+						$(currentVersionsField).append('<option value="' + value.identifier + '">' + value.versionAsString +  '</option>');
+						$(currentVersionsField).find("option[value='" + value.identifier + "']").prop('selected', true);
+
+						currentVersionsField = null;
+					});
+					$('#product-new-versions').val("");
+					$('#version-modal .modal-body').append("<p class='status-message'>" + data.message + "</p>");
+				}
+			},
+			complete: function() {
+				$('.create-versions').button('reset')
+			}
+		});
+	});
+
 });
 
 
@@ -258,7 +300,7 @@ function getVersionsForProduct(identifier) {
 		if ($("#selected-affected-versions").html().trim() != "") {
 			selectedVersions = JSON.parse($("#selected-affected-versions").html());
 			$(selectedVersions).each(function(key, value) {
-				$("select#affectedVersions option[value='" + value + "']").prop('selected', true)
+				$("select#affectedVersions option[value='" + value + "']").prop('selected', true);
 			});
 		}
 	});

@@ -12,6 +12,7 @@ use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\Flow\Persistence\PersistenceManagerInterface;
 use TYPO3\IHS\Domain\Model\Product;
 use TYPO3\IHS\Domain\Model\ProductType;
+use TYPO3\IHS\Domain\Model\ProductVersion;
 
 class ProductController extends ActionController {
 
@@ -57,7 +58,7 @@ class ProductController extends ActionController {
 	 * @param string $term
 	 * @param string $productType
 	 * @param boolean $withIssue
-	 * @return json $result
+	 * @return string $result
 	 */
 	public function getProductsAsJSONAction($term, $productType = NULL, $withIssue = FALSE) {
 		$products = $this->productRepository->findByTerm($term, $productType, $withIssue);
@@ -94,7 +95,7 @@ class ProductController extends ActionController {
 	 * returns all versions to a product as json
 	 *
 	 * @param string $identifier
-	 * @return json $result
+	 * @return string $result
 	 */
 	public function getProductVersionsAsJSONAction($identifier) {
 		$product = $this->productRepository->findByIdentifier($identifier);
@@ -111,7 +112,7 @@ class ProductController extends ActionController {
 	/**
 	 * returns all types as json
 	 *
-	 * @return json $types
+	 * @return string $types
 	 */
 	public function getProductTypesAsJSONAction() {
 		$types = array();
@@ -121,5 +122,61 @@ class ProductController extends ActionController {
 		array_push($types, array('value' => ProductType::FLOW_PACKAGE, 'label' => "PACK::FLOW PACKAGE" ));
 
 		return json_encode($types);
+	}
+
+	/**
+	 * Returns empty form field for adding new versions to a product
+	 *
+	 * @return void
+	 */
+	public function  newVersionAction() {
+
+	}
+
+	/**
+	 * Adds versions to given product
+	 *
+	 * @param string $versions
+	 * @param string $productIdentifier
+	 * @return string $response
+	 */
+	public function  createVersionAction($versions, $productIdentifier) {
+		$response = array();
+		$createdVersions = array();
+
+		/** @var $product Product */
+		$product = $this->productRepository->findByIdentifier($productIdentifier);
+
+		$i = 0;
+		if ($product) {
+			$versions = json_decode($versions);
+			foreach($versions as $version) {
+				$productVersion = new ProductVersion($version);
+				if (!$product->hasVersion($productVersion)) {
+					$product->addVersion($productVersion);
+					$identifier = $this->persistenceManager->getIdentifierByObject($productVersion);
+					$createdVersions[$i]['identifier'] = $identifier;
+					$createdVersions[$i]['versionAsString'] = $version;
+
+					$i++;
+				}
+			}
+
+			$this->productRepository->update($product);
+			$this->persistenceManager->persistAll();
+
+			if ($i > 0) {
+				$response['message'] = 'Version(s) has been created.';
+			} else {
+				$response['message'] = 'No new version has been created.';
+			}
+			$response['status'] = 'success';
+			$response['createdVersions'] = $createdVersions;
+		} else {
+			$response['message'] = 'No product could be found.';
+			$response['status'] = 'error';
+		}
+
+		return json_encode($response);
 	}
 }

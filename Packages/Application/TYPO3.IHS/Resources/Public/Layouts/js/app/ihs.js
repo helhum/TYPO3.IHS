@@ -60,6 +60,12 @@ jQuery(document).ready(function() {
 		autofocus:false,
 		savable:false
 	});
+
+	// make modal reset remote content every time it is opened
+	$('.modal').on('hidden', function() {
+		$(this).removeData('modal');
+	});
+
 });
 
 

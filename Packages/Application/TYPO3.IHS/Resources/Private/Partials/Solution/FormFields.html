@@ -22,11 +22,13 @@
 	<li>
 		<label for="solution-fixedInVersions">Fixed in versions:</label>
 		<f:form.select property="solutions.{iterationIndex}.fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" />
+
+		<a class="btn btn-default add-new-versions" role="button" data-toggle="modal" href="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#version-modal">Add new Version</a>
 	</li>
 
 	<li>
 		<fieldset>
-			<legend>Links</legend>
+			<legend>Links for the solution</legend>
 			<ul>
 				<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields', propertyPrefix: 'solutions.{iterationIndex}.'}"/>
 			</ul>
