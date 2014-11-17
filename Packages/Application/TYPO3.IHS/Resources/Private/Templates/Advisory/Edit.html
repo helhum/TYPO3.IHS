@@ -38,6 +38,14 @@
 					</li>
 				</f:then>
 			</f:if>
+			<li>
+				<fieldset>
+					<legend>Issues</legend>
+					<ul>
+						<f:render partial="ObjectCollection" section="Content" arguments="{objects: advisory.issues, partial:'Issue/FormFields', arguments: {issue: object}, options: {products: products, solutionsAvailable: 1}, propertyPrefix: 'issues.'}"/>
+					</ul>
+				</fieldset>
+			</li>
 
 		</ol>
 		<f:link.action class="btn" action="index">Cancel</f:link.action> <f:form.submit class="btn btn-primary" value="Update" />

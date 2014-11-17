@@ -32,7 +32,7 @@ class Advisory {
 
 	/**
 	 * @var Collection<Issue>
-	 * @ORM\OneToMany(mappedBy="advisory")
+	 * @ORM\OneToMany(cascade={"persist"},mappedBy="advisory")
 	 */
 	protected $issues;
 

@@ -15,7 +15,7 @@
 		</f:alias>
 
 		<ol>
-			<f:render partial="Issue/FormFields" section="Content" arguments="{object: issue, products: products, solutionsAvailable: solutionsAvailable}"/>
+			<f:render partial="Issue/FormFields" section="Content" arguments="{object: issue, options: {products: products, solutionsAvailable: solutionsAvailable}}"/>
 		</ol>
 
 		<f:link.action class="btn" action="index">Cancel</f:link.action> <f:form.submit class="btn btn-primary" value="Update" />
