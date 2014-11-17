@@ -1,3 +1,4 @@
+{namespace ihs=TYPO3\IHS\ViewHelpers}
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
@@ -8,7 +9,6 @@
 <f:layout name="Default" />
 
 <f:section name="Content">
-
 <article>
 	<h1>{advisory.identifier}:{advisory.title}</h1>
 	<f:security.ifAuthenticated>
@@ -17,7 +17,7 @@
 		</f:then>
 	</f:security.ifAuthenticated>
 	<section class="abstract">
-		{advisory.abstract}
+		<ihs:format.markdown>{advisory.abstract}</ihs:format.markdown>
 	</section>
 	<p>&nbsp;</p>
 	<p><strong>Component Type: </strong>{advisory.issues.0.product.name}</p>
@@ -45,11 +45,11 @@
 			<p><strong>Severity:</strong> {issue.severity}</p>
 			<p><strong>Suggested CVSS v2.0: </strong><a href="http://jvnrss.ise.chuo-u.ac.jp/jtg/cvss/cvss2.cgi?vector=%28{issue.CVSS}%29&amp;g=3&amp;lang=en" title="CVSS calculator" target="_blank">{issue.CVSS}</a></p>
 			<p><strong>CVE:</strong> <f:if condition="{issue.CVE}"><f:then>{issue.CVE}</f:then><f:else>None assigned yet.</f:else></f:if></p>
-			<p><strong>Problem Description: </strong>{issue.abstract}</p>
-			<f:format.raw>{issue.description}</f:format.raw>
+			<p><strong>Problem Description: </strong><ihs:format.markdown>{issue.abstract}</ihs:format.markdown></p>
+			<ihs:format.markdown>{issue.description}</ihs:format.markdown>
 			<f:for each="{issue.solutions}" as="solution" iteration="iterator">
-				<p><strong><f:if condition="{iterator.index} > 0">Alternative </f:if>Solution:</strong> {solution.abstract}</p>
-				<f:format.raw>{solution.description}</f:format.raw>
+				<p><strong><f:if condition="{iterator.index} > 0">Alternative </f:if>Solution:</strong> <ihs:format.markdown>{solution.abstract}</ihs:format.markdown></p>
+				<ihs:format.markdown>{solution.description}</ihs:format.markdown>
 			</f:for>
 			<p><strong>Reported by: </strong>{issue.reporter}</p>
 			<f:if condition="{solution.author -> f:for(each: issue.solutions, as: 'solution')}">

@@ -24,7 +24,7 @@
 
 		<tr>
 			<th>Description</th>
-			<td>{issue.description}</td>
+			<td><ihs:format.markdown>{issue.description}</ihs:format.markdown></td>
 		</tr>
 
 		<tr>
@@ -91,8 +91,8 @@
 					<f:then>
 						<f:for each="{issue.solutions}" as="solution">
 							<p>{solution.author}</p>
-							<p>{solution.abstract}</p>
-							<p>{solution.description}</p>
+							<p><ihs:format.markdown>{solution.abstract}</ihs:format.markdown></p>
+							<p><ihs:format.markdown>{solution.description}</ihs:format.markdown></p>
 							<p>
 								Fixed in versions: <br />
 								<f:for each="{solution.fixedInVersions}" as="fixedInVersion">

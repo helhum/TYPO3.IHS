@@ -1,3 +1,4 @@
+{namespace ihs=TYPO3\IHS\ViewHelpers}
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
@@ -23,9 +24,8 @@
 								<span class="b-news-item-date">Published: <span class="label">not published</span></span>
 							</f:else>
 						</f:if>
-
 					</p>
-					<p class="b-news-item-subheader">{advisory.abstract}</p>
+					<p class="b-news-item-subheader"><ihs:format.markdown>{advisory.abstract}</ihs:format.markdown></p>
 
 					<f:security.ifAuthenticated>
 						<f:then>
