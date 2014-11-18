@@ -90,6 +90,20 @@ class AdvisoryCommandController extends CommandController {
 	protected $settings;
 
 	/**
+	 * Resets all advisories, issues and solutions
+	 *
+	 * @param boolean $confirmation
+	 */
+	public function resetCommand($confirmation = FALSE) {
+		if ($confirmation) {
+			$this->issueRepository->removeAll();
+			$this->advisoryRepository->removeAll();
+		} else {
+			$this->outputLine('You need to confirm this reset.');
+		}
+	}
+
+	/**
 	 * Imports all advisories
 	 */
 	public function importAllCommand() {
