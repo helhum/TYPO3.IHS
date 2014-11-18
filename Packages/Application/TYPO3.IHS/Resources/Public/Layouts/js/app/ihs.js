@@ -1,6 +1,5 @@
 (function($) {
 	function DynamicField(element) {
-		console.log('test');
 		var self = this;
 
 		this.$element = $(element);
@@ -36,12 +35,13 @@
 		};
 
 		this.$element.removeClass('dynamic-fields');
+
+		$('body').trigger('dynamicFieldAdded');
 	}
 
 	function init() {
 		$(".dynamic-fields").each(
 			function(index, element) {
-				console.log('field');
 				new DynamicField(element);
 			}
 		);

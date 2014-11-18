@@ -1,6 +1,6 @@
 var issueVisualSearch = false; // global instance of visual search for issues
 
-$( document ).ready(function(){
+$(document).ready(function() {
 	// visual search
 	var facetsCache = {};
 	var productsCache = {};
@@ -157,96 +157,104 @@ $( document ).ready(function(){
 		handleSavedIssueSearches();
 	}
 
+	initIssue();
+	$('body').on('dynamicFieldAdded', initIssue);
+});
+
+function initIssue() {
+	var productsCache = {};
+
 	// autocompletion for products
 	var productAutocompletionLastTerm = "";
-	$("input#productAjax")
-		.autocomplete({
-			minLength: 1,
-			max:10,
-			source: function( request, response ) {
-				var term = request.term;
-				productAutocompletionLastTerm = term;
-				if ( term in productsCache ) {
-					response( productsCache[ term ] );
-					return;
-				}
+	$('input.productAjax').autocomplete({
+		minLength: 1,
+		max: 10,
+		source: function (request, response) {
+			var term = request.term;
+			productAutocompletionLastTerm = term;
+			if (term in productsCache) {
+				response(productsCache[term]);
+				return;
+			}
 
-				$.getJSON( $("input#productAjax").attr("productsUrl"), request, function( data, status, xhr ) {
-					productsCache[ term ] = data;
-					response( data );
-				});
-			},
-			select: function( event, ui ) {
-				var currentValue = $("select#product").val();
-				$("select#product").val(ui.item.id);
+			$.getJSON($('input.productAjax').attr('productsUrl'), request, function (data, status, xhr) {
+				productsCache[term] = data;
+				response(data);
+			});
+		},
+		select: function (event, ui) {
+			var select = $(event.target).siblings('select.product')[0];
+			var currentValue = jQuery(select).val();
+			jQuery(select).val(ui.item.id);
 
-				if(ui.item.id != currentValue) {
-					getVersionsForProduct(ui.item.id);
-				}
+			if (ui.item.id != currentValue) {
+				getVersionsForProduct(ui.item.id, select);
 			}
-		})
-		.click(function(){
-			if($(this).val()) {
-				$(this).autocomplete( "search", productAutocompletionLastTerm);
-			}
-		})
-		.on("keyup", function() {
-			if($(this).val() == "") {
-				$("#affected-versions").slideUp();
-			}
-		});
+		}
+	}).click(function () {
+		if ($(this).val()) {
+			$(this).autocomplete('search', productAutocompletionLastTerm);
+		}
+	}).on('keyup', function (event, ui) {
+		if ($(this).val() == "") {
+			$("#affected-versions").slideUp();
+		}
+	});
 
 	// set form error class to autocompletion field if product field has one
-	if($("select#product").hasClass('f3-form-error')) {
-		$("input#productAjax").addClass('f3-form-error');
-	}
+	$('select.product').each(function(index, element) {
+		if(jQuery(element).hasClass('f3-form-error')) {
+			$(element).siblings('input.productAjax').first().addClass('f3-form-error');
+		}
+	});
 
 	// if there is a selected product populate autocompletion field and get versions for this product
-	if($("select#product").val()) {
-		$("input#productAjax").val($("select#product option:selected").text());
+	$('select.product').each(function(index, element) {
+		if ($(element).val()) {
+			$(element).siblings('input.productAjax').val($(element).children('option:selected')[0].text);
+			var versions = $(element).closest('li').first().siblings('.affected-versions').first();
 
-		// get versions for product if none exists
-		if (!$("#affected-versions option:first-child").val() && $("#affected-versions option").length == 1) {
-			getVersionsForProduct($("select#product option:selected").val())
-		} else {
-			$("#affected-versions").show();
+			// get versions for product if none exists
+			if (!$(versions).children('option:first-child').first().val() && $(versions).children('option').length == 1) {
+				getVersionsForProduct($(element).children('option:selected').first().val(), element)
+			} else {
+				$(versions).show();
+			}
 		}
-	}
+	});
 
 	// autocompletion for vulnerability type
 	var vulnerabilityTypeAutocompletionLastTerm = "";
 	var vulnerabilityTypesCache = {};
-	$("input#vulnerabilityType")
-		.autocomplete({
-			minLength: 0,
-			max:10,
-			source: function( request, response ) {
-				var term = request.term;
-				vulnerabilityTypeAutocompletionLastTerm = term;
-				if ( term in vulnerabilityTypesCache ) {
-					response( vulnerabilityTypesCache[ term ] );
-					return;
-				}
-
-				$.getJSON( $("input#vulnerabilityType").closest('li').attr("vulnerabilityTypeUrl"), request, function( data, status, xhr ) {
-					vulnerabilityTypesCache[ term ] = data;
-					response( data );
-				});
+	$('input.vulnerabilityType').autocomplete({
+		minLength: 0,
+		max: 10,
+		source: function (request, response) {
+			var term = request.term;
+			vulnerabilityTypeAutocompletionLastTerm = term;
+			if (term in vulnerabilityTypesCache) {
+				response(vulnerabilityTypesCache[term]);
+				return;
 			}
-		})
-		.click(function(){
-			$(this).autocomplete( "search", vulnerabilityTypeAutocompletionLastTerm);
-		})
+
+			$.getJSON($('input.vulnerabilityType').closest('li').attr('vulnerabilityTypeUrl'), request, function (data, status, xhr) {
+				vulnerabilityTypesCache[term] = data;
+				response(data);
+			});
+		}
+	}).click(function () {
+		$(this).autocomplete("search", vulnerabilityTypeAutocompletionLastTerm);
+	});
 
 	// create new versions when adding solutions
 	var currentVersionsField = null;
 	$('#new-versions-modal').on('show', function () {
 		$(this).find('.modal-body').html("loading...")
 	});
-	$('.add-new-versions').on('click', function() {
+	$('.add-new-versions').on('click', function () {
 		currentVersionsField = $(this).closest('li').find('select#solution-fixedInVersions');
 	});
-	$('.create-versions').on('click', function(e) {
+	$('.create-versions').on('click', function (e) {
 		e.preventDefault();
 		$(this).button('loading');
 		$('#version-modal .modal-body .status-message').remove();
@@ -260,12 +268,12 @@ $( document ).ready(function(){
 			url: $(this).attr("href"),
 			dataType: "json",
 			data: {versions: versionsJSON, productIdentifier: productIdentifier},
-			success: function(data) {
+			success: function (data) {
 				if (data.status = "success") {
 					//todo add productversions to select fields
 					var createdVersions = data.createdVersions;
-					$(createdVersions).each(function(key, value) {
-						$(currentVersionsField).append('<option value="' + value.identifier + '">' + value.versionAsString +  '</option>');
+					$(createdVersions).each(function (key, value) {
+						$(currentVersionsField).append('<option value="' + value.identifier + '">' + value.versionAsString + '</option>');
 						$(currentVersionsField).find("option[value='" + value.identifier + "']").prop('selected', true);
 
 						currentVersionsField = null;
@@ -274,33 +282,33 @@ $( document ).ready(function(){
 					$('#version-modal .modal-body').append("<p class='status-message'>" + data.message + "</p>");
 				}
 			},
-			complete: function() {
+			complete: function () {
 				$('.create-versions').button('reset')
 			}
 		});
 	});
+}
 
-});
-
-
-function getVersionsForProduct(identifier) {
+function getVersionsForProduct(identifier, productSelect) {
 	$.ajax({
-		type: "GET",
-		url: $("input#productAjax").attr("versionsUrl"),
-		data: { "identifier": identifier},
-		dataType: "json"
-	})
-	.success(function( data ) {
-		$("select#affectedVersions").html(""); // clear version list from prev request
-		$("#affected-versions").slideDown();
+		type: 'GET',
+		url: $('input.productAjax').attr('versionsUrl'),
+		data: {"identifier": identifier},
+		dataType: 'json'
+	}).success(function(data) {
+		var versions = $(productSelect).closest('li').siblings('.affected-versions')[0];
+		var versionsSelect = $(versions).children('select.affectedVersions')[0];
+		var selectedVersionsSelect = $(versions).children('.selected-affected-versions')[0];
+		$(versionsSelect).html(''); // clear version list from prev request
+		$(versions).slideDown();
 		$(data).each(function(key, data) {
-			$("select#affectedVersions").append("<option value='"+data.id+"'>"+data.value+"</option>")
+			$(versionsSelect).append('<option value="' + data.id + '">' + data.value + '</option>');
 		});
 		// select options
-		if ($("#selected-affected-versions").html().trim() != "") {
-			selectedVersions = JSON.parse($("#selected-affected-versions").html());
+		if ($(selectedVersionsSelect).html().trim() != '') {
+			selectedVersions = JSON.parse($('#selected-affected-versions').html());
 			$(selectedVersions).each(function(key, value) {
-				$("select#affectedVersions option[value='" + value + "']").prop('selected', true);
+				$($(versionsSelect).children('option[value="' + value + '"]')[0]).prop('selected', true);
 			});
 		}
 	});

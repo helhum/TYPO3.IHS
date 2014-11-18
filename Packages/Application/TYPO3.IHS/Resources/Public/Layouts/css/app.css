@@ -134,11 +134,11 @@ input.f3-form-error {
 
 
 /* issue form fields */
-select#product {
+select.product {
 	display: none;
 }
 
-#affected-versions {
+.affected-versions {
 	display: none;
 }
 
@@ -146,7 +146,7 @@ select#product {
 	display: none;
 }
 
-#selected-affected-versions {
+.selected-affected-versions {
 	display: none;
 }
 

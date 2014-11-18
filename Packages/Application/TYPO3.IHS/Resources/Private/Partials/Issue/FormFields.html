@@ -37,7 +37,7 @@
 
 	<li vulnerabilityTypeUrl="{f:uri.action(action:'getVulnerabilityTypesAsJSON', controller:'Issue', package:'TYPO3.IHS')}">
 		<label for="vulnerabilityType">Vulnerability Type</label>
-		<f:form.textarea property="{propertyPrefix}vulnerabilityType.value" id="vulnerabilityType" value="{object.vulnerabilityType.value}" />
+		<f:form.textfield property="{propertyPrefix}vulnerabilityType.value" class="vulnerabilityType" value="{object.vulnerabilityType.value}" />
 	</li>
 
 	<li>
@@ -47,14 +47,14 @@
 
 	<li>
 		<label for="product">Product</label>
-		<f:form.select property="{propertyPrefix}product" id="product" options="{options.products}" optionLabelField="nameAndShortName" sortByOptionLabel="true" prependOptionLabel="- select one -" value="{object.product}" />
-		<input type="text" id="productAjax" placeholder="type product to find" autocomplete="off" productsUrl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" versionsUrl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}"/>
+		<f:form.select property="{propertyPrefix}product" class="product" options="{options.products}" optionLabelField="nameAndShortName" sortByOptionLabel="true" prependOptionLabel="- select one -" value="{object.product}" />
+		<input type="text" class="productAjax" placeholder="type product to find" autocomplete="off" productsUrl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" versionsUrl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}" />
 	</li>
 
-	<li id="affected-versions">
+	<li class="affected-versions">
 		<label for="affectedVersions">Affected Versions</label>
-		<f:form.select property="{propertyPrefix}affectedVersions" id="affectedVersions" options="{object.product.versions}" optionLabelField="humanReadableVersionNumber" size="3" multiple="multiple" value="{object.affectedVersions}" />
-		<div id="selected-affected-versions">
+		<f:form.select property="{propertyPrefix}affectedVersions" class="affectedVersions" options="{object.product.versions}" optionLabelField="humanReadableVersionNumber" size="3" multiple="multiple" value="{object.affectedVersions}" />
+		<div class="selected-affected-versions">
 			<ihs:form.lastSubmittedValue property="{propertyPrefix}affectedVersions" />
 		</div>
 	</li>
