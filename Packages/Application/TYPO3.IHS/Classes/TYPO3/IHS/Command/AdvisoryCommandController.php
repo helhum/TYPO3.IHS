@@ -208,6 +208,7 @@ class AdvisoryCommandController extends CommandController {
 		$publishingDate = $xpath->query('./div[1]//p[1]', $article)->item(0)->nodeValue;
 		$date = new \DateTime($publishingDate);
 		$this->currentAdvisory->setPublishingDate($date);
+		$this->currentAdvisory->setCreationDate($date);
 		$this->currentAdvisory->setPublished(TRUE);
 	}
 
@@ -231,6 +232,7 @@ class AdvisoryCommandController extends CommandController {
 
 					$this->currentIssue = new Issue();
 					$this->currentObject = $this->currentIssue;
+					$this->currentIssue->setCreationDate($this->currentAdvisory->getCreationDate());
 					if ($this->currentProduct) {
 						$this->currentIssue->setProduct($this->currentProduct);
 					}

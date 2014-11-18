@@ -100,6 +100,13 @@ class Advisory {
 	}
 
 	/**
+	 * @param \DateTime $creationDate
+	 */
+	public function setCreationDate($creationDate) {
+		$this->creationDate = $creationDate;
+	}
+
+	/**
 	 * @return \DateTime
 	 */
 	public function getCreationDate() {
