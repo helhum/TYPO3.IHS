@@ -14,7 +14,7 @@ resources:
     TYPO3_IHS_PublicFrontendAccess: 'method(TYPO3\Neos\Controller\Frontend\NodeController->showAction())'
     TYPO3_IHS_Login: 'method(TYPO3\IHS\Controller\LoginController->(index|authenticate)Action()) || method(TYPO3\Flow\Security\Authentication\Controller\AbstractAuthenticationController->authenticateAction())'
 
-    TYPO3_IHS_Advisories: 'method(TYPO3\IHS\Controller\AdvisoryController->(index|show|rssFeed|search)Action()) || method(TYPO3\IHS\Controller\ProductController->(getProductTypesAsJSON)Action())'
+    TYPO3_IHS_Advisories: 'method(TYPO3\IHS\Controller\AdvisoryController->(index|show|rssFeed|search)Action()) || method(TYPO3\IHS\Controller\ProductController->(getProductTypesAsJSON|getProductsAsJSON)Action()) || method(TYPO3\IHS\Controller\IssueController->(getVulnerabilityTypesAsJSON)Action())'
 #    TYPO3_IHS_Backend_GeneralAccess: 'within(TYPO3\Flow\Mvc\Controller\AbstractController) && method(public .*->(?!initialize).*Action())'
 
 acls:
