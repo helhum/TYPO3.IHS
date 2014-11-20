@@ -24,7 +24,15 @@
 		<label for="solution-fixedInVersions">Fixed in versions:</label>
 		<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" />
 
-		<a class="btn btn-default add-new-versions" role="button" data-toggle="modal" href="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#version-modal">Add new Version</a>
+		<a class="btn btn-default add-new-versions" role="button" data-toggle="modal" href="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#new-versions-modal">Add new Version</a>
+		<div class="created-versions-outer">
+			<p>
+				Angelegte Versionen:
+			</p>
+			<div class="created-versions" data-delete-url="{f:uri.action(action:'deleteVersion', controller:'Product', package:'TYPO3.IHS')}">
+				<ul></ul>
+			</div>
+		</div>
 	</li>
 
 	<li>

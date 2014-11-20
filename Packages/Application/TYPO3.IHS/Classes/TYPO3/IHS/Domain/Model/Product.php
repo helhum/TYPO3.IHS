@@ -41,7 +41,7 @@ class Product {
 
 	/**
 	 * @var Collection<ProductVersion>
-	 * @ORM\ManyToMany(cascade={"persist"})
+	 * @ORM\ManyToMany(cascade={"persist", "remove"})
 	 * @ORM\OrderBy({"versionNumber" = "ASC"})
 	 */
 	protected $versions;
@@ -146,6 +146,13 @@ class Product {
 	 */
 	public function addVersion(ProductVersion $version) {
 		$this->versions->add($version);
+	}
+
+	/**
+	 * @param string $versionIdentifier
+	 */
+	public function removeVersion($versionIdentifier) {
+		$this->versions->remove($versionIdentifier);
 	}
 
 	/**

@@ -58,6 +58,7 @@ html, body {
 	background: none;
 	border: none;
 	cursor: default;
+	box-shadow: none;
 }
 
 .articles h2 {
@@ -156,9 +157,13 @@ select.product {
 	width: 220px;
 }
 
-#version-modal textarea {
+#new-versions-modal textarea {
 	width: 100%;
 	box-sizing: border-box;
+}
+
+.created-versions-outer {
+	display: none;
 }
 
 /*visualsearch*/

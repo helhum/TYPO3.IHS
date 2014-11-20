@@ -179,4 +179,26 @@ class ProductController extends ActionController {
 
 		return json_encode($response);
 	}
+
+	/**
+	 * Removes version from given product
+	 *
+	 * @param string $versionIdentifier
+	 * @param string $productIdentifier
+	 *
+	 * @return string $response
+	 */
+	public function deleteVersionAction($versionIdentifier, $productIdentifier) {
+		$response = array();
+
+		/** @var $product Product */
+		$product = $this->productRepository->findByIdentifier($productIdentifier);
+		$product->removeVersion($versionIdentifier);
+
+		$this->productRepository->update($product);
+		$this->persistenceManager->persistAll();
+
+		$response['status'] = 'success';
+		return json_encode($response);
+	}
 }

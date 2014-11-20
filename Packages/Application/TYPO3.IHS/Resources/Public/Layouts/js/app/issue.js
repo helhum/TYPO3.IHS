@@ -261,7 +261,7 @@ function initIssue() {
 		var versions = $('#product-new-versions').val().split('\n');
 		var versionsJSON = JSON.stringify(versions);
 
-		var productIdentifier = $('select#product').val();
+		var productIdentifier = $('select.product').val();
 
 		$.ajax({
 			type: "GET",
@@ -274,12 +274,30 @@ function initIssue() {
 					var createdVersions = data.createdVersions;
 					$(createdVersions).each(function (key, value) {
 						$(currentVersionsField).append('<option value="' + value.identifier + '">' + value.versionAsString + '</option>');
-						$(currentVersionsField).find("option[value='" + value.identifier + "']").prop('selected', true);
+						$(currentVersionsField).find('option[value="' + value.identifier + '"]').prop('selected', true);
 
-						currentVersionsField = null;
+						// add new version to list of created versions
+						$(currentVersionsField).closest('li').find('div.created-versions ul').append('<li class="created-version" data-version-id="' + value.identifier + '">' + value.versionAsString + '<button type="button" class="delete-created-version btn btn-danger btn-small">delete</button></li>')
+						$(currentVersionsField).closest('li').find('div.created-versions-outer').show();
+
+						// add click action for new versions to delete them
+						$('div.created-versions li[data-version-id="' + value.identifier + '"] .delete-created-version').on('click', function() {
+							var button = $(this);
+							$.ajax({
+								type: "GET",
+								url: $('.created-versions').attr('data-delete-url'),
+								dataType: "json",
+								data: {versionIdentifier: value.identifier, productIdentifier: productIdentifier},
+								success: function (data) {
+									$(button).closest('li').remove();
+									$(currentVersionsField).find('option[value="' + value.identifier + '"]').remove();
+								}
+							});
+						});
 					});
 					$('#product-new-versions').val("");
 					$('#version-modal .modal-body').append("<p class='status-message'>" + data.message + "</p>");
+					$('#new-versions-modal').modal('hide')
 				}
 			},
 			complete: function () {
@@ -287,6 +305,7 @@ function initIssue() {
 			}
 		});
 	});
+
 }
 
 function getVersionsForProduct(identifier, productSelect) {
