@@ -248,12 +248,15 @@ function initIssue() {
 
 	// create new versions when adding solutions
 	var currentVersionsField = null;
+	$('#new-versions-modal').off('show');
 	$('#new-versions-modal').on('show', function () {
 		$(this).find('.modal-body').html("loading...")
 	});
+	$('.add-new-versions').off('click');
 	$('.add-new-versions').on('click', function () {
 		currentVersionsField = $(this).closest('li').find('select#solution-fixedInVersions');
 	});
+	$('.create-versions').off('click');
 	$('.create-versions').on('click', function (e) {
 		e.preventDefault();
 		$(this).button('loading');
@@ -296,8 +299,7 @@ function initIssue() {
 						});
 					});
 					$('#product-new-versions').val("");
-					$('#version-modal .modal-body').append("<p class='status-message'>" + data.message + "</p>");
-					$('#new-versions-modal').modal('hide')
+					$('#new-versions-modal .modal-body').append("<p class='status-message'>" + data.message + "</p>");
 				}
 			},
 			complete: function () {
@@ -325,7 +327,7 @@ function getVersionsForProduct(identifier, productSelect) {
 		});
 		// select options
 		if ($(selectedVersionsSelect).html().trim() != '') {
-			selectedVersions = JSON.parse($('#selected-affected-versions').html());
+			var selectedVersions = JSON.parse($('.selected-affected-versions').html());
 			$(selectedVersions).each(function(key, value) {
 				$($(versionsSelect).children('option[value="' + value + '"]')[0]).prop('selected', true);
 			});
