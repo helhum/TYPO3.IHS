@@ -65,7 +65,7 @@ $( document ).ready(function(){
 
 							ajaxRequest = $.ajax({
 								type: "GET",
-								url: "/issue/getVulnerabilityTypesAsJSON",
+								url: "/issues/getVulnerabilityTypesAsJSON",
 								dataType: "json",
 								data: {term: searchTerm},
 								success: function(vulnerabilityTypes) {
@@ -94,7 +94,7 @@ $( document ).ready(function(){
 
 							ajaxRequest = $.ajax({
 								type: "GET",
-								url: "/product/getProductTypesAsJSON",
+								url: "/products/getProductTypesAsJSON",
 								dataType: "json",
 								success: function(types) {
 									facetsCache['product type'] = types;
@@ -124,7 +124,7 @@ $( document ).ready(function(){
 
 							ajaxRequest = $.ajax({
 								type: "GET",
-								url: "/product/getProductsAsJSON",
+								url: "/products/getProductsAsJSON",
 								dataType: "json",
 								data: {term: searchTerm, withIssue: true, productType: productType},
 								success: function(products) {

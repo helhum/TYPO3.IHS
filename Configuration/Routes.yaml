@@ -13,16 +13,3 @@
   subRoutes:
     IHSSubroutes:
       package: TYPO3.IHS
-
-##
-# Flow subroutes
-#
-
--
-  name: 'Flow'
-  uriPattern: '<FlowSubroutes>'
-  defaults:
-    '@format': 'html'
-  subRoutes:
-    FlowSubroutes:
-      package: TYPO3.Flow

@@ -3,14 +3,6 @@
 #                                                                        #
 
 -
-  name: 'Advisory'
-  uriPattern: 'security-bulletins/{advisory}(.{@format})'
-  defaults:
-    '@package':       'TYPO3.IHS'
-    '@controller':    'Advisory'
-    '@action':        'show'
-    '@format':        'html'
--
   name: 'Advisory list'
   uriPattern: 'security-bulletins'
   defaults:
@@ -18,19 +10,51 @@
     '@controller':    'Advisory'
     '@action':        'index'
     '@format':        'html'
--
-  name: 'IHS'
-  uriPattern: '{@controller}/{@action}(.{@format})'
-  defaults:
-    '@package':    'TYPO3.IHS'
-    '@format':    'html'
-  appendExceedingArguments: true
+  appendExceedingArguments: TRUE
 
 -
-  name: 'fallback to advisory list'
-  uriPattern: ''
+  name: 'Advisory single view'
+  uriPattern: 'security-bulletin/{advisory}(.{@format})'
   defaults:
-    '@package':    'TYPO3.IHS'
-    '@controller': 'Advisory'
-    '@action':     'index'
-    '@format':     'html'
+    '@package':       'TYPO3.IHS'
+    '@controller':    'Advisory'
+    '@action':        'show'
+    '@format':        'html'
+
+-
+  name: 'Advisories'
+  uriPattern: 'security-bulletins/{@action}(.{@format})'
+  defaults:
+    '@package':       'TYPO3.IHS'
+    '@controller':    'Advisory'
+    '@action':        'index'
+    '@format':        'html'
+  appendExceedingArguments: TRUE
+
+-
+  name: 'Issues list'
+  uriPattern: 'issues/{@action}'
+  defaults:
+    '@package':       'TYPO3.IHS'
+    '@controller':    'Issue'
+    '@action':        'index'
+    '@format':        'html'
+  appendExceedingArguments: TRUE
+
+-
+  name: 'Login'
+  uriPattern: 'login/{@action}(.{@format})'
+  defaults:
+    '@package':       'TYPO3.IHS'
+    '@controller':    'Login'
+    '@action':        'index'
+    '@format':        'html'
+-
+  name: 'Products'
+  uriPattern: 'products/{@action}(.{@format})'
+  defaults:
+    '@package':       'TYPO3.IHS'
+    '@controller':    'Product'
+    '@action':        'index'
+    '@format':        'html'
+  appendExceedingArguments: TRUE
