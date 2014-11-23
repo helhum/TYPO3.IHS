@@ -17,7 +17,7 @@
 			this.$hiddenFields.each(function(index, element) {
 				// Trick to get the html of the actual element, see http://stackoverflow.com/questions/6459398/jquery-get-html-of-container-including-the-container-itself
 				var parentEl = $(element).wrap("<p/>").parent();
-				self.htmlTemplate = parentEl.html() + self.htmlTemplate;
+				//self.htmlTemplate = parentEl.html() + self.htmlTemplate;
 				parentEl.remove();
 			});
 		}

@@ -42,7 +42,7 @@
 				<fieldset>
 					<legend>Issues</legend>
 					<ul>
-						<f:render partial="ObjectCollection" section="Content" arguments="{objects: advisory.issues, partial:'Issue/FormFields', arguments: {advisory: advisory}, options: {products: products, solutionsAvailable: 1}, propertyPrefix: 'issues.'}"/>
+						<f:render partial="ObjectCollection" section="Content" arguments="{objects: advisory.issues, partial:'Issue/FormFields', arguments: {advisory: advisory}, options: {advisory: advisory, products: products, solutionsAvailable: 1}, propertyPrefix: 'issues.'}"/>
 					</ul>
 				</fieldset>
 			</li>

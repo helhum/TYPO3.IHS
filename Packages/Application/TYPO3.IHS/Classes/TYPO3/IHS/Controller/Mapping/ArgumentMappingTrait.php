@@ -60,7 +60,7 @@ trait ArgumentMappingTrait {
 					->allowAllProperties();
 
 				if ($subProperty !== NULL) {
-					$mappingConfiguration->forProperty($property . '.' . $propertyIndex . '.' . $subProperty)->allowAllProperties();
+					$mappingConfiguration->forProperty($property . '.' . $propertyIndex . '.' . $subProperty)->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
 
 					if (($subSubProperty != NULL || $subPropertyIsCollection) && isset($requestArgument[$property][$propertyIndex][$subProperty]) && is_array($requestArgument[$property][$propertyIndex][$subProperty])) {
 						foreach (array_keys($requestArgument[$property][$propertyIndex][$subProperty]) as $subPropertyIndex) {

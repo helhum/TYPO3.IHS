@@ -82,7 +82,7 @@ class AdvisoryController extends ActionController {
 
 	protected function initializeUpdateAction() {
 		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'affectedVersions');
-		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'vulnerabilityType');
+		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'vulnerabilityType', NULL, TRUE);
 		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'links', NULL, TRUE);
 		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'solutions', NULL, TRUE);
 		$this->allowMappingForArgumentAndCollectionProperty('advisory', 'issues', 'solutions', 'fixedInVersions');

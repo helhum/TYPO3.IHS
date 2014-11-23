@@ -7,7 +7,7 @@
 	<div class="dynamic-fields">
 		<div class="field-template" data-html="
 			<f:format.htmlentities>
-				<f:render partial="{partial}" arguments="{arguments: arguments, propertyPrefix: '{propertyPrefix}_placeholder_.', deleteLinkMode: 'new'}" section="Content"/>
+				<f:render partial="{partial}" arguments="{arguments: arguments, options:options, propertyPrefix: '{propertyPrefix}_placeholder_.', deleteLinkMode: 'new'}" section="Content" />
 			</f:format.htmlentities>
 		">
 		</div>
