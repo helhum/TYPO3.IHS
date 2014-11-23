@@ -11,6 +11,7 @@ use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\Flow\Security\Context;
 use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\IHS\Domain\Model\Advisory;
+use TYPO3\IHS\Domain\Model\Issue;
 use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
 use TYPO3\IHS\Domain\Repository\IssueRepository;
 use TYPO3\IHS\Domain\Repository\ProductRepository;
@@ -150,5 +151,17 @@ class AdvisoryController extends ActionController {
 		$this->addFlashMessage('Published Advisory. You can now change the publishingdate if you want');
 
 		$this->redirect('show', 'advisory', NULL, array('advisory' => $advisory));
+	}
+
+	/**
+	 * @param Issue $issue
+	 * @throws \TYPO3\Flow\Mvc\Exception\StopActionException
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 */
+	public function removeIssueAction(Issue $issue) {
+		$issue->setAdvisory(NULL);
+		$this->issueRepository->update($issue);
+
+		$this->redirectToUri($_SERVER['HTTP_REFERER']);
 	}
 }

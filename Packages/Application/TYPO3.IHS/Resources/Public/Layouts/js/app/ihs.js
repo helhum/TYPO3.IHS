@@ -45,6 +45,10 @@
 				new DynamicField(element);
 			}
 		);
+
+		$('.delete-item').on('click', function(event, ui) {
+			$(event.target).closest('ul').first().remove();
+		});
 	}
 	init();
 

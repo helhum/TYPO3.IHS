@@ -8,9 +8,12 @@ namespace TYPO3\IHS\Controller;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
+use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\IHS\Domain\Factory\AdvisoryFactory;
 use TYPO3\IHS\Domain\Model\Issue;
+use TYPO3\IHS\Domain\Model\Link;
+use TYPO3\IHS\Domain\Model\Solution;
 use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
 use TYPO3\IHS\Domain\Repository\ProductRepository;
 
@@ -181,7 +184,7 @@ class IssueController extends ActionController {
 	 * returns all VulnerabilityTypes as json
 	 *
 	 * @param string $term
-	 * @return json $types
+	 * @return string $types
 	 */
 	public function getVulnerabilityTypesAsJSONAction($term = NULL) {
 		$vulnerabilityTypes = $this->issueRepository->findAllVulnerabilityTypes($term);
@@ -192,6 +195,52 @@ class IssueController extends ActionController {
 		}
 
 		return json_encode($types);
-
 	}
+
+	/**
+	 * @param Issue $issue
+	 * @param Solution $solution
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 */
+	public function removeSolutionAction(Issue $issue, Solution $solution) {
+		$issue->getSolutions()->removeElement($solution);
+		$this->issueRepository->update($issue);
+
+		$this->redirectToUri($_SERVER['HTTP_REFERER']);
+	}
+
+	protected function initializeRemoveSolutionLinkAction() {
+		$this->arguments['link']->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
+	}
+
+	/**
+	 * @param Solution $solution
+	 * @param Link $link
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 */
+	public function removeSolutionLinkAction(Solution $solution, Link $link) {
+		$solution->removeLink($link);
+		$issue = $solution->getIssue();
+		$issue->getSolutions()->add($solution);
+		$this->issueRepository->update($issue);
+
+		$this->redirectToUri($_SERVER['HTTP_REFERER']);
+	}
+
+	protected function initializeRemoveLinkAction() {
+		$this->arguments['link']->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
+	}
+
+	/**
+	 * @param Issue $issue
+	 * @param Link $link
+	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 */
+	public function removeLinkAction(Issue $issue, Link $link) {
+		$issue->removeLink($link);
+		$this->issueRepository->update($issue);
+
+		$this->redirectToUri($_SERVER['HTTP_REFERER']);
+	}
+
 }

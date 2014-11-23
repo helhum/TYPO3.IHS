@@ -15,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Solution {
 
+	use RemoveLinkTrait;
+
 	/**
 	 * @var Issue
 	 * @ORM\ManyToOne(inversedBy="solutions")

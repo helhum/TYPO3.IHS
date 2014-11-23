@@ -11,7 +11,6 @@ resources:
     TYPO3_IHS_AllControllerActions: 'within(TYPO3\Flow\Mvc\Controller\AbstractController) && method(public .*->(?!initialize).*Action())'
     TYPO3_IHS_WidgetControllers: 'method(TYPO3\Fluid\ViewHelpers\Widget\Controller\AutocompleteController->(index|autocomplete)Action()) || method(TYPO3\Fluid\ViewHelpers\Widget\Controller\PaginateController->indexAction()) || method(TYPO3\TYPO3CR\ViewHelpers\Widget\Controller\PaginateController->indexAction())'
 
-    TYPO3_IHS_PublicFrontendAccess: 'method(TYPO3\Neos\Controller\Frontend\NodeController->showAction())'
     TYPO3_IHS_Login: 'method(TYPO3\IHS\Controller\LoginController->(index|authenticate)Action()) || method(TYPO3\Flow\Security\Authentication\Controller\AbstractAuthenticationController->authenticateAction())'
 
     TYPO3_IHS_Advisories: 'method(TYPO3\IHS\Controller\AdvisoryController->(index|show|rssFeed|search)Action()) || method(TYPO3\IHS\Controller\ProductController->(getProductTypesAsJSON|getProductsAsJSON)Action()) || method(TYPO3\IHS\Controller\IssueController->(getVulnerabilityTypesAsJSON)Action())'
@@ -20,7 +19,6 @@ resources:
 acls:
   Everybody:
     methods:
-      TYPO3_IHS_PublicFrontendAccess: GRANT
       TYPO3_IHS_WidgetControllers: GRANT
       TYPO3_IHS_Login: GRANT
       TYPO3_IHS_Advisories: GRANT
