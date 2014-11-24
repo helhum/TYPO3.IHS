@@ -7,23 +7,28 @@
         "bin-dir": "bin"
     },
     "require": {
-        "typo3/flow": "2.2.*",
-        "typo3/fluid": "2.2.*",
-        "typo3/party": "2.2.*",
-        "typo3/eel": "2.2.*",
+        "typo3/flow": "2.3.*",
+        "typo3/fluid": "2.3.*",
+        "typo3/party": "2.3.*",
+        "typo3/eel": "2.3.*",
         "doctrine/migrations": "@dev",
         "erusev/parsedown": "~1.1",
-        "simplepie/simplepie": "~1.3"
-    },
+        "simplepie/simplepie": "~1.3",
+        "typo3/neos": "1.2.*",
+        "typo3/neos-nodetypes": "1.2.*",
+        "typo3/neos-kickstarter": "1.2.*"
+
+},
     "require-dev": {
-        "typo3/kickstart": "2.2.*",
-        "typo3/buildessentials": "2.2.*",
+        "typo3/kickstart": "2.3.*",
+        "typo3/buildessentials": "2.3.*",
         "phpunit/phpunit": "4.0.*",
         "mikey179/vfsstream": "1.2.*"
     },
     "suggest": {
         "ext-pdo_sqlite": "For running functional tests out-of-the-box this is required"
     },
+    "minimum-stability": "beta",
     "scripts": {
         "post-update-cmd": "TYPO3\\Flow\\Composer\\InstallerScripts::postUpdateAndInstall",
         "post-install-cmd": "TYPO3\\Flow\\Composer\\InstallerScripts::postUpdateAndInstall",

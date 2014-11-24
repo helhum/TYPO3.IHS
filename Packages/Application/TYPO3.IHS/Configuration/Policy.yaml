@@ -4,7 +4,7 @@
 
 roles:
   Editor: []
-  Administrator: ['Editor']
+  Administrator: ['Editor', 'TYPO3.Neos:Administrator']
 
 resources:
   methods:
