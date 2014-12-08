@@ -7,22 +7,22 @@
 	<ul>
 		<f:form.hidden property="{propertyPrefix}issue" value="{arguments.issue}" />
 		<li>
-			<label for="solution-author">Author:</label>
+			<label for="solution-author">Author</label>
 			<f:form.textfield property="{propertyPrefix}author" id="solution-author" value="{object.author}" />
 		</li>
 
 		<li>
-			<label for="solution-abstract">Abstract:</label>
+			<label for="solution-abstract">Abstract</label>
 			<f:form.textarea property="{propertyPrefix}abstract" class="markdown" data="{iconlibrary: 'fa'}" id="solution-abstract" value="{object.abstract}" />
 		</li>
 
 		<li>
-			<label for="solution-description">Description:</label>
+			<label for="solution-description">Description</label>
 			<f:form.textarea property="{propertyPrefix}description" class="markdown" data="{iconlibrary: 'fa'}" id="solution-description" value="{object.description}" />
 		</li>
 
 		<li>
-			<label for="solution-fixedInVersions">Fixed in versions:</label>
+			<label for="solution-fixedInVersions">Fixed in versions</label>
 			<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" />
 
 			<a class="btn btn-default add-new-versions" role="button" data-toggle="modal" href="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#new-versions-modal">Add new Version</a>
@@ -39,24 +39,24 @@
 			<fieldset>
 				<legend>Links for the solution</legend>
 				<ul>
-					<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: arguments.issue, solution: object}, deleteMode: 'link'}"/>
+					<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: arguments.issue, solution: object}, deleteMode: 'link'}"/>
 				</ul>
 			</fieldset>
 		</li>
-		<f:render section="DeleteLink" arguments="{_all}" />
+		<f:render section="DeleteSolution" arguments="{_all}" />
 	</ul>
 </f:section>
 
-<f:section name="DeleteLink">
+<f:section name="DeleteSolution">
 	<f:if condition="{deleteLinkMode}">
 		<f:then>
 			<li>
 				<f:switch expression="{deleteLinkMode}">
 					<f:case value="existing">
-						<f:link.action action="removeSolution" controller="Issue" arguments="{issue: arguments.issue, solution: object}" class="btn btn-danger">Delete</f:link.action>
+						<f:link.action action="removeSolution" controller="Issue" arguments="{issue: arguments.issue, solution: object}" class="btn btn-danger remove-action">Remove Solution</f:link.action>
 					</f:case>
 					<f:case value="new">
-						<a href="javascript:void(0);" class="btn btn-danger delete-item">Delete</a>
+						<a href="javascript:void(0);" class="btn btn-danger delete-item">Remove Solution</a>
 					</f:case>
 				</f:switch>
 			</li>

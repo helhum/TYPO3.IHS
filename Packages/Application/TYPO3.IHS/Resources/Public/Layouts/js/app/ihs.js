@@ -74,6 +74,9 @@ jQuery(document).ready(function() {
 		$(this).removeData('modal');
 	});
 
+	handleSaveDeletionModal();
+
+
 });
 
 function getURLParameter(name) {
@@ -103,4 +106,61 @@ function getSearchStringFromJSON(searchStringAsJSON, humanReadable) {
 	}
 
 	return searchString;
+}
+
+function handleSaveDeletionModal() {
+	var href = '';
+	var formFields = '';
+
+	// show confirmation modal for deletion of objects
+	$('.remove-action').on('click', function(event) {
+		event.preventDefault();
+		href = $(this).attr('href');
+		formFields = $(this).closest('ul').find('> li');
+		$('#delete-confirmation-modal').modal('show');
+	});
+
+	$('#delete-confirmation-modal').on('show', function () {
+		$(formFields).each(function(index, item) {
+			var label = $(item).find('> label').text();
+			var value = $(item).find('input').val();
+
+			if (typeof value == 'undefined') {
+				value = $(item).find('textarea').val();
+			}
+
+			if (typeof value == 'undefined') {
+				var options = $(item).find('select option:selected');
+				value = '';
+				$(options).each(function(key, option) {
+					if (value != '') {
+						value = value + ', ' + $(option).text();
+					} else {
+						value = $(option).text();
+					}
+				});
+			}
+
+			if (typeof label != 'undefined' && label.length > 0) {
+				if (typeof value == 'undefined') {
+					value = '';
+				}
+
+				if (value.length > 50) {
+					value = value.substring(0, 50) + '...'
+				}
+
+				$('#delete-confirmation-modal .modal-content').append('<p>' + label + ': ' + value + '</p>');
+			}
+		});
+
+		$('#delete-confirmation-modal a.remove-object').attr('href', href);
+	});
+
+	$('#delete-confirmation-modal').on('hide', function () {
+		// write name to the modals body
+		// maybe iterate over the form fields and write them to the modal?
+		$('#delete-confirmation-modal .modal-content').html('');
+		$('#delete-confirmation-modal a.remove-object').attr('href', '');
+	});
 }

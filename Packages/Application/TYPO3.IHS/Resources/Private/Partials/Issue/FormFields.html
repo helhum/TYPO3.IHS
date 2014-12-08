@@ -74,7 +74,7 @@
 			<fieldset>
 				<legend>Links</legend>
 				<ul>
-					<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: object}}"/>
+					<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: object}}"/>
 				</ul>
 			</fieldset>
 		</li>
@@ -85,7 +85,7 @@
 					<fieldset>
 						<legend>Solutions</legend>
 						<ul>
-							<f:render partial="ObjectCollection" section="Content" arguments="{objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
+							<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Solution', objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
 						</ul>
 					</fieldset>
 				</li>
@@ -100,20 +100,20 @@
 				<f:form.hidden property="{propertyPrefix}advisory" value="{options.advisory}" />
 			</f:then>
 		</f:if>
-		<f:render section="DeleteLink" arguments="{_all}" />
+		<f:render section="DeleteIssue" arguments="{_all}" />
 	</ul>
 </f:section>
 
-<f:section name="DeleteLink">
+<f:section name="DeleteIssue">
 	<f:if condition="{deleteLinkMode}">
 		<f:then>
 			<li>
 				<f:switch expression="{deleteLinkMode}">
 					<f:case value="existing">
-						<f:link.action action="removeIssue" controller="Advisory" arguments="{issue: object}" class="btn btn-danger">Delete</f:link.action>
+						<f:link.action action="removeIssue" controller="Advisory" arguments="{issue: object}" class="btn btn-danger remove-action">Remove Issue</f:link.action>
 					</f:case>
 					<f:case value="new">
-						<a href="javascript:void(0);" class="btn btn-danger delete-item">Delete</a>
+						<a href="javascript:void(0);" class="btn btn-danger delete-item">Remove Issue</a>
 					</f:case>
 				</f:switch>
 			</li>
