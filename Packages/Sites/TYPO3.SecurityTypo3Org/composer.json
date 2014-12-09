@@ -1,0 +1,14 @@
+{
+    "name": "typo3/securitytypo3org",
+    "type": "typo3-flow-site",
+    "description": "Add description here",
+    "require": {
+        "typo3/neos": "*",
+        "typo3/neos-nodetypes": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "TYPO3\\SecurityTypo3Org": "Classes"
+        }
+    }
+}
