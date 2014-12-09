@@ -1,0 +1,98 @@
+include: resource://TYPO3.TypoScript/Private/TypoScript/*
+include: resource://TYPO3.Neos.NodeTypes/Private/TypoScript/*
+include: resource://TYPO3.Neos/Private/TypoScript/*
+include: resource://TYPO3.SecurityTypo3Org/Private/TypoScript/*
+
+ihs < page
+ihs {
+	# Workaround because else the HTTP Status Code would be printed
+	httpResponseHead >
+
+	head {
+		titleTag = TYPO3.TypoScript:Tag {
+			tagName = 'title'
+			content = TYPO3.TypoScript:Template {
+				templatePath = ${'resource://TYPO3.IHS/Private/Templates/' + String.firstLetterToUpperCase(request.controllerName) + '/' + String.firstLetterToUpperCase(request.controllerActionName) + '.' + request.format}
+				sectionName = 'Title'
+			}
+		}
+
+		stylesheets.ihs = TYPO3.TypoScript:Template {
+			templatePath = 'resource://TYPO3.IHS/Private/Templates/Page/Default.html'
+			sectionName = 'stylesheets'
+		}
+
+		javascripts.ihs = TYPO3.TypoScript:Template {
+			templatePath = 'resource://TYPO3.IHS/Private/Templates/Page/Default.html'
+			sectionName = 'headScripts'
+		}
+	}
+
+	body {
+		content {
+			main = TYPO3.TypoScript:Template {
+				layoutRootPath = 'resource://TYPO3.IHS/Private/Layouts'
+				partialRootPath = 'resource://TYPO3.IHS/Private/Partials'
+				templatePath = ${'resource://TYPO3.IHS/Private/Templates/' + String.firstLetterToUpperCase(request.controllerName) + '/' + String.firstLetterToUpperCase(request.controllerActionName) + '.' + request.format}
+				sectionName = 'Content'
+			}
+		}
+
+		javascripts.ihs = TYPO3.TypoScript:Template {
+			templatePath = 'resource://TYPO3.IHS/Private/Templates/Page/Default.html'
+			sectionName = 'bodyScripts'
+		}
+	}
+}
+
+TYPO3.IHS.AdvisoryController.index < ihs {
+	body.content.main {
+		advisories = ${advisories}
+	}
+}
+TYPO3.IHS.AdvisoryController.show < ihs {
+	body.content.main {
+		advisory = ${advisory}
+	}
+}
+TYPO3.IHS.AdvisoryController.edit < ihs {
+	body.content.main {
+		advisory = ${advisory}
+		products = ${products}
+	}
+}
+
+TYPO3.IHS.IssueController.index < ihs {
+	body.content.main {
+		issues = ${issues}
+		quickFilterHasSolution = ${quickFilterHasSolution}
+		quickFilterHasAdvisory = ${quickFilterHasAdvisory}
+	}
+}
+TYPO3.IHS.IssueController.show < ihs {
+	body.content.main {
+		issue = ${issue}
+	}
+}
+TYPO3.IHS.IssueController.new < ihs {
+	body.content.main {
+		advisory = ${advisory}
+		products = ${products}
+		solutionsAvailable = ${solutionsAvailable}
+	}
+}
+TYPO3.IHS.IssueController.edit < ihs {
+	body.content.main {
+		issue = ${issue}
+		products = ${products}
+		solutionsAvailable = ${solutionsAvailable}
+	}
+}
+
+TYPO3.IHS.LoginController.index < ihs
+
+TYPO3.IHS.ProductController.index< ihs {
+	body.content.main {
+		productsByType = ${productsByType}
+	}
+}

@@ -7,12 +7,12 @@ namespace TYPO3\IHS\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\Flow\Persistence\PersistenceManagerInterface;
 use TYPO3\IHS\Domain\Model\Product;
 use TYPO3\IHS\Domain\Model\ProductType;
 use TYPO3\IHS\Domain\Model\ProductVersion;
+use TYPO3\IHS\Mvc\Controller\ActionController;
 
 class ProductController extends ActionController {
 

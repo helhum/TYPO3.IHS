@@ -7,7 +7,6 @@ namespace TYPO3\IHS\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\IHS\Domain\Factory\AdvisoryFactory;
@@ -16,6 +15,7 @@ use TYPO3\IHS\Domain\Model\Link;
 use TYPO3\IHS\Domain\Model\Solution;
 use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
 use TYPO3\IHS\Domain\Repository\ProductRepository;
+use TYPO3\IHS\Mvc\Controller\ActionController;
 
 class IssueController extends ActionController {
 
