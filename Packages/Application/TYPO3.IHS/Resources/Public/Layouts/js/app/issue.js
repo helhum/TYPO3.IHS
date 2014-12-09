@@ -215,7 +215,7 @@ function initIssue() {
 			var versions = $(element).closest('li').first().siblings('.affected-versions').first();
 
 			// get versions for product if none exists
-			if (!$(versions).children('option:first-child').first().val() && $(versions).children('option').length == 1) {
+			if (!$(versions).find('select option:first-child').val() && $(versions).find('select option').length == 1) {
 				getVersionsForProduct($(element).children('option:selected').first().val(), element)
 			} else {
 				$(versions).show();
