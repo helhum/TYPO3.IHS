@@ -7,7 +7,7 @@
 		this.$presentFields = this.$element.children(".present-fields").first();
 		this.$additionalLinkFieldsContainer = this.$element.children(".additional-fields").first();
 		this.$button = this.$element.children("button.add-field").first();
-		this.htmlTemplate = this.$element.children(".field-template").first().data("html");
+		this.htmlTemplate = this.$element.find(".field-template").first().data("html");
 		this.iterationIndex = this.$presentFields.children().length;
 		this.argumentName = this.htmlTemplate.match(/"([^"]*)\[_placeholder_\]([^"]*)"/)[1];
 
@@ -34,15 +34,15 @@
 			return this.htmlTemplate.replace(/^(.+?)(\[_placeholder_\])(\[.+\])(?:\[_placeholder_\]){0,1}(.+)$/gm, "$1[" + index + "]$3$4");
 		};
 
-		this.$element.removeClass('dynamic-fields');
+		this.$element.children(".dynamic-fields").removeClass('dynamic-fields');
 
 		$('body').trigger('dynamicFieldAdded');
 	}
 
 	function init() {
-		$(".dynamic-fields").each(
+		$(".fields .dynamic-fields").each(
 			function(index, element) {
-				new DynamicField(element);
+				new DynamicField($(element).closest('.fields'));
 			}
 		);
 
