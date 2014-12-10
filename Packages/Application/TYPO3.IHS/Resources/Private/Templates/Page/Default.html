@@ -41,6 +41,7 @@
 	<script src="{f:uri.resource(package: 'TYPO3.IHS', path: 'Layouts/js/bootstrap-markdown/bootstrap-markdown.js')}"></script>
 	<script src="{f:uri.resource(package: 'TYPO3.IHS', path: 'Layouts/js/bootstrap-markdown/to-markdown.js')}"></script>
 	<script src="{f:uri.resource(package: 'TYPO3.IHS', path: 'Layouts/js/bootstrap-markdown/markdown.js')}"></script>
+	<script src="{f:uri.resource(package: 'TYPO3.IHS', path: 'Layouts/js/bootstrap-markdown/marked.js')}"></script>
 </f:section>
 
 <f:section name="body">
@@ -70,33 +71,6 @@
 	</div>
 
 	<div id="wrap">
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container-fluid">
-					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="brand" href="/">TYPO3 Incident Handling System</a>
-
-					<div class="nav-collapse collapse">
-						<p class="navbar-text pull-right">
-							<f:security.ifAuthenticated>
-								<f:then>
-									Logged in as <ihs:security.account>{account.accountIdentifier}</ihs:security.account> | <a href="#" class="navbar-link"><f:link.action action="logout" package="TYPO3.IHS" controller="Login">logout</f:link.action></a>
-								</f:then>
-								<f:else>
-									<f:link.action action="login" package="TYPO3.IHS" controller="Login">Login</f:link.action>
-								</f:else>
-							</f:security.ifAuthenticated>
-						</p>
-						<f:render partial="Menu" section="Main" />
-					</div>
-					<!--/.nav-collapse -->
-				</div>
-			</div>
-		</div>
 
 		<div class="container">
 			<div class="row-fluid">
