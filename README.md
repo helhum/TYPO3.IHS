@@ -9,7 +9,10 @@ Incident Handling System for TYPO3 Security Team
 * make sure your Settings.yaml are correct
 * run database migrations by executing `./flow doctrine:migrate`
 
+## Import site structure
+
+`./flow site:import --package-key TYPO3.SecurityTypo3Org`
 
 ## Create Dummy User
 
-`./flow user:create --roles Administrator admin password`
+`./flow ihs:user:create --roles Administrator admin password`
