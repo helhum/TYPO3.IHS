@@ -54,5 +54,4 @@ $(document).ready(function(){
 	$('.vimeoBadge a').live('click', function() {
 		$(this).attr('target', '_blank');
 	});
-
 });

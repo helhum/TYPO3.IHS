@@ -34,14 +34,12 @@ page = TYPO3.Neos:Page {
 			title = ${q(node).property('title')}
 		}
 
-		stylesheets = TYPO3.TypoScript:Template
-		stylesheets {
+		stylesheets.site = TYPO3.TypoScript:Template {
 			templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/Page/Default.html'
 			sectionName = 'stylesheets'
 		}
 
-		javascripts = TYPO3.TypoScript:Template
-		javascripts {
+		javascripts.site = TYPO3.TypoScript:Template {
 			templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/Page/Default.html'
 			sectionName = 'javascripts'
 		}
