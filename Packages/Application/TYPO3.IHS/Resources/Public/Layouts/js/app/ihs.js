@@ -66,7 +66,11 @@ jQuery(document).ready(function() {
 
 	$(".markdown").markdown({
 		autofocus:false,
-		savable:false
+		savable:false,
+		onPreview: function(e) {
+			// we use a different markdown to html parser here to render html tags
+			return marked(e.getContent());
+		}
 	});
 
 	// make modal reset remote content every time it is opened
