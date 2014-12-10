@@ -13,6 +13,16 @@ html, body {
 	margin-bottom: 40px;
 }
 
+.d table tr td {
+	border: none;
+	/*border-top: 1px solid #ccc;*/
+}
+
+ul.unstyled li {
+	padding-left: 0 !important;
+	background: none !important;
+}
+
 /*general styles*/
 .alert-OK {
 	background-color: #dff0d8;
@@ -54,6 +64,9 @@ a.btn-primary {
 	color: #fff;
 }
 
+a.btn-danger {
+	color: #fff;
+}
 
 .btn-text, .btn-text:hover, .btn-text:active {
 	background: none;
@@ -87,6 +100,10 @@ a.btn-primary {
 
 .articles article {
 	margin-bottom: 3em;
+}
+
+.additional-fields, .present-fields {
+	padding-left: 40px;
 }
 
 /*content*/
@@ -229,8 +246,6 @@ select.product {
 
 .saved-searches li {
 	margin-bottom: 2px;
-	padding-left: 0 !important;
-	background: none !important;
 }
 
 .saved-searches-container .well {

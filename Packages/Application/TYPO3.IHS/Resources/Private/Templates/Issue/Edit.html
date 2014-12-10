@@ -6,7 +6,7 @@
 
 <f:layout name="Default" />
 
-<f:section name="Title">Edit issue "{issue.title}"</f:section>
+<f:section name="Title">Edit {issue.title}</f:section>
 
 <f:section name="Content">
 	<f:form action="update" object="{issue}" objectName="issue">
@@ -14,11 +14,11 @@
 			<f:render partial="FormErrors" arguments="{_all}" />
 		</f:alias>
 
-		<ol>
-			<f:render partial="Issue/FormFields" section="Content" arguments="{object: issue, options: {products: products, solutionsAvailable: solutionsAvailable}}"/>
-		</ol>
+		<f:render partial="Issue/FormFields" section="Content" arguments="{object: issue, options: {products: products, solutionsAvailable: solutionsAvailable}}"/>
 
-		<f:link.action class="btn" action="index">Cancel</f:link.action> <f:form.submit class="btn btn-primary" value="Update" />
+		<hr />
+		<f:link.action class="btn" action="index">Cancel</f:link.action>
+		<f:form.submit class="btn btn-primary" value="Update" />
 	</f:form>
 </f:section>
 </html>

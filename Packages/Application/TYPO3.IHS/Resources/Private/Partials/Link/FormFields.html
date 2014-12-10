@@ -4,18 +4,18 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<ul>
+	<ul class="unstyled">
 		<li>
 			<label for="links.title">Title</label>
-			<f:form.textfield property="{propertyPrefix}title" id="links.title" />
+			<f:form.textfield property="{propertyPrefix}title" id="links.title" class="span7" />
 		</li>
 		<li>
 			<label for="links.uri">URI</label>
-			<f:form.textfield property="{propertyPrefix}uri" id="links.uri" />
+			<f:form.textfield property="{propertyPrefix}uri" id="links.uri" class="span7" />
 		</li>
 		<li>
 			<label for="links.description">Description</label>
-			<f:form.textfield property="{propertyPrefix}description" id="links.description" />
+			<f:form.textarea property="{propertyPrefix}description" id="links.description" class="span7" />
 		</li>
 		<f:render section="DeleteLink" arguments="{_all}" />
 	</ul>

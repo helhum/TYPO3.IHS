@@ -14,7 +14,7 @@
 	</f:alias>
 
 	<f:form action="update" object="{advisory}" objectName="advisory">
-		<ol>
+		<ul class="unstyled">
 			<li>
 				<label for="title">Title</label>
 				<f:form.textfield property="title" id="title" />
@@ -47,7 +47,7 @@
 				</fieldset>
 			</li>
 
-		</ol>
+		</ul>
 		<f:link.action class="btn" action="index">Cancel</f:link.action> <f:form.submit class="btn btn-primary" value="Update" />
 	</f:form>
 </f:section>

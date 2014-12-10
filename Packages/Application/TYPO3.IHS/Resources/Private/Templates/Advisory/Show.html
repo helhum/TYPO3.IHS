@@ -9,91 +9,189 @@
 <f:layout name="Default" />
 
 <f:section name="Content">
-<article>
-	<h1>{advisory.identifier}: {advisory.title}</h1>
-	<f:security.ifAuthenticated>
-		<f:then>
-			<f:link.action class="btn btn-primary" action="edit" arguments="{advisory: advisory}">Edit</f:link.action>
-		</f:then>
-	</f:security.ifAuthenticated>
-	<section class="abstract">
-		<ihs:format.markdown>{advisory.abstract}</ihs:format.markdown>
-	</section>
-	<p>&nbsp;</p>
-	<p><strong>Component Type: </strong>{advisory.issues.0.product.name}</p>
 
-	<p>
-		<strong>Vulnerability Types: </strong>
-		<f:for each="{advisory.issues}" as="issue" iteration="iterator">
-			{issue.vulnerabilityType.value}<f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
+	<article>
+		<h1>{advisory.identifier}: {advisory.title}</h1>
+		<f:link.action class="btn" action="index">Back</f:link.action>
+		<f:security.ifAuthenticated>
+			<f:then>
+				<f:link.action class="btn btn-primary" action="edit" arguments="{advisory: advisory}">Edit</f:link.action>
+			</f:then>
+		</f:security.ifAuthenticated>
+		<section class="abstract">
+			<ihs:format.markdown>{advisory.abstract}</ihs:format.markdown>
+		</section>
+		<h5>Advisory:</h5>
+		<table class="table table-hover table-striped">
+			<tbody>
+				<tr>
+					<td>
+						<strong>Component Type: </strong>
+					</td>
+					<td>
+						{advisory.issues.0.product.name}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<strong>Vulnerability Types: </strong>
+					</td>
+					<td>
+						<f:for each="{advisory.issues}" as="issue" iteration="iterator">
+							{issue.vulnerabilityType.value}<f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
+						</f:for>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<strong>Overall Severity: </strong>
+					</td>
+					<td>
+						{advisory.overallSeverity}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<strong>Release Date: </strong>
+					</td>
+					<td>
+						<f:format.date date="{advisory.publishingDate}" format="F j, Y"/></p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h5>Assigned Issues:</h5>
+
+		<f:for each="{advisory.issues}" as="issue">
+			<article>
+				<table class="table table-hover table-striped">
+					<tbody>
+						<tr>
+							<td>
+								<strong>Vulnerability Type: </strong>
+							</td>
+							<td>
+								{issue.vulnerabilityType.value}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Affected Versions: </strong>
+							</td>
+							<td>
+								<f:for each="{issue.affectedVersions}" as="version" iteration="iterator">
+									{version.humanReadableVersionNumber}<f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
+								</f:for>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Severity:</strong>
+							</td>
+							<td>
+								{issue.severity}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Suggested CVSS v2.0: </strong>
+							</td>
+							<td>
+								<a href="http://jvnrss.ise.chuo-u.ac.jp/jtg/cvss/cvss2.cgi?vector=%28{issue.CVSS}%29&amp;g=3&amp;lang=en" title="CVSS calculator" target="_blank">{issue.CVSS}</a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>CVE:</strong>
+							</td>
+							<td>
+								<f:if condition="{issue.CVE}"><f:then>{issue.CVE}</f:then><f:else>None assigned yet.</f:else></f:if>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Problem Description: </strong>
+							</td>
+							<td>
+								<ihs:format.markdown>{issue.abstract}</ihs:format.markdown>
+								<ihs:format.markdown>{issue.description}</ihs:format.markdown>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Solutions:</strong>
+							</td>
+							<td>
+								<f:for each="{issue.solutions}" as="solution" iteration="iterator">
+									<p><strong><f:if condition="{iterator.index} > 0">Alternative </f:if>Solution:</strong> <ihs:format.markdown>{solution.abstract}</ihs:format.markdown></p>
+									<ihs:format.markdown>{solution.description}</ihs:format.markdown>
+								</f:for>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Reported by: </strong>
+							</td>
+							<td>
+								{issue.reporter}
+							</td>
+						</tr>
+						<f:if condition="{solution.author -> f:for(each: issue.solutions, as: 'solution')}">
+							<tr>
+								<td>
+									<strong>Fixed by: </strong>
+								</td>
+								<td>
+									<f:for each="{issue.solutions}" as="solution" iteration="iterator">
+										{solution.author}<f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
+									</f:for>
+								</td>
+							</tr>
+						</f:if>
+						<tr>
+							<td>
+								<strong>Links:</strong>
+							</td>
+							<td>
+								<f:if condition="{solution.links}">
+									<f:for each="{issue.solutions}" as="solution">
+										<p><strong>Related Resources: </strong></p>
+										<ul>
+											<f:for each="{solution.links}" as="link">
+												<li>
+													<a href="{link.uri}">{link.title}</a>
+													<f:format.raw>{link.description}</f:format.raw>
+												</li>
+											</f:for>
+										</ul>
+									</f:for>
+								</f:if>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
 		</f:for>
-	</p>
 
-	<p><strong>Overall Severity: </strong>{advisory.overallSeverity}</p>
 
-	<p><strong>Release Date: </strong><f:format.date date="{advisory.publishingDate}" format="F j, Y"/></p>
-	<p>&nbsp;</p>
-	<f:for each="{advisory.issues}" as="issue">
-		<article>
-			<p><strong>Vulnerability Type: </strong>{issue.vulnerabilityType.value}</p>
-			<p>
-				<strong>Affected Versions: </strong>
-				<f:for each="{issue.affectedVersions}" as="version" iteration="iterator">
-					{version.humanReadableVersionNumber}<f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
-				</f:for>
-			</p>
-			<p><strong>Severity:</strong> {issue.severity}</p>
-			<p><strong>Suggested CVSS v2.0: </strong><a href="http://jvnrss.ise.chuo-u.ac.jp/jtg/cvss/cvss2.cgi?vector=%28{issue.CVSS}%29&amp;g=3&amp;lang=en" title="CVSS calculator" target="_blank">{issue.CVSS}</a></p>
-			<p><strong>CVE:</strong> <f:if condition="{issue.CVE}"><f:then>{issue.CVE}</f:then><f:else>None assigned yet.</f:else></f:if></p>
-			<p><strong>Problem Description: </strong><ihs:format.markdown>{issue.abstract}</ihs:format.markdown></p>
-			<ihs:format.markdown>{issue.description}</ihs:format.markdown>
-			<f:for each="{issue.solutions}" as="solution" iteration="iterator">
-				<p><strong><f:if condition="{iterator.index} > 0">Alternative </f:if>Solution:</strong> <ihs:format.markdown>{solution.abstract}</ihs:format.markdown></p>
-				<ihs:format.markdown>{solution.description}</ihs:format.markdown>
+		<f:if condition="{solution.links}">
+			<p><strong>Related Resources: </strong></p>
+			<ul>
+			<f:for each="{advisory.links}" as="link">
+				<li>
+				<a href="{link.uri}">{link.title}</a>
+				<f:format.raw>{link.description}</f:format.raw>
+				</li>
 			</f:for>
-			<p><strong>Reported by: </strong>{issue.reporter}</p>
-			<f:if condition="{solution.author -> f:for(each: issue.solutions, as: 'solution')}">
-				<p>
-					<strong>Fixed by: </strong>
-					<f:for each="{issue.solutions}" as="solution" iteration="iterator">
-						{solution.author}<f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
-					</f:for>
-				</p>
-			</f:if>
-			<f:if condition="{solution.links}">
-			<f:for each="{issue.solutions}" as="solution">
-				<p><strong>Related Resources: </strong></p>
-				<ul>
-				<f:for each="{solution.links}" as="link">
-					<li>
-					<a href="{link.uri}">{link.title}</a>
-					<f:format.raw>{link.description}</f:format.raw>
-					</li>
-				</f:for>
-				</ul>
-			</f:for>
-			</f:if>
-		</article>
-		<p>&nbsp;</p>
-	</f:for>
-	<p>&nbsp;</p>
-	<f:if condition="{solution.links}">
-		<p><strong>Related Resources: </strong></p>
-		<ul>
-		<f:for each="{advisory.links}" as="link">
-			<li>
-			<a href="{link.uri}">{link.title}</a>
-			<f:format.raw>{link.description}</f:format.raw>
-			</li>
-		</f:for>
-		</ul>
-	</f:if>
-	<p><strong>General Advice:</strong> Follow the recommendations that are given in the&nbsp;<a href="http://docs.typo3.org/typo3cms/SecurityGuide/" title="Opens external link in new window" target="_blank">TYPO3 Security Guide</a>. Please subscribe to the <a href="http://lists.typo3.org/cgi-bin/mailman/listinfo/typo3-announce" target="_blank">typo3-announce</a> mailing list.</p>
-	<p><strong>General Note:</strong> All security related code&nbsp;changes are tagged so that you can easily look them up on our <a href="https://review.typo3.org/#/q/status:merged+project:Packages/TYPO3.CMS+topic:security,n,z" target="_blank">review system</a>.</p>
+			</ul>
+		</f:if>
+		<p><strong>General Advice:</strong> Follow the recommendations that are given in the&nbsp;<a href="http://docs.typo3.org/typo3cms/SecurityGuide/" title="Opens external link in new window" target="_blank">TYPO3 Security Guide</a>. Please subscribe to the <a href="http://lists.typo3.org/cgi-bin/mailman/listinfo/typo3-announce" target="_blank">typo3-announce</a> mailing list.</p>
+		<p><strong>General Note:</strong> All security related code&nbsp;changes are tagged so that you can easily look them up on our <a href="https://review.typo3.org/#/q/status:merged+project:Packages/TYPO3.CMS+topic:security,n,z" target="_blank">review system</a>.</p>
 
-</article>
+	</article>
 
-<f:link.action action="index">Back</f:link.action>
+
 
 
 </f:section>

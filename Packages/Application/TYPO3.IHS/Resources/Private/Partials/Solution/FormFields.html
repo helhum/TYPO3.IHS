@@ -4,11 +4,11 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<ul>
+	<ul class="unstyled">
 		<f:form.hidden property="{propertyPrefix}issue" value="{arguments.issue}" />
 		<li>
 			<label for="solution-author">Author</label>
-			<f:form.textfield property="{propertyPrefix}author" id="solution-author" value="{object.author}" />
+			<f:form.textfield property="{propertyPrefix}author" id="solution-author" value="{object.author}" class="span7" />
 		</li>
 
 		<li>
@@ -23,7 +23,7 @@
 
 		<li>
 			<label for="solution-fixedInVersions">Fixed in versions</label>
-			<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" />
+			<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" class="span7" />
 
 			<a class="btn btn-default add-new-versions" role="button" data-toggle="modal" href="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#new-versions-modal">Add new Version</a>
 			<div class="created-versions-outer">

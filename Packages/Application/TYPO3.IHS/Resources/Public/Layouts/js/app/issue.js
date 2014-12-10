@@ -357,23 +357,23 @@ function handleSavedIssueSearches() {
 	});
 
 	function displaySavedSearches() {
-		$(".issues .saved-searches").html("");
+		$(".saved-searches").html("");
 		var savedSearchesJSON = localStorage.getItem('savedIssueSearches');
 		var savedSearches = JSON.parse(savedSearchesJSON);
 		if (savedSearches && savedSearches.length > 0) {
-			$(".issues .saved-searches-container").show();
-			$(".issues .list-of-issues").addClass("span9");
+			$(".saved-searches-container").show();
+			$(".list-of-issues").addClass("span9");
 		} else {
-			$(".issues .saved-searches-container").hide();
-			$(".issues .list-of-issues").removeClass("span9");
+			$(".saved-searches-container").hide();
+			$(".list-of-issues").removeClass("span9");
 		}
 
 		$(savedSearches).each(function(key, savedSearch) {
 			var searchQueryJSON = JSON.stringify(savedSearch);
-			$(".issues .saved-searches").append("<li><button key='"+key+"' class='remove-saved-search btn btn-mini btn-danger'><i class='icon-trash icon-white'></i></button><a class='saved-search' href='"+window.location.pathname + "?search="+encodeURIComponent(searchQueryJSON)+"'>"+getSearchStringFromJSON(searchQueryJSON, true)+"</a></li>");
+			$(".saved-searches").append("<li><button key='"+key+"' class='remove-saved-search btn btn-mini btn-danger'><i class='icon-trash icon-white'></i></button><a class='saved-search' href='"+window.location.pathname + "?search="+encodeURIComponent(searchQueryJSON)+"'>"+getSearchStringFromJSON(searchQueryJSON, true)+"</a></li>");
 		});
 
-		$('.issues .remove-saved-search').on('click', function() {
+		$('.remove-saved-search').on('click', function() {
 			var key = $(this).attr('key');
 			savedSearches.splice(key, 1);
 			savedSearchesJSON = JSON.stringify(savedSearches);

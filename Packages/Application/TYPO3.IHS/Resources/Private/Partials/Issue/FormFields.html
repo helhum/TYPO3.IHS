@@ -5,7 +5,7 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<ul>
+	<ul class="unstyled">
 		<!-- modal for the creation of new versions -->
 		<div id="new-versions-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="new-versions-modal-label" aria-hidden="true">
 			<div class="modal-header">
@@ -23,7 +23,7 @@
 
 		<li>
 			<label for="title">Title</label>
-			<f:form.textfield property="{propertyPrefix}title" id="title" value="{object.title}" />
+			<f:form.textfield property="{propertyPrefix}title" id="title" value="{object.title}" class="span7" />
 		</li>
 
 		<li>
@@ -38,23 +38,23 @@
 
 		<li vulnerabilityTypeUrl="{f:uri.action(action:'getVulnerabilityTypesAsJSON', controller:'Issue', package:'TYPO3.IHS')}">
 			<label for="vulnerabilityType">Vulnerability Type</label>
-			<f:form.textfield property="{propertyPrefix}vulnerabilityType.value" class="vulnerabilityType" value="{object.vulnerabilityType.value}" />
+			<f:form.textfield property="{propertyPrefix}vulnerabilityType.value" class="vulnerabilityType span7" value="{object.vulnerabilityType.value}" />
 		</li>
 
 		<li>
 			<label for="reporter">Reporter</label>
-			<f:form.textarea property="{propertyPrefix}reporter" id="reporter" value="{object.reporter}" />
+			<f:form.textarea property="{propertyPrefix}reporter" id="reporter" value="{object.reporter}" class="span7" />
 		</li>
 
 		<li>
 			<label for="product">Product</label>
 			<f:form.select property="{propertyPrefix}product" class="product" options="{options.products}" optionLabelField="nameAndShortName" sortByOptionLabel="true" prependOptionLabel="- select one -" value="{object.product}" />
-			<input type="text" class="productAjax" placeholder="type product to find" autocomplete="off" productsUrl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" versionsUrl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}" />
+			<input type="text" class="productAjax span7" placeholder="type product to find" autocomplete="off" productsUrl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" versionsUrl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}" />
 		</li>
 
 		<li class="affected-versions">
 			<label for="affectedVersions">Affected Versions</label>
-			<f:form.select property="{propertyPrefix}affectedVersions" class="affectedVersions" options="{object.product.versions}" optionLabelField="humanReadableVersionNumber" size="3" multiple="multiple" value="{object.affectedVersions}" />
+			<f:form.select property="{propertyPrefix}affectedVersions" class="affectedVersions span7" options="{object.product.versions}" optionLabelField="humanReadableVersionNumber" size="3" multiple="multiple" value="{object.affectedVersions}" />
 			<div class="selected-affected-versions">
 				<ihs:form.lastSubmittedValue property="{propertyPrefix}affectedVersions" />
 			</div>
@@ -62,18 +62,18 @@
 
 		<li>
 			<label for="CVE">CVE</label>
-			<f:form.textfield property="{propertyPrefix}CVE" id="CVE" value="{object.cve}" />
+			<f:form.textfield property="{propertyPrefix}CVE" id="CVE" value="{object.cve}" class="span7" />
 		</li>
 
 		<li>
 			<label for="CVSS">CVSS</label>
-			<f:form.textfield property="{propertyPrefix}CVSS" id="CVSS" value="{object.cvss}" />
+			<f:form.textfield property="{propertyPrefix}CVSS" id="CVSS" value="{object.cvss}" class="span7" />
 		</li>
 
 		<li>
 			<fieldset>
 				<legend>Links</legend>
-				<ul>
+				<ul class="unstyled">
 					<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: object}}"/>
 				</ul>
 			</fieldset>
@@ -84,7 +84,7 @@
 				<li>
 					<fieldset>
 						<legend>Solutions</legend>
-						<ul>
+						<ul class="unstyled">
 							<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Solution', objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
 						</ul>
 					</fieldset>
