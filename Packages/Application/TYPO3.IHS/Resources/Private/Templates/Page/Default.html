@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
 	  xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 {namespace ihs=TYPO3\IHS\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
 
 <f:section name="stylesheets">
 	<!-- Le styles -->
@@ -40,6 +41,88 @@
 	<script src="{f:uri.resource(package: 'TYPO3.IHS', path: 'Layouts/js/bootstrap-markdown/bootstrap-markdown.js')}"></script>
 	<script src="{f:uri.resource(package: 'TYPO3.IHS', path: 'Layouts/js/bootstrap-markdown/to-markdown.js')}"></script>
 	<script src="{f:uri.resource(package: 'TYPO3.IHS', path: 'Layouts/js/bootstrap-markdown/markdown.js')}"></script>
+</f:section>
+
+<f:section name="body">
+	<!-- modal for the deletion of new versions -->
+	<div id="delete-confirmation-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="delete-confirmation-modal-label" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="delete-confirmation-modal-label">Are you sure?</h3>
+		</div>
+		<div class="modal-body">
+			<h5>
+				Are you sure you want to delete the following object?
+			</h5>
+			<div class="modal-content">
+
+			</div>
+			<div class="alert alert-info">
+				<p>
+					<strong>Notice: </strong> You will lose unsaved changes.
+				</p>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<a class="btn btn-danger remove-object" href="#">Remove</a>
+		</div>
+	</div>
+
+	<div id="wrap">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="/">TYPO3 Incident Handling System</a>
+
+					<div class="nav-collapse collapse">
+						<p class="navbar-text pull-right">
+							<f:security.ifAuthenticated>
+								<f:then>
+									Logged in as <ihs:security.account>{account.accountIdentifier}</ihs:security.account> | <a href="#" class="navbar-link"><f:link.action action="logout" package="TYPO3.IHS" controller="Login">logout</f:link.action></a>
+								</f:then>
+								<f:else>
+									<f:link.action action="login" package="TYPO3.IHS" controller="Login">Login</f:link.action>
+								</f:else>
+							</f:security.ifAuthenticated>
+						</p>
+						<f:render partial="Menu" section="Main" />
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row-fluid">
+				<!--/span-->
+				<div class="span12">
+
+					<f:flashMessages as="flashMessages">
+						<f:for each="{flashMessages}" as="flashMessage">
+							<div class="alert alert-{flashMessage.severity}">
+								<p>{flashMessage}</p>
+							</div>
+						</f:for>
+					</f:flashMessages>
+
+					<ts:render path="controllerAction" />
+				</div>
+				<!--/span-->
+			</div>
+			<!--/row-->
+		</div>
+	</div>
+	<footer>
+		<div class="container">
+			<p>&copy; TYPO3 Security Team 2014</p>
+		</div>
+	</footer>
 </f:section>
 
 </html>

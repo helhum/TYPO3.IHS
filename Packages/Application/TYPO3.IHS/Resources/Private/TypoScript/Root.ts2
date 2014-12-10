@@ -33,8 +33,15 @@ ihs {
 			main = TYPO3.TypoScript:Template {
 				layoutRootPath = 'resource://TYPO3.IHS/Private/Layouts'
 				partialRootPath = 'resource://TYPO3.IHS/Private/Partials'
-				templatePath = ${'resource://TYPO3.IHS/Private/Templates/' + String.firstLetterToUpperCase(request.controllerName) + '/' + String.firstLetterToUpperCase(request.controllerActionName) + '.' + request.format}
-				sectionName = 'Content'
+				templatePath = 'resource://TYPO3.IHS/Private/Templates/Page/Default.html'
+				sectionName = 'body'
+
+				controllerAction = TYPO3.TypoScript:Template {
+					layoutRootPath = 'resource://TYPO3.IHS/Private/Layouts'
+					partialRootPath = 'resource://TYPO3.IHS/Private/Partials'
+					templatePath = ${'resource://TYPO3.IHS/Private/Templates/' + String.firstLetterToUpperCase(request.controllerName) + '/' + String.firstLetterToUpperCase(request.controllerActionName) + '.' + request.format}
+					sectionName = 'Content'
+				}
 			}
 		}
 
@@ -46,43 +53,43 @@ ihs {
 }
 
 TYPO3.IHS.AdvisoryController.index < ihs {
-	body.content.main {
+	body.content.main.controllerAction {
 		advisories = ${advisories}
 	}
 }
 TYPO3.IHS.AdvisoryController.show < ihs {
-	body.content.main {
+	body.content.main.controllerAction {
 		advisory = ${advisory}
 	}
 }
 TYPO3.IHS.AdvisoryController.edit < ihs {
-	body.content.main {
+	body.content.main.controllerAction {
 		advisory = ${advisory}
 		products = ${products}
 	}
 }
 
 TYPO3.IHS.IssueController.index < ihs {
-	body.content.main {
+	body.content.main.controllerAction {
 		issues = ${issues}
 		quickFilterHasSolution = ${quickFilterHasSolution}
 		quickFilterHasAdvisory = ${quickFilterHasAdvisory}
 	}
 }
 TYPO3.IHS.IssueController.show < ihs {
-	body.content.main {
+	body.content.main.controllerAction {
 		issue = ${issue}
 	}
 }
 TYPO3.IHS.IssueController.new < ihs {
-	body.content.main {
+	body.content.main.controllerAction {
 		advisory = ${advisory}
 		products = ${products}
 		solutionsAvailable = ${solutionsAvailable}
 	}
 }
 TYPO3.IHS.IssueController.edit < ihs {
-	body.content.main {
+	body.content.main.controllerAction {
 		issue = ${issue}
 		products = ${products}
 		solutionsAvailable = ${solutionsAvailable}
@@ -92,7 +99,7 @@ TYPO3.IHS.IssueController.edit < ihs {
 TYPO3.IHS.LoginController.index < ihs
 
 TYPO3.IHS.ProductController.index< ihs {
-	body.content.main {
+	body.content.main.controllerAction {
 		productsByType = ${productsByType}
 	}
 }
