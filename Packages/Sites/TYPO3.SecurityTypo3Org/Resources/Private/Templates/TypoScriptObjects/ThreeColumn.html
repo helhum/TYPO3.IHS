@@ -1,0 +1,30 @@
+{namespace t=TYPO3\Neos\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+
+<t:contentElement node="{node}">
+	<div class="{f:if(condition:'{node.properties.layout}==1', then: 'b-home-3-cols')}">
+		<div class="{f:if(condition:'{node.properties.layout}==1', then: 'b-home-3-cols-body')}">
+			<div class="g">
+				<div class="g-6">
+					<div class="gc">
+						<div class="g-5">
+							<div class="gc">
+								<ts:render path="left" />
+							</div>
+						</div>
+						<div class="g-5">
+							<div class="gc">
+								<ts:render path="center" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="g-3">
+					<div class="gc">
+						<ts:render path="right" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</t:contentElement>

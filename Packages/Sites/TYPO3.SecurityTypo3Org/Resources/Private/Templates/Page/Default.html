@@ -1,29 +1,112 @@
-<!DOCTYPE html>
-{namespace neos=TYPO3\Neos\ViewHelpers}
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
-<html>
-<head>
-	<f:section name="stylesheets">
-		<!-- Put your stylesheet inclusions here, they will be included in your website by TypoScript -->
-	</f:section>
-	<f:section name="headScripts">
-		<!-- Put your scripts inclusions for the head here, they will be included in your website by TypoScript -->
-	</f:section>
-</head>
-<body>
-<f:section name="body">
-	<nav class="menu">
-		{parts.menu -> f:format.raw()}
-	</nav>
-	<nav class="breadcrumb">
-		{parts.breadcrumb -> f:format.raw()}
-	</nav>
-	<div class="content">
-		{content.main -> f:format.raw()}
-	</div>
-</f:section>
-<f:section name="bodyScripts">
-	<!-- Put your scripts inclusions for the end of the body here, they will be included in your website by TypoScript -->
-</f:section>
-</body>
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+
+		<f:section name="meta">
+			<title>{title} » TYPO3 Flow – the Enterprise PHP Application Framework</title>
+			<meta name="viewport" content="width=device-width"/>
+			<meta generator="TYPO3 Neos"/>
+		</f:section>
+
+		<f:section name="stylesheets">
+			<link rel="stylesheet" href="../../../Public/Stylesheets/reset.css" media="all" />
+			<link rel="stylesheet" href="../../../Public/Stylesheets/grid.css" media="all" />
+			<link rel="stylesheet" href="../../../Public/Stylesheets/main.css" media="all" />
+			<link rel="stylesheet" href="../../../Public/Stylesheets/print.css" media="print" />
+			<link rel="stylesheet" href="../../../Public/Stylesheets/jquery-ui-1.8.13.css" media="all" />
+			<link rel="stylesheet" href="../../../Public/Stylesheets/colorbox.css" media="all" />
+
+			<!--[if IE]><link rel="stylesheet" href="../../../Public/Stylesheets/ie.css" media="all" /><![endif]-->
+			<!--[if IE 7]><link rel="stylesheet" href="../../../Public/Stylesheets/ie7.css" media="all" /><![endif]-->
+			<!--[if IE 8]><link rel="stylesheet" href="../../../Public/Stylesheets/ie8.css" media="all" /><![endif]-->
+
+			<link rel="shortcut icon" href="../../../Public/Images/favicon.ico" />
+		</f:section>
+
+		<f:section name="javascripts">
+			<script src="../../../Public/JavaScript/css_browser_selector.js"></script>
+			<script src="../../../Public/JavaScript/jquery-1.6.4.min.js"></script>
+			<script src="../../../Public/JavaScript/jquery-ui-1.8.16.min.js"></script>
+			<script src="../../../Public/JavaScript/jquery.tools.js"></script>
+			<script src="../../../Public/JavaScript/jquery.colorbox-min.js"></script>
+
+			<script src="../../../Public/JavaScript/main.js"></script>
+		</f:section>
+
+	</head>
+
+	<body class="js-off page-landing" id="typo3org">
+		<f:section name="body">
+			<div class="p neos-reloadable-content" id="page">
+				<f:if condition="{isStartPage}">
+					<f:then>
+						<div class="c">
+							<div class="s d">
+								<ts:render path="content.teaser" />
+							</div>
+						</div>
+					</f:then>
+					<f:else>
+						<div class="c cl">
+							<div class="a" id="aside">
+								<ts:render path="parts.subMenu" />
+								<div id="aside-end"></div>
+							</div>
+							<div class="s d">
+								<ts:render path="parts.breadcrumb" />
+								<ts:render path="content.main" />
+							</div>
+						</div>
+					</f:else>
+				</f:if>
+
+				<div class="h" id="header">
+					<a href="#" id="logo"><img src="{f:uri.resource(path: 'Images/typo3-flow-logo-h40px.png', package:'TYPO3.SecurityTypo3Org')}" alt="TYPO3 Flow logo" width="125" height="40"/></a>
+					<div class="h-bar">
+						<ul class="h-bar-nav">
+							<li>
+								<a href="#">
+									<span class="b-drop-h">
+										flow.typo3.org<span class="i-arr-down-or ico"></span>
+										<span class="b-drop-h-l"></span><span class="b-drop-h-r"></span>
+									</span>
+								</a>
+								<div class="b-drop-body b-drop-r">
+									<ul class="b-drop-nav">
+										<li><a href="http://typo3.org">typo3.org</a></li>
+										<li><a href="http://forge.typo3.org">forge.typo3.org</a></li>
+										<li><a href="http://git.typo3.org">git.typo3.org</a></li>
+										<li><a href="http://association.typo3.org">association.typo3.org</a></li>
+									</ul>
+									<div class="b-drop-body-l"><div></div><div class="b-drop-r-tl"></div></div>
+									<div class="b-drop-body-b"><div></div></div>
+									<div class="b-drop-body-r"></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<ts:render path="parts.mainMenu" />
+				</div>
+
+			</div>
+
+			<div class="f" id="footer">
+				<div class="f-body">
+					<div class="f-links">
+						<ul>
+							<li><a href="http://typo3.org/donate">Donate</a></li>
+							<li><a href="http://association.typo3.org/" target="_blank">TYPO3 Association</a></li>
+						</ul>
+						<ul>
+							<li><a href="/download">Download</a></li>
+							<li><a href="/documentation/screencasts">Screencasts</a></li>
+						</ul>
+					</div>
+					<p>Powered by <a href="http://neos.typo3.org">TYPO3 Neos</a> &amp; TYPO3 Flow</p>
+				</div>
+
+			</div>
+		</f:section>
+	</body>
 </html>
