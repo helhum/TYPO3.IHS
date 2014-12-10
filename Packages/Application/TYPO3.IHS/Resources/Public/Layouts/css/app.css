@@ -1,5 +1,16 @@
 html, body {
 	height: 100%;
+	background: none !important;
+}
+
+/*overwritten typo3.org designs*/
+
+.p {
+	padding-top: 110px;
+}
+
+.c {
+	margin-bottom: 40px;
 }
 
 /*general styles*/
@@ -27,6 +38,37 @@ html, body {
 	color: #b94a48;
 }
 
+.actions {
+	overflow: hidden;
+}
+.actions .btn {
+	float: left;
+	margin-right: 1em;
+}
+
+a.btn {
+	color: #333;
+}
+
+a.btn-primary {
+	color: #fff;
+}
+
+
+.btn-text, .btn-text:hover, .btn-text:active {
+	background: none;
+	border: none;
+	cursor: default;
+	box-shadow: none;
+}
+
+
+/*layout*/
+
+.sidebar-nav {
+	padding: 9px 0;
+}
+
 #wrap {
 	min-height: 100%;
 	height: auto !important;
@@ -36,29 +78,7 @@ html, body {
 #wrap .container {
 	padding-top: 60px;
 	padding-bottom: 120px;
-}
-
-.sidebar-nav {
-	padding: 9px 0;
-}
-
-.actions {
-	overflow: hidden;
-}
-.actions .btn {
-	float: left;
-	margin-right: 1em;
-}
-
-.actions form {
-	margin: 0;
-}
-
-.btn-text, .btn-text:hover, .btn-text:active {
-	background: none;
-	border: none;
-	cursor: default;
-	box-shadow: none;
+	width: 100% !important;
 }
 
 .articles h2 {
@@ -67,6 +87,12 @@ html, body {
 
 .articles article {
 	margin-bottom: 3em;
+}
+
+/*content*/
+
+.actions form {
+	margin: 0;
 }
 
 .loading-overlay {
@@ -91,22 +117,6 @@ html, body {
 	margin-bottom: 10px;
 }
 
-footer {
-	height: 60px;
-	line-height: 60px;
-	vertical-align: middle;
-	text-align: right;
-	color: #ccc;
-}
-
-@media (max-width: 980px) {
-	/* Enable use of floated navbar text */
-	.navbar-text.pull-right {
-		float: none;
-		padding-left: 5px;
-		padding-right: 5px;
-	}
-}
 textarea.f3-form-error {
 	background-color:#FF9F9F;
 	border: 1px #FF0000 solid;
@@ -121,7 +131,8 @@ input.f3-form-error {
 	position: relative;
 }
 
-/*pagination widget*/
+
+/*content - agination widget*/
 .typo3-widget-paginator {
 	list-style: none;
 	text-align: center;
@@ -134,7 +145,7 @@ input.f3-form-error {
 }
 
 
-/* issue form fields */
+/* content - issue form fields */
 select.product {
 	display: none;
 }
@@ -166,7 +177,7 @@ select.product {
 	display: none;
 }
 
-/*visualsearch*/
+/*content - visualsearch*/
 
 .visualsearch {
 	margin-bottom: 20px;
@@ -218,9 +229,16 @@ select.product {
 
 .saved-searches li {
 	margin-bottom: 2px;
+	padding-left: 0 !important;
+	background: none !important;
 }
 
-/*css for datetimepicker*/
+.saved-searches-container .well {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+/*content - datetimepicker*/
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .ui-timepicker-div dl { text-align: left; }
 .ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
@@ -232,3 +250,12 @@ select.product {
 .ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
 .ui-timepicker-rtl dl dt{ float: right; clear: right; }
 .ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
+
+@media (max-width: 980px) {
+	/* Enable use of floated navbar text */
+	.navbar-text.pull-right {
+		float: none;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}

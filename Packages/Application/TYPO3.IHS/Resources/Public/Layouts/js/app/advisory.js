@@ -171,23 +171,21 @@ function handleSavedSearches() {
 	});
 
 	function displaySavedSearches() {
-		$(".advisories .saved-searches").html("");
+		$(".saved-searches").html("");
 		var savedSearchesJSON = localStorage.getItem('savedAdvisorySearches');
 		var savedSearches = JSON.parse(savedSearchesJSON);
 		if (savedSearches && savedSearches.length > 0) {
-			$(".advisories .saved-searches-container").show();
-			$(".advisories .list-of-advisories").addClass("span9");
+			$(".saved-searches-container").show();
 		} else {
-			$(".advisories .saved-searches-container").hide();
-			$(".advisories .list-of-advisories").removeClass("span9");
+			$(".saved-searches-container").hide();
 		}
 
 		$(savedSearches).each(function(key, savedSearch) {
 			var searchQueryJSON = JSON.stringify(savedSearch);
-			$(".advisories .saved-searches").append("<li><button key='"+key+"' class='remove-saved-search btn btn-mini btn-danger'><i class='icon-trash icon-white'></i></button><a class='saved-search' href='"+window.location.pathname + "?search="+encodeURIComponent(searchQueryJSON)+"'>"+getSearchStringFromJSON(searchQueryJSON, true)+"</a></li>");
+			$(".saved-searches").append("<li><button key='"+key+"' class='remove-saved-search btn btn-mini btn-danger'><i class='icon-trash icon-white'></i></button><a class='saved-search' href='"+window.location.pathname + "?search="+encodeURIComponent(searchQueryJSON)+"'>"+getSearchStringFromJSON(searchQueryJSON, true)+"</a></li>");
 		});
 
-		$('.advisories .remove-saved-search').on('click', function() {
+		$('.remove-saved-search').on('click', function() {
 			var key = $(this).attr('key');
 			savedSearches.splice(key, 1);
 			savedSearchesJSON = JSON.stringify(savedSearches);

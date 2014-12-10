@@ -11,15 +11,18 @@
 	<a href="{f:uri.action(action: 'rssFeed', format:'xml')}" rel="alternate" type="application/rss+xml" title="RSS">Rss Feed</a>
 	<div class="advisory-visualsearch visualsearch" searchUrl="{f:uri.action(action:'index', controller:'Advisory', package:'TYPO3.IHS')}"></div>
 
-	<div class="row-fluid advisories">
-		<div class="span3 saved-searches-container">
+	<div class="row-fluid saved-searches-container">
+		<div class="span12">
 			<div class="well">
 				<h3>Favorites</h3>
 				<ul class="saved-searches unstyled">
 				</ul>
 			</div>
 		</div>
-		<div class="span9 list-of-advisories">
+	</div>
+
+	<div class="row-fluid list-of-advisories">
+		<div class="span12">
 			<div class="loading-overlay">
 			<span>
 				<img src="{f:uri.resource(path: 'layouts/img/ajax-loader.gif')}" />
