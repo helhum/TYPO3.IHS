@@ -26,11 +26,15 @@ class AdvisoryRepository extends Repository {
 		$end = \DateTime::createFromFormat('d.m.Y H:i', '31.12.' . $year . ' 23:59');
 		$constraints = array();
 
-		$constraints[] = $query->equals('issues.product.type', $product->getType());
 		$constraints[] =
 			$query->logicalAnd(
 				$query->greaterThanOrEqual('creationDate', $beginning),
 				$query->lessThanOrEqual('creationDate', $end)
+			);
+		$constraints[] =
+			$query->logicalOr(
+				$query->equals('issues.product.type', $product->getType()),
+				$query->like('identifier', '%'.$product->getType().'%')
 			);
 
 		return $query->matching($query->logicalAnd($constraints))->count();
