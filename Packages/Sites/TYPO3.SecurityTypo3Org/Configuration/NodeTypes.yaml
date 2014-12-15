@@ -1,10 +1,35 @@
-# If you need more than just the "main" content area you can
-# uncomment the snippet below. It will add a "sidebar" area
-# to your pages. You can add as many areas as you like, still
-# only those that are rendered in your TypoScript and Template
-# are visible on your page.
----
-#'TYPO3.Neos.NodeTypes:Page':
-#  childNodes:
-#    sidebar:
-#      type: 'TYPO3.Neos:ContentCollection'
+##
+# Adjust the "Page" node type:
+# Add two properties "layout" and "subpageLayout" to the default "Page" NodeType
+#
+'TYPO3.Neos.NodeTypes:Page':
+  ui:
+    inspector:
+      groups:
+        image:
+          label: 'Image'
+          position: 200
+        layout:
+          label: 'Layout'
+          position: 300
+  properties:
+    'layout':
+      ui:
+        inspector:
+          group: 'layout'
+          editorOptions:
+            values:
+              'default':
+                label: 'Default'
+              'defaultSubnavigationRight':
+                label: 'Default (Subnavigation right)'
+    'subpageLayout':
+      ui:
+        inspector:
+          group: 'layout'
+          editorOptions:
+            values:
+              'default':
+                label: 'Default'
+              'defaultSubnavigationRight':
+                label: 'Default (Subnavigation right)'

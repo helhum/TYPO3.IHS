@@ -1,3 +1,4 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 <!DOCTYPE HTML>
 <html lang="en">
@@ -10,103 +11,53 @@
 		</f:section>
 
 		<f:section name="stylesheets">
-			<link rel="stylesheet" href="../../../Public/Stylesheets/reset.css" media="all" />
-			<link rel="stylesheet" href="../../../Public/Stylesheets/grid.css" media="all" />
-			<link rel="stylesheet" href="../../../Public/Stylesheets/main.css" media="all" />
-			<link rel="stylesheet" href="../../../Public/Stylesheets/print.css" media="print" />
-			<link rel="stylesheet" href="../../../Public/Stylesheets/jquery-ui-1.8.13.css" media="all" />
-			<link rel="stylesheet" href="../../../Public/Stylesheets/colorbox.css" media="all" />
-
-			<!--[if IE]><link rel="stylesheet" href="../../../Public/Stylesheets/ie.css" media="all" /><![endif]-->
-			<!--[if IE 7]><link rel="stylesheet" href="../../../Public/Stylesheets/ie7.css" media="all" /><![endif]-->
-			<!--[if IE 8]><link rel="stylesheet" href="../../../Public/Stylesheets/ie8.css" media="all" /><![endif]-->
-
-			<link rel="shortcut icon" href="../../../Public/Images/favicon.ico" />
+			<link rel="stylesheet" href="../../../Public/Styles/styles.css" media="all" />
 		</f:section>
 
 		<f:section name="javascripts">
-			<!--<script src="../../../Public/JavaScript/css_browser_selector.js"></script>
-			<script src="../../../Public/JavaScript/jquery-1.6.4.min.js"></script>
-			<script src="../../../Public/JavaScript/jquery-ui-1.8.16.min.js"></script>
-			<script src="../../../Public/JavaScript/jquery.tools.js"></script>
-			<script src="../../../Public/JavaScript/jquery.colorbox-min.js"></script>
-
-			<script src="../../../Public/JavaScript/main.js"></script>-->
+			<script src="../../../Public/JavaScript/Libs/modernizr-2.6.3.min.js"></script>
+			<script src="../../../Public/JavaScript/Libs/windowsphone-viewportfix.min.js"></script>
 		</f:section>
-
 	</head>
 
-	<body class="js-off page-landing" id="typo3org">
+	<body>
 		<f:section name="body">
-			<div class="p neos-reloadable-content" id="page">
-				<f:if condition="{isStartPage}">
-					<f:then>
-						<div class="c">
-							<div class="s d">
-								<ts:render path="content.teaser" />
-							</div>
-						</div>
-					</f:then>
-					<f:else>
-						<div class="c cl">
-							<div class="a" id="aside">
-								<ts:render path="parts.subMenu" />
-								<div id="aside-end"></div>
-							</div>
-							<div class="s d">
-								<ts:render path="parts.breadcrumb" />
-								<ts:render path="content.main" />
-							</div>
-						</div>
-					</f:else>
+			<div class="body-bg{f:if(condition:themeNavigationtype, then:' body-bg-{themeNavigationtype}')}">
+				<neos:link.node node="{node}"  class="sr-only sr-only-focusable" section="content">
+
+				</neos:link.node>
+				<f:if condition="{showHeader}">
+					<f:render partial="Navigation/Main" arguments="{_all}" />
+					<ts:render path="parts.breadcrumb" />
 				</f:if>
+				<!--TYPO3SEARCH_begin-->
+				<div id="content" class="main-section">
+					<f:if condition="{partial}">
+						<f:then>
+							<f:render partial="{partial}" />
+						</f:then>
+						<f:else>
+							<ts:render path="content.main" />
+						</f:else>
+					</f:if>
 
-				<div class="h" id="header">
-					<a href="#" id="logo"><img src="{f:uri.resource(path: 'Images/typo3-flow-logo-h40px.png', package:'TYPO3.SecurityTypo3Org')}" alt="TYPO3 Flow logo" width="125" height="40"/></a>
-					<div class="h-bar">
-						<ul class="h-bar-nav">
-							<li>
-								<a href="#">
-									<span class="b-drop-h">
-										flow.typo3.org<span class="i-arr-down-or ico"></span>
-										<span class="b-drop-h-l"></span><span class="b-drop-h-r"></span>
-									</span>
-								</a>
-								<div class="b-drop-body b-drop-r">
-									<ul class="b-drop-nav">
-										<li><a href="http://typo3.org">typo3.org</a></li>
-										<li><a href="http://forge.typo3.org">forge.typo3.org</a></li>
-										<li><a href="http://git.typo3.org">git.typo3.org</a></li>
-										<li><a href="http://association.typo3.org">association.typo3.org</a></li>
-									</ul>
-									<div class="b-drop-body-l"><div></div><div class="b-drop-r-tl"></div></div>
-									<div class="b-drop-body-b"><div></div></div>
-									<div class="b-drop-body-r"></div>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<ts:render path="parts.mainMenu" />
+					<f:if condition="{onePage}">
+						<ts:render path="content.main" />
+					</f:if>
 				</div>
-
+				<!--TYPO3SEARCH_end-->
+				<f:if condition="{showFooter}">
+					<f:render partial="Structure/Footer" arguments="{_all}"/>
+				</f:if>
 			</div>
+		</f:section>
 
-			<div class="f" id="footer">
-				<div class="f-body">
-					<div class="f-links">
-						<ul>
-							<li><a href="http://typo3.org/donate">Donate</a></li>
-							<li><a href="http://association.typo3.org/" target="_blank">TYPO3 Association</a></li>
-						</ul>
-						<ul>
-							<li><a href="/download">Download</a></li>
-							<li><a href="/documentation/screencasts">Screencasts</a></li>
-						</ul>
-					</div>
-					<p>Powered by <a href="http://neos.typo3.org">TYPO3 Neos</a> &amp; TYPO3 Flow</p>
-				</div>
+		<f:section name="bodyScripts">
+			<script src="../../../Public/JavaScript/Libs/jquery-1.11.1.min.js"></script>
+			<script src="../../../Public/JavaScript/Libs/bootstrap.min.js"></script>
+			<script src="../../../Public/JavaScript/Libs/jquery.responsiveimages.min.js"></script>
+			<script src="../../../Public/JavaScript/main.min.js"></script>
 
-			</div>
 		</f:section>
 	</body>
 </html>

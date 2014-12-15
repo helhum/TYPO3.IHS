@@ -47,6 +47,10 @@ class IssueController extends ActionController {
 	 */
 	protected $issueRepository;
 
+	/**
+	 * @var string
+	 */
+	protected $currentNodePath = '/sites/securitytypo3org/securitybulletins/issues';
 
 	/**
 	 * @param string $search

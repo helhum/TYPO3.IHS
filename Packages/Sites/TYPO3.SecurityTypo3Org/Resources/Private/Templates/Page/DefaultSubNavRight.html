@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	  xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+<f:section name="body">
+	{layout}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9" role="main">
+				<ts:render path="content.main" />
+			</div>
+			<div class="col-md-3">
+				<ts:render path="parts.subMenu" />
+			</div>
+		</div>
+	</div>
+</f:section>
+</html>

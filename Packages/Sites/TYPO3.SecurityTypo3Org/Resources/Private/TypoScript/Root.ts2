@@ -1,26 +1,4 @@
 /**
-* Definition of custom TypoScript types
-*/
-
-prototype(TYPO3.SecurityTypo3Org:ThreeColumn) < prototype(Content) {
-	templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/TypoScriptObjects/ThreeColumn.html'
-	left = TYPO3.Neos:ContentCollection
-	left.nodePath = 'left'
-	center = TYPO3.Neos:ContentCollection
-	center.nodePath = 'center'
-	right = TYPO3.Neos:ContentCollection
-	right.nodePath = 'right'
-}
-
-prototype(TYPO3.SecurityTypo3Org:TwoColumn) < prototype(Content) {
-	templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/TypoScriptObjects/TwoColumn.html'
-	left = TYPO3.Neos:ContentCollection
-	left.nodePath = 'left'
-	right = TYPO3.Neos:ContentCollection
-	right.nodePath = 'right'
-}
-
-/**
 * Root TypoScript template for the security.typo3.org website
 */
 
@@ -46,6 +24,7 @@ page = TYPO3.Neos:Page {
 	}
 
 	body {
+		partialRootPath = 'resource://TYPO3.SecurityTypo3Org/Private/Partials'
 		templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/Page/Default.html'
 		sectionName = 'body'
 
@@ -55,6 +34,8 @@ page = TYPO3.Neos:Page {
 				templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/TypoScriptObjects/MainMenu.html'
 				entryLevel = 1
 				maximumLevels = 1
+
+				current.attributes.class = 'active'
 			}
 
 			subMenu = TYPO3.Neos:Menu
@@ -62,11 +43,18 @@ page = TYPO3.Neos:Page {
 				templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/TypoScriptObjects/SubMenu.html'
 				entryLevel = 2
 				maximumLevels = 3
+
+				normal.attributes.class = 'list-group-item normal'
+				active.attributes.class = 'list-group-item active'
+				current.attributes.class = 'list-group-item active'
+
 			}
 
-			breadcrumb = TYPO3.Neos:Breadcrumb
+			breadcrumb = TYPO3.Neos:BreadcrumbMenu
 			breadcrumb {
 				templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/TypoScriptObjects/BreadcrumbMenu.html'
+
+				attributes.class = 'breadcrumb'
 			}
 		}
 
@@ -79,15 +67,18 @@ page = TYPO3.Neos:Page {
 				nodePath = 'teaser'
 			}
 		}
+
+		javascripts.site = TYPO3.TypoScript:Template {
+			templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/Page/Default.html'
+			sectionName = 'bodyScripts'
+		}
+
+		showHeader = ${true}
+		themeNavigationstyle = 'default'
 	}
 }
 
-homePage < page {
-	body.isStartPage = ${true}
-	htmlTag.attributes.class = 'page-home'
-}
-
-root.homePage {
-	condition =  ${q(node).property('_path') == '/sites/securitytypo3org'}
-	renderPath = '/homePage'
+defaultSubnavigationRight < page
+defaultSubnavigationRight.body {
+	partial = 'Page/DefaultSubNavRight'
 }

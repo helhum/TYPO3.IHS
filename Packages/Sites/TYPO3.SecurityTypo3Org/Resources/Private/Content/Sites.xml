@@ -1,2 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root><site name="security.typo3.org" state="1" siteResourcesPackageKey="TYPO3.SecurityTypo3Org" siteNodeName="securitytypo3org"><nodes formatVersion="2.0"><node identifier="13a53dcc-4c35-26f7-aae7-44895157a864" nodeName="securitytypo3org"><variant sortingIndex="100" workspace="live" nodeType="TYPO3.Neos.NodeTypes:Page" version="1" removed="" hidden="" hiddenInIndex=""><dimensions/><accessRoles __type="array"/><properties><title __type="string">Home</title></properties></variant><node identifier="5a4ea2ec-d25c-dc24-28a4-b8306a0ff653" nodeName="main"><variant sortingIndex="100" workspace="live" nodeType="TYPO3.Neos:ContentCollection" version="1" removed="" hidden="" hiddenInIndex=""><dimensions/><accessRoles __type="array"/><properties/></variant><node identifier="9d3c5037-dc64-c065-6893-0d7533fd76f6" nodeName="text1"><variant sortingIndex="100" workspace="live" nodeType="TYPO3.Neos.NodeTypes:Text" version="1" removed="" hidden="" hiddenInIndex=""><dimensions/><accessRoles __type="array"/><properties><text __type="string">&lt;p&gt;This is the homepage&lt;/p&gt;</text></properties></variant></node></node><node identifier="83e3ed65-31ea-dd8c-7aea-4264b136c353" nodeName="security-bulletins"><variant sortingIndex="250" workspace="live" nodeType="TYPO3.Neos:Shortcut" version="7" removed="" hidden="" hiddenInIndex=""><dimensions/><accessRoles __type="array"/><properties><targetMode __type="string">selectedTarget</targetMode><title __type="string">Security Bulletins</title><uriPathSegment __type="string">security-bulletins</uriPathSegment><target __type="string">/security-bulletins/</target></properties></variant></node></node></nodes></site></root>
+<root>
+ <site name="security.typo3.org" state="1" siteResourcesPackageKey="TYPO3.SecurityTypo3Org" siteNodeName="securitytypo3org">
+  <nodes formatVersion="2.0">
+   <node identifier="13a53dcc-4c35-26f7-aae7-44895157a864" nodeName="securitytypo3org">
+    <variant sortingIndex="100" workspace="live" nodeType="TYPO3.Neos.NodeTypes:Page" version="1" removed="" hidden="" hiddenInIndex="">
+     <dimensions/>
+     <accessRoles __type="array"/>
+     <properties>
+      <title __type="string">Home</title>
+     </properties>
+    </variant>
+    <node identifier="ac65faec-cda9-8062-e143-a7c20d037984" nodeName="home">
+     <variant sortingIndex="175" workspace="live" nodeType="TYPO3.Neos.NodeTypes:Page" version="6" removed="" hidden="" hiddenInIndex="">
+      <dimensions/>
+      <accessRoles __type="array"/>
+      <properties>
+       <title __type="string">Home</title>
+       <uriPathSegment __type="string">home</uriPathSegment>
+       <layout __type="string">defaultSubnavigationRight</layout>
+      </properties>
+     </variant>
+     <node identifier="b16f0727-a721-4971-8154-2068ac21bdb6" nodeName="main">
+      <variant sortingIndex="100" workspace="live" nodeType="TYPO3.Neos:ContentCollection" version="3" removed="" hidden="" hiddenInIndex="">
+       <dimensions/>
+       <accessRoles __type="array"/>
+       <properties/>
+      </variant>
+     </node>
+     <node identifier="e71f4f83-0ea6-ea18-dda5-27250ddb9522" nodeName="test">
+      <variant sortingIndex="313" workspace="live" nodeType="TYPO3.Neos.NodeTypes:Page" version="3" removed="" hidden="" hiddenInIndex="">
+       <dimensions/>
+       <accessRoles __type="array"/>
+       <properties>
+        <title __type="string">Test</title>
+        <uriPathSegment __type="string">test</uriPathSegment>
+       </properties>
+      </variant>
+      <node identifier="61a14fc2-1c48-ee9f-03f1-cba688de3b20" nodeName="main">
+       <variant sortingIndex="100" workspace="live" nodeType="TYPO3.Neos:ContentCollection" version="2" removed="" hidden="" hiddenInIndex="">
+        <dimensions/>
+        <accessRoles __type="array"/>
+        <properties/>
+       </variant>
+      </node>
+     </node>
+    </node>
+    <node identifier="5a4ea2ec-d25c-dc24-28a4-b8306a0ff653" nodeName="main">
+     <variant sortingIndex="100" workspace="live" nodeType="TYPO3.Neos:ContentCollection" version="1" removed="" hidden="" hiddenInIndex="">
+      <dimensions/>
+      <accessRoles __type="array"/>
+      <properties/>
+     </variant>
+     <node identifier="9d3c5037-dc64-c065-6893-0d7533fd76f6" nodeName="text1">
+      <variant sortingIndex="100" workspace="live" nodeType="TYPO3.Neos.NodeTypes:Text" version="1" removed="" hidden="" hiddenInIndex="">
+       <dimensions/>
+       <accessRoles __type="array"/>
+       <properties>
+        <text __type="string">&lt;p&gt;This is the homepage&lt;/p&gt;</text>
+       </properties>
+      </variant>
+     </node>
+    </node>
+    <node identifier="83e3ed65-31ea-dd8c-7aea-4264b136c353" nodeName="securitybulletins">
+     <variant sortingIndex="250" workspace="live" nodeType="TYPO3.Neos:Shortcut" version="7" removed="" hidden="" hiddenInIndex="">
+      <dimensions/>
+      <accessRoles __type="array"/>
+      <properties>
+       <targetMode __type="string">selectedTarget</targetMode>
+       <title __type="string">Security Bulletins</title>
+       <uriPathSegment __type="string">security-bulletins</uriPathSegment>
+       <target __type="string">/security-bulletins/</target>
+      </properties>
+     </variant>
+     <node identifier="5ff33aad-9681-1e04-686c-a6ce810c9787" nodeName="issues">
+      <variant sortingIndex="400" workspace="live" nodeType="TYPO3.Neos:Shortcut" version="3" removed="" hidden="" hiddenInIndex="">
+       <dimensions/>
+       <accessRoles __type="array"/>
+       <properties>
+        <targetMode __type="string">selectedTarget</targetMode>
+        <title __type="string">Issues</title>
+        <uriPathSegment __type="string">issues</uriPathSegment>
+        <target __type="string">/issues/index</target>
+       </properties>
+      </variant>
+      <node identifier="a0356793-d05f-a24b-ccd1-a000c898e93c" nodeName="main">
+       <variant sortingIndex="100" workspace="live" nodeType="TYPO3.Neos:ContentCollection" version="2" removed="" hidden="" hiddenInIndex="">
+        <dimensions/>
+        <accessRoles __type="array"/>
+        <properties/>
+       </variant>
+      </node>
+     </node>
+     <node identifier="494021be-4e4d-28f5-7926-d0f7ee2c6dae" nodeName="products">
+      <variant sortingIndex="500" workspace="live" nodeType="TYPO3.Neos:Shortcut" version="3" removed="" hidden="" hiddenInIndex="">
+       <dimensions/>
+       <accessRoles __type="array"/>
+       <properties>
+        <targetMode __type="string">selectedTarget</targetMode>
+        <title __type="string">Products</title>
+        <uriPathSegment __type="string">products</uriPathSegment>
+        <target __type="string">/products/index</target>
+       </properties>
+      </variant>
+     </node>
+    </node>
+   </node>
+  </nodes>
+ </site>
+</root>

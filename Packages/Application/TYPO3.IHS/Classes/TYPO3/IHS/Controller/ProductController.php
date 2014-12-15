@@ -33,6 +33,11 @@ class ProductController extends ActionController {
 	protected $persistenceManager;
 
 	/**
+	 * @var string
+	 */
+	protected $currentNodePath = '/sites/securitytypo3org/securitybulletins/products';
+
+	/**
 	 * @return void
 	 */
 	public function indexAction() {

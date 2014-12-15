@@ -3,7 +3,7 @@ include: resource://TYPO3.Neos.NodeTypes/Private/TypoScript/*
 include: resource://TYPO3.Neos/Private/TypoScript/*
 include: resource://TYPO3.SecurityTypo3Org/Private/TypoScript/*
 
-ihs < page
+ihs < defaultSubnavigationRight
 ihs {
 	# Workaround because else the HTTP Status Code would be printed
 	httpResponseHead >

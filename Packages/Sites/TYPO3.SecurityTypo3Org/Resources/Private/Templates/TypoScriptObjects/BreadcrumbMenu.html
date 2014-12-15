@@ -1,8 +1,22 @@
-{namespace t=TYPO3\Neos\ViewHelpers}
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
 <f:if condition="{items}">
-	<ul class="breadcrumbs">
-	<f:for each="{items}" as="item" reverse="1">
-		<li><t:link.node node="{item}">{item.label -> f:format.raw()}</t:link.node></li>
-	</f:for>
-	</ul>
+	<div class="breadcrumb-section hidden-xs hidden-sm">
+		<div class="container">
+			<ol{attributes -> f:format.raw()}>
+			<f:for each="{items}" as="item" reverse="TRUE">
+				<li{ts:render(path:'{item.state}.attributes', context: {item: item}) -> f:format.raw()}>
+				<f:if condition="{item.state} == 'current'">
+					<f:then>
+						{item.label}
+					</f:then>
+					<f:else>
+						<neos:link.node node="{item.node}" />
+					</f:else>
+				</f:if>
+				</li>
+			</f:for>
+			</ol>
+		</div>
+	</div>
 </f:if>

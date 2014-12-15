@@ -50,16 +50,22 @@ class ActionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	protected $siteRepository;
 
 	/**
+	 * @var string
+	 */
+	protected $currentNodePath = '/sites/securitytypo3org/securitybulletins';
+
+	/**
 	 * @param \TYPO3\Flow\Mvc\View\ViewInterface $view
 	 */
 	protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view) {
 		$contentContext = $this->buildContextFromWorkspaceName('live');
-		$currentNode = $contentContext->getCurrentSiteNode();
+		$siteNode = $contentContext->getCurrentSiteNode();
+		$currentNode = $contentContext->getNode($this->currentNodePath);
 
 		$this->view->assignMultiple(array(
 			'node' => $currentNode,
 			'documentNode' => $currentNode,
-			'site' => $currentNode,
+			'site' => $siteNode,
 		));
 	}
 

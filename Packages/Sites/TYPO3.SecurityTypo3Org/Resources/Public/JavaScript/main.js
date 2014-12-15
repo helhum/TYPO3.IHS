@@ -1,57 +1,66 @@
-(function($) {
-	// Calculate fixed tabs width
-	$.fn.calculateTabsWidth = function() {
+$(function () {
 
-	$(this).each(function() {
-
-		var o = $(this);
-		var list = $(o).find('li');
-		var oWidth = o.outerWidth(true);
-
-		o.parent().width(oWidth); // fix for FF4 :)
-
-		var tabsNo = $(list).length;
-		tabsNo = (tabsNo == 0) ? 1 : tabsNo;
-
-		var tabsWidth = 0, addWidth = 0, mod = 0, counter = 0;
-
-		$(list).each(function() {
-			tabsWidth += $(this).outerWidth(true);
+	// RESPONSIVE IMAGES
+	$("img.lazyload").responsiveimages({}, function () {
+		$(this).load(function () {
+			this.style.opacity = 1;
 		});
-
-		mod = (oWidth - tabsWidth) % tabsNo;
-		addWidth = (oWidth - mod - tabsWidth) / tabsNo;
-
-		$(list).each(function() {
-
-			newWidth = (counter < mod) ? $(this).width() + addWidth + 1 : $(this).width() + addWidth;
-
-			$(this).css({'width': newWidth});
-			$(this).find('a').css({'width': newWidth-1}); // for IE7 fix
-
-			counter++;
-		});
-
 	});
 
-	}
-
-})(jQuery);
-
-$(document).ready(function(){
-	$('body').removeClass('js-off');
-
-	$(".tabs:not(.js-off):not(.search-result)").tabs("> .tab-panes > div", {tabs: 'li', current: 'act', initialIndex: 0});
-
-	// Home page Main Scroller/ Tabs
-	if ($('#top-slider').length > 0) {
-		$('#top-slider .slider-nav').tabs('#top-slider .slides > .slide', {tabs: 'li', current: 'active', effect: 'fade', fadeInSpeed: 1000, fadeOutSpeed: 1000, rotate: true}).slideshow({autoplay:true,interval:8000});
-	}
-
-	$('.lightbox').colorbox();
-	// END Home page Main Scroller/ Tabs
-
-	$('.vimeoBadge a').live('click', function() {
-		$(this).attr('target', '_blank');
+	// MENU
+	$('.navbar-collapse').on('show.bs.collapse', function () {
+		toggleIcon = $('.navbar-toggle-menu .glyphicon');
+		toggleIcon.addClass('glyphicon-remove').removeClass('glyphicon-list');
 	});
+	$('.navbar-collapse').on('hide.bs.collapse', function () {
+		toggleIcon = $('.navbar-toggle-menu .glyphicon');
+		toggleIcon.removeClass('glyphicon-remove').addClass('glyphicon-list');
+	});
+
+	// LIGHTBOX PREPARATION
+	if ($('a.lightbox').length > 0) {
+		var $lightboxModal = "\
+			<div class='modal fade' id='lightbox' tabindex='-1' role='dialog' aria-hidden='true'>\
+				<div class='modal-dialog modal-lightbox'>\
+					<div class='modal-content'>\
+						<div class='modal-body'></div>\
+					</div>\
+				</div>\
+			</div>\
+		";
+		$('body').append($lightboxModal);
+		$('.lightbox').click(function (event) {
+			event.preventDefault();
+			var $lightbox = $('#lightbox');
+			var $modalBody = $lightbox.find('.modal-body');
+			var $modalDialog = $lightbox.find('.modal-dialog');
+			$modalBody.empty();
+			$modalBody.append('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>');
+			var $src = $(this).attr("href");
+			var $image = "<img class=\"img-responsive\" src=\"" + $src + "\">";
+
+			// FIX IMAGEWIDTH
+			var img = new Image();
+			img.onload = function () {
+				$modalDialog.width(img.width);
+				$modalDialog.css({"max-width": '95%'});
+			};
+			img.src = $src;
+
+			$modalBody.append($image);
+			var $title = $(this).attr("title");
+			var $text = $(this).parent().find('.caption').html();
+			if ($title || $text) {
+				$modalBody.append('<div class="modal-caption"></div>');
+				if ($title) {
+					$modalBody.find('.modal-caption').append("<span class=\"modal-caption-title\">" + $title + "</span>");
+				}
+				if ($text) {
+					$modalBody.find('.modal-caption').append($text);
+				}
+			}
+			$('#lightbox').modal({show: true});
+		});
+	}
+
 });
