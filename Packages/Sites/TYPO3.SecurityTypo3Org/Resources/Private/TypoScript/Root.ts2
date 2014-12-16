@@ -33,9 +33,11 @@ page = TYPO3.Neos:Page {
 			mainMenu {
 				templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/TypoScriptObjects/MainMenu.html'
 				entryLevel = 1
-				maximumLevels = 1
+				maximumLevels = 2
 
-				current.attributes.class = 'active'
+				normal.attributes.class = ${q(item.node).children().count() ? 'dropdown normal' : 'normal'}
+				active.attributes.class = ${q(item.node).children().count() ? 'dropdown active' : 'active'}
+				current.attributes.class = ${q(item.node).children().count() ? 'dropdown active' : 'active'}
 			}
 
 			subMenu = TYPO3.Neos:Menu
@@ -76,6 +78,11 @@ page = TYPO3.Neos:Page {
 		showHeader = ${true}
 		themeNavigationstyle = 'default'
 	}
+}
+
+default < page
+default.body {
+	partial = 'Page/Default'
 }
 
 defaultSubnavigationRight < page
