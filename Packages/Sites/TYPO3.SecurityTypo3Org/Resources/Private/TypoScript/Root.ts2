@@ -35,9 +35,9 @@ page = TYPO3.Neos:Page {
 				entryLevel = 1
 				maximumLevels = 2
 
-				normal.attributes.class = ${q(item.node).children().count() ? 'dropdown normal' : 'normal'}
-				active.attributes.class = ${q(item.node).children().count() ? 'dropdown active' : 'active'}
-				current.attributes.class = ${q(item.node).children().count() ? 'dropdown active' : 'active'}
+				normal.attributes.class = ${q(item.node).children('[instanceof TYPO3.Neos:Document]').count() ? 'dropdown normal' : 'normal'}
+				active.attributes.class = ${q(item.node).children('[instanceof TYPO3.Neos:Document]').count() ? 'dropdown active' : 'active'}
+				current.attributes.class = ${q(item.node).children('[instanceof TYPO3.Neos:Document]').count() ? 'dropdown active' : 'active'}
 			}
 
 			subMenu = TYPO3.Neos:Menu
