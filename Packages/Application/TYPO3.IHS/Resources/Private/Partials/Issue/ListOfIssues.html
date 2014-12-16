@@ -4,7 +4,7 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-		<table class="table table-hover">
+		<table class="table table-striped">
 			<thead>
 			<tr>
 				<th>Title</th>
@@ -17,19 +17,19 @@
 			<tbody>
 				<f:for each="{issues}" as="issue">
 					<tr>
-						<td class="span2">
+						<td>
 							<f:link.action action="show" arguments="{issue: issue}">{issue.title}</f:link.action>
 						</td>
-						<td class="span2">
+						<td>
 							{issue.product.qualifiedName}
 						</td>
-						<td class="span2">
+						<td>
 							{issue.vulnerabilityType.value}
 						</td>
-						<td class="span2">
+						<td>
 							<f:format.date date="{issue.creationDate}" format="d.m.Y - H:i"/>
 						</td>
-						<td class="actions span4">
+						<td class="actions">
 							<f:if condition="{issue.advisory}">
 								<f:then>
 									<f:link.action action="show" controller="Advisory" class="btn" arguments="{advisory: issue.advisory}">Show Advisory</f:link.action>
