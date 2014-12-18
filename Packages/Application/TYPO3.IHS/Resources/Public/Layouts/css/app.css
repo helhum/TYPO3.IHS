@@ -238,6 +238,14 @@ select.product {
 	padding-bottom: 5px;
 }
 
+.VS-search .search_input input {
+	margin-top: 2px;
+}
+
+.VS-search .search_facet input {
+	margin-top: 1px;
+}
+
 /*content - datetimepicker*/
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .ui-timepicker-div dl { text-align: left; }
