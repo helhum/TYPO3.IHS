@@ -5,7 +5,7 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<f:widget.paginate objects="{advisories}" as="paginatedAdvisories" configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 1}">
+	<f:widget.paginate objects="{advisories}" as="paginatedAdvisories" configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 1, maximumNumberOfLinks: 4}">
 		<f:for each="{paginatedAdvisories}" as="advisory">
 			<article>
 				<div class="b-news-item">
