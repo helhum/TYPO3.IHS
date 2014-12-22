@@ -4,25 +4,26 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
+	<ul>
 		<f:form.hidden property="{propertyPrefix}issue" value="{arguments.issue}" />
-		<div class="form-group">
+		<li>
 			<label for="solution-author">Author</label>
-			<f:form.textfield class="form-control" id="solution-author" property="{propertyPrefix}author" value="{object.author}" />
-		</div>
+			<f:form.textfield property="{propertyPrefix}author" id="solution-author" value="{object.author}" />
+		</li>
 
-		<div class="form-group">
+		<li>
 			<label for="solution-abstract">Abstract</label>
-			<f:form.textarea class="form-control markdown" id="solution-abstract" property="{propertyPrefix}abstract" value="{object.abstract}" />
-		</div>
+			<f:form.textarea property="{propertyPrefix}abstract" class="markdown" id="solution-abstract" value="{object.abstract}" />
+		</li>
 
-		<div class="form-group">
+		<li>
 			<label for="solution-description">Description</label>
-			<f:form.textarea class="form-control markdown" id="solution-description" property="{propertyPrefix}description" value="{object.description}" />
-		</div>
+			<f:form.textarea property="{propertyPrefix}description" class="markdown" id="solution-description" value="{object.description}" />
+		</li>
 
-		<div class="form-group">
+		<li>
 			<label for="solution-fixedInVersions">Fixed in versions</label>
-			<f:form.select class="form-control" id="solution-fixedInVersions" multiple="multiple" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" property="{propertyPrefix}fixedInVersions" size="5" value="{object.fixedInVersions}" />
+			<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" />
 
 			<a class="btn btn-default add-new-versions" role="button" data-toggle="modal" href="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#new-versions-modal">Add new Version</a>
 			<div class="created-versions-outer">
@@ -33,28 +34,32 @@
 					<ul></ul>
 				</div>
 			</div>
-		</div>
-		<fieldset>
-			<legend>Links for the solution</legend>
-			<div class="col-lg-1"></div>
-			<div class="col-lg-11">
-				<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: arguments.issue, solution: object}, deleteMode: 'link'}"/>
-			</div>
-		</fieldset>
+		</li>
+		<li>
+			<fieldset>
+				<legend>Links for the solution</legend>
+				<ul>
+					<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: arguments.issue, solution: object}, deleteMode: 'link'}"/>
+				</ul>
+			</fieldset>
+		</li>
 		<f:render section="DeleteSolution" arguments="{_all}" />
+	</ul>
 </f:section>
 
 <f:section name="DeleteSolution">
 	<f:if condition="{deleteLinkMode}">
 		<f:then>
-			<f:switch expression="{deleteLinkMode}">
-				<f:case value="existing">
-					<f:link.action action="removeSolution" controller="Issue" arguments="{issue: arguments.issue, solution: object}" class="btn btn-danger remove-action"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Remove Solution</f:link.action>
-				</f:case>
-				<f:case value="new">
-					<a href="javascript:void(0);" class="btn btn-danger delete-item"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Remove Solution</a>
-				</f:case>
-			</f:switch>
+			<li>
+				<f:switch expression="{deleteLinkMode}">
+					<f:case value="existing">
+						<f:link.action action="removeSolution" controller="Issue" arguments="{issue: arguments.issue, solution: object}" class="btn btn-danger remove-action">Remove Solution</f:link.action>
+					</f:case>
+					<f:case value="new">
+						<a href="javascript:void(0);" class="btn btn-danger delete-item">Remove Solution</a>
+					</f:case>
+				</f:switch>
+			</li>
 		</f:then>
 	</f:if>
 </f:section>
