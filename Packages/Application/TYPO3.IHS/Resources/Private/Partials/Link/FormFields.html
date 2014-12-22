@@ -4,50 +4,46 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<ul>
-		<li>
-			<label for="links.title">Title</label>
-			<f:form.textfield property="{propertyPrefix}title" id="links.title" />
-		</li>
-		<li>
-			<label for="links.uri">URI</label>
-			<f:form.textfield property="{propertyPrefix}uri" id="links.uri" />
-		</li>
-		<li>
-			<label for="links.description">Description</label>
-			<f:form.textfield property="{propertyPrefix}description" id="links.description" />
-		</li>
-		<f:render section="DeleteLink" arguments="{_all}" />
-	</ul>
+	<div class="form-group">
+		<label for="links.title">Title</label>
+		<f:form.textfield class="form-control" id="links.title" property="{propertyPrefix}title" />
+	</div>
+	<div class="form-group">
+		<label for="links.uri">URI</label>
+		<f:form.textfield class="form-control" id="links.uri" property="{propertyPrefix}uri" />
+	</div>
+	<div class="form-group">
+		<label for="links.description">Description</label>
+		<f:form.textarea class="form-control markdown" id="links.description" property="{propertyPrefix}description" />
+	</div>
+	<f:render section="DeleteLink" arguments="{_all}" />
 </f:section>
 
 <f:section name="DeleteLink">
 	<f:if condition="{deleteLinkMode}">
 		<f:then>
-			<li>
-				<f:switch expression="{deleteLinkMode}">
-					<f:case value="existing">
-						<f:if condition="{arguments.advisory}">
-							<f:then>
-								<f:link.action action="removeLink" controller="Advisory" arguments="{issue: arguments.issue, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action">Remove Link</f:link.action>
-							</f:then>
-							<f:else>
-								<f:if condition="{arguments.solution}">
-									<f:then>
-										<f:link.action action="removeSolutionLink" controller="Issue" arguments="{solution: arguments.solution, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action">Remove Link</f:link.action>
-									</f:then>
-									<f:else>
-										<f:link.action action="removeLink" controller="Issue" arguments="{issue: arguments.issue, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action">Remove Link</f:link.action>
-									</f:else>
-								</f:if>
-							</f:else>
-						</f:if>
-					</f:case>
-					<f:case value="new">
-						<a href="javascript:void(0);" class="btn btn-danger delete-item">Remove Link</a>
-					</f:case>
-				</f:switch>
-			</li>
+			<f:switch expression="{deleteLinkMode}">
+				<f:case value="existing">
+					<f:if condition="{arguments.advisory}">
+						<f:then>
+							<f:link.action action="removeLink" controller="Advisory" arguments="{issue: arguments.issue, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Remove Link</f:link.action>
+						</f:then>
+						<f:else>
+							<f:if condition="{arguments.solution}">
+								<f:then>
+									<f:link.action action="removeSolutionLink" controller="Issue" arguments="{solution: arguments.solution, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Remove Link</f:link.action>
+								</f:then>
+								<f:else>
+									<f:link.action action="removeLink" controller="Issue" arguments="{issue: arguments.issue, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Remove Link</f:link.action>
+								</f:else>
+							</f:if>
+						</f:else>
+					</f:if>
+				</f:case>
+				<f:case value="new">
+					<a href="javascript:void(0);" class="btn btn-danger delete-item">Remove Link</a>
+				</f:case>
+			</f:switch>
 		</f:then>
 	</f:if>
 </f:section>

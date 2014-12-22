@@ -65,8 +65,9 @@ jQuery(document).ready(function() {
 	window.JST['search_box'] = _.template('<div class="VS-search <% if (readOnly) { %>VS-readonly<% } %>">\n  <div class="VS-search-box-wrapper VS-search-box">\n    <div class="VS-icon VS-icon-search"></div>\n    <div class="VS-placeholder"></div>\n    <div class="VS-search-inner"></div>\n    <div class="VS-icon VS-icon-cancel VS-cancel-search-box" title="clear search"></div> <div class="VS-icon VS-save-search-box" title="save search"><i class="icon-star-empty"></i></div>\n  </div>\n</div>');
 
 	$(".markdown").markdown({
-		autofocus:false,
-		savable:false,
+		autofocus: false,
+		resize: 'vertical',
+		savable: false,
 		onPreview: function(e) {
 			// we use a different markdown to html parser here to render html tags
 			return marked(e.getContent());
@@ -79,8 +80,6 @@ jQuery(document).ready(function() {
 	});
 
 	handleSaveDeletionModal();
-
-
 });
 
 function getURLParameter(name) {

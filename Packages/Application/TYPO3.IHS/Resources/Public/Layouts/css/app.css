@@ -259,3 +259,8 @@ select.product {
 		padding-right: 5px;
 	}
 }
+
+/* markdown editor */
+.markdown {
+	height: 200px !important; /* temporary fix */
+}
