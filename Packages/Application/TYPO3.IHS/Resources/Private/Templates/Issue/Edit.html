@@ -9,7 +9,7 @@
 <f:section name="Title">Edit {issue.title}</f:section>
 
 <f:section name="Content">
-	<f:form action="update" object="{issue}" objectName="issue">
+	<f:form action="update" object="{issue}" objectName="issue" class="form-horizontal">
 		<f:alias map="{errorContext: 'issue'}">
 			<f:render partial="FormErrors" arguments="{_all}" />
 		</f:alias>
@@ -17,8 +17,12 @@
 		<f:render partial="Issue/FormFields" section="Content" arguments="{object: issue, options: {products: products, solutionsAvailable: solutionsAvailable}}"/>
 
 		<hr />
-		<f:link.action class="btn" action="index">Cancel</f:link.action>
-		<f:form.submit class="btn btn-primary" value="Update" />
+		<div class="form-group">
+			<div class="col-sm-10 col-sm-offset-2">
+				<f:link.action class="btn btn-default" action="index">Cancel</f:link.action>
+				<f:form.submit class="btn btn-primary" value="Update" />
+			</div>
+		</div>
 	</f:form>
 </f:section>
 </html>

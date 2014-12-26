@@ -32,7 +32,7 @@
 						<td class="actions">
 							<f:if condition="{issue.advisory}">
 								<f:then>
-									<f:link.action action="show" controller="Advisory" class="btn" arguments="{advisory: issue.advisory}">Show Advisory</f:link.action>
+									<f:link.action action="show" controller="Advisory" class="btn btn-default" arguments="{advisory: issue.advisory}">Show Advisory</f:link.action>
 								</f:then>
 								<f:else>
 									<f:if condition="{issue.solutions}">

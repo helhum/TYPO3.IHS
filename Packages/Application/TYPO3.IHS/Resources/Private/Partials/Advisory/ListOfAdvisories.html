@@ -31,11 +31,11 @@
 						<f:then>
 							<div class="btn-toolbar">
 								<div class="btn-group">
-									<f:link.action class="btn" action="show" arguments="{advisory: advisory}">Details</f:link.action>
+									<f:link.action class="btn btn-default" action="show" arguments="{advisory: advisory}">Details</f:link.action>
 									<f:link.action class="btn btn-primary" action="edit" arguments="{advisory: advisory}">Edit</f:link.action>
 								</div>
 								<div class="btn-group">
-									<f:link.action action="new" controller="issue" class="btn" arguments="{advisory: advisory}">
+									<f:link.action action="new" controller="issue" class="btn btn-default" arguments="{advisory: advisory}">
 										Create Issue
 									</f:link.action>
 									<f:if condition="{advisory.published}">
@@ -49,7 +49,7 @@
 							</div>
 						</f:then>
 						<f:else>
-							<f:link.action class="btn" action="show" arguments="{advisory: advisory}">Details</f:link.action>
+							<f:link.action class="btn btn-default" action="show" arguments="{advisory: advisory}">Details</f:link.action>
 						</f:else>
 					</f:security.ifAuthenticated>
 				</div>

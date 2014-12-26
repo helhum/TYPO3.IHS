@@ -13,42 +13,51 @@
 		<f:render partial="FormErrors" arguments="{_all}" />
 	</f:alias>
 
-	<f:form action="update" object="{advisory}" objectName="advisory">
-		<ul class="unstyled">
-			<li>
-				<label for="title">Title</label>
-				<f:form.textfield property="title" id="title" />
-			</li>
+	<f:form action="update" object="{advisory}" objectName="advisory" class="form-horizontal">
+		<div class="form-group">
+			<label for="title" class="col-sm-2 control-label">Title</label>
+			<div class="col-sm-10">
+				<f:form.textfield property="title" id="title" class="form-control" />
+			</div>
+		</div>
 
-			<li>
-				<label for="abstract">Abstract</label>
+		<div class="form-group">
+			<label for="abstract" class="col-sm-2 control-label">Abstract</label>
+			<div class="col-sm-10">
 				<f:form.textarea property="abstract" class="markdown" id="abstract" />
-			</li>
+			</div>
+		</div>
 
-			<li>
-				<label for="description">Description</label>
+		<div class="form-group">
+			<label for="description" class="col-sm-2 control-label">Description</label>
+			<div class="col-sm-10">
 				<f:form.textarea property="description" class="markdown" id="description" />
-			</li>
-			<f:if condition="{advisory.published}">
-				<f:then>
-					<li>
-						<label for="publishingDate">Publishingdate</label>
-						<f:form.textfield class="datetimepicker" name="advisory[publishingDate][date]" value="{advisory.publishingDate->f:format.date(format:'d.m.Y - H:i')}" id="publishingDate" />
-						<f:form.hidden name="advisory[publishingDate][dateFormat]" value="d.m.Y - H:i" />
-					</li>
-				</f:then>
-			</f:if>
-			<li>
-				<fieldset>
-					<legend>Issues</legend>
-					<ul>
-						<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Issue', objects: advisory.issues, partial:'Issue/FormFields', arguments: {advisory: advisory}, options: {advisory: advisory, products: products, solutionsAvailable: 1}, propertyPrefix: 'issues.'}"/>
-					</ul>
-				</fieldset>
-			</li>
+			</div>
+		</div>
+		<f:if condition="{advisory.published}">
+			<f:then>
+				<div class="form-group">
+					<label for="publishingDate" class="col-sm-2 control-label">Publishingdate</label>
+					<div class="col-sm-10">
+						<f:form.textfield class="datetimepicker form-control" name="advisory[publishingDate][date]" value="{advisory.publishingDate->f:format.date(format:'d.m.Y - H:i')}" id="publishingDate" />
+					</div>
+					<f:form.hidden name="advisory[publishingDate][dateFormat]" value="d.m.Y - H:i" />
+				</div>
+			</f:then>
+		</f:if>
 
-		</ul>
-		<f:link.action class="btn" action="index">Cancel</f:link.action> <f:form.submit class="btn btn-primary" value="Update" />
+		<fieldset>
+			<legend>Issues</legend>
+			<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Issue', objects: advisory.issues, partial:'Issue/FormFields', arguments: {advisory: advisory}, options: {advisory: advisory, products: products, solutionsAvailable: 1}, propertyPrefix: 'issues.'}"/>
+		</fieldset>
+
+		<hr />
+		<div class="form-group">
+			<div class="col-sm-10 col-sm-offset-2">
+				<f:link.action class="btn btn-default" action="index">Cancel</f:link.action>
+				<f:form.submit class="btn btn-primary" value="Update" />
+			</div>
+		</div>
 	</f:form>
 </f:section>
 

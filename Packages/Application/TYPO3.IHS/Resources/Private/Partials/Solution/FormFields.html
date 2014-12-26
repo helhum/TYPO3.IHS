@@ -4,62 +4,79 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<ul class="unstyled">
+	<div class="dynamic-form-fields">
 		<f:form.hidden property="{propertyPrefix}issue" value="{arguments.issue}" />
-		<li>
-			<label for="solution-author">Author</label>
-			<f:form.textfield property="{propertyPrefix}author" id="solution-author" value="{object.author}" class="span7" />
-		</li>
 
-		<li>
-			<label for="solution-abstract">Abstract</label>
-			<f:form.textarea property="{propertyPrefix}abstract" class="markdown" id="solution-abstract" value="{object.abstract}" />
-		</li>
+		<div class="form-group">
+			<label for="solution-author" class="col-sm-2 control-label">Author</label>
+			<div class="col-sm-10">
+				<f:form.textfield property="{propertyPrefix}author" id="solution-author" value="{object.author}" class="form-control" />
+			</div>
+		</div>
 
-		<li>
-			<label for="solution-description">Description</label>
-			<f:form.textarea property="{propertyPrefix}description" class="markdown" id="solution-description" value="{object.description}" />
-		</li>
+		<div class="form-group">
+			<label for="solution-abstract" class="col-sm-2 control-label">Abstract</label>
+			<div class="col-sm-10">
+				<f:form.textarea property="{propertyPrefix}abstract" class="markdown" id="solution-abstract" value="{object.abstract}" />
+			</div>
+		</div>
 
-		<li>
-			<label for="solution-fixedInVersions">Fixed in versions</label>
-			<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" class="span7" />
+		<div class="form-group">
+			<label for="solution-description" class="col-sm-2 control-label">Description</label>
+			<div class="col-sm-10">
+				<f:form.textarea property="{propertyPrefix}description" class="markdown" id="solution-description" value="{object.description}" />
+			</div>
+		</div>
 
-			<a class="btn btn-default add-new-versions" role="button" data-toggle="modal" href="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#new-versions-modal">Add new Version</a>
-			<div class="created-versions-outer">
+		<div class="form-group">
+			<label for="solution-fixedInVersions" class="col-sm-2 control-label">Fixed in versions</label>
+			<div class="col-sm-10">
+				<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" class="form-control" />
+			</div>
+			<div class="col-sm-12 col-sm-offset-2">
 				<p>
-					Angelegte Versionen:
+					<a class="btn btn-default add-new-versions" role="button" data-toggle="modal" href="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#new-versions-modal">Add new Version</a>
 				</p>
-				<div class="created-versions" data-delete-url="{f:uri.action(action:'deleteVersion', controller:'Product', package:'TYPO3.IHS')}">
-					<ul></ul>
+				<div class="created-versions-outer">
+					<p>
+						Angelegte Versionen:
+					</p>
+					<div class="created-versions" data-delete-url="{f:uri.action(action:'deleteVersion', controller:'Product', package:'TYPO3.IHS')}">
+						<ul></ul>
+					</div>
 				</div>
 			</div>
-		</li>
-		<li>
-			<fieldset>
-				<legend>Links for the solution</legend>
-				<ul>
-					<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: arguments.issue, solution: object}, deleteMode: 'link'}"/>
-				</ul>
-			</fieldset>
-		</li>
+
+		</div>
+		<div class="form-group">
+			<div class="col-sm-10 col-sm-offset-2">
+				<fieldset>
+					<legend>Links for the solution</legend>
+					<ul>
+						<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: arguments.issue, solution: object}, deleteMode: 'link'}"/>
+					</ul>
+				</fieldset>
+			</div>
+		</div>
 		<f:render section="DeleteSolution" arguments="{_all}" />
-	</ul>
+	</div>
 </f:section>
 
 <f:section name="DeleteSolution">
 	<f:if condition="{deleteLinkMode}">
 		<f:then>
-			<li>
-				<f:switch expression="{deleteLinkMode}">
-					<f:case value="existing">
-						<f:link.action action="removeSolution" controller="Issue" arguments="{issue: arguments.issue, solution: object}" class="btn btn-danger remove-action">Remove Solution</f:link.action>
-					</f:case>
-					<f:case value="new">
-						<a href="javascript:void(0);" class="btn btn-danger delete-item">Remove Solution</a>
-					</f:case>
-				</f:switch>
-			</li>
+			<div class="form-group">
+				<div class="col-sm-10 col-sm-offset-2">
+					<f:switch expression="{deleteLinkMode}">
+						<f:case value="existing">
+							<f:link.action action="removeSolution" controller="Issue" arguments="{issue: arguments.issue, solution: object}" class="btn btn-danger remove-action">Remove Solution</f:link.action>
+						</f:case>
+						<f:case value="new">
+							<a href="javascript:void(0);" class="btn btn-danger delete-item">Remove Solution</a>
+						</f:case>
+					</f:switch>
+				</div>
+			</div>
 		</f:then>
 	</f:if>
 </f:section>

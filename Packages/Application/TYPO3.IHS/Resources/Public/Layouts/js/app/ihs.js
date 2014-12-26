@@ -6,7 +6,7 @@
 
 		this.$presentFields = this.$element.children(".present-fields").first();
 		this.$additionalLinkFieldsContainer = this.$element.children(".additional-fields").first();
-		this.$button = this.$element.children("button.add-field").first();
+		this.$button = this.$element.find("> .add-field button").first();
 		this.htmlTemplate = this.$element.find(".field-template").first().data("html");
 		this.iterationIndex = this.$presentFields.children().length;
 		this.argumentName = this.htmlTemplate.match(/"([^"]*)\[_placeholder_\]([^"]*)"/)[1];
@@ -40,14 +40,14 @@
 	}
 
 	function init() {
-		$(".fields .dynamic-fields").each(
+		$(".dynamic-fields").each(
 			function(index, element) {
 				new DynamicField($(element).closest('.fields'));
 			}
 		);
 
 		$('.delete-item').on('click', function(event, ui) {
-			$(event.target).closest('ul').first().remove();
+			$(event.target).closest('.dynamic-form-fields').first().remove();
 		});
 	}
 	init();

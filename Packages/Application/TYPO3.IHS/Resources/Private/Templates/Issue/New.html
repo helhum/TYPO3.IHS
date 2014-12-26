@@ -14,11 +14,16 @@
 		<f:render partial="FormErrors" arguments="{_all}" />
 	</f:alias>
 
-	<f:form action="create" objectName="newIssue">
-		<ol>
-			<f:render partial="Issue/FormFields" section="Content" arguments="{options: {advisory: advisory, products: products, solutionsAvailable: solutionsAvailable}}"/>
-		</ol>
-		<f:link.action class="btn" action="index">Cancel</f:link.action> <f:form.submit class="btn btn-primary" value="Create" />
+	<f:form action="create" objectName="newIssue" class="form-horizontal">
+		<f:render partial="Issue/FormFields" section="Content" arguments="{options: {advisory: advisory, products: products, solutionsAvailable: solutionsAvailable}}"/>
+
+		<hr />
+		<div class="form-group">
+			<div class="col-sm-10 col-sm-offset-2">
+				<f:link.action class="btn btn-default" action="index">Cancel</f:link.action>
+				<f:form.submit class="btn btn-primary" value="Create" />
+			</div>
+		</div>
 	</f:form>
 </f:section>
 </html>

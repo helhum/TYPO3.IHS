@@ -212,7 +212,7 @@ function initIssue() {
 	$('select.product').each(function(index, element) {
 		if ($(element).val()) {
 			$(element).siblings('input.productAjax').val($(element).children('option:selected')[0].text);
-			var versions = $(element).closest('li').first().siblings('.affected-versions').first();
+			var versions = $(element).closest('div.form-group').first().siblings('.affected-versions').first();
 
 			// get versions for product if none exists
 			if (!$(versions).find('select option:first-child').val() && $(versions).find('select option').length == 1) {
@@ -237,7 +237,7 @@ function initIssue() {
 				return;
 			}
 
-			$.getJSON($('input.vulnerabilityType').closest('li').attr('vulnerabilityTypeUrl'), request, function (data, status, xhr) {
+			$.getJSON($('input.vulnerabilityType').closest('.form-group').attr('vulnerabilityTypeUrl'), request, function (data, status, xhr) {
 				vulnerabilityTypesCache[term] = data;
 				response(data);
 			});
@@ -317,11 +317,14 @@ function getVersionsForProduct(identifier, productSelect) {
 		data: {"identifier": identifier},
 		dataType: 'json'
 	}).success(function(data) {
-		var versions = $(productSelect).closest('li').siblings('.affected-versions')[0];
-		var versionsSelect = $(versions).children('select.affectedVersions')[0];
-		var selectedVersionsSelect = $(versions).children('.selected-affected-versions')[0];
+		var versions = $(productSelect).closest('.form-group').siblings('.affected-versions')[0];
+		var versionsSelect = $(versions).find('select.affectedVersions');
+		var selectedVersionsSelect = $(versions).find('.selected-affected-versions');
+		console.log("test", $(selectedVersionsSelect), data);
 		$(versionsSelect).html(''); // clear version list from prev request
-		$(versions).slideDown();
+		$(versions).slideDown(); // show versions selector
+
+		// append versions from ajax request to the selector
 		$(data).each(function(key, data) {
 			$(versionsSelect).append('<option value="' + data.id + '">' + data.value + '</option>');
 		});
