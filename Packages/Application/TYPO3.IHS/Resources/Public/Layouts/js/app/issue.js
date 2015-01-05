@@ -248,12 +248,19 @@ function initIssue() {
 
 	// create new versions when adding solutions
 	var currentVersionsField = null;
-	$('#new-versions-modal').off('show');
-	$('#new-versions-modal').on('show', function () {
-		$(this).find('.modal-body').html("loading...")
-	});
 	$('.add-new-versions').off('click');
 	$('.add-new-versions').on('click', function () {
+		$('#new-versions-modal .modal-body').html("loading...")
+		$.ajax({
+			type: "GET",
+			url: $(this).attr("data-href"),
+			//dataType: "html",
+			success: function (data) {
+				// TODO: may not work with multiple issue instances
+				$('#new-versions-modal .modal-body').html(data);
+			}
+		});
+
 		currentVersionsField = $(this).closest('li').find('select#solution-fixedInVersions');
 	});
 	$('.create-versions').off('click');

@@ -73,14 +73,7 @@ jQuery(document).ready(function() {
 		}
 	});
 
-	// make modal reset remote content every time it is opened
-	$('.modal').on('hidden', function() {
-		$(this).removeData('modal');
-	});
-
 	handleSaveDeletionModal();
-
-
 });
 
 function getURLParameter(name) {
