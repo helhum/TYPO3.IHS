@@ -182,7 +182,7 @@ function handleSavedSearches() {
 
 		$(savedSearches).each(function(key, savedSearch) {
 			var searchQueryJSON = JSON.stringify(savedSearch);
-			$(".saved-searches").append("<li><button key='"+key+"' class='remove-saved-search btn btn-mini btn-danger'><i class='icon-trash icon-white'></i></button><a class='saved-search' href='"+window.location.pathname + "?search="+encodeURIComponent(searchQueryJSON)+"'>"+getSearchStringFromJSON(searchQueryJSON, true)+"</a></li>");
+			$(".saved-searches").append("<li><button key='"+key+"' class='remove-saved-search btn btn-xs btn-danger'><i class='glyphicon glyphicon-trash'></i></button><a class='saved-search' href='"+window.location.pathname + "?search="+encodeURIComponent(searchQueryJSON)+"'>"+getSearchStringFromJSON(searchQueryJSON, true)+"</a></li>");
 		});
 
 		$('.remove-saved-search').on('click', function() {
