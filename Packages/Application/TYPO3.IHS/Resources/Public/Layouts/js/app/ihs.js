@@ -64,13 +64,9 @@ jQuery(document).ready(function() {
 	// added save search button
 	window.JST['search_box'] = _.template('<div class="VS-search <% if (readOnly) { %>VS-readonly<% } %>">\n  <div class="VS-search-box-wrapper VS-search-box">\n    <div class="VS-icon VS-icon-search"></div>\n    <div class="VS-placeholder"></div>\n    <div class="VS-search-inner"></div>\n    <div class="VS-icon VS-icon-cancel VS-cancel-search-box" title="clear search"></div> <div class="VS-icon VS-save-search-box" title="save search"><i class="glyphicon glyphicon-star-empty"></i></div>\n  </div>\n</div>');
 
-	$(".markdown").markdown({
-		autofocus:false,
-		savable:false,
-		onPreview: function(e) {
-			// we use a different markdown to html parser here to render html tags
-			return marked(e.getContent());
-		}
+	initializeMarkdownEditor();
+	$('body').on('dynamicFieldAdded', function() {
+		initializeMarkdownEditor();
 	});
 
 	// for every autocomplete field we change the indicator when the search is started and we get a response
@@ -85,6 +81,17 @@ jQuery(document).ready(function() {
 
 	handleSaveDeletionModal();
 });
+
+function initializeMarkdownEditor() {
+	$(".markdown").markdown({
+		autofocus:false,
+		savable:false,
+		onPreview: function(e) {
+			// we use a different markdown to html parser here to render html tags
+			return marked(e.getContent());
+		}
+	});
+}
 
 function getURLParameter(name) {
 	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
