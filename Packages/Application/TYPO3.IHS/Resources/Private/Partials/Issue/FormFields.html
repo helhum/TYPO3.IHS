@@ -49,7 +49,10 @@
 	<div class="form-group" vulnerabilityTypeUrl="{f:uri.action(action:'getVulnerabilityTypesAsJSON', controller:'Issue', package:'TYPO3.IHS')}">
 		<label for="vulnerabilityType" class="col-sm-2 control-label">Vulnerability Type</label>
 		<div class="col-sm-10">
-			<f:form.textfield property="{propertyPrefix}vulnerabilityType.value" class="vulnerabilityType form-control" value="{object.vulnerabilityType.value}" />
+			<div class="autocomplete-field">
+				<f:form.textfield property="{propertyPrefix}vulnerabilityType.value" class="vulnerabilityType form-control" value="{object.vulnerabilityType.value}" placeholder="type to find vulnerability type"/>
+				<i class="autocomplete-indicator glyphicon glyphicon-search"></i>
+			</div>
 		</div>
 	</div>
 
@@ -63,8 +66,11 @@
 	<div class="form-group">
 		<label for="product" class="col-sm-2 control-label">Product</label>
 		<div class="col-sm-10">
-			<f:form.select property="{propertyPrefix}product" class="product form-control" options="{options.products}" optionLabelField="nameAndShortName" sortByOptionLabel="true" prependOptionLabel="- select one -" value="{object.product}" />
-			<input type="text" class="productAjax form-control" placeholder="type product to find" autocomplete="off" productsUrl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" versionsUrl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}" />
+			<div class="autocomplete-field">
+				<f:form.select property="{propertyPrefix}product" class="product form-control" options="{options.products}" optionLabelField="nameAndShortName" sortByOptionLabel="true" prependOptionLabel="- select one -" value="{object.product}" />
+				<input type="text" class="productAjax form-control" placeholder="type product to find" autocomplete="off" productsUrl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" versionsUrl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}" />
+				<i class="autocomplete-indicator glyphicon glyphicon-search"></i>
+			</div>
 		</div>
 	</div>
 

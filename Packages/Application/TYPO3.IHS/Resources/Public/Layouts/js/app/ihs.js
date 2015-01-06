@@ -73,6 +73,16 @@ jQuery(document).ready(function() {
 		}
 	});
 
+	// for every autocomplete field we change the indicator when the search is started and we get a response
+	$(".autocomplete-field input").autocomplete({
+		search: function( event, ui ) {
+			$(this).closest('.autocomplete-field').find('.autocomplete-indicator').removeClass('glyphicon-search').addClass('glyphicon-refresh');
+		},
+		response: function( event, ui ) {
+			$(this).closest('.autocomplete-field').find('.autocomplete-indicator').removeClass('glyphicon-refresh').addClass('glyphicon-search');
+		}
+	});
+
 	handleSaveDeletionModal();
 });
 
