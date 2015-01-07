@@ -27,12 +27,12 @@
 
 			<div class="present-fields">
 				<f:if condition="{objects}">
-					<div class="panel-group" id="{objectName}-accordion" role="tablist" aria-multiselectable="true">
+					<div class="panel-group" id="{collapsIdentifierPrefix}-accordion" role="tablist" aria-multiselectable="true">
 						<f:for each="{objects}" as="object" iteration="iterator">
 							<div class="panel panel-default">
-								<div class="panel-heading" role="tab" id="heading-{objectName}-{iterator.index}">
+								<div class="panel-heading" role="tab" id="heading-{collapsIdentifierPrefix}-{iterator.index}">
 									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#{objectName}-accordion" href="#collapse-{objectName}-{iterator.index}" aria-expanded="true" aria-controls="collapse-{objectName}-{iterator.index}">
+										<a data-toggle="collapse" data-parent="#{collapsIdentifierPrefix}-accordion" href="#collapse-{collapsIdentifierPrefix}-{iterator.index}" aria-expanded="true" aria-controls="collapse-{collapsIdentifierPrefix}-{iterator.index}">
 											<f:if condition="{object.title}">
 												<f:then>
 													{object.title}
@@ -44,7 +44,7 @@
 										</a>
 									</h4>
 								</div>
-								<div id="collapse-{objectName}-{iterator.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{objectName}-{iterator.index}">
+								<div id="collapse-{collapsIdentifierPrefix}-{iterator.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{collapsIdentifierPrefix}-{iterator.index}">
 									<div class="panel-body">
 										<f:if condition="{propertyPrefix}">
 											<f:then>

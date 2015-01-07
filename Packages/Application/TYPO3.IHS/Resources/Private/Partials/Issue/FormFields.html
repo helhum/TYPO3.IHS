@@ -100,13 +100,13 @@
 	</div>
 
 	<fieldset>
-		<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link' legend: 'Links', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: object}}"/>
+		<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link' legend: 'Links', collapsIdentifierPrefix: 'issue-link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: object}}"/>
 	</fieldset>
 
 	<f:if condition="{options.solutionsAvailable}">
 		<f:then>
 			<fieldset>
-				<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Solution', legend: 'Solutions', objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
+				<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Solution', legend: 'Solutions', collapsIdentifierPrefix: 'issue-solution', objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
 			</fieldset>
 		</f:then>
 		<f:else>

@@ -49,7 +49,7 @@
 		</f:if>
 
 		<fieldset>
-			<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Issue', legend: 'Issues', objects: advisory.issues, partial:'Issue/FormFields', arguments: {advisory: advisory}, options: {advisory: advisory, products: products, solutionsAvailable: 1}, propertyPrefix: 'issues.'}"/>
+			<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Issue', legend: 'Issues', collapsIdentifierPrefix: 'issue', objects: advisory.issues, partial:'Issue/FormFields', arguments: {advisory: advisory}, options: {advisory: advisory, products: products, solutionsAvailable: 1}, propertyPrefix: 'issues.'}"/>
 		</fieldset>
 
 		<hr />
