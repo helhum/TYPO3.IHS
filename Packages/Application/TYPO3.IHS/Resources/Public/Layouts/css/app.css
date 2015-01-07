@@ -1,6 +1,7 @@
 html, body {
 	height: 100%;
 	background: none !important;
+	margin-bottom: 70px;
 }
 
 
@@ -51,6 +52,9 @@ a.btn-primary, a.btn-danger, a.btn-success {
 
 
 /*layout*/
+div#content {
+	margin-bottom: 70px;
+}
 
 .sidebar-nav {
 	padding: 9px 0;

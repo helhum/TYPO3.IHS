@@ -33,7 +33,7 @@
 		<div class="form-group">
 			<label for="solution-fixedInVersions" class="col-sm-2 control-label">Fixed in versions</label>
 			<div class="col-sm-10">
-				<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" class="form-control" />
+				<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.affectedVersions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" class="form-control" />
 			</div>
 			<div class="col-sm-10 col-sm-offset-2">
 				<button class="btn btn-default add-new-versions" type="button" data-toggle="modal" data-href="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#new-versions-modal"><i class="glyphicon glyphicon-plus"></i> Add new Version</button>

@@ -152,6 +152,28 @@ class IssueController extends ActionController {
 	 */
 	public function updateAction(Issue $issue) {
 		$this->issueRepository->update($issue);
+
+		//check if solutions have versions that are currently not set in the parent issue
+		$affectedVersions = $issue->getAffectedVersions();
+		$solutions = $issue->getSolutions();
+
+		$affectedVersionsTemp = array();
+		foreach ($affectedVersions as $affectedVersion) {
+			$affectedVersionsTemp[$affectedVersion->getVersionNumber()] = $affectedVersion->getVersionNumber();
+		}
+
+		foreach ($solutions as $solution) {
+			$currentFixedInVersions = $solution->getFixedInVersions();
+			$newFixedInVersions = array();
+			foreach($currentFixedInVersions as $fixedInVersion) {
+				if (isset($affectedVersionsTemp[$fixedInVersion->getVersionNumber()])) {
+					array_push($newFixedInVersions, $fixedInVersion);
+				}
+			}
+
+			$solution->setFixedInVersions($newFixedInVersions);
+		}
+
 		$this->addFlashMessage('Updated the issue.');
 		$this->redirect('index');
 	}
