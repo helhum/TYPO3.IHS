@@ -6,7 +6,7 @@
 
 		this.$presentFields = this.$element.children(".present-fields").first();
 		this.$additionalLinkFieldsContainer = this.$element.children(".additional-fields").first();
-		this.$button = this.$element.find("> .add-field button").first();
+		this.$button = this.$element.find("> .fields-header .add-field button").first();
 		this.htmlTemplate = this.$element.find(".field-template").first().data("html");
 		this.iterationIndex = this.$presentFields.children().length;
 		this.argumentName = this.htmlTemplate.match(/"([^"]*)\[_placeholder_\]([^"]*)"/)[1];
@@ -25,7 +25,10 @@
 		this.$button.on('click', function(event) {
 			event.preventDefault();
 
-			self.$additionalLinkFieldsContainer.append(self.getHtmlForIndex(self.iterationIndex));
+			var newFields = self.$additionalLinkFieldsContainer.append(self.getHtmlForIndex(self.iterationIndex));
+			$('html, body').animate({
+				scrollTop: $(newFields).offset().top
+			}, 500);
 			self.iterationIndex++;
 			init();
 		});
@@ -50,24 +53,15 @@
 			$(event.target).closest('.dynamic-form-fields').first().remove();
 		});
 	}
+
 	init();
 
-	$("input.datetimepicker").datetimepicker({
-		timeFormat: "hh:mm",
-		dateFormat: "dd.mm.yy",
-		separator: ' - '
-	});
 })(jQuery);
 
 jQuery(document).ready(function() {
 	// overwriting visualsearch searchbox template
 	// added save search button
 	window.JST['search_box'] = _.template('<div class="VS-search <% if (readOnly) { %>VS-readonly<% } %>">\n  <div class="VS-search-box-wrapper VS-search-box">\n    <div class="VS-icon VS-icon-search"></div>\n    <div class="VS-placeholder"></div>\n    <div class="VS-search-inner"></div>\n    <div class="VS-icon VS-icon-cancel VS-cancel-search-box" title="clear search"></div> <div class="VS-icon VS-save-search-box" title="save search"><i class="glyphicon glyphicon-star-empty"></i></div>\n  </div>\n</div>');
-
-	initializeMarkdownEditor();
-	$('body').on('dynamicFieldAdded', function() {
-		initializeMarkdownEditor();
-	});
 
 	// for every autocomplete field we change the indicator when the search is started and we get a response
 	$(".autocomplete-field input").autocomplete({
@@ -77,6 +71,18 @@ jQuery(document).ready(function() {
 		response: function( event, ui ) {
 			$(this).closest('.autocomplete-field').find('.autocomplete-indicator').removeClass('glyphicon-refresh').addClass('glyphicon-search');
 		}
+	});
+
+	$("input.datetimepicker").datetimepicker({
+		timeFormat: "hh:mm",
+		dateFormat: "dd.mm.yy",
+		separator: ' - '
+	});
+
+	initializeMarkdownEditor();
+
+	$('body').on('dynamicFieldAdded', function() {
+		initializeMarkdownEditor();
 	});
 
 	handleSaveDeletionModal();

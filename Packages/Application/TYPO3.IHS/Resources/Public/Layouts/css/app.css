@@ -3,25 +3,6 @@ html, body {
 	background: none !important;
 }
 
-/*overwritten typo3.org designs*/
-
-.p {
-	padding-top: 110px;
-}
-
-.c {
-	margin-bottom: 40px;
-}
-
-.d table tr td {
-	border: none;
-	/*border-top: 1px solid #ccc;*/
-}
-
-ul.unstyled li {
-	padding-left: 0 !important;
-	background: none !important;
-}
 
 /*general styles*/
 .alert-OK {
@@ -48,31 +29,24 @@ ul.unstyled li {
 	color: #b94a48;
 }
 
-.actions {
-	overflow: hidden;
-}
-.actions .btn {
-	float: left;
-	margin-right: 1em;
-}
-
 a.btn {
 	color: #333;
 }
 
-a.btn-primary {
+a.btn-primary, a.btn-danger, a.btn-success {
 	color: #fff;
 }
 
-a.btn-danger {
-	color: #fff;
-}
 
 .btn-text, .btn-text:hover, .btn-text:active {
 	background: none;
 	border: none;
 	cursor: default;
 	box-shadow: none;
+}
+
+.btn-group form {
+	float: left;
 }
 
 
@@ -82,17 +56,6 @@ a.btn-danger {
 	padding: 9px 0;
 }
 
-#wrap {
-	min-height: 100%;
-	height: auto !important;
-	margin: 0 auto -70px;
-}
-
-#wrap .container {
-	padding-top: 60px;
-	padding-bottom: 120px;
-	width: 100% !important;
-}
 
 .articles h2 {
 	font-size: 1.5em;
@@ -115,23 +78,20 @@ a.btn-danger {
 .loading-overlay {
 	display: none;
 	position: absolute;
-	top: 0px;
+	top: 0;
 	width: 100%;
 	height: 100%;
 	vertical-align: middle;
 	text-align: center;
 	background: rgba(255, 255, 255, 0.7);
+	z-index: 20;
 }
 
 .loading-overlay span {
-	position: relative;
+	position: absolute;
 	top: 50%;
+	margin-top: -20px;
 	font-size: 20px;
-}
-
-.add-field {
-	margin-top: 5px;
-	margin-bottom: 10px;
 }
 
 textarea.f3-form-error {
@@ -148,6 +108,21 @@ input.f3-form-error {
 	position: relative;
 }
 
+.fields-header {
+	position: relative;
+	width: 100%;
+}
+
+.fields-header legend {
+	margin-bottom: 0px;
+}
+
+.fields-header .add-field {
+	width: 100%;
+	padding-left: 40px;
+	margin-top: -1px;
+	margin-bottom: 25px;
+}
 
 /*content - agination widget*/
 .typo3-widget-paginator {
@@ -159,6 +134,10 @@ input.f3-form-error {
 	display: inline-block;
 	padding-left: 5px;
 	padding-right: 5px;
+}
+
+.list-of-advisories .advisory h2 {
+	margin-top: 0px;
 }
 
 
@@ -180,9 +159,7 @@ select.product {
 }
 
 .add-new-versions {
-	display: block;
-	box-sizing: border-box;
-	width: 220px;
+	margin-top: 10px;
 }
 
 #new-versions-modal textarea {
@@ -210,7 +187,7 @@ select.product {
 }
 
 .VS-search .VS-search-box {
-	border-radius: 4px;
+	border-radius: 0px;
 }
 
 .VS-search .VS-save-search-box {
@@ -325,4 +302,9 @@ select.product {
 		-webkit-transform: rotate(359deg);
 		transform: rotate(359deg);
 	}
+}
+
+/*content - markdown*/
+.md-editor>textarea {
+	padding: 10px !important;
 }

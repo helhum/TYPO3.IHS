@@ -10,7 +10,11 @@
 <f:section name="Title">Show issue "{issue.title}"</f:section>
 
 <f:section name="Content">
+	<h1>{issue.title}</h1>
+	<f:link.action class="btn btn-default" action="index"><i class="glyphicon glyphicon-arrow-left"></i> Back</f:link.action>
+	<f:link.action class="btn btn-primary" action="edit" arguments="{issue: issue}"><i class="glyphicon glyphicon-pencil"></i> Edit</f:link.action>
 
+	<h5>Issue:</h5>
 	<table class="table table-hover">
 		<tr>
 			<th>Title</th>
@@ -39,7 +43,7 @@
 
 		<tr>
 			<th>Product</th>
-			<td>{issue.product.qualifiedName}</td>
+			<td>{issue.product.type} :: {issue.product.nameAndShortName}</td>
 		</tr>
 
 		<tr>
@@ -65,56 +69,143 @@
 			<th>Cvss</th>
 			<td>{issue.CVSS}</td>
 		</tr>
-
-		<tr>
-			<th>Links</th>
-			<td>
-				<f:if condition="{issue.links}">
-					<f:then>
-						<f:for each="{issue.links}" as="link">
-							<a href="{link.uri}">{link.title}</a>
-							<p>
-								{link.description}
-							</p>
-						</f:for>
-					</f:then>
-					<f:else>
-						<em>No links added yet.</em>
-					</f:else>
-				</f:if>
-			</td>
-		</tr>
-		<tr>
-			<th>Solutions</th>
-			<td>
-				<f:if condition="{issue.solutions}">
-					<f:then>
-						<f:for each="{issue.solutions}" as="solution">
-							<p>{solution.author}</p>
-							<p><ihs:format.markdown>{solution.abstract}</ihs:format.markdown></p>
-							<p><ihs:format.markdown>{solution.description}</ihs:format.markdown></p>
-							<p>
-								Fixed in versions: <br />
-								<f:for each="{solution.fixedInVersions}" as="fixedInVersion">
-									{fixedInVersion.humanReadableVersionNumber} <br />
-								</f:for>
-							</p>
-							<p>
-								Links: <br />
-								<f:for each="{solution.links}" as="link">
-									{link.title} <br />
-								</f:for>
-							</p>
-						</f:for>
-					</f:then>
-					<f:else>
-						<em>No solutions added yet.</em>
-					</f:else>
-				</f:if>
-			</td>
-		</tr>
 	</table>
-	<f:link.action class="btn" action="index">Back</f:link.action>
-	<f:link.action class="btn btn-primary" action="edit" arguments="{issue: issue}">Edit</f:link.action>
+	<legend>Links:</legend>
+	<f:if condition="{issue.links}">
+		<f:then>
+			<div class="panel-group" id="links-accordion" role="tablist" aria-multiselectable="true">
+				<f:for each="{issue.links}" as="link" iteration="iterator">
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="heading-links-{iterator.index}">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#links-accordion" href="#collapse-links-{iterator.index}" aria-expanded="true" aria-controls="collapse-links-{iterator.index}">
+									<f:if condition="{link.title}">
+										<f:then>
+											{link.title}
+										</f:then>
+										<f:else>
+											Link #{iterator.index}
+										</f:else>
+									</f:if>
+								</a>
+							</h4>
+						</div>
+						<div id="collapse-links-{iterator.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-links-{iterator.index}">
+							<div class="panel-body">
+								<p>
+									<a href="{link.uri}">{link.title}</a>
+								</p>
+								<p>
+									{link.description}
+								</p>
+							</div>
+						</div>
+					</div>
+				</f:for>
+			</div>
+		</f:then>
+		<f:else>
+			<em>No links added yet.</em>
+		</f:else>
+	</f:if>
+	<legend>Solutions:</legend>
+	<f:if condition="{issue.solutions}">
+		<f:then>
+			<div class="panel-group" id="solutions-accordion" role="tablist" aria-multiselectable="true">
+				<f:for each="{issue.solutions}" as="solution" iteration="iteratorSolutions">
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="heading-solutions-{iteratorSolutions.index}">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#solutions-accordion" href="#collapse-solutions-{iteratorSolutions.index}" aria-expanded="true" aria-controls="collapse-solutions-{iteratorSolutions.index}">
+									Solution #{iteratorSolutions.index}
+								</a>
+							</h4>
+						</div>
+						<div id="collapse-solutions-{iteratorSolutions.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-solutions-{iteratorSolutions.index}">
+							<div class="panel-body">
+								<table class="table table-hover">
+									<tbody>
+										<tr>
+											<td>
+												Author
+											</td>
+											<td>
+												{solution.author}
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Abstract
+											</td>
+											<td>
+												<ihs:format.markdown>{solution.abstract}</ihs:format.markdown>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Description
+											</td>
+											<td>
+												<ihs:format.markdown>{solution.description}</ihs:format.markdown>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Fixed in versions
+											</td>
+											<td>
+												<f:for each="{solution.fixedInVersions}" as="fixedInVersion">
+													{fixedInVersion.humanReadableVersionNumber} <br />
+												</f:for>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<f:if condition="{solution.links}">
+									<f:then>
+										<h5>Links for this solution:</h5>
+									</f:then>
+								</f:if>
+
+								<div class="panel-group" id="solution-links-accordion" role="tablist" aria-multiselectable="true">
+									<f:for each="{solution.links}" as="link" iteration="iteratorSolutionLinks">
+										<div class="panel panel-default">
+											<div class="panel-heading" role="tab" id="heading-solution-links-{iteratorSolutionLinks.index}">
+												<h4 class="panel-title">
+													<a data-toggle="collapse" data-parent="#solution-links-accordion" href="#collapse-solution-links-{iteratorSolutionLinks.index}" aria-expanded="true" aria-controls="collapse-solution-links-{iteratorSolutionLinks.index}">
+														<f:if condition="{link.title}">
+															<f:then>
+																{link.title}
+															</f:then>
+															<f:else>
+																Link #{iteratorSolutionLinks.index}
+															</f:else>
+														</f:if>
+													</a>
+												</h4>
+											</div>
+											<div id="collapse-solution-links-{iteratorSolutionLinks.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-solution-links-{iteratorSolutionLinks.index}">
+												<div class="panel-body">
+													<p>
+														<a href="{link.uri}">{link.title}</a>
+													</p>
+													<p>
+														{link.description}
+													</p>
+												</div>
+											</div>
+										</div>
+									</f:for>
+								</div>
+							</div>
+						</div>
+					</div>
+				</f:for>
+			</div>
+		</f:then>
+		<f:else>
+			<em>No solutions added yet.</em>
+		</f:else>
+	</f:if>
 </f:section>
 </html>

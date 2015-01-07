@@ -4,12 +4,11 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-		<table class="table table-striped">
+		<table class="table table-striped table-hover">
 			<thead>
 			<tr>
 				<th>Title</th>
 				<th>Product</th>
-				<th>Vulnerability Type</th>
 				<th>Creation date</th>
 				<th>Actions</th>
 			</tr>
@@ -24,27 +23,30 @@
 							{issue.product.qualifiedName}
 						</td>
 						<td>
-							{issue.vulnerabilityType.value}
-						</td>
-						<td>
 							<f:format.date date="{issue.creationDate}" format="d.m.Y - H:i"/>
 						</td>
 						<td class="actions">
-							<f:if condition="{issue.advisory}">
-								<f:then>
-									<f:link.action action="show" controller="Advisory" class="btn btn-default" arguments="{advisory: issue.advisory}">Show Advisory</f:link.action>
-								</f:then>
-								<f:else>
-									<f:if condition="{issue.solutions}">
-										<f:link.action action="createAdvisory" class="btn btn-primary" arguments="{issue: issue}">Create Advisory</f:link.action>
+							<div class="btn-toolbar">
+								<div class="btn-group">
+									<f:if condition="{issue.advisory}">
+										<f:then>
+											<f:link.action action="show" controller="Advisory" class="btn btn-default btn-sm" arguments="{advisory: issue.advisory}"><i class="glyphicon glyphicon-eye-open"></i> Show Advisory</f:link.action>
+										</f:then>
+										<f:else>
+											<f:if condition="{issue.solutions}">
+												<f:link.action action="createAdvisory" class="btn btn-primary btn-sm" arguments="{issue: issue}"><i class="glyphicon glyphicon-plus"></i> Create Advisory</f:link.action>
+											</f:if>
+										</f:else>
 									</f:if>
-								</f:else>
-							</f:if>
+								</div>
+								<div class="btn-group">
+									<f:link.action action="edit" class="btn btn-primary btn-sm" arguments="{issue: issue}"><i class="glyphicon glyphicon-pencil"></i> Edit</f:link.action>
+									<f:form action="delete" arguments="{issue: issue}">
+										<button class="btn btn-danger btn-sm" type="submit"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+									</f:form>
+								</div>
+							</div>
 
-							<f:link.action action="edit" class="btn btn-primary" arguments="{issue: issue}">Edit</f:link.action>
-							<f:form action="delete" arguments="{issue: issue}">
-								<f:form.submit class="btn btn-danger" value="Delete" />
-							</f:form>
 						</td>
 					</tr>
 				</f:for>

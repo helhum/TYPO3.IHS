@@ -7,53 +7,60 @@
 <f:section name="Content">
 	<f:widget.paginate objects="{advisories}" as="paginatedAdvisories" configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 1, maximumNumberOfLinks: 4}">
 		<f:for each="{paginatedAdvisories}" as="advisory">
-			<article>
-				<div class="b-news-item">
-					<h2>
-						<f:link.action action="show" arguments="{advisory: advisory}">
-							{advisory.identifier}: {advisory.title}
-						</f:link.action>
-					</h2>
-					<p class="b-news-item-info cl">
-						<span class="b-news-item-author">Category: {advisory.issues.0.product.type}</span> <br/>
-						<f:if condition="{advisory.published}">
-							<f:then>
-								<span class="b-news-item-date">Published: <span class="label label-success"><f:format.date date="{advisory.publishingDate}" format="d.m.Y - H:i"/></span></span>
-							</f:then>
-							<f:else>
-								<span class="b-news-item-date">Published: <span class="label">not published</span></span>
-							</f:else>
-						</f:if>
-					</p>
-					<p class="b-news-item-subheader"><ihs:format.markdown>{advisory.abstract}</ihs:format.markdown></p>
-
+			<div class="row advisory">
+				<article>
 					<f:security.ifAuthenticated>
 						<f:then>
-							<div class="btn-toolbar">
-								<div class="btn-group">
-									<f:link.action class="btn btn-default" action="show" arguments="{advisory: advisory}">Details</f:link.action>
-									<f:link.action class="btn btn-primary" action="edit" arguments="{advisory: advisory}">Edit</f:link.action>
-								</div>
-								<div class="btn-group">
-									<f:link.action action="new" controller="issue" class="btn btn-default" arguments="{advisory: advisory}">
-										Create Issue
-									</f:link.action>
-									<f:if condition="{advisory.published}">
-										<f:else>
-											<f:link.action action="publish" class="btn btn-success" arguments="{advisory: advisory}">
-												Publish
-											</f:link.action>
-										</f:else>
-									</f:if>
+							<div class="col-md-8">
+						</f:then>
+						<f:else>
+							<div class="col-md-12">
+						</f:else>
+					</f:security.ifAuthenticated>
+						<h2>
+							<f:link.action action="show" arguments="{advisory: advisory}">
+								{advisory.identifier}: {advisory.title}
+							</f:link.action>
+						</h2>
+						<p>
+							<f:if condition="{advisory.published}">
+								<f:then>
+									<span>Published: <span class="label label-success"><f:format.date date="{advisory.publishingDate}" format="d.m.Y - H:i"/></span></span>
+								</f:then>
+								<f:else>
+									<span>Published: <span class="label label-default">not published</span></span>
+								</f:else>
+							</f:if>
+							<br/>
+							<span>Category: {advisory.issues.0.product.type}</span>
+						</p>
+						<p><ihs:format.markdown>{advisory.abstract}</ihs:format.markdown></p>
+					</div>
+					<f:security.ifAuthenticated>
+						<f:then>
+							<div class="col-md-4">
+								<div class="btn-toolbar">
+									<div class="btn-group">
+										<f:link.action class="btn btn-primary" action="edit" arguments="{advisory: advisory}"><i class="glyphicon glyphicon-pencil"></i> Edit</f:link.action>
+									</div>
+									<div class="btn-group">
+										<f:link.action action="new" controller="issue" class="btn btn-default" arguments="{advisory: advisory}">
+											<i class="glyphicon glyphicon-plus"></i> Create Issue
+										</f:link.action>
+										<f:if condition="{advisory.published}">
+											<f:else>
+												<f:link.action action="publish" class="btn btn-success" arguments="{advisory: advisory}">
+													<i class="glyphicon glyphicon-thumbs-up"></i> Publish
+												</f:link.action>
+											</f:else>
+										</f:if>
+									</div>
 								</div>
 							</div>
 						</f:then>
-						<f:else>
-							<f:link.action class="btn btn-default" action="show" arguments="{advisory: advisory}">Details</f:link.action>
-						</f:else>
 					</f:security.ifAuthenticated>
-				</div>
-			</article>
+				</article>
+			</div>
 		</f:for>
 	</f:widget.paginate>
 </f:section>

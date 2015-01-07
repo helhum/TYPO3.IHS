@@ -4,40 +4,66 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<div class="fields">
-		<div class="dynamic-fields">
-			<div class="field-template" data-html="
-				<f:format.htmlentities>
-					<f:render partial="{partial}" arguments="{arguments: arguments, options:options, propertyPrefix: '{propertyPrefix}_placeholder_.', deleteLinkMode: 'new'}" section="Content" />
-				</f:format.htmlentities>
-			">
+	<div class="object-collection">
+		<div class="fields">
+			<div class="fields-header">
+				<f:if condition="{legend}">
+					<f:then>
+						<legend>{legend}</legend>
+					</f:then>
+				</f:if>
+				<div class="add-field">
+					<button class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> Add {objectName}</button>
+				</div>
 			</div>
-		</div>
-
-		<div class="present-fields">
-			<f:if condition="{objects}">
-
-				<f:for each="{objects}" as="object" iteration="iterator">
-					<f:if condition="{propertyPrefix}">
-						<f:then>
-							<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, options: options, deleteLinkMode: 'existing', propertyPrefix: '{propertyPrefix}{iterator.index}.'}" section="Content"/>
-						</f:then>
-						<f:else>
-							<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, options: options, deleteLinkMode: 'existing'}" section="Content"/>
-						</f:else>
-					</f:if>
-				</f:for>
-
-			</f:if>
-		</div>
-
-		<div class="additional-fields"></div>
-		<div class="form-group add-field">
-			<div class="col-sm-10 col-sm-offset-2">
-				<button class="btn btn-small">Add {objectName}</button>
+			<div class="dynamic-fields">
+				<div class="field-template" data-html="
+					<f:format.htmlentities>
+						<f:render partial="{partial}" arguments="{arguments: arguments, options:options, propertyPrefix: '{propertyPrefix}_placeholder_.', deleteLinkMode: 'new'}" section="Content" />
+					</f:format.htmlentities>
+				">
+				</div>
 			</div>
-		</div>
 
+			<div class="present-fields">
+				<f:if condition="{objects}">
+					<div class="panel-group" id="{objectName}-accordion" role="tablist" aria-multiselectable="true">
+						<f:for each="{objects}" as="object" iteration="iterator">
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="heading-{objectName}-{iterator.index}">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#{objectName}-accordion" href="#collapse-{objectName}-{iterator.index}" aria-expanded="true" aria-controls="collapse-{objectName}-{iterator.index}">
+											<f:if condition="{object.title}">
+												<f:then>
+													{object.title}
+												</f:then>
+												<f:else>
+													{objectName} #{iterator.index}
+												</f:else>
+											</f:if>
+										</a>
+									</h4>
+								</div>
+								<div id="collapse-{objectName}-{iterator.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{objectName}-{iterator.index}">
+									<div class="panel-body">
+										<f:if condition="{propertyPrefix}">
+											<f:then>
+												<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, options: options, deleteLinkMode: 'existing', propertyPrefix: '{propertyPrefix}{iterator.index}.'}" section="Content"/>
+											</f:then>
+											<f:else>
+												<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, options: options, deleteLinkMode: 'existing'}" section="Content"/>
+											</f:else>
+										</f:if>
+									</div>
+								</div>
+							</div>
+						</f:for>
+					</div>
+				</f:if>
+			</div>
+
+			<div class="additional-fields"></div>
+		</div>
 	</div>
 </f:section>
 </html>

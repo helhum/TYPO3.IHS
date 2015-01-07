@@ -5,6 +5,8 @@
 
 <f:section name="Content">
 	<div class="dynamic-form-fields">
+		<f:render section="DeleteSolution" arguments="{_all}" />
+
 		<f:form.hidden property="{propertyPrefix}issue" value="{arguments.issue}" />
 
 		<div class="form-group">
@@ -33,10 +35,8 @@
 			<div class="col-sm-10">
 				<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" class="form-control" />
 			</div>
-			<div class="col-sm-12 col-sm-offset-2">
-				<p>
-					<button class="btn btn-default add-new-versions" type="button" data-toggle="modal" data-href="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#new-versions-modal">Add new Version</button>
-				</p>
+			<div class="col-sm-10 col-sm-offset-2">
+				<button class="btn btn-default add-new-versions" type="button" data-toggle="modal" data-href="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#new-versions-modal"><i class="glyphicon glyphicon-plus"></i> Add new Version</button>
 				<div class="created-versions-outer">
 					<p>
 						Angelegte Versionen:
@@ -51,14 +51,11 @@
 		<div class="form-group">
 			<div class="col-sm-10 col-sm-offset-2">
 				<fieldset>
-					<legend>Links for the solution</legend>
-					<ul>
-						<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: arguments.issue, solution: object}, deleteMode: 'link'}"/>
-					</ul>
+					<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link', legend: 'Links for the solution', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: arguments.issue, solution: object}, deleteMode: 'link'}"/>
 				</fieldset>
 			</div>
 		</div>
-		<f:render section="DeleteSolution" arguments="{_all}" />
+
 	</div>
 </f:section>
 
@@ -66,13 +63,13 @@
 	<f:if condition="{deleteLinkMode}">
 		<f:then>
 			<div class="form-group">
-				<div class="col-sm-10 col-sm-offset-2">
+				<div class="col-sm-12 text-right">
 					<f:switch expression="{deleteLinkMode}">
 						<f:case value="existing">
-							<f:link.action action="removeSolution" controller="Issue" arguments="{issue: arguments.issue, solution: object}" class="btn btn-danger remove-action">Remove Solution</f:link.action>
+							<f:link.action action="removeSolution" controller="Issue" arguments="{issue: arguments.issue, solution: object}" class="btn btn-danger remove-action"><i class="glyphicon glyphicon-trash"></i> Remove Solution</f:link.action>
 						</f:case>
 						<f:case value="new">
-							<a href="javascript:void(0);" class="btn btn-danger delete-item">Remove Solution</a>
+							<a href="javascript:void(0);" class="btn btn-danger delete-item"><i class="glyphicon glyphicon-trash"></i> Remove Solution</a>
 						</f:case>
 					</f:switch>
 				</div>
