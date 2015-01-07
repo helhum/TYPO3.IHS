@@ -146,7 +146,9 @@ $( document ).ready(function(){
 		}
 	});
 
-	handleSavedSearches();
+	if ($('.advisory-visualsearch').length > 0) {
+		handleSavedSearches();
+	}
 });
 
 function handleSavedSearches() {
