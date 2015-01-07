@@ -170,9 +170,9 @@
 								<div class="panel-group" id="solution-links-accordion" role="tablist" aria-multiselectable="true">
 									<f:for each="{solution.links}" as="link" iteration="iteratorSolutionLinks">
 										<div class="panel panel-default">
-											<div class="panel-heading" role="tab" id="heading-solution-links-{iteratorSolutionLinks.index}">
+											<div class="panel-heading" role="tab" id="heading-solution-{iteratorSolutions.index}-links-{iteratorSolutionLinks.index}">
 												<h4 class="panel-title">
-													<a data-toggle="collapse" data-parent="#solution-links-accordion" href="#collapse-solution-links-{iteratorSolutionLinks.index}" aria-expanded="true" aria-controls="collapse-solution-links-{iteratorSolutionLinks.index}">
+													<a data-toggle="collapse" data-parent="#solution-links-accordion" href="#collapse-solution-{iteratorSolutions.index}-links-{iteratorSolutionLinks.index}" aria-expanded="true" aria-controls="collapse-solution-{iteratorSolutions.index}-links-{iteratorSolutionLinks.index}">
 														<f:if condition="{link.title}">
 															<f:then>
 																{link.title}
@@ -184,7 +184,7 @@
 													</a>
 												</h4>
 											</div>
-											<div id="collapse-solution-links-{iteratorSolutionLinks.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-solution-links-{iteratorSolutionLinks.index}">
+											<div id="collapse-solution-{iteratorSolutions.index}-links-{iteratorSolutionLinks.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-solution-{iteratorSolutions.index}-links-{iteratorSolutionLinks.index}">
 												<div class="panel-body">
 													<p>
 														<a href="{link.uri}">{link.title}</a>
