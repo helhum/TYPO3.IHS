@@ -237,7 +237,7 @@ function initIssue() {
 				return;
 			}
 
-			$.getJSON($('input.vulnerabilityType').closest('.form-group').attr('vulnerabilityTypeUrl'), request, function (data, status, xhr) {
+			$.getJSON($('input.vulnerabilityType').closest('.form-group').attr('data-vulnerabilityTypeUrl'), request, function (data, status, xhr) {
 				vulnerabilityTypesCache[term] = data;
 				response(data);
 			});
@@ -261,7 +261,7 @@ function initIssue() {
 			}
 		});
 
-		currentVersionsField = $(this).closest('li').find('select#solution-fixedInVersions');
+		currentVersionsField = $(this).closest('div.form-group').find('select#solution-fixedInVersions');
 	});
 	$('.create-versions').off('click');
 	$('.create-versions').on('click', function (e) {
@@ -287,8 +287,8 @@ function initIssue() {
 						$(currentVersionsField).find('option[value="' + value.identifier + '"]').prop('selected', true);
 
 						// add new version to list of created versions
-						$(currentVersionsField).closest('li').find('div.created-versions ul').append('<li class="created-version" data-version-id="' + value.identifier + '">' + value.versionAsString + '<button type="button" class="delete-created-version btn btn-danger btn-small">delete</button></li>')
-						$(currentVersionsField).closest('li').find('div.created-versions-outer').show();
+						$(currentVersionsField).closest('.form-group').find('div.created-versions ul').append('<li class="created-version" data-version-id="' + value.identifier + '">' + value.versionAsString + ' <button type="button" class="delete-created-version btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> delete</button></li>')
+						$(currentVersionsField).closest('.form-group').find('div.created-versions-outer').show();
 
 						// add click action for new versions to delete them
 						$('div.created-versions li[data-version-id="' + value.identifier + '"] .delete-created-version').on('click', function() {
