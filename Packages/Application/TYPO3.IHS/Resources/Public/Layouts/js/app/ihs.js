@@ -140,7 +140,7 @@ function handleSaveDeletionModal() {
 		$('#delete-confirmation-modal').modal('show');
 	});
 
-	$('#delete-confirmation-modal').on('show', function () {
+	$('#delete-confirmation-modal').on('show.bs.modal', function () {
 		$(formFields).each(function(index, item) {
 			var label = $(item).find('> label').text();
 			var value = $(item).find('input').val();
@@ -177,7 +177,7 @@ function handleSaveDeletionModal() {
 		$('#delete-confirmation-modal a.remove-object').attr('href', href);
 	});
 
-	$('#delete-confirmation-modal').on('hide', function () {
+	$('#delete-confirmation-modal').on('hide.bs.modal', function () {
 		// write name to the modals body
 		// maybe iterate over the form fields and write them to the modal?
 		$('#delete-confirmation-modal .modal-content').html('');
