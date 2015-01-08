@@ -293,11 +293,12 @@ function initIssue() {
 						// add click action for new versions to delete them
 						$('div.created-versions li[data-version-id="' + value.identifier + '"] .delete-created-version').on('click', function() {
 							var button = $(this);
+							console.log (value);
 							$.ajax({
 								type: "GET",
 								url: $('.created-versions').attr('data-delete-url'),
 								dataType: "json",
-								data: {versionIdentifier: value.identifier, productIdentifier: productIdentifier},
+								data: {'productVersion': value.identifier, 'product': productIdentifier},
 								success: function (data) {
 									$(button).closest('li').remove();
 									$(currentVersionsField).find('option[value="' + value.identifier + '"]').remove();

@@ -9,6 +9,7 @@ namespace TYPO3\IHS\Controller;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
+use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\Flow\Persistence\PersistenceManagerInterface;
 use TYPO3\IHS\Domain\Model\Product;
 use TYPO3\IHS\Domain\Model\ProductType;
@@ -147,7 +148,7 @@ class ProductController extends ActionController {
 	 * @param string $productIdentifier
 	 * @return string $response
 	 */
-	public function  createVersionAction($versions, $productIdentifier) {
+	public function createVersionAction($versions, $productIdentifier) {
 		$response = array();
 		$createdVersions = array();
 
@@ -187,20 +188,23 @@ class ProductController extends ActionController {
 		return json_encode($response);
 	}
 
+	protected function initializeDeleteVersionAction() {
+		$productVersionMappingConfiguration = $this->arguments['productVersion']->getPropertyMappingConfiguration();
+		$productVersionMappingConfiguration->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
+	}
+
 	/**
 	 * Removes version from given product
 	 *
-	 * @param string $versionIdentifier
-	 * @param string $productIdentifier
+	 * @param ProductVersion $productVersion
+	 * @param Product $product
 	 *
 	 * @return string $response
 	 */
-	public function deleteVersionAction($versionIdentifier, $productIdentifier) {
+	public function deleteVersionAction(ProductVersion $productVersion, Product $product) {
 		$response = array();
 
-		/** @var $product Product */
-		$product = $this->productRepository->findByIdentifier($productIdentifier);
-		$product->removeVersion($versionIdentifier);
+		$product->removeVersion($productVersion);
 
 		$this->productRepository->update($product);
 		$this->persistenceManager->persistAll();

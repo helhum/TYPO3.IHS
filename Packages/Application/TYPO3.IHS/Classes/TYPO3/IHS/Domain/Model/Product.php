@@ -142,17 +142,17 @@ class Product {
 	}
 
 	/**
-	 * @param ProductVersion $version
+	 * @param ProductVersion $productVersion
 	 */
-	public function addVersion(ProductVersion $version) {
-		$this->versions->add($version);
+	public function addVersion(ProductVersion $productVersion) {
+		$this->versions->add($productVersion);
 	}
 
 	/**
-	 * @param string $versionIdentifier
+	 * @param ProductVersion $productVersion
 	 */
-	public function removeVersion($versionIdentifier) {
-		$this->versions->remove($versionIdentifier);
+	public function removeVersion($productVersion) {
+		$this->versions->removeElement($productVersion);
 	}
 
 	/**
