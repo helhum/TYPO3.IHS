@@ -15,6 +15,27 @@ use Doctrine\ORM\Mapping as ORM;
 class Link {
 
 	/**
+	 * @var string
+	 * @Flow\Validate(type="NotEmpty")
+	 * @Flow\Validate(type="StringLength", options={ "minimum"=3, "maximum"=512 })
+	 */
+	protected $uri;
+
+	/**
+	 * @var string
+	 * @Flow\Validate(type="NotEmpty")
+	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=128 })
+	 */
+	protected $title;
+
+	/**
+	 * @var string
+	 * @ORM\Column(type="text")
+	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=512 })
+	 */
+	protected $description;
+
+	/**
 	 * @param string $title
 	 * @param string $description
 	 * @param string $uri
@@ -24,25 +45,6 @@ class Link {
 		$this->title = $title;
 		$this->description = $description;
 	}
-
-	/**
-	 * @var string
-	 * @Flow\Validate(type="NotEmpty")
-	 * @Flow\Validate(type="StringLength", options={ "minimum"=3, "maximum"=512 })
-	 */
-	protected $uri;
-
-	/**
-	 * @var string
-	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=128 })
-	 */
-	protected $title;
-
-	/**
-	 * @var string
-	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=512 })
-	 */
-	protected $description;
 
 	/**
 	 * @return string
@@ -64,6 +66,4 @@ class Link {
 	public function getUri() {
 		return $this->uri;
 	}
-
-
 }
