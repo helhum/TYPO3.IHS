@@ -1,14 +1,21 @@
+
 <f:form.validationResults for="{f:if(condition: '{errorContext}', then: '{errorContext}', else: '{object}')}">
 	<f:if condition="{validationResults.flattenedErrors}">
-		<ul>
-			<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
-				<li>
-					{propertyPath}:
-					<ul>
-						<f:for each="{errors}" as="error"><li>{error}</li></f:for>
-					</ul>
-				</li>
-			</f:for>
-		</ul>
+		<div class="alert alert-info">
+			<p>
+				<strong>There are some validation errors:</strong>
+			</p>
+			<ul class="list-unstyled">
+				<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">
+					<li>
+						{namespace ihs=TYPO3\IHS\ViewHelpers}
+						<ihs:form.readablePropertyPath propertyPath="{propertyPath}" />:
+						<ul>
+							<f:for each="{errors}" as="error"><li>{error}</li></f:for>
+						</ul>
+					</li>
+				</f:for>
+			</ul>
+		</div>
 	</f:if>
 </f:form.validationResults>

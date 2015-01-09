@@ -11,20 +11,21 @@ namespace TYPO3\IHS\ViewHelpers\Form;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
+use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Class LastSubmittedValueViewHelper
+ * Class ReadablePropertyPathViewHelper
  * @package TYPO3\IHS\ViewHelpers
  */
-class LastSubmittedValueViewHelper extends AbstractFormFieldViewHelper {
-
+class ReadablePropertyPathViewHelper extends AbstractViewHelper {
 	/**
+	 *
+	 * @param string $propertyPath
 	 * @return string
 	 */
-	public function render() {
-		if ($this->getLastSubmittedFormData()) {
-			return json_encode($this->getLastSubmittedFormData());
-		}
+	public function render($propertyPath) {
+		$readablePropertyPath = str_replace('.', ' ', $propertyPath);
+		$readablePropertyPath = preg_replace('/(?!^)[A-Z]{2,}(?=[A-Z][a-z])|[A-Z][a-z]/', ' $0', $readablePropertyPath);
+		return ucfirst($readablePropertyPath);
 	}
-}
+} 

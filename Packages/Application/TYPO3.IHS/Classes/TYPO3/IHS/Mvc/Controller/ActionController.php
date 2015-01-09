@@ -97,4 +97,11 @@ class ActionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		return $this->contextFactory->create($contextProperties);
 	}
 
+	/**
+	 * Overwritten method that returns FALSE in case of validation errors to avoid standard error message
+	 * Validation message will still be shown
+	 */
+	protected function getErrorFlashMessage() {
+		return FALSE;
+	}
 }
