@@ -312,3 +312,8 @@ select.product {
 .md-editor>textarea {
 	padding: 10px !important;
 }
+
+/* markdown editor */
+.markdown {
+	min-height: 200px !important; /* temporary fix */
+}

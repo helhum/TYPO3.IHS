@@ -89,7 +89,7 @@ jQuery(document).ready(function() {
 });
 
 function initializeMarkdownEditor() {
-	$(".markdown").markdown({
+	$('.markdown').markdown({
 		autofocus:false,
 		savable:false,
 		onPreview: function(e) {
@@ -97,6 +97,8 @@ function initializeMarkdownEditor() {
 			return marked(e.getContent());
 		}
 	});
+
+	$('.markdown').autosize();
 }
 
 function getURLParameter(name) {
