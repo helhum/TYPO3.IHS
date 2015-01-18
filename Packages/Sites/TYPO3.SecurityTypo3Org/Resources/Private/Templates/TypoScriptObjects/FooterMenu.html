@@ -1,0 +1,15 @@
+{namespace ihs=TYPO3\IHS\ViewHelpers}
+<ul id="language_menu" class="language-menu">
+	<li><f:link.action action="rssFeed" controller="Advisory" format="xml" package="TYPO3.IHS">RSS Feed</f:link.action></li>
+	<li>|</li>
+	<li>
+		<f:security.ifAuthenticated>
+			<f:then>
+				Logged in as <ihs:security.account>{account.accountIdentifier}</ihs:security.account> (<f:link.action action="logout" controller="Login" package="TYPO3.IHS">Logout</f:link.action>)
+			</f:then>
+			<f:else>
+				<f:link.action action="login" controller="Login" package="TYPO3.IHS">Login</f:link.action>
+			</f:else>
+		</f:security.ifAuthenticated>
+	</li>
+</ul>

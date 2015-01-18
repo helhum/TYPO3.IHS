@@ -50,16 +50,6 @@
 
 	<div class="col-md-12">
 		<div class="row">
-			<div class="col-md-12">
-				<f:security.ifAuthenticated>
-					<f:then>
-						Logged in as <ihs:security.account>{account.accountIdentifier}</ihs:security.account> | <a href="#" class="navbar-link"><f:link.action action="logout" package="TYPO3.IHS" controller="Login">logout</f:link.action></a>
-					</f:then>
-					<f:else>
-						<f:link.action action="login" package="TYPO3.IHS" controller="Login">Login</f:link.action>
-					</f:else>
-				</f:security.ifAuthenticated>
-			</div>
 			<!--/span-->
 			<div class="col-md-12">
 
