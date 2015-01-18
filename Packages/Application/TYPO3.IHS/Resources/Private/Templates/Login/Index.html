@@ -8,14 +8,24 @@
 <f:section name="Title">Enter Credentials</f:section>
 
 <f:section name="Content">
-	<f:form name="login" action="authenticate" method="post">
-		<label for="username">Username:</label>
-		<f:form.textfield id="username" type="text" placeholder="Username" name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][username]" additionalAttributes="{autofocus: 'autofocus'}" value="{username}" tabindex="1"/>
-		<label for="username">Password:</label>
-		<f:form.textfield id="password" type="password" placeholder="Password" name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][password]" tabindex="2"/>
-		<br />
-		<f:form.button type="submit" class="btn" tabindex="3">Login</f:form.button>
-	</f:form>
+	<div class="col-md-4 col-md-offset-4">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<f:form name="login" action="authenticate" method="post">
+				<div class="form-group">
+					<label for="username">Username</label>
+					<f:form.textfield class="form-control" id="username" type="text" placeholder="Username" name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][username]" additionalAttributes="{autofocus: 'autofocus'}" value="{username}" tabindex="1"/>
+				</div>
+
+				<div class="form-group">
+				<label for="username">Password</label>
+				<f:form.textfield class="form-control" id="password" type="password" placeholder="Password" name="__authentication[TYPO3][Flow][Security][Authentication][Token][UsernamePassword][password]" tabindex="2"/>
+				</div>
+				<f:form.button type="submit" class="btn btn-default" tabindex="3">Login</f:form.button>
+			</f:form>
+			</div>
+		</div>
+	</div>
 </f:section>
 
 </html>

@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\IHS\Mvc\Controller;
+namespace TYPO3\IHS\View;
 
 /*                                                                        *
  * This script belongs to the TYPO3 Flow package "TYPO3.IHS".             *
@@ -7,57 +7,42 @@ namespace TYPO3\IHS\Mvc\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Neos\Domain\Repository\SiteRepository;
-use TYPO3\Neos\Domain\Repository\DomainRepository;
-use TYPO3\Neos\Domain\Service\ContentContextFactory;
+use TYPO3\Flow\Mvc\View\ViewInterface;
 use TYPO3\Neos\Domain\Service\ContentContext;
 
 /**
- * Class ActionController
+ * Trait TypoScriptViewTrait
  *
- * @package TYPO3\IHS\Mvc\Controller
+ * @package TYPO3\IHS\View
  */
-class ActionController extends \TYPO3\Flow\Mvc\Controller\ActionController {
-
-	protected $nodeRepository;
-
-	/**
-	 * @var string
-	 */
-	protected $defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
-
-	/**
-	 * @var \TYPO3\TypoScript\View\TypoScriptView
-	 */
-	protected $view;
+trait TypoScriptViewTrait {
 
 	/**
 	 * @Flow\Inject
-	 * @var ContentContextFactory
+	 * @var \TYPO3\Neos\Domain\Service\ContentContextFactory
 	 */
 	protected $contextFactory;
 
 	/**
 	 * @Flow\Inject
-	 * @var DomainRepository
+	 * @var \TYPO3\Neos\Domain\Repository\DomainRepository
 	 */
 	protected $domainRepository;
 
 	/**
 	 * @Flow\Inject
-	 * @var SiteRepository
+	 * @var \TYPO3\Neos\Domain\Repository\SiteRepository
 	 */
 	protected $siteRepository;
 
-	/**
-	 * @var string
-	 */
-	protected $currentNodePath = '/sites/securitytypo3org/securitybulletins';
+	protected function initializeObject() {
+		$this->defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
+	}
 
 	/**
-	 * @param \TYPO3\Flow\Mvc\View\ViewInterface $view
+	 * @param ViewInterface $view
 	 */
-	protected function initializeView(\TYPO3\Flow\Mvc\View\ViewInterface $view) {
+	protected function initializeView(ViewInterface $view) {
 		$contentContext = $this->buildContextFromWorkspaceName('live');
 		$siteNode = $contentContext->getCurrentSiteNode();
 		$currentNode = $contentContext->getNode($this->currentNodePath);

@@ -7,6 +7,7 @@ namespace TYPO3\IHS\Controller;
  *                                                                        */
 
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Mvc\Controller\ActionController;
 use TYPO3\Flow\Security\Context;
 use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\IHS\Domain\Model\Advisory;
@@ -14,11 +15,12 @@ use TYPO3\IHS\Domain\Model\Issue;
 use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
 use TYPO3\IHS\Domain\Repository\IssueRepository;
 use TYPO3\IHS\Domain\Repository\ProductRepository;
-use TYPO3\IHS\Mvc\Controller\ActionController;
+use TYPO3\IHS\View\TypoScriptViewTrait;
 
 class AdvisoryController extends ActionController {
 
 	use ArgumentMappingTrait;
+	use TypoScriptViewTrait;
 
 	/**
 	 * @Flow\Inject
@@ -50,6 +52,12 @@ class AdvisoryController extends ActionController {
 	 * @var array
 	 */
 	protected $supportedMediaTypes = array('text/html', 'text/xml');
+
+
+	/**
+	 * @var string
+	 */
+	protected $currentNodePath = '/sites/securitytypo3org/securitybulletins';
 
 	/**
 	 * @param string $search

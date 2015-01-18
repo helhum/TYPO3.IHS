@@ -28,11 +28,19 @@ namespace TYPO3\IHS\Controller;
  ***************************************************************/
 
 use TYPO3\Flow\Security\Authentication\Controller\AbstractAuthenticationController;
+use TYPO3\IHS\View\TypoScriptViewTrait;
 
 /**
  * Class AuthenticationController
  */
 class LoginController extends AbstractAuthenticationController {
+
+	use TypoScriptViewTrait;
+
+	/**
+	 * @var string
+	 */
+	protected $currentNodePath = '/sites/securitytypo3org/securitybulletins';
 
 	/**
 	 * Renders the login form
