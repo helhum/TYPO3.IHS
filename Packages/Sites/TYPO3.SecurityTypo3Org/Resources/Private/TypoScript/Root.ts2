@@ -51,7 +51,7 @@ page = TYPO3.Neos:Page {
 				current.attributes.class = 'list-group-item active'
 			}
 
-			footerMenu = Template {
+			footerMenu = TYPO3.TypoScript:Template {
 				templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/TypoScriptObjects/FooterMenu.html'
 			}
 
