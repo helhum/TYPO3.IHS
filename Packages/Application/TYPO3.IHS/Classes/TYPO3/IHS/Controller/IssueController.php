@@ -56,14 +56,17 @@ class IssueController extends ActionController {
 	 * @param string $search
 	 * @return void
 	 */
-	public function indexAction($search = NULL) {
+	public function indexAction($search = '[{"has advisory":"no"}]') {
 		$issues = $this->getSearchResults($search);
+
 		$quickFilterHasSolution = '[{"has solution":"yes"}]';
 		$quickFilterHasAdvisory = '[{"has advisory":"yes"}]';
+		$quickFilterHasNoAdvisory = '[{"has advisory":"no"}]';
 
 		$this->view->assign('issues', $issues);
 		$this->view->assign('quickFilterHasSolution', $quickFilterHasSolution);
 		$this->view->assign('quickFilterHasAdvisory', $quickFilterHasAdvisory);
+		$this->view->assign('quickFilterHasNoAdvisory', $quickFilterHasNoAdvisory);
 	}
 
 	/**
