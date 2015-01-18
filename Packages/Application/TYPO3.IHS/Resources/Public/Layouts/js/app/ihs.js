@@ -85,6 +85,11 @@ jQuery(document).ready(function() {
 		initializeMarkdownEditor();
 	});
 
+	// trigger removing objectCollections
+	$('.toggle-delete-action').on('click', function() {
+		$(this).closest('.present-fields').find('.delete-objectCollection a').click();
+	});
+
 	handleSaveDeletionModal();
 });
 

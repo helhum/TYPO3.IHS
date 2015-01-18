@@ -31,25 +31,27 @@
 <f:section name="DeleteLink">
 	<f:if condition="{deleteLinkMode}">
 		<f:then>
-			<div class="form-group">
+			<div class="form-group delete-objectCollection">
 				<div class="col-sm-12 text-right">
 					<f:switch expression="{deleteLinkMode}">
 						<f:case value="existing">
-							<f:if condition="{arguments.advisory}">
-								<f:then>
-									<f:link.action action="removeLink" controller="Advisory" arguments="{issue: arguments.issue, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action"><i class="glyphicon glyphicon-trash"></i> Remove Link</f:link.action>
-								</f:then>
-								<f:else>
-									<f:if condition="{arguments.solution}">
-										<f:then>
-											<f:link.action action="removeSolutionLink" controller="Issue" arguments="{solution: arguments.solution, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action"><i class="glyphicon glyphicon-trash"></i> Remove Link</f:link.action>
-										</f:then>
-										<f:else>
-											<f:link.action action="removeLink" controller="Issue" arguments="{issue: arguments.issue, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action"><i class="glyphicon glyphicon-trash"></i> Remove Link</f:link.action>
-										</f:else>
-									</f:if>
-								</f:else>
-							</f:if>
+							<div class="hidden">
+								<f:if condition="{arguments.advisory}">
+									<f:then>
+										<f:link.action action="removeLink" controller="Advisory" arguments="{issue: arguments.issue, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action"><i class="glyphicon glyphicon-trash"></i> Remove Link</f:link.action>
+									</f:then>
+									<f:else>
+										<f:if condition="{arguments.solution}">
+											<f:then>
+												<f:link.action action="removeSolutionLink" controller="Issue" arguments="{solution: arguments.solution, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action"><i class="glyphicon glyphicon-trash"></i> Remove Link</f:link.action>
+											</f:then>
+											<f:else>
+												<f:link.action action="removeLink" controller="Issue" arguments="{issue: arguments.issue, link: {uri: object.uri, title: object.title, description: object.description}}" class="btn btn-danger remove-action"><i class="glyphicon glyphicon-trash"></i> Remove Link</f:link.action>
+											</f:else>
+										</f:if>
+									</f:else>
+								</f:if>
+							</div>
 						</f:case>
 						<f:case value="new">
 							<a href="javascript:void(0);" class="btn btn-danger delete-item"><i class="glyphicon glyphicon-trash"></i> Remove Link</a>
