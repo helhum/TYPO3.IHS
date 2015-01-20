@@ -3,6 +3,11 @@
 # Add two properties "layout" and "subpageLayout" to the default "Page" NodeType
 #
 'TYPO3.Neos.NodeTypes:Page':
+  childNodes:
+    'left':
+      type: 'TYPO3.Neos:ContentCollection'
+    'right':
+      type: 'TYPO3.Neos:ContentCollection'
   ui:
     inspector:
       groups:
@@ -21,8 +26,26 @@
             values:
               'default':
                 label: 'Default'
-              'defaultSubnavigationRight':
-                label: 'Default (Subnavigation right)'
+              'default2Columns':
+                label: 'Default (2 columns)'
+              'default2Columns2757':
+                label: 'Default (2 columns, 25%-75%)'
+              'default2Columns5050':
+                label: 'Default (2 columns, 50%-50%)'
+              'default2ColumnsOffsetRight':
+                label: 'Default (2 columns, offset right)'
+              'default3Columns':
+                label: 'Default (3 columns)'
+              'defaultClean':
+                label: 'Default (Clean)'
+              'defaultSubNavLeft':
+                label: 'Default (Sub nav left)'
+              'defaultSubNavLeft2Columns':
+                label: 'Default (Sub nav left, 2 columns)'
+              'defaultSubNavRight':
+                label: 'Default (Sub nav right)'
+              'defaultSubNavRight2Columns':
+                label: 'Default (Sub nav right, 2 columns)'
     'subpageLayout':
       ui:
         inspector:
@@ -31,5 +54,23 @@
             values:
               'default':
                 label: 'Default'
-              'defaultSubnavigationRight':
-                label: 'Default (Subnavigation right)'
+              'default2Columns':
+                label: 'Default (2 columns)'
+              'default2Columns2757':
+                label: 'Default (2 columns, 25%-75%)'
+              'default2Columns5050':
+                label: 'Default (2 columns, 50%-50%)'
+              'default2ColumnsOffsetRight':
+                label: 'Default (2 columns, offset right)'
+              'default3Columns':
+                label: 'Default (3 columns)'
+              'defaultClean':
+                label: 'Default (Clean)'
+              'defaultSubNavLeft':
+                label: 'Default (Sub nav left)'
+              'defaultSubNavLeft2Columns':
+                label: 'Default (Sub nav left, 2 columns)'
+              'defaultSubNavRight':
+                label: 'Default (Sub nav right)'
+              'defaultSubNavRight2Columns':
+                label: 'Default (Sub nav right, 2 columns)'

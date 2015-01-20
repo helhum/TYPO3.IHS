@@ -88,7 +88,52 @@ default.body {
 	partial = 'Page/Default'
 }
 
-defaultSubnavigationRight < page
-defaultSubnavigationRight.body {
+default2Columns < page
+default2Columns.body {
+	partial = 'Page/Default2Columns'
+}
+
+default2Columns2575 < page
+default2Columns2575.body {
+	partial = 'Page/Default2Columns2575'
+}
+
+default2Columns5050 < page
+default2Columns5050.body {
+	partial = 'Page/Default2Columns5050'
+}
+
+default2ColumnsOffsetRight < page
+default2ColumnsOffsetRight.body {
+	partial = 'Page/Default2ColumnsOffsetRight'
+}
+
+default3Columns < page
+default3Columns.body {
+	partial = 'Page/Default3Columns'
+}
+
+defaultClean < page
+defaultClean.body {
+	partial = 'Page/DefaultClean'
+}
+
+defaultSubNavLeft < page
+defaultSubNavLeft.body {
+	partial = 'Page/DefaultSubNavLeft'
+}
+
+defaultSubNavLeft2Columns < page
+defaultSubNavLeft2Columns.body {
+	partial = 'Page/DefaultSubNavLeft2Columns'
+}
+
+defaultSubNavright < page
+defaultSubNavRight.body {
 	partial = 'Page/DefaultSubNavRight'
+}
+
+defaultSubNavRight2Columns < page
+defaultSubNavRight2Columns.body {
+	partial = 'Page/DefaultSubNavRight2Columns'
 }
