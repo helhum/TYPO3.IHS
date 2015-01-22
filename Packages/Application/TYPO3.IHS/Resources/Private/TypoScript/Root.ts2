@@ -74,6 +74,7 @@ TYPO3.IHS.IssueController.index < ihs {
 		issues = ${issues}
 		quickFilterHasSolution = ${quickFilterHasSolution}
 		quickFilterHasAdvisory = ${quickFilterHasAdvisory}
+		quickFilterHasNoAdvisory = ${quickFilterHasNoAdvisory}
 	}
 }
 TYPO3.IHS.IssueController.show < ihs {
