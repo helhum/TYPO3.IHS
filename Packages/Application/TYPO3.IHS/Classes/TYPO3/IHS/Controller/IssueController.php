@@ -61,14 +61,28 @@ class IssueController extends ActionController {
 	public function indexAction($search = '[{"has advisory":"no"}]') {
 		$issues = $this->getSearchResults($search);
 
-		$quickFilterHasSolution = '[{"has solution":"yes"}]';
-		$quickFilterHasAdvisory = '[{"has advisory":"yes"}]';
-		$quickFilterHasNoAdvisory = '[{"has advisory":"no"}]';
+		$quickFilters = array();
+
+		$quickFilters[0]['name'] = 'Has No Advisory';
+		$quickFilters[0]['filter'] = '[{"has advisory":"no"}]';
+		$quickFilters[0]['active'] = FALSE;
+
+		$quickFilters[1]['name'] = 'Has Advisory';
+		$quickFilters[1]['filter'] = '[{"has advisory":"yes"}]';
+		$quickFilters[1]['active'] = FALSE;
+
+		$quickFilters[2]['name'] = 'Has Solution';
+		$quickFilters[2]['filter'] = '[{"has solution":"yes"}]';
+		$quickFilters[2]['active'] = FALSE;
+
+		foreach ($quickFilters as $key => $quickFilter) {
+			if ($quickFilter['filter'] == $search) {
+				$quickFilters[$key]['active'] = TRUE;
+			}
+		}
 
 		$this->view->assign('issues', $issues);
-		$this->view->assign('quickFilterHasSolution', $quickFilterHasSolution);
-		$this->view->assign('quickFilterHasAdvisory', $quickFilterHasAdvisory);
-		$this->view->assign('quickFilterHasNoAdvisory', $quickFilterHasNoAdvisory);
+		$this->view->assign('quickFilters', $quickFilters);
 	}
 
 	/**

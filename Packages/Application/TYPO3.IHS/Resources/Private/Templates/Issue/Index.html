@@ -15,9 +15,17 @@
 			</div>
 			<div class="btn-group">
 				<span class="btn btn-text">Quick Filter:</span>
-				<f:link.action class="btn btn-default" action="index" arguments='{search: quickFilterHasNoAdvisory}'>Has No Advisory</f:link.action>
-				<f:link.action class="btn btn-default" action="index" arguments='{search: quickFilterHasAdvisory}'>Has Advisory</f:link.action>
-				<f:link.action class="btn btn-default" action="index" arguments='{search: quickFilterHasSolution}'>Has Solution</f:link.action>
+				<f:for each="{quickFilters}" as="quickFilter">
+					<f:if condition="{quickFilter.active}">
+						<f:then>
+							<f:link.action class="btn btn-primary" action="index" arguments='{search: quickFilter.filter}'>{quickFilter.name}</f:link.action>
+						</f:then>
+						<f:else>
+							<f:link.action class="btn btn-default" action="index" arguments='{search: quickFilter.filter}'>{quickFilter.name}</f:link.action>
+						</f:else>
+					</f:if>
+
+				</f:for>
 			</div>
 		</div>
 	</p>

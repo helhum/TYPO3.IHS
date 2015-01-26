@@ -72,9 +72,7 @@ TYPO3.IHS.AdvisoryController.edit < ihs {
 TYPO3.IHS.IssueController.index < ihs {
 	body.content.main.controllerAction {
 		issues = ${issues}
-		quickFilterHasSolution = ${quickFilterHasSolution}
-		quickFilterHasAdvisory = ${quickFilterHasAdvisory}
-		quickFilterHasNoAdvisory = ${quickFilterHasNoAdvisory}
+		quickFilters = ${quickFilters}
 	}
 }
 TYPO3.IHS.IssueController.show < ihs {
