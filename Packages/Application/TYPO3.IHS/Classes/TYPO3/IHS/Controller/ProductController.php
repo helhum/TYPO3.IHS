@@ -145,15 +145,12 @@ class ProductController extends ActionController {
 	 * Adds versions to given product
 	 *
 	 * @param string $versions
-	 * @param string $productIdentifier
+	 * @param Product $product
 	 * @return string $response
 	 */
-	public function createVersionAction($versions, $productIdentifier) {
+	public function createVersionAction($versions, Product $product) {
 		$response = array();
 		$createdVersions = array();
-
-		/** @var $product Product */
-		$product = $this->productRepository->findByIdentifier($productIdentifier);
 
 		$i = 0;
 		if ($product) {

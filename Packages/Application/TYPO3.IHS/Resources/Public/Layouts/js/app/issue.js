@@ -277,7 +277,7 @@ function initIssue() {
 			type: "GET",
 			url: $(this).attr("href"),
 			dataType: "json",
-			data: {versions: versionsJSON, productIdentifier: productIdentifier},
+			data: {versions: versionsJSON, product: productIdentifier},
 			success: function (data) {
 				if (data.status = "success") {
 					//todo add productversions to select fields
