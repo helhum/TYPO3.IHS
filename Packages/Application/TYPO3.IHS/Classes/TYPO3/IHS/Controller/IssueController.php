@@ -149,9 +149,23 @@ class IssueController extends ActionController {
 	 */
 	public function editAction(Issue $issue) {
 		$products = $this->productRepository->findAll();
+
+		// Solutions can only apply to productVersions this issue is not affected by
+		$availableVersionsForSolutions = $issue->getProduct()->getVersions();
+		$affectedVersions = $issue->getAffectedVersions();
+
+		$availableVersions = array();
+
+		foreach ($availableVersionsForSolutions as $availableVersion) {
+			if (!$affectedVersions->contains($availableVersion)) {
+				array_push($availableVersions, $availableVersion);
+			}
+		}
+
 		$this->view->assign('products', $products);
 		$this->view->assign('issue', $issue);
 		$this->view->assign('solutionsAvailable', TRUE);
+		$this->view->assign('availableProductVersions', $availableVersions);
 	}
 
 	/**

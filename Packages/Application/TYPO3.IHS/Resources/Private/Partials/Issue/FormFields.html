@@ -106,7 +106,7 @@
 	<f:if condition="{options.solutionsAvailable}">
 		<f:then>
 			<fieldset>
-				<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Solution', legend: 'Solutions', collapsIdentifierPrefix: 'issue-solution', objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
+				<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Solution', legend: 'Solutions', collapsIdentifierPrefix: 'issue-solution', options: options , objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
 			</fieldset>
 		</f:then>
 		<f:else>

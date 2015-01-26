@@ -92,6 +92,7 @@ TYPO3.IHS.IssueController.edit < ihs {
 		issue = ${issue}
 		products = ${products}
 		solutionsAvailable = ${solutionsAvailable}
+		availableProductVersions = ${availableProductVersions}
 	}
 }
 
