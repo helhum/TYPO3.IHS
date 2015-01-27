@@ -13,6 +13,10 @@ Incident Handling System for TYPO3 Security Team
 
 `./flow site:import --package-key TYPO3.SecurityTypo3Org`
 
-## Create Dummy User
+## Create Flow Dummy User
 
 `./flow ihs:user:create --roles Administrator admin password`
+
+## Create Neos Dummy User
+
+`./flow neos:user:create`
