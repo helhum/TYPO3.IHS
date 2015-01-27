@@ -6437,14 +6437,17 @@ a:hover {
 .caption {
   color: #777777;
 }
-body {
+body, html {
   position: relative;
   background-color: #333333;
+  height: 100%;
 }
 .body-bg {
   background-color: #ffffff;
   overflow: hidden;
   zoom: 1;
+  min-height: 100%;
+  margin-bottom: -49px;
 }
 .body-bg-top {
   padding-top: 70px;

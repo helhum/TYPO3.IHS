@@ -38,7 +38,7 @@ class ProductController extends ActionController {
 	/**
 	 * @var string
 	 */
-	protected $currentNodePath = '/sites/securitytypo3org/securitybulletins/products';
+	protected $currentNodePath = '/sites/securitytypo3org/products';
 
 	/**
 	 * @return void

@@ -38,7 +38,13 @@
 							<f:render partial="{partial}" />
 						</f:then>
 						<f:else>
-							<ts:render path="content.main" />
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<ts:render path="content.main" />
+									</div>
+								</div>
+							</div>
 						</f:else>
 					</f:if>
 
@@ -47,15 +53,15 @@
 					</f:if>
 				</div>
 				<!--TYPO3SEARCH_end-->
-				<f:if condition="{showFooter}">
-					<f:render partial="Structure/Footer" arguments="{_all}"/>
-				</f:if>
-				<div class="meta-section">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-4"><ts:render path="parts.footerMenu" /></div>
-							<div class="col-md-8 copyright">&copy; 2015 TYPO3 Security Team</div>
-						</div>
+			</div>
+			<f:if condition="{showFooter}">
+				<f:render partial="Structure/Footer" arguments="{_all}"/>
+			</f:if>
+			<div class="meta-section">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4"><ts:render path="parts.footerMenu" /></div>
+						<div class="col-md-8 copyright">&copy; 2015 TYPO3 Security Team</div>
 					</div>
 				</div>
 			</div>

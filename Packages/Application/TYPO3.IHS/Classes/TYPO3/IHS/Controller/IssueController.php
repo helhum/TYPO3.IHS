@@ -52,7 +52,7 @@ class IssueController extends ActionController {
 	/**
 	 * @var string
 	 */
-	protected $currentNodePath = '/sites/securitytypo3org/securitybulletins/issues';
+	protected $currentNodePath = '/sites/securitytypo3org/issues';
 
 	/**
 	 * @param string $search
