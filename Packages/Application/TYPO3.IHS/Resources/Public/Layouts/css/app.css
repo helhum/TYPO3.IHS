@@ -67,9 +67,9 @@ div#content {
 	margin-bottom: 3em;
 }
 
-/*.additional-fields, .present-fields {*/
-	/*padding-left: 40px;*/
-/*}*/
+.additional-fields {
+	margin-top: 5px;
+}
 
 /*content*/
 
@@ -138,6 +138,9 @@ input.f3-form-error {
 	top: -7px;
 }
 
+.delete-objectCollection {
+	display: none;
+}
 
 /*content - agination widget*/
 .typo3-widget-paginator {

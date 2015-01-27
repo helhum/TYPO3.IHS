@@ -203,7 +203,7 @@ function initIssue() {
 
 	// set form error class to autocompletion field if product field has one
 	$('select.product').each(function(index, element) {
-		if(jQuery(element).hasClass('f3-form-error')) {
+		if($(element).hasClass('f3-form-error')) {
 			$(element).siblings('input.productAjax').first().addClass('f3-form-error');
 		}
 	});

@@ -17,17 +17,28 @@
 				</div>
 			</div>
 			<div class="dynamic-fields">
-				<div class="field-template" data-html="
-					<f:format.htmlentities>
-						<f:render partial="{partial}" arguments="{arguments: arguments, options:options, propertyPrefix: '{propertyPrefix}_placeholder_.', deleteLinkMode: 'new'}" section="Content" />
-					</f:format.htmlentities>
-				">
-				</div>
+				<template class="field-template" data-collablseIdentifierPrefix="{collapsIdentifierPrefix}">
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="heading-{collapsIdentifierPrefix}-__iteratorIndex__">
+							<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#{collapsIdentifierPrefix}-accordion" href="#collapse-{collapsIdentifierPrefix}-__iteratorIndex__" aria-expanded="true" aria-controls="collapse-{collapsIdentifierPrefix}-__iteratorIndex__">
+									{objectName} #__iteratorIndex__
+								</a>
+								<button type="button" class="btn btn-sm btn-danger toggle-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete {objectName}</button>
+							</h4>
+						</div>
+						<div id="collapse-{collapsIdentifierPrefix}-__iteratorIndex__" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-{collapsIdentifierPrefix}-__iteratorIndex__">
+							<div class="panel-body field-template">
+								<f:render partial="{partial}" arguments="{arguments: arguments, options:options, propertyPrefix: '{propertyPrefix}_placeholder_.'}" section="Content" />
+							</div>
+						</div>
+					</div>
+				</template>
 			</div>
+			<div class="panel-group" id="{collapsIdentifierPrefix}-accordion" role="tablist" aria-multiselectable="true">
+				<div class="present-fields">
+					<f:if condition="{objects}">
 
-			<div class="present-fields">
-				<f:if condition="{objects}">
-					<div class="panel-group" id="{collapsIdentifierPrefix}-accordion" role="tablist" aria-multiselectable="true">
 						<f:for each="{objects}" as="object" iteration="iterator">
 							<div class="panel panel-default">
 								<div class="panel-heading" role="tab" id="heading-{collapsIdentifierPrefix}-{iterator.index}">
@@ -49,21 +60,21 @@
 									<div class="panel-body">
 										<f:if condition="{propertyPrefix}">
 											<f:then>
-												<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, options: options, deleteLinkMode: 'existing', propertyPrefix: '{propertyPrefix}{iterator.index}.'}" section="Content"/>
+												<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, options: options, propertyPrefix: '{propertyPrefix}{iterator.index}.'}" section="Content"/>
 											</f:then>
 											<f:else>
-												<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, options: options, deleteLinkMode: 'existing'}" section="Content"/>
+												<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, options: options}" section="Content"/>
 											</f:else>
 										</f:if>
 									</div>
 								</div>
 							</div>
 						</f:for>
-					</div>
-				</f:if>
-			</div>
+					</f:if>
+				</div>
 
-			<div class="additional-fields"></div>
+				<div class="additional-fields"></div>
+			</div>
 		</div>
 	</div>
 </f:section>

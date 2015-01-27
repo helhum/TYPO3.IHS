@@ -55,21 +55,10 @@
 </f:section>
 
 <f:section name="DeleteSolution">
-	<f:if condition="{deleteLinkMode}">
-		<f:then>
-			<div class="form-group delete-objectCollection">
-				<div class="col-sm-12 text-right">
-					<f:switch expression="{deleteLinkMode}">
-						<f:case value="existing">
-							<f:link.action action="removeSolution" controller="Issue" arguments="{issue: arguments.issue, solution: object}" class="btn btn-danger remove-action hidden"><i class="glyphicon glyphicon-trash"></i> Remove Solution</f:link.action>
-						</f:case>
-						<f:case value="new">
-							<a href="javascript:void(0);" class="btn btn-danger delete-item"><i class="glyphicon glyphicon-trash"></i> Remove Solution</a>
-						</f:case>
-					</f:switch>
-				</div>
-			</div>
-		</f:then>
-	</f:if>
+	<div class="form-group delete-objectCollection">
+		<div class="col-sm-12 text-right">
+			<f:link.action action="removeSolution" controller="Issue" arguments="{issue: arguments.issue, solution: object}" class="btn btn-danger remove-action"><i class="glyphicon glyphicon-trash"></i> Remove Solution</f:link.action>
+		</div>
+	</div>
 </f:section>
 </html>

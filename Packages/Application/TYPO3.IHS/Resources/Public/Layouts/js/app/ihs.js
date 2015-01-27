@@ -4,10 +4,10 @@
 
 		this.$element = $(element);
 
-		this.$presentFields = this.$element.children(".present-fields").first();
-		this.$additionalLinkFieldsContainer = this.$element.children(".additional-fields").first();
+		this.$presentFields = this.$element.find(".present-fields").first();
+		this.$additionalLinkFieldsContainer = this.$element.find(".additional-fields").first();
 		this.$button = this.$element.find("> .fields-header .add-field button").first();
-		this.htmlTemplate = this.$element.find(".field-template").first().data("html");
+		this.htmlTemplate = this.$element.find(".field-template").first().html();
 		this.iterationIndex = this.$presentFields.children().length;
 		this.argumentName = this.htmlTemplate.match(/"([^"]*)\[_placeholder_\]([^"]*)"/)[1];
 
@@ -25,7 +25,10 @@
 		this.$button.on('click', function(event) {
 			event.preventDefault();
 
-			var newFields = self.$additionalLinkFieldsContainer.append(self.getHtmlForIndex(self.iterationIndex));
+			var newFields = self.getHtmlForIndex(self.iterationIndex);
+			newFields = newFields.replace(/__iteratorIndex__/g, self.iterationIndex);
+			newFields = self.$additionalLinkFieldsContainer.append(newFields);
+
 			$('html, body').animate({
 				scrollTop: $(newFields).offset().top
 			}, 500);
@@ -49,8 +52,8 @@
 			}
 		);
 
-		$('.delete-item').on('click', function(event, ui) {
-			$(event.target).closest('.dynamic-form-fields').first().remove();
+		$('.additional-fields .toggle-delete-action').on('click', function(event, ui) {
+			$(event.target).closest('.panel').remove();
 		});
 	}
 
@@ -87,8 +90,11 @@ jQuery(document).ready(function() {
 
 	// trigger removing objectCollections
 	$('.toggle-delete-action').on('click', function() {
-		$(this).closest('.present-fields').find('.delete-objectCollection a').click();
+		$(this).closest('.panel').find('.delete-objectCollection a').click();
 	});
+
+	// open collabsable when field inside has error
+	$('.f3-form-error').closest('.collapse').collapse('show');
 
 	handleSaveDeletionModal();
 });
@@ -143,13 +149,13 @@ function handleSaveDeletionModal() {
 	$('.remove-action').on('click', function(event) {
 		event.preventDefault();
 		href = $(this).attr('href');
-		formFields = $(this).closest('ul').find('> li');
+		formFields = $(this).closest('.panel').find('.form-group');
 		$('#delete-confirmation-modal').modal('show');
 	});
 
 	$('#delete-confirmation-modal').on('show.bs.modal', function () {
 		$(formFields).each(function(index, item) {
-			var label = $(item).find('> label').text();
+			var label = $(item).find('label').text();
 			var value = $(item).find('input').val();
 
 			if (typeof value == 'undefined') {
@@ -177,7 +183,7 @@ function handleSaveDeletionModal() {
 					value = value.substring(0, 50) + '...'
 				}
 
-				$('#delete-confirmation-modal .modal-content').append('<p>' + label + ': ' + value + '</p>');
+				$('#delete-confirmation-modal .modal-body .place-for-fields').append('<p>' + label + ': ' + value + '</p>');
 			}
 		});
 
@@ -187,7 +193,7 @@ function handleSaveDeletionModal() {
 	$('#delete-confirmation-modal').on('hide.bs.modal', function () {
 		// write name to the modals body
 		// maybe iterate over the form fields and write them to the modal?
-		$('#delete-confirmation-modal .modal-content').html('');
+		$('#delete-confirmation-modal .modal-body .place-for-fields').html('');
 		$('#delete-confirmation-modal a.remove-object').attr('href', '');
 	});
 }
