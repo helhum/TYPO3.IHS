@@ -162,14 +162,16 @@ class AdvisoryController extends ActionController {
 	}
 
 	/**
+	 * @param Advisory $advisory
 	 * @param Issue $issue
+	 * @Flow\IgnoreValidation("$issue")
 	 * @throws \TYPO3\Flow\Mvc\Exception\StopActionException
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
-	public function removeIssueAction(Issue $issue) {
+	public function removeIssueAction(Advisory $advisory, Issue $issue) {
 		$issue->setAdvisory(NULL);
 		$this->issueRepository->update($issue);
 
-		$this->redirectToUri($_SERVER['HTTP_REFERER']);
+		$this->redirect('edit', 'advisory', NULL, array('advisory' => $advisory));
 	}
 }

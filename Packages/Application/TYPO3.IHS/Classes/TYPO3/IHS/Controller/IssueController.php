@@ -238,13 +238,14 @@ class IssueController extends ActionController {
 	/**
 	 * @param Issue $issue
 	 * @param Solution $solution
+	 * @Flow\IgnoreValidation("$solution")
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function removeSolutionAction(Issue $issue, Solution $solution) {
 		$issue->getSolutions()->removeElement($solution);
 		$this->issueRepository->update($issue);
 
-		$this->redirectToUri($_SERVER['HTTP_REFERER']);
+		$this->redirect('edit', NULL, NULL, ['issue' => $issue]);
 	}
 
 	protected function initializeRemoveSolutionLinkAction() {
@@ -254,6 +255,7 @@ class IssueController extends ActionController {
 	/**
 	 * @param Solution $solution
 	 * @param Link $link
+	 * @Flow\IgnoreValidation("$link")
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function removeSolutionLinkAction(Solution $solution, Link $link) {
@@ -262,7 +264,7 @@ class IssueController extends ActionController {
 		$issue->getSolutions()->add($solution);
 		$this->issueRepository->update($issue);
 
-		$this->redirectToUri($_SERVER['HTTP_REFERER']);
+		$this->redirect('edit', NULL, NULL, ['issue' => $issue]);
 	}
 
 	protected function initializeRemoveLinkAction() {
@@ -272,13 +274,14 @@ class IssueController extends ActionController {
 	/**
 	 * @param Issue $issue
 	 * @param Link $link
+	 * @Flow\IgnoreValidation("$link")
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
 	public function removeLinkAction(Issue $issue, Link $link) {
 		$issue->removeLink($link);
 		$this->issueRepository->update($issue);
 
-		$this->redirectToUri($_SERVER['HTTP_REFERER']);
+		$this->redirect('edit', NULL, NULL, ['issue' => $issue]);
 	}
 
 }
