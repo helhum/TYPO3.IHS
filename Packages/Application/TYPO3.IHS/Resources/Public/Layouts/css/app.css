@@ -3,6 +3,11 @@ html, body {
 	background: none !important;
 }
 
+.modal-backdrop {
+	position: absolute;
+	min-height: 100%;
+}
+
 /*general styles*/
 .alert-OK {
 	background-color: #dff0d8;

@@ -90,7 +90,12 @@ jQuery(document).ready(function() {
 
 	// trigger removing objectCollections
 	$('.toggle-delete-action').on('click', function() {
-		$(this).closest('.panel').find('.delete-objectCollection a').click();
+		$(this).closest('.panel').find('.delete-objectCollection:first a').click();
+	});
+
+	// modal bg height fix
+	$('.modal').on('shown.bs.modal', function () {
+		$(this).find('.modal-backdrop').height($(this).find('.modal-dialog').outerHeight() + 60);
 	});
 
 	// open collabsable when field inside has error
@@ -149,7 +154,7 @@ function handleSaveDeletionModal() {
 	$('.remove-action').on('click', function(event) {
 		event.preventDefault();
 		href = $(this).attr('href');
-		formFields = $(this).closest('.panel').find('.form-group');
+		formFields = $(this).closest('.panel').find('.collection-content:first > .form-group');
 		$('#delete-confirmation-modal').modal('show');
 	});
 
