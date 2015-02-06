@@ -264,6 +264,8 @@ class IssueController extends ActionController {
 		$issue->getSolutions()->add($solution);
 		$this->issueRepository->update($issue);
 
+		$this->addFlashMessage('Removed the solution.');
+
 		$this->redirect('edit', NULL, NULL, ['issue' => $issue]);
 	}
 
@@ -280,6 +282,8 @@ class IssueController extends ActionController {
 	public function removeLinkAction(Issue $issue, Link $link) {
 		$issue->removeLink($link);
 		$this->issueRepository->update($issue);
+
+		$this->addFlashMessage('Removed the link.');
 
 		$this->redirect('edit', NULL, NULL, ['issue' => $issue]);
 	}

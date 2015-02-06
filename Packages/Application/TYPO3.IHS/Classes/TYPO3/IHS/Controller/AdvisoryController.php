@@ -156,7 +156,7 @@ class AdvisoryController extends ActionController {
 		$this->advisoryRepository->update($advisory);
 		$this->persistenceManager->persistAll();
 
-		$this->addFlashMessage('Published Advisory. You can now change the publishingdate if you want');
+		$this->addFlashMessage('Published Advisory. You can now change the publishingdate if you want.');
 
 		$this->redirect('show', 'advisory', NULL, array('advisory' => $advisory));
 	}
@@ -171,6 +171,8 @@ class AdvisoryController extends ActionController {
 	public function removeIssueAction(Advisory $advisory, Issue $issue) {
 		$issue->setAdvisory(NULL);
 		$this->issueRepository->update($issue);
+
+		$this->addFlashMessage('Removed the issue.');
 
 		$this->redirect('edit', 'advisory', NULL, array('advisory' => $advisory));
 	}
