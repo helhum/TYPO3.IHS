@@ -5,14 +5,27 @@
 <f:section name="itemList">
 	<ul class="nav navbar-nav navbar-main">
 		<f:for each="{items}" as="item" iteration="menuItemIterator">
-			<li{ts:render(path:'{item.state}.attributes', context: {item: item}) -> f:format.raw()}>
-				<neos:link.node node="{item.node}">{item.label -> f:format.raw()}<span class="bar"></span></neos:link.node>
-				<f:if condition="{item.subItems}">
-					<f:render section="subList" arguments="{items: item.subItems}" />
-				</f:if>
-			</li>
+			<f:if condition="{item.node.properties.hiddenForGuest}">
+				<f:then>
+					<f:security.ifHasRole role="TYPO3.IHS:Editor">
+						<f:render section="item" arguments="{item: item}" />
+					</f:security.ifHasRole>
+				</f:then>
+				<f:else>
+					<f:render section="item" arguments="{item: item}" />
+				</f:else>
+			</f:if>
 		</f:for>
 	</ul>
+</f:section>
+
+<f:section name="item">
+	<li{ts:render(path:'{item.state}.attributes', context: {item: item}) -> f:format.raw()}>
+		<neos:link.node node="{item.node}">{item.label -> f:format.raw()}<span class="bar"></span></neos:link.node>
+		<f:if condition="{item.subItems}">
+			<f:render section="subList" arguments="{items: item.subItems}" />
+		</f:if>
+	</li>
 </f:section>
 
 <f:section name="subList">

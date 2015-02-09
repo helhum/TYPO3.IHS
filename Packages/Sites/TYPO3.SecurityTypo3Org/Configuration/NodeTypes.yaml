@@ -74,3 +74,13 @@
                 label: 'Default (Sub nav right)'
               'defaultSubNavRight2Columns':
                 label: 'Default (Sub nav right, 2 columns)'
+
+'TYPO3.Neos:Shortcut':
+  properties:
+    'hiddenForGuest':
+      type: boolean
+      ui:
+        label: 'Hide (if not logged in)'
+        inspector:
+          group: 'visibility'
+          position: 40
