@@ -19,6 +19,14 @@
 	</ul>
 </f:section>
 
+<f:section name="subList">
+	<ul class="dropdown-menu">
+		<f:for each="{items}" as="item">
+			<f:render section="item" arguments="{item: item}" />
+		</f:for>
+	</ul>
+</f:section>
+
 <f:section name="item">
 	<li{ts:render(path:'{item.state}.attributes', context: {item: item}) -> f:format.raw()}>
 		<neos:link.node node="{item.node}">{item.label -> f:format.raw()}<span class="bar"></span></neos:link.node>
@@ -26,14 +34,4 @@
 			<f:render section="subList" arguments="{items: item.subItems}" />
 		</f:if>
 	</li>
-</f:section>
-
-<f:section name="subList">
-	<ul class="dropdown-menu">
-		<f:for each="{items}" as="item">
-			<li{ts:render(path:'{item.state}.attributes', context: {item: item}) -> f:format.raw()}>
-				<neos:link.node node="{item.node}">{item.label -> f:format.raw()}</neos:link.node>
-			</li>
-		</f:for>
-	</ul>
 </f:section>
