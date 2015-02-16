@@ -1,4 +1,9 @@
 var issueVisualSearch = false; // global instance of visual search for issues
+var advisoryVisualSearch = false;
+var vs_facetsCache = {};
+var vs_productsCache = {};
+var ajaxRequest = false;
+var vs_vulnerabilityTypeCache = {};
 
 jQuery(document).ready(function() {
 	// overwriting visualsearch searchbox template
@@ -6,11 +11,6 @@ jQuery(document).ready(function() {
 	window.JST['search_box'] = _.template('<div class="VS-search <% if (readOnly) { %>VS-readonly<% } %>">\n  <div class="VS-search-box-wrapper VS-search-box">\n    <div class="VS-icon VS-icon-search"></div>\n    <div class="VS-placeholder"></div>\n    <div class="VS-search-inner"></div>\n    <div class="VS-icon VS-icon-cancel VS-cancel-search-box" title="clear search"></div> <div class="VS-icon VS-save-search-box" title="save search"><i class="glyphicon glyphicon-star-empty"></i></div>\n  </div>\n</div>');
 
 	// visual search
-	var facetsCache = {};
-	var productsCache = {};
-	var ajaxRequest = false;
-	var vulnerabilityTypeCache = {};
-
 	issueVisualSearch = VS.init({
 		container: $('.issue-visualsearch'),
 		query: '',
@@ -59,113 +59,10 @@ jQuery(document).ready(function() {
 				]);
 			},
 			valueMatches: function(facet, searchTerm, callback) {
-				switch (facet) {
-					case 'vulnerability type':
-						if (searchTerm in vulnerabilityTypeCache) {
-							callback(vulnerabilityTypeCache[searchTerm]);
-						} else {
-							if (ajaxRequest) {
-								ajaxRequest.abort();
-							}
-
-							ajaxRequest = $.ajax({
-								type: "GET",
-								url: "/issues/getVulnerabilityTypesAsJSON",
-								dataType: "json",
-								data: {term: searchTerm},
-								success: function(vulnerabilityTypes) {
-									vulnerabilityTypeCache[searchTerm] = vulnerabilityTypes;
-									if (vulnerabilityTypes.length > 0) {
-										callback(vulnerabilityTypes);
-									} else {
-										callback(['no vulnerabilitytypes found']);
-									}
-								},
-								complete: function() {
-									ajaxRequest= false;
-								}
-							});
-						}
-						break;
-					case 'product type':
-						productsCache = {}; // clear products cache when changing product type
-
-						if (facetsCache['product type']) {
-							callback(facetsCache['product type']);
-						} else {
-							if (ajaxRequest) {
-								ajaxRequest.abort();
-							}
-
-							ajaxRequest = $.ajax({
-								type: "GET",
-								url: "/products/getProductTypesAsJSON",
-								dataType: "json",
-								success: function(types) {
-									facetsCache['product type'] = types;
-									callback(types);
-								},
-								complete: function() {
-									ajaxRequest= false;
-								}
-							});
-						}
-						break;
-					case 'has solution':
-						callback(['yes', 'no']);
-						break;
-					case 'has advisory':
-						callback(['yes', 'no']);
-						break;
-					case 'product':
-						if (searchTerm in productsCache) {
-							callback(productsCache[searchTerm]);
-						} else {
-							if (ajaxRequest) {
-								ajaxRequest.abort();
-							}
-
-							// get current product type if selected and filter products
-							var productType = null;
-							$.each( issueVisualSearch.searchQuery.facets(), function( key, facet ) {
-								if (facet['product type']) {
-									productType = facet['product type'];
-								}
-							});
-
-							ajaxRequest = $.ajax({
-								type: "GET",
-								url: "/products/getProductsAsJSON",
-								dataType: "json",
-								data: {term: searchTerm, withIssue: true, productType: productType},
-								success: function(products) {
-									productsCache[searchTerm] = products;
-									if (products.length > 0) {
-										callback(products);
-									} else {
-										callback(['no product found']);
-									}
-								},
-								complete: function() {
-									ajaxRequest= false;
-								}
-							});
-						}
-						break;
-				}
+				vs_valueMatches(facet, searchTerm, callback);
 			}
 		}
 	});
-
-	if ($('.issue-visualsearch').length > 0) {
-		handleSavedIssueSearches();
-	}
-
-	var runningSearchRequest = false;
-	var facetsCache = {};
-	var productsCache = {};
-	var ajaxRequest = false;
-	var vulnerabilityTypeCache = {};
 
 	advisoryVisualSearch = VS.init({
 		container : $('.advisory-visualsearch'),
@@ -178,10 +75,10 @@ jQuery(document).ready(function() {
 				$(".loading-overlay").show();
 
 				// abort running ajax request
-				if (runningSearchRequest) {
-					runningSearchRequest.abort();
+				if (ajaxRequest) {
+					ajaxRequest.abort();
 				}
-				runningSearchRequest = $.ajax({
+				ajaxRequest = $.ajax({
 					type: "GET",
 					contentType: "application/json; charset=utf-8",
 					url: $('.advisory-visualsearch').attr('searchUrl'),
@@ -200,6 +97,7 @@ jQuery(document).ready(function() {
 					},
 					complete: function() {
 						$(".loading-overlay").hide();
+						ajaxRequest = false;
 					},
 					error: function() {
 						$(".list-of-advisories .articles").html("<p>Error while loading. Please reload.</p>");
@@ -214,104 +112,178 @@ jQuery(document).ready(function() {
 				]);
 			},
 			valueMatches: function(facet, searchTerm, callback) {
-				switch (facet) {
-					case 'vulnerability type':
-						if (searchTerm in vulnerabilityTypeCache) {
-							callback(vulnerabilityTypeCache[searchTerm]);
-						} else {
-							if (ajaxRequest) {
-								ajaxRequest.abort();
-							}
-
-							ajaxRequest = $.ajax({
-								type: "GET",
-								url: "/issues/getVulnerabilityTypesAsJSON",
-								dataType: "json",
-								data: {term: searchTerm},
-								success: function(vulnerabilityTypes) {
-									vulnerabilityTypeCache[searchTerm] = vulnerabilityTypes;
-									if (vulnerabilityTypes.length > 0) {
-										callback(vulnerabilityTypes);
-									} else {
-										callback(['no vulnerabilitytypes found']);
-									}
-								},
-								complete: function() {
-									ajaxRequest= false;
-								}
-							});
-						}
-						break;
-					case 'product type':
-						productsCache = {}; // clear products cache when changing product type
-
-						if (facetsCache['product type']) {
-							callback(facetsCache['product type']);
-						} else {
-							if (ajaxRequest) {
-								ajaxRequest.abort();
-							}
-
-							ajaxRequest = $.ajax({
-								type: "GET",
-								url: "/products/getProductTypesAsJSON",
-								dataType: "json",
-								success: function(types) {
-									facetsCache['product type'] = types;
-									callback(types);
-								},
-								complete: function() {
-									ajaxRequest= false;
-								}
-							});
-						}
-						break;
-					case 'product':
-						if (searchTerm in productsCache) {
-							callback(productsCache[searchTerm]);
-						} else {
-							if (ajaxRequest) {
-								ajaxRequest.abort();
-							}
-
-							// get current product type if selected and filter products
-							var productType = null;
-							$.each( advisoryVisualSearch.searchQuery.facets(), function( key, facet ) {
-								if (facet['product type']) {
-									productType = facet['product type'];
-								}
-							});
-
-							ajaxRequest = $.ajax({
-								type: "GET",
-								url: "/products/getProductsAsJSON",
-								dataType: "json",
-								data: {term: searchTerm, withIssue: true, productType: productType},
-								success: function(products) {
-									productsCache[searchTerm] = products;
-									if (products.length > 0) {
-										callback(products);
-									} else {
-										callback(['no product found']);
-									}
-								},
-								complete: function() {
-									ajaxRequest= false;
-								}
-							});
-						}
-						break;
-				}
+				vs_valueMatches(facet, searchTerm, callback);
 			}
 		}
 	});
 
+	function vs_valueMatches(facet, searchTerm, callback) {
+		switch (facet) {
+			case 'vulnerability type':
+				if (searchTerm in vs_vulnerabilityTypeCache) {
+					callback(vs_vulnerabilityTypeCache[searchTerm]);
+				} else {
+					if (ajaxRequest) {
+						ajaxRequest.abort();
+					}
+
+					ajaxRequest = $.ajax({
+						type: "GET",
+						url: "/issues/getVulnerabilityTypesAsJSON",
+						dataType: "json",
+						data: {term: searchTerm},
+						success: function(vulnerabilityTypes) {
+							vs_vulnerabilityTypeCache[searchTerm] = vulnerabilityTypes;
+							if (vulnerabilityTypes.length > 0) {
+								callback(vulnerabilityTypes);
+							} else {
+								callback(['no vulnerabilitytypes found']);
+							}
+						},
+						complete: function() {
+							ajaxRequest= false;
+						}
+					});
+				}
+				break;
+			case 'product type':
+				vs_productsCache = {}; // clear products cache when changing product type
+
+				if (vs_facetsCache['product type']) {
+					callback(vs_facetsCache['product type']);
+				} else {
+					if (ajaxRequest) {
+						ajaxRequest.abort();
+					}
+
+					ajaxRequest = $.ajax({
+						type: "GET",
+						url: "/products/getProductTypesAsJSON",
+						dataType: "json",
+						success: function(types) {
+							vs_facetsCache['product type'] = types;
+							callback(types);
+						},
+						complete: function() {
+							ajaxRequest= false;
+						}
+					});
+				}
+				break;
+			case 'has solution':
+				callback(['yes', 'no']);
+				break;
+			case 'has advisory':
+				callback(['yes', 'no']);
+				break;
+			case 'product':
+				if (searchTerm in vs_productsCache) {
+					callback(vs_productsCache[searchTerm]);
+				} else {
+					if (ajaxRequest) {
+						ajaxRequest.abort();
+					}
+
+					// get current product type if selected and filter products
+					var productType = null;
+					$.each( issueVisualSearch.searchQuery.facets(), function( key, facet ) {
+						if (facet['product type']) {
+							productType = facet['product type'];
+						}
+					});
+
+					ajaxRequest = $.ajax({
+						type: "GET",
+						url: "/products/getProductsAsJSON",
+						dataType: "json",
+						data: {term: searchTerm, withIssue: true, productType: productType},
+						success: function(products) {
+							vs_productsCache[searchTerm] = products;
+							if (products.length > 0) {
+								callback(products);
+							} else {
+								callback(['no product found']);
+							}
+						},
+						complete: function() {
+							ajaxRequest= false;
+						}
+					});
+				}
+				break;
+		}
+	}
+
+	if ($('.issue-visualsearch').length > 0) {
+		vs_handleSavedSearches(issueVisualSearch, 'savedIssueSearches');
+	}
+
 	if ($('.advisory-visualsearch').length > 0) {
-		handleSavedSearches();
+		vs_handleSavedSearches(advisoryVisualSearch, 'savedAdvisorySearches');
 	}
 });
 
-function getSearchStringFromJSON(searchStringAsJSON, humanReadable) {
+function vs_handleSavedSearches(visualSearchInstance, localStorageKey) {
+	visualSearchInstance.searchBox.value(vs_poplulateSearchBoxFromUrl());
+	vs_displaySavedSearches(localStorageKey);
+
+	// handle click to save current search
+	$(".VS-save-search-box").on("click", function() {
+		vs_saveVisualSearch(visualSearchInstance, localStorageKey);
+		vs_displaySavedSearches(localStorageKey);
+	});
+}
+
+function vs_saveVisualSearch(visualSearchInstance, localStorageKey) {
+	if (visualSearchInstance.searchQuery.facets().length > 0) {
+		var savedSearchesJSON = localStorage.getItem(localStorageKey);
+		var savedSearches = [];
+		if (savedSearchesJSON) {
+			savedSearches = JSON.parse(savedSearchesJSON);
+		}
+
+		savedSearches.push(visualSearchInstance.searchQuery.facets());
+		savedSearchesJSON = JSON.stringify(savedSearches);
+
+		localStorage.setItem(localStorageKey, savedSearchesJSON);
+	}
+}
+
+function vs_displaySavedSearches(localStorageKey) {
+	$(".saved-searches").html("");
+	var savedSearchesJSON = localStorage.getItem(localStorageKey);
+	var savedSearches = JSON.parse(savedSearchesJSON);
+	if (savedSearches && savedSearches.length > 0) {
+		$(".saved-searches-container").show();
+	} else {
+		$(".saved-searches-container").hide();
+	}
+
+	$(savedSearches).each(function(key, savedSearch) {
+		var searchQueryJSON = JSON.stringify(savedSearch);
+		$(".saved-searches").append("<li><button key='"+key+"' class='remove-saved-search btn btn-xs btn-danger'><i class='glyphicon glyphicon-trash'></i></button><a class='saved-search' href='"+window.location.pathname + "?search="+encodeURIComponent(searchQueryJSON)+"'>"+vs_getSearchStringFromJSON(searchQueryJSON, true)+"</a></li>");
+	});
+
+	$('.remove-saved-search').off('click')
+	$('.remove-saved-search').on('click', function() {
+		var key = $(this).attr('key');
+		savedSearches.splice(key, 1);
+		savedSearchesJSON = JSON.stringify(savedSearches);
+		localStorage.setItem(localStorageKey, savedSearchesJSON);
+		vs_displaySavedSearches();
+	});
+}
+
+function vs_poplulateSearchBoxFromUrl() {
+	var searchString = "";
+	if (getURLParameter('search')) {
+		searchString = vs_getSearchStringFromJSON(decodeURIComponent(getURLParameter('search')), false);
+	}
+
+	return searchString
+}
+
+function vs_getSearchStringFromJSON(searchStringAsJSON, humanReadable) {
 	var searchQuery = JSON.parse(searchStringAsJSON);
 	var searchString = "";
 
@@ -336,116 +308,3 @@ function getSearchStringFromJSON(searchStringAsJSON, humanReadable) {
 	return searchString;
 }
 
-function handleSavedSearches() {
-	poplulateSearchBoxFromUrl();
-	displaySavedSearches();
-
-	// handle click to save current search
-	$(".VS-save-search-box").on("click", function() {
-		if (advisoryVisualSearch.searchQuery.facets().length > 0) {
-			var savedSearchesJSON = localStorage.getItem('savedAdvisorySearches');
-			var savedSearches = [];
-			if (savedSearchesJSON) {
-				savedSearches = JSON.parse(savedSearchesJSON);
-			}
-
-			savedSearches.push(advisoryVisualSearch.searchQuery.facets());
-			savedSearchesJSON = JSON.stringify(savedSearches);
-
-			localStorage.setItem('savedAdvisorySearches', savedSearchesJSON);
-			displaySavedSearches();
-		}
-	});
-
-	function displaySavedSearches() {
-		$(".saved-searches").html("");
-		var savedSearchesJSON = localStorage.getItem('savedAdvisorySearches');
-		var savedSearches = JSON.parse(savedSearchesJSON);
-		if (savedSearches && savedSearches.length > 0) {
-			$(".saved-searches-container").show();
-		} else {
-			$(".saved-searches-container").hide();
-		}
-
-		$(savedSearches).each(function(key, savedSearch) {
-			var searchQueryJSON = JSON.stringify(savedSearch);
-			$(".saved-searches").append("<li><button key='"+key+"' class='remove-saved-search btn btn-xs btn-danger'><i class='glyphicon glyphicon-trash'></i></button><a class='saved-search' href='"+window.location.pathname + "?search="+encodeURIComponent(searchQueryJSON)+"'>"+getSearchStringFromJSON(searchQueryJSON, true)+"</a></li>");
-		});
-
-		$('.remove-saved-search').on('click', function() {
-			var key = $(this).attr('key');
-			savedSearches.splice(key, 1);
-			savedSearchesJSON = JSON.stringify(savedSearches);
-			localStorage.setItem('savedAdvisorySearches', savedSearchesJSON);
-			displaySavedSearches();
-		});
-	}
-
-	function poplulateSearchBoxFromUrl() {
-		var searchString = "";
-		if (getURLParameter('search')) {
-			searchString = getSearchStringFromJSON(decodeURIComponent(getURLParameter('search')), false);
-		}
-
-		advisoryVisualSearch.searchBox.value(searchString);
-	}
-}
-
-function handleSavedIssueSearches() {
-	poplulateSearchBoxFromUrl();
-	displaySavedSearches();
-
-	// handle click to save current search
-	$(".VS-save-search-box").on("click", function() {
-		if (issueVisualSearch.searchQuery.facets().length > 0) {
-			var savedSearchesJSON = localStorage.getItem('savedIssueSearches');
-			var savedSearches = [];
-			if (savedSearchesJSON) {
-				savedSearches = JSON.parse(savedSearchesJSON);
-			}
-
-			savedSearches.push(issueVisualSearch.searchQuery.facets());
-			savedSearchesJSON = JSON.stringify(savedSearches);
-
-			localStorage.setItem('savedIssueSearches', savedSearchesJSON);
-			displaySavedSearches();
-		}
-	});
-
-	function displaySavedSearches() {
-		$(".saved-searches").html("");
-		var savedSearchesJSON = localStorage.getItem('savedIssueSearches');
-		var savedSearches = JSON.parse(savedSearchesJSON);
-		if (savedSearches && savedSearches.length > 0) {
-			$(".saved-searches-container").show();
-		} else {
-			$(".saved-searches-container").hide();
-		}
-
-		$(savedSearches).each(function(key, savedSearch) {
-			var searchQueryJSON = JSON.stringify(savedSearch);
-			$(".saved-searches").append("<li><button key='"+key+"' class='remove-saved-search btn btn-xs btn-danger'><i class='glyphicon glyphicon-trash'></i></button><a class='saved-search' href='"+window.location.pathname + "?search="+encodeURIComponent(searchQueryJSON)+"'>"+getSearchStringFromJSON(searchQueryJSON, true)+"</a></li>");
-		});
-
-		$('.remove-saved-search').on('click', function() {
-			var key = $(this).attr('key');
-			savedSearches.splice(key, 1);
-			savedSearchesJSON = JSON.stringify(savedSearches);
-			localStorage.setItem('savedIssueSearches', savedSearchesJSON);
-			displaySavedSearches();
-		});
-	}
-
-	function poplulateSearchBoxFromUrl() {
-		var searchString = "";
-		if (getURLParameter('search')) {
-			searchString = getSearchStringFromJSON(decodeURIComponent(getURLParameter('search')), false);
-		}
-
-		issueVisualSearch.searchBox.value(searchString);
-	}
-}
-
-function getURLParameter(name) {
-	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
-}
