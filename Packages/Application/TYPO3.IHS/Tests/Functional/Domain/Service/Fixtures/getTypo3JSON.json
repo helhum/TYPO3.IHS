@@ -1,0 +1,73 @@
+{
+    "7.1": {
+        "releases": {
+            "7.1.0": {
+                "version": "7.1.0",
+                "date": "2015-02-24 14:43:06 UTC",
+                "type": "release",
+                "checksums": {
+                    "tar": {
+                        "md5": "c17d256e7d2e1b6bfaf7c70ba5b26d90",
+                        "sha1": "82f3ce50a83c0ae266649d8051f0456f97cfa3f7"
+                    },
+                    "zip": {
+                        "md5": "60a1725869c7633cdb697cea6672ad5d",
+                        "sha1": "3aba4c8def027d7f75b1ccba62005847732fcd41"
+                    }
+                },
+                "url": {
+                    "zip": "http://get.typo3.org/7.1.0/zip",
+                    "tar": "http://get.typo3.org/7.1.0"
+                }
+            }
+        },
+        "latest": "7.1.0",
+        "stable": "7.1.0",
+        "active": true
+    },
+    "7.0": {
+        "releases": {
+            "7.0.2": {
+                "version": "7.0.2",
+                "date": "2014-12-10 10:47:44 UTC",
+                "type": "security",
+                "checksums": {
+                    "tar": {
+                        "md5": "a42d3292df8761b59ff64e8719a18520",
+                        "sha1": "8f09b63a549d667f5077a937bf4701669ccde07d"
+                    },
+                    "zip": {
+                        "md5": "89a17926865ddbc2d087fcf0c2ec9757",
+                        "sha1": "49718c2631c93c4eb633b205918375bd233dcf3a"
+                    }
+                },
+                "url": {
+                    "zip": "http://get.typo3.org/7.0.2/zip",
+                    "tar": "http://get.typo3.org/7.0.2"
+                }
+            },
+            "7.0.0": {
+                "version": "7.0.0",
+                "date": "2014-12-02 20:46:36 UTC",
+                "type": "release",
+                "checksums": {
+                    "tar": {
+                        "md5": "9a8bde071766dc899471c5aeb0352a91",
+                        "sha1": "cc2957be8b41ba5009d85dda1cb9d01bffd03e75"
+                    },
+                    "zip": {
+                        "md5": "a35a51b6104247c78dabdced052027fd",
+                        "sha1": "4f45a9176c6086751a5f095433d2e7a932be1de4"
+                    }
+                },
+                "url": {
+                    "zip": "http://get.typo3.org/7.0.0/zip",
+                    "tar": "http://get.typo3.org/7.0.0"
+                }
+            }
+        },
+        "latest": "7.0.2",
+        "stable": "7.0.2",
+        "active": false
+    }
+}

@@ -31,7 +31,7 @@ class ImportPackagistFromJSONServiceTest extends FunctionalTestCase {
 	 * @test
 	 */
 	public function simpleImportWorks() {
-		$this->importService->createProduct('name long', 'name_short', 'EXT', __DIR__ . '/Fixtures/PackagistExample.json');
+		$this->importService->createOrUpdateProduct('name long', 'name_short', 'EXT', __DIR__ . '/Fixtures/PackagistExample.json');
 
 		$this->persistenceManager->persistAll();
 
@@ -47,7 +47,7 @@ class ImportPackagistFromJSONServiceTest extends FunctionalTestCase {
 	 * @test
 	 */
 	public function reimportingUpdatesProducts() {
-		$this->importService->createProduct('name long', 'name_short', 'EXT', __DIR__ . '/Fixtures/PackagistExample.json');
+		$this->importService->createOrUpdateProduct('name long', 'name_short', 'EXT', __DIR__ . '/Fixtures/PackagistExample.json');
 
 		$this->persistenceManager->persistAll();
 

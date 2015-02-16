@@ -33,6 +33,12 @@ class ProductCommandController extends \TYPO3\Flow\Cli\CommandController {
 	protected $packagistImporter;
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\IHS\Domain\Service\ImportTypo3FromJSONService
+	 */
+	protected $typo3Importer;
+
+	/**
 	 * Parse a certain xml file with a list of extensions from the root path
 	 *
 	 * @param string $source path to the source xml file
@@ -58,5 +64,17 @@ class ProductCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$this->outputLine('creating:  '. $name.' '.$shortName.' '.$type.' '.$packagistUrl);
 
 		$this->packagistImporter->createProduct($name, $shortName, $type, $packagistUrl);
+	}
+
+	/**
+	 * Creates oder extends typo3 with versions given from external json
+	 *
+	 * @param string $urlToJSON
+	 * @return void
+	 */
+	public function importTypo3Command($urlToJSON) {
+		$this->outputLine('creating: typo3 '.$urlToJSON);
+
+		$this->typo3Importer->createOrUpdateTypo3($urlToJSON);
 	}
 }
