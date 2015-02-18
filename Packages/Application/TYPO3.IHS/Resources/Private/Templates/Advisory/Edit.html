@@ -12,6 +12,9 @@
 	<h1>{advisory.identifier}: {advisory.title}</h1>
 
 	<f:form action="update" object="{advisory}" objectName="advisory" class="form-horizontal">
+		<f:render partial="Modal/DeleteConfirmation" />
+		<f:render partial="Modal/Issue/NewVersion" />
+
 		<f:alias map="{errorContext: 'advisory'}">
 			<f:render partial="FormErrors" arguments="{_all}" />
 		</f:alias>

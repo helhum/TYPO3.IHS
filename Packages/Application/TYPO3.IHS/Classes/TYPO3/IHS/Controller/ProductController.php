@@ -75,6 +75,7 @@ class ProductController extends ActionController {
 		$result = array();
 		$existingProducts = array();
 		$i = 0;
+		/** @var Product $product */
 		foreach($productsWithMatchingShortName as $product) {
 			$identifier = $this->persistenceManager->getIdentifierByObject($product);
 			array_push($result, array('id' => $identifier, 'label' => $product->getType() . '::' . $product->getNameAndShortName(), 'value' => $product->getShortName()));
@@ -83,11 +84,12 @@ class ProductController extends ActionController {
 			$i++;
 		}
 
+		/** @var Product $product */
 		foreach($products as $product) {
 			$identifier = $this->persistenceManager->getIdentifierByObject($product);
 
 			if (!array_key_exists($identifier, $existingProducts)) {
-				array_push($result, array('id' => $identifier, 'label' => $product->getType() . '::' . $product->getNameAndShortName(), 'value' => $product->getShortName()));
+				array_push($result, array('id' => $identifier, 'label' => $product->getLabel(), 'value' => $product->getShortName()));
 				$i++;
 			}
 
@@ -109,6 +111,7 @@ class ProductController extends ActionController {
 		$product = $this->productRepository->findByIdentifier($identifier);
 		$productVersions = $product->getVersions();
 		$result = array();
+		/** @var Version $version */
 		foreach($productVersions as $version) {
 			$identifier = $this->persistenceManager->getIdentifierByObject($version);
 			array_push($result, array('id' => $identifier, 'label' => $version->getHumanReadableVersionNumber(), 'value' => $version->getHumanReadableVersionNumber()));

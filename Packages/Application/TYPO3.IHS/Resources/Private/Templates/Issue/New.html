@@ -15,6 +15,9 @@
 	</f:alias>
 
 	<f:form action="create" objectName="newIssue" class="form-horizontal">
+		<f:render partial="Modal/DeleteConfirmation" />
+		<f:render partial="Modal/Issue/NewVersion" />
+
 		<f:render partial="Issue/FormFields" section="Content" arguments="{options: {advisory: advisory, products: products, solutionsAvailable: solutionsAvailable}}"/>
 
 		<hr />

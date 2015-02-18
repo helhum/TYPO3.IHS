@@ -11,6 +11,9 @@
 <f:section name="Content">
 	<h1>{issue.title}</h1>
 	<f:form action="update" object="{issue}" objectName="issue" class="form-horizontal">
+		<f:render partial="Modal/DeleteConfirmation" />
+		<f:render partial="Modal/Issue/NewVersion" />
+
 		<f:alias map="{errorContext: 'issue'}">
 			<f:render partial="FormErrors" arguments="{_all}" />
 		</f:alias>

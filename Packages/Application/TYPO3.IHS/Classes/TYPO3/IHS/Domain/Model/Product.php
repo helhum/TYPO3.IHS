@@ -161,4 +161,11 @@ class Product {
 	public function getIssues() {
 		return $this->issues;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getLabel() {
+		return $this->getType() . '::' . $this->getNameAndShortName();
+	}
 }
