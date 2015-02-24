@@ -58,11 +58,17 @@ TYPO3.IHS.AdvisoryController.index < ihs {
 	}
 }
 TYPO3.IHS.AdvisoryController.show < ihs {
+	head.titleTag.content {
+		advisory = ${advisory}
+	}
 	body.content.main.controllerAction {
 		advisory = ${advisory}
 	}
 }
 TYPO3.IHS.AdvisoryController.edit < ihs {
+	head.titleTag.content {
+		advisory = ${advisory}
+	}
 	body.content.main.controllerAction {
 		advisory = ${advisory}
 		products = ${products}
@@ -76,6 +82,9 @@ TYPO3.IHS.IssueController.index < ihs {
 	}
 }
 TYPO3.IHS.IssueController.show < ihs {
+	head.titleTag.content {
+		issue = ${issue}
+	}
 	body.content.main.controllerAction {
 		issue = ${issue}
 	}
@@ -88,6 +97,9 @@ TYPO3.IHS.IssueController.new < ihs {
 	}
 }
 TYPO3.IHS.IssueController.edit < ihs {
+	head.titleTag.content {
+		issue = ${issue}
+	}
 	body.content.main.controllerAction {
 		issue = ${issue}
 		products = ${products}
