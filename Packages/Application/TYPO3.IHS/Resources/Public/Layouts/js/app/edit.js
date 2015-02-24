@@ -222,7 +222,6 @@ function initIssue() {
 		var versions = $('#product-new-versions').val().split('\n');
 		var versionsJSON = JSON.stringify(versions);
 		var productIdentifier = $(currentIssue).find('.product-value').val();
-console.log($currentIssue);
 
 		$.ajax({
 			type: 'GET',
