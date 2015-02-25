@@ -161,8 +161,6 @@ function initMarkdownEditor() {
 			return marked(e.getContent());
 		}
 	});
-
-	markdownElements.autosize();
 }
 
 function initIssue() {

@@ -334,5 +334,5 @@ select.product {
 
 /* markdown editor */
 .markdown {
-	min-height: 200px !important; /* temporary fix */
+	min-height: 400px !important;
 }
