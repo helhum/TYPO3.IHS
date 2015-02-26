@@ -172,7 +172,7 @@ class AdvisoryController extends ActionController {
 		$issue->setAdvisory(NULL);
 		$this->issueRepository->update($issue);
 
-		$this->addFlashMessage('Removed the issue.');
+		$this->addFlashMessage('Disconnect the issue.');
 
 		$this->redirect('edit', 'advisory', NULL, array('advisory' => $advisory));
 	}

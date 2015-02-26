@@ -17,11 +17,6 @@ $(document).ready(function() {
 		initIssue();
 	});
 
-	// trigger removing objectCollections
-	$('.toggle-delete-action').on('click', function() {
-		$(this).closest('.panel').find('.delete-objectCollection:first a').click();
-	});
-
 	// modal bg height fix
 	$('.modal').on('shown.bs.modal', function() {
 		$(this).find('.modal-backdrop').height($(this).find('.modal-dialog').outerHeight() + 60);
@@ -33,17 +28,34 @@ $(document).ready(function() {
 function handleSaveDeletionModal() {
 	var deleteConfirmationModal = $('#delete-confirmation-modal'),
 		formFields = '',
-		href = '';
+		href = '',
+		disconnectModeIsActive = '';
+
+	// trigger removing objectCollections
+	$('.toggle-delete-action').on('click', function() {
+		if ($(this).attr('data-delete-mode') == 'disconnect') {
+			disconnectModeIsActive = true;
+		} else {
+			disconnectModeIsActive = false;
+		}
+		$(this).closest('.panel').find('.delete-objectCollection:first a').click();
+	});
 
 	// show confirmation modal for deletion of objects
 	$('.remove-action').on('click', function(event) {
 		event.preventDefault();
 		href = $(this).attr('href');
-		formFields = $(this).closest('.panel').find('.collection-content:first > .form-group');
+		formFields = $(this).closest('.object-collection').find('.form-group:first').parent().find('> .form-group');
 		deleteConfirmationModal.modal('show');
 	});
 
 	deleteConfirmationModal.on('show.bs.modal', function() {
+		if (disconnectModeIsActive) {
+			$(deleteConfirmationModal).addClass('disconnect-mode');
+		} else {
+			$(deleteConfirmationModal).removeClass('disconnect-mode');
+		}
+
 		$(formFields).each(function(index, item) {
 			var label = $(item).find('label').text();
 			var value = $(item).find('input').val();

@@ -306,6 +306,20 @@ select.product {
 	animation: spin 1000ms infinite linear;
 }
 
+/*content - delete modal*/
+#delete-confirmation-modal .disconnect-mode {
+	display: none;
+}
+
+#delete-confirmation-modal.disconnect-mode .delete-mode {
+	display: none;
+}
+
+#delete-confirmation-modal.disconnect-mode .disconnect-mode {
+	display: inline-block;
+}
+
+
 @-webkit-keyframes spin {
 	0% {
 		-webkit-transform: rotate(0deg);

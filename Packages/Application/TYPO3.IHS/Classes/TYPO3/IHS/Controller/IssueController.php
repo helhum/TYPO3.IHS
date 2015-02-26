@@ -104,6 +104,7 @@ class IssueController extends ActionController {
 		$this->issueRepository->update($issue);
 		$this->persistenceManager->persistAll();
 
+		$this->addFlashMessage('Created new advisory.');
 		$this->redirect('edit', 'advisory', NULL, array('advisory' => $advisory));
 	}
 

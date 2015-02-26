@@ -53,7 +53,14 @@
 												</f:else>
 											</f:if>
 										</a>
-										<button type="button" class="btn btn-sm btn-danger toggle-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete {objectName}</button>
+										<f:if condition="{isIssue}">
+											<f:then>
+												<button type="button" class="btn btn-sm btn-danger toggle-delete-action" data-delete-mode="disconnect"><i class="glyphicon glyphicon-minus"></i> Disconnect {objectName}</button>
+											</f:then>
+											<f:else>
+												<button type="button" class="btn btn-sm btn-danger toggle-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete {objectName}</button>
+											</f:else>
+										</f:if>
 									</h4>
 								</div>
 								<div id="collapse-{collapsIdentifierPrefix}-{iterator.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{collapsIdentifierPrefix}-{iterator.index}">
