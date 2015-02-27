@@ -18,14 +18,20 @@
 			</div>
 			<div class="dynamic-fields">
 				<template class="field-template" data-collablseIdentifierPrefix="{collapsIdentifierPrefix}">
-					<div class="panel panel-default">
+					<div class="panel panel-default object additional-field new-object">
 						<div class="panel-heading" role="tab" id="heading-{collapsIdentifierPrefix}-__iteratorIndex__">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#{collapsIdentifierPrefix}-accordion" href="#collapse-{collapsIdentifierPrefix}-__iteratorIndex__" aria-expanded="true" aria-controls="collapse-{collapsIdentifierPrefix}-__iteratorIndex__">
 									{objectName} #__iteratorIndex__
 								</a>
-								<button type="button" class="btn btn-sm btn-danger toggle-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete {objectName}</button>
 							</h4>
+							<div class="object-actions">
+								<button type="button" class="btn btn-sm btn-danger toggle-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete {objectName}</button>
+								<div class="btn-group" role="group">
+									<button type="button" class="btn btn-default btn-sm sort-object" data-sort-direction="up"><i class="glyphicon glyphicon-chevron-up"></i></button>
+									<button type="button" class="btn btn-default btn-sm sort-object" data-sort-direction="down"><i class="glyphicon glyphicon-chevron-down"></i></button>
+								</div>
+							</div>
 						</div>
 						<div id="collapse-{collapsIdentifierPrefix}-__iteratorIndex__" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-{collapsIdentifierPrefix}-__iteratorIndex__">
 							<div class="panel-body collection-content field-template">
@@ -40,7 +46,7 @@
 					<f:if condition="{objects}">
 
 						<f:for each="{objects}" as="object" iteration="iterator">
-							<div class="panel panel-default">
+							<div class="panel panel-default object">
 								<div class="panel-heading" role="tab" id="heading-{collapsIdentifierPrefix}-{iterator.index}">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#{collapsIdentifierPrefix}-accordion" href="#collapse-{collapsIdentifierPrefix}-{iterator.index}" aria-expanded="true" aria-controls="collapse-{collapsIdentifierPrefix}-{iterator.index}">
@@ -53,6 +59,9 @@
 												</f:else>
 											</f:if>
 										</a>
+
+									</h4>
+									<div class="object-actions">
 										<f:if condition="{isIssue}">
 											<f:then>
 												<button type="button" class="btn btn-sm btn-danger toggle-delete-action" data-delete-mode="disconnect"><i class="glyphicon glyphicon-minus"></i> Disconnect {objectName}</button>
@@ -61,7 +70,11 @@
 												<button type="button" class="btn btn-sm btn-danger toggle-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete {objectName}</button>
 											</f:else>
 										</f:if>
-									</h4>
+										<div class="btn-group" role="group">
+											<button type="button" class="btn btn-default btn-sm sort-object" data-sort-direction="up"><i class="glyphicon glyphicon-chevron-up"></i></button>
+											<button type="button" class="btn btn-default btn-sm sort-object" data-sort-direction="down"><i class="glyphicon glyphicon-chevron-down"></i></button>
+										</div>
+									</div>
 								</div>
 								<div id="collapse-{collapsIdentifierPrefix}-{iterator.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{collapsIdentifierPrefix}-{iterator.index}">
 									<div class="panel-body collection-content">

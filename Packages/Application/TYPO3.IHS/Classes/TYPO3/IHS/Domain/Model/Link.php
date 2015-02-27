@@ -36,14 +36,23 @@ class Link {
 	protected $description;
 
 	/**
+	 * @var integer
+	 * @ORM\Column(type="integer")
+	 */
+	protected $sortKey;
+
+
+	/**
 	 * @param string $title
 	 * @param string $description
 	 * @param string $uri
+	 * @param integer $sortKey
 	 */
-	public function __construct($uri, $title = '', $description = '') {
+	public function __construct($uri, $title = '', $description = '', $sortKey = 0) {
 		$this->uri = $uri;
 		$this->title = $title;
 		$this->description = $description;
+		$this->sortKey = $sortKey;
 	}
 
 	/**
@@ -65,5 +74,12 @@ class Link {
 	 */
 	public function getUri() {
 		return $this->uri;
+	}
+
+	/**
+	 * @return integer
+	 */
+	public function getSortKey() {
+		return $this->sortKey;
 	}
 }

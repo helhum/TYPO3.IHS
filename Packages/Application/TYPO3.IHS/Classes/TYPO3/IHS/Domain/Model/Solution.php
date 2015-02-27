@@ -51,8 +51,15 @@ class Solution {
 	/**
 	 * @var Collection<Link>
 	 * @ORM\ManyToMany(cascade={"persist"})
+	 * @ORM\OrderBy({"sortKey" = "ASC"})
 	 */
 	protected $links;
+
+	/**
+	 * @var integer
+	 * @ORM\Column(type="integer")
+	 */
+	protected $sortKey;
 
 	/**
 	 * @param string $abstract
@@ -136,5 +143,19 @@ class Solution {
 	 */
 	public function getAuthor() {
 		return $this->author;
+	}
+
+	/**
+	 * @param integer $sortKey
+	 */
+	public function setSortKey($sortKey) {
+		$this->sortKey = $sortKey;
+	}
+
+	/**
+	 * @return integer
+	 */
+	public function getSortKey() {
+		return $this->sortKey;
 	}
 }

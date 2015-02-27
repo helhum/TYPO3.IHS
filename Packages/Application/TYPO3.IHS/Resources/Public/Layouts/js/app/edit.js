@@ -17,13 +17,64 @@ $(document).ready(function() {
 		initIssue();
 	});
 
+	body.on('initSorting', function() {
+		initSorting();
+	});
+
 	// modal bg height fix
 	$('.modal').on('shown.bs.modal', function() {
 		$(this).find('.modal-backdrop').height($(this).find('.modal-dialog').outerHeight() + 60);
 	});
 
 	body.trigger('dynamicFieldAdded');
+	initSorting();
 });
+
+function initSorting() {
+	var currentObject = null;
+	var direction = null;
+
+	// reset ui
+	$('.sort-object').attr('disabled', false);
+
+	$('.object-collection').each(function(index, objectCollection) {
+		$(objectCollection).find('.object').each(function(index, object) {
+			// show or hide sorting buttons
+			if (index == 0) {
+				$(object).find('.object-actions .sort-object:first').attr('disabled', true);
+			}
+
+			if (index + 1 == $(objectCollection).find('.object-actions').length) {
+				$(object).find('.object-actions .sort-object:last').attr('disabled', true);
+			}
+
+			// write sortKey
+			$(object).find('input.sort-key').val(index + 1);
+		});
+	});
+
+	// sort object
+	$('.sort-object').off('click');
+	$('.sort-object').on('click', function() {
+		direction = $(this).attr('data-sort-direction');
+		currentObject = $(this).closest('.panel');
+		var clonedObject = $(currentObject).clone();
+
+		$(clonedObject).hide();
+
+		if (direction == 'up') {
+			$(clonedObject).insertBefore($(currentObject).prev());
+		} else {
+			$(clonedObject).insertAfter($(currentObject).next());
+		}
+
+		$(clonedObject).slideDown();
+		$(currentObject).slideUp(function() {
+			$(this).remove();
+			initSorting();
+		});
+	});
+}
 
 function handleSaveDeletionModal() {
 	var deleteConfirmationModal = $('#delete-confirmation-modal'),
@@ -313,11 +364,10 @@ function getVersionsForProduct(identifier) {
 
 		this.$element = $(element);
 
-		this.$presentFields = this.$element.find('.present-fields').last();
-		this.$additionalFieldsContainer = this.$element.find('.additional-fields').last();
+		this.$fields = this.$element.find('.present-fields').first();
 		this.$button = this.$element.find('> .fields-header .add-field button').first();
 		this.htmlTemplate = this.$element.find('.field-template').first().html();
-		this.iterationIndex = this.$presentFields.children().length;
+		this.iterationIndex = 0;
 		this.argumentName = this.htmlTemplate.match(/"([^"]*)\[_placeholder_\]([^"]*)"/)[1];
 
 		// Checkboxes and multi select fields may have rendered hidden fields that need to be handled
@@ -333,19 +383,29 @@ function getVersionsForProduct(identifier) {
 		this.$button.on('click', function(event) {
 			event.preventDefault();
 
+			self.setIterationIndex();
+
 			var newFields = self.getHtmlForIndex(self.iterationIndex);
 			newFields = newFields.replace(/__iteratorIndex__/g, self.iterationIndex);
-			newFields = self.$additionalFieldsContainer.append(newFields);
+			$(newFields).html(newFields);
+			$(newFields).appendTo(self.$fields);
 
 			$('html, body').animate({
-				scrollTop: $(newFields).offset().top
+				scrollTop: $(self.$fields).find('.new-object').offset().top
 			}, 500);
-			self.iterationIndex++;
+
+			$(self.$fields).find('.new-object').removeClass('new-object');
+
+			$('body').trigger('initSorting');
 			init();
 		});
 
 		this.getHtmlForIndex = function(index) {
 			return this.htmlTemplate.replace(/^(.+?)(\[_placeholder_\])(\[.+\])(?:\[_placeholder_\]){0,1}(.+)$/gm, "$1[" + index + "]$3$4");
+		};
+
+		this.setIterationIndex = function() {
+			this.iterationIndex = this.$fields.find('> .object').length + 1;
 		};
 
 		this.$element.children(".dynamic-fields").removeClass('dynamic-fields');
@@ -358,8 +418,9 @@ function getVersionsForProduct(identifier) {
 			new DynamicField($(element).closest('.fields'));
 		});
 
-		$('.additional-fields .toggle-delete-action').on('click', function(event) {
+		$('.additional-field .toggle-delete-action').on('click', function(event) {
 			$(event.target).closest('.panel').remove();
+			$('body').trigger('initSorting');
 		});
 	}
 

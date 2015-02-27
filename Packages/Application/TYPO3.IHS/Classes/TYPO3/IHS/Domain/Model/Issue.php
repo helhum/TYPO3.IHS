@@ -93,14 +93,22 @@ class Issue {
 	/**
 	 * @var Collection<Solution>
 	 * @ORM\OneToMany(cascade={"persist"},mappedBy="issue")
+	 * @ORM\OrderBy({"sortKey" = "ASC"})
 	 */
 	protected $solutions;
 
 	/**
 	 * @var Collection<Link>
 	 * @ORM\ManyToMany(cascade={"persist"})
+	 * @ORM\OrderBy({"sortKey" = "ASC"})
 	 */
 	protected $links;
+
+	/**
+	 * @var integer
+	 * @ORM\Column(type="integer")
+	 */
+	protected $sortKey;
 
 	public function __construct() {
 		$this->creationDate = new \DateTime();
@@ -319,4 +327,17 @@ class Issue {
 		return $this->vulnerabilityType;
 	}
 
+	/**
+	 * @param integer $sortKey
+	 */
+	public function setSortKey($sortKey) {
+		$this->sortKey = $sortKey;
+	}
+
+	/**
+	 * @return integer
+	 */
+	public function getSortKey() {
+		return $this->sortKey;
+	}
 }

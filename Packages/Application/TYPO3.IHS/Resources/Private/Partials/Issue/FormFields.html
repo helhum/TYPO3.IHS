@@ -82,13 +82,13 @@
 		</div>
 
 		<fieldset>
-			<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link' legend: 'Links', collapsIdentifierPrefix: 'issue-link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: object}}"/>
+			<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link' legend: 'Links', collapsIdentifierPrefix: 'issue-{iterationIndex}-link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: object}}"/>
 		</fieldset>
 
 		<f:if condition="{options.solutionsAvailable}">
 			<f:then>
 				<fieldset>
-					<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Solution', legend: 'Solutions', collapsIdentifierPrefix: 'issue-solution', options: options , objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
+					<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Solution', legend: 'Solutions', collapsIdentifierPrefix: 'issue-{iterationIndex}-solution', options: options , objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
 				</fieldset>
 			</f:then>
 			<f:else>
@@ -102,6 +102,8 @@
 				<f:form.hidden property="{propertyPrefix}advisory" value="{options.advisory}" />
 			</f:then>
 		</f:if>
+
+		<f:form.hidden property="{propertyPrefix}sortKey" id="links.sortKey" class="sort-key" />
 	</div>
 </f:section>
 

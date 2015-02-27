@@ -46,10 +46,12 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
+
+		<f:form.hidden property="{propertyPrefix}sortKey" id="links.sortKey" class="sort-key" />
+
 		<fieldset>
-			<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link', legend: 'Links for the solution', collapsIdentifierPrefix: 'solution-link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: arguments.issue, solution: object}, deleteMode: 'link'}"/>
+			<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link', legend: 'Links for the solution', collapsIdentifierPrefix: 'solution-{iterationIndex}-link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: arguments.issue, solution: object}, deleteMode: 'link'}"/>
 		</fieldset>
 	</div>
 </f:section>

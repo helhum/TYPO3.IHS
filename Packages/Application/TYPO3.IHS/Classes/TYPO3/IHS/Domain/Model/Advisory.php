@@ -35,6 +35,7 @@ class Advisory {
 	/**
 	 * @var Collection<Issue>
 	 * @ORM\OneToMany(cascade={"persist"},mappedBy="advisory")
+	 * @ORM\OrderBy({"sortKey" = "ASC"})
 	 */
 	protected $issues;
 
@@ -78,6 +79,7 @@ class Advisory {
 	/**
 	 * @var Collection<Link>
 	 * @ORM\ManyToMany(cascade={"persist"})
+	 * @ORM\OrderBy({"sortKey" = "ASC"})
 	 */
 	protected $links;
 

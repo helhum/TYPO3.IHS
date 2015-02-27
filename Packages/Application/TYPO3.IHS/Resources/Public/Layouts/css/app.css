@@ -131,20 +131,29 @@ input.f3-form-error {
 	margin-bottom: 25px;
 }
 
-/*remove objectCollections*/
+/*objectCollections*/
 
 .panel-title {
-	position: relative;
-}
-
-.toggle-delete-action {
-	position: absolute;
-	right: 0;
-	top: -7px;
+	display: inline-block;
+	width: auto;
 }
 
 .delete-objectCollection {
 	display: none;
+}
+
+.panel-heading {
+	position: relative;
+}
+
+.object-actions {
+	position: absolute;
+	right: 5px;
+	top: 6px;
+}
+
+.object-actions .btn.disabled, .object-actions .btn[disabled] {
+	opacity: 0.3;
 }
 
 /*content - agination widget*/
