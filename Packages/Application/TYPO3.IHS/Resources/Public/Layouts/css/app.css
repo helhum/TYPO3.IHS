@@ -271,6 +271,18 @@ select.product {
 	margin-top: 1px;
 }
 
+.VS-search .search_facet {
+	margin: 4px -3px 4px 0;
+}
+
+.VS-search .search_facet.is_selected {
+	border-radius: 2px;
+}
+
+.VS-search .search_facet .category {
+	padding-top: 3px;
+}
+
 /*content - datetimepicker*/
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .ui-timepicker-div dl { text-align: left; }
