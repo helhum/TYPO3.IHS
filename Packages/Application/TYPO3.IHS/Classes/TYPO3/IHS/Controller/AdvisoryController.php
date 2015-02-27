@@ -162,18 +162,20 @@ class AdvisoryController extends ActionController {
 	}
 
 	/**
-	 * @param Advisory $advisory
 	 * @param Issue $issue
 	 * @Flow\IgnoreValidation("$issue")
 	 * @throws \TYPO3\Flow\Mvc\Exception\StopActionException
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 *
+	 * @return string $response
 	 */
-	public function removeIssueAction(Advisory $advisory, Issue $issue) {
+	public function removeIssueAction(Issue $issue) {
 		$issue->setAdvisory(NULL);
 		$this->issueRepository->update($issue);
 
-		$this->addFlashMessage('Disconnect the issue.');
-
-		$this->redirect('edit', 'advisory', NULL, array('advisory' => $advisory));
+		$response = array();
+		$response['status'] = 'success';
+		$response['message'] = 'Disconnected the issue.';
+		return json_encode($response);
 	}
 }

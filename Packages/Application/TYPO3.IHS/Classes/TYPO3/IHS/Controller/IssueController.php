@@ -241,12 +241,17 @@ class IssueController extends ActionController {
 	 * @param Solution $solution
 	 * @Flow\IgnoreValidation("$solution")
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 *
+	 * @return string $response
 	 */
 	public function removeSolutionAction(Issue $issue, Solution $solution) {
 		$issue->getSolutions()->removeElement($solution);
 		$this->issueRepository->update($issue);
 
-		$this->redirect('edit', NULL, NULL, ['issue' => $issue]);
+		$response = array();
+		$response['status'] = 'success';
+		$response['message'] = 'Removed the solution.';
+		return json_encode($response);
 	}
 
 	protected function initializeRemoveSolutionLinkAction() {
@@ -258,6 +263,8 @@ class IssueController extends ActionController {
 	 * @param Link $link
 	 * @Flow\IgnoreValidation("$link")
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 *
+	 * @return string $response
 	 */
 	public function removeSolutionLinkAction(Solution $solution, Link $link) {
 		$solution->removeLink($link);
@@ -265,9 +272,10 @@ class IssueController extends ActionController {
 		$issue->getSolutions()->add($solution);
 		$this->issueRepository->update($issue);
 
-		$this->addFlashMessage('Removed the solution.');
-
-		$this->redirect('edit', NULL, NULL, ['issue' => $issue]);
+		$response = array();
+		$response['status'] = 'success';
+		$response['message'] = 'Removed the link.';
+		return json_encode($response);
 	}
 
 	protected function initializeRemoveLinkAction() {
@@ -279,14 +287,17 @@ class IssueController extends ActionController {
 	 * @param Link $link
 	 * @Flow\IgnoreValidation("$link")
 	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 *
+	 * @return string $response
 	 */
 	public function removeLinkAction(Issue $issue, Link $link) {
 		$issue->removeLink($link);
 		$this->issueRepository->update($issue);
 
-		$this->addFlashMessage('Removed the link.');
-
-		$this->redirect('edit', NULL, NULL, ['issue' => $issue]);
+		$response = array();
+		$response['status'] = 'success';
+		$response['message'] = 'Removed the link.';
+		return json_encode($response);
 	}
 
 }

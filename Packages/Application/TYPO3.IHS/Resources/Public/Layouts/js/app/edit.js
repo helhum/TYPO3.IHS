@@ -78,6 +78,7 @@ function initSorting() {
 
 function handleSaveDeletionModal() {
 	var deleteConfirmationModal = $('#delete-confirmation-modal'),
+		object = '',
 		formFields = '',
 		href = '',
 		disconnectModeIsActive = '';
@@ -97,6 +98,7 @@ function handleSaveDeletionModal() {
 		event.preventDefault();
 		href = $(this).attr('href');
 		formFields = $(this).closest('.object-collection').find('.form-group:first').parent().find('> .form-group');
+		object = $(this).closest('.object');
 		deleteConfirmationModal.modal('show');
 	});
 
@@ -141,6 +143,36 @@ function handleSaveDeletionModal() {
 		});
 
 		deleteConfirmationModal.find('a.remove-object').attr('href', href);
+		deleteConfirmationModal.find('a.remove-object').on('click', function(event) {
+			event.preventDefault();
+			var button = $(this);
+			$(button).button('loading');
+
+			$.ajax({
+				type: "GET",
+				contentType: "application/json; charset=utf-8",
+				url: href,
+				dataType: "json",
+				success: function(data) {
+					deleteConfirmationModal.modal('hide');
+
+					var alert = $(alertPrototype).insertAfter($(object)).addClass('alert-success');
+					$(alert).find('.alert-message').text(data.message);
+
+					$(object).remove();
+					$('body').trigger('initSorting');
+				},
+				complete: function() {
+					$(button).button('reset')
+				},
+				error: function() {
+					deleteConfirmationModal.modal('hide');
+
+					var alert = $(alertPrototype).insertAfter($(object)).addClass('alert-danger');
+					$(alert).find('.alert-message').text('There was an error deleting the object.');
+				}
+			});
+		});
 	});
 
 	deleteConfirmationModal.on('hide.bs.modal', function() {
