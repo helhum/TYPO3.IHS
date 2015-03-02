@@ -34,8 +34,10 @@ function initSorting() {
 	var currentObject = null;
 	var direction = null;
 
-	// for a raw case, when new objects are sorted and needed to be deleted afterwards
+	// init deletion of objects after sorting objects
+	// needed because the actions on the links are removed
 	initDeleteNewObjects();
+	handleSaveDeletionModal();
 
 	// reset ui
 	$('.sort-object').attr('disabled', false);
@@ -87,6 +89,7 @@ function handleSaveDeletionModal() {
 		disconnectModeIsActive = '';
 
 	// trigger removing objectCollections
+	$('.toggle-delete-action').off('click');
 	$('.toggle-delete-action').on('click', function() {
 		if ($(this).attr('data-delete-mode') == 'disconnect') {
 			disconnectModeIsActive = true;
@@ -97,15 +100,18 @@ function handleSaveDeletionModal() {
 	});
 
 	// show confirmation modal for deletion of objects
+	$('.remove-action').off('click');
 	$('.remove-action').on('click', function(event) {
 		event.preventDefault();
 		href = $(this).attr('href');
-		formFields = $(this).closest('.object-collection').find('.form-group:first').parent().find('> .form-group');
+		formFields = $(this).closest('.object').find('.form-group:first').parent().find('> .form-group');
 		object = $(this).closest('.object');
 		deleteConfirmationModal.modal('show');
 	});
 
+	deleteConfirmationModal.off('show.bs.modal');
 	deleteConfirmationModal.on('show.bs.modal', function() {
+		console.log('test');
 		if (disconnectModeIsActive) {
 			$(deleteConfirmationModal).addClass('disconnect-mode');
 		} else {
@@ -178,6 +184,7 @@ function handleSaveDeletionModal() {
 		});
 	});
 
+	deleteConfirmationModal.off('hide.bs.modal');
 	deleteConfirmationModal.on('hide.bs.modal', function() {
 		// write name to the modals body
 		// maybe iterate over the form fields and write them to the modal?
