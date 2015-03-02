@@ -34,6 +34,9 @@ function initSorting() {
 	var currentObject = null;
 	var direction = null;
 
+	// for a raw case, when new objects are sorted and needed to be deleted afterwards
+	initDeleteNewObjects();
+
 	// reset ui
 	$('.sort-object').attr('disabled', false);
 
@@ -450,11 +453,18 @@ function getVersionsForProduct(identifier) {
 			new DynamicField($(element).closest('.fields'));
 		});
 
-		$('.additional-field .toggle-delete-action').on('click', function(event) {
-			$(event.target).closest('.panel').remove();
-			$('body').trigger('initSorting');
-		});
+		initDeleteNewObjects();
 	}
 
 	init();
 })(jQuery);
+
+function initDeleteNewObjects() {
+	$('.additional-field .toggle-delete-action').off('click');
+	$('.additional-field .toggle-delete-action').on('click', function(event) {
+		$(event.target).closest('.panel').slideUp(250, function() {
+			$(this).remove();
+			$('body').trigger('initSorting');
+		});
+	});
+}
