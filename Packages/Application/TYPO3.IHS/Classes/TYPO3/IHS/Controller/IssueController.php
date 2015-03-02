@@ -187,7 +187,10 @@ class IssueController extends ActionController {
 	public function updateAction(Issue $issue) {
 		$this->issueRepository->update($issue);
 
-		$this->addFlashMessage('Updated the issue.');
+		$uriBuilder = $this->controllerContext->getUriBuilder();
+		$uri = $uriBuilder->uriFor('edit', ['issue' => $issue]);
+
+		$this->addFlashMessage('Updated the issue: <a href="' . $uri . '">' . $issue->getTitle() . '</a> ');
 		$this->redirect('index');
 	}
 

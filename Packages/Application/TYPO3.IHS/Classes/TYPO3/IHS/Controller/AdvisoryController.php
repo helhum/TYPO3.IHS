@@ -103,7 +103,11 @@ class AdvisoryController extends ActionController {
 	 */
 	public function updateAction(Advisory $advisory) {
 		$this->advisoryRepository->update($advisory);
-		$this->addFlashMessage('Updated the advisory.');
+
+		$uriBuilder = $this->controllerContext->getUriBuilder();
+		$uri = $uriBuilder->uriFor('edit', ['advisory' => $advisory]);
+
+		$this->addFlashMessage('Updated the advisory: <a href="' . $uri . '">' . $advisory->getTitle() . '</a> ');
 		$this->redirect('index');
 	}
 

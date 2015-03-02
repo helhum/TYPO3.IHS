@@ -30,7 +30,7 @@
 				<f:flashMessages as="flashMessages">
 					<f:for each="{flashMessages}" as="flashMessage">
 						<div class="alert alert-{flashMessage.severity}">
-							<p>{flashMessage}</p>
+							<p>{flashMessage -> f:format.raw()}</p>
 						</div>
 					</f:for>
 				</f:flashMessages>
