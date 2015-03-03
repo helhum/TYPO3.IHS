@@ -15,6 +15,7 @@ $(document).ready(function() {
 		initDatetimepicker();
 		initMarkdownEditor();
 		initIssue();
+		initSolution();
 	});
 
 	body.on('initSorting', function() {
@@ -371,6 +372,34 @@ function initIssue() {
 			}
 		});
 	});
+
+	$('.affectedVersions').on('change', function(event) {
+		currentIssue = $(event.target).parents('.issue');
+		updateFixedInVersions();
+	});
+
+	$('.issue').each(function(indexInArray, value) {
+		currentIssue = value;
+		updateFixedInVersions();
+	});
+}
+
+function initSolution() {
+	$('.fixedInVersions').each(function(indexInArray, value) {
+		var fixedInVersions = $(value);
+		if (fixedInVersions.children('option').length == 1 && fixedInVersions.children('option').val() == "") {
+			var issue = $(fixedInVersions).parents('.issue'),
+				affectedVersions = $(issue).find('.affectedVersions');
+
+			if ($(affectedVersions).children('option').length > 1 || $(affectedVersions).children('option').val() != "") {
+				fixedInVersions.html('');
+				$(affectedVersions).children('option').each(function(indexInArray, value) {
+					var option = $(value);
+					fixedInVersions.append('<option value="' + option.val() + '">' + option.text() + '</option>');
+				});
+			}
+		}
+	});
 }
 
 function getVersionsForProduct(identifier) {
@@ -397,6 +426,27 @@ function getVersionsForProduct(identifier) {
 				$($(versionsSelect).children('option[value="' + value + '"]')[0]).prop('selected', true);
 			});
 		}
+		$(currentIssue).find('.solution').each(function(indexInArray, value) {
+			var solution = $(value),
+				fixedInVersions = $(solution.find('.fixedInVersions'));
+
+			fixedInVersions.html('');
+			$(data).each(function(key, data) {
+				fixedInVersions.append('<option value="' + data.id + '">' + data.value + '</option>');
+			});
+		});
+	});
+}
+
+function updateFixedInVersions() {
+	var issue = $(currentIssue),
+		affectedVersions = $(issue.find('.affectedVersions option:selected'));
+	issue.find('.solution .fixedInVersions option').css('display', 'block');
+
+	affectedVersions.each(function(indexInArray, value) {
+		var version = issue.find('.solution .fixedInVersions option[value="' + $(value).val() + '"]');
+		version.removeAttr('selected');
+		version.css('display', 'none');
 	});
 }
 
