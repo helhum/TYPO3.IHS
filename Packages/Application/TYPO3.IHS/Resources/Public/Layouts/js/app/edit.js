@@ -43,16 +43,14 @@ function initSorting() {
 	$('.sort-object').attr('disabled', false);
 
 	$('.object-collection').each(function(index, objectCollection) {
-		$(objectCollection).find('.object').each(function(index, object) {
+		$(objectCollection).find('.present-fields:first > .object').each(function(index, object) {
 			// show or hide sorting buttons
 			if (index == 0) {
-				$(object).find('.object-actions .sort-object:first').attr('disabled', true);
+				$(object).find('.object-actions:first .sort-object:first').attr('disabled', true);
 			}
-
-			if (index + 1 == $(objectCollection).find('.object-actions').length) {
-				$(object).find('.object-actions .sort-object:last').attr('disabled', true);
+			if (index + 1 == $(objectCollection).find('.present-fields:first > .object').length) {
+				$(object).find('.object-actions:first .sort-object:nth-child(2)').attr('disabled', true);
 			}
-
 			// write sortKey
 			$(object).find('input.sort-key').val(index + 1);
 		});
