@@ -105,6 +105,12 @@ class Issue {
 	protected $links;
 
 	/**
+	 * @ORM\Column(nullable=true)
+	 * @var string
+	 */
+	protected $severity;
+
+	/**
 	 * @var integer
 	 * @ORM\Column(type="integer")
 	 */
@@ -113,11 +119,6 @@ class Issue {
 	public function __construct() {
 		$this->creationDate = new \DateTime();
 		$this->solutions = new ArrayCollection();
-	}
-
-	public function getSeverity() {
-		// TODO: calculate severity from CVSS
-		return 'Medium';
 	}
 
 	/**
@@ -258,6 +259,20 @@ class Issue {
 	 */
 	public function getReporter() {
 		return $this->reporter;
+	}
+
+	/**
+	 * @param string $severity
+	 */
+	public function setSeverity($severity) {
+		$this->severity = $severity;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSeverity() {
+		return $this->severity;
 	}
 
 	/**

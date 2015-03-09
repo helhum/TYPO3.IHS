@@ -83,6 +83,11 @@ class Advisory {
 	 */
 	protected $links;
 
+	/**
+	 * @ORM\Column(nullable=true)
+	 * @var string
+	 */
+	protected $severity;
 
 	public function __construct() {
 		$this->issues = new ArrayCollection();
@@ -241,6 +246,19 @@ class Advisory {
 	 */
 	public function getPublishingDate() {
 		return $this->publishingDate;
+	}
+	/**
+	 * @param string $severity
+	 */
+	public function setSeverity($severity) {
+		$this->severity = $severity;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSeverity() {
+		return $this->severity;
 	}
 
 	/**
