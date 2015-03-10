@@ -154,19 +154,20 @@
 								<strong>Links:</strong>
 							</td>
 							<td>
-								<f:if condition="{solution.links}">
-									<f:for each="{issue.solutions}" as="solution">
-										<p><strong>Related Resources: </strong></p>
-										<ul>
-											<f:for each="{solution.links}" as="link">
-												<li>
-													<a href="{link.uri}">{link.title}</a>
-													<f:format.raw>{link.description}</f:format.raw>
-												</li>
-											</f:for>
-										</ul>
-									</f:for>
-								</f:if>
+								<p><strong>Related Resources: </strong></p>
+								<f:for each="{issue.solutions}" as="solution">
+									<ul>
+										<f:for each="{solution.links}" as="link">
+											<li>
+												<f:if condition="{link.asset}">
+													<f:then><a href="{f:uri.resource(resource: link.asset.resource)}">{link.title}</a></f:then>
+													<f:else><a href="{link.uri}">{link.title}</a></f:else>
+												</f:if>
+												<f:format.raw>{link.description}</f:format.raw>
+											</li>
+										</f:for>
+									</ul>
+								</f:for>
 							</td>
 						</tr>
 					</tbody>
@@ -174,14 +175,14 @@
 			</article>
 		</f:for>
 
-
 		<f:if condition="{solution.links}">
 			<p><strong>Related Resources: </strong></p>
 			<ul>
 			<f:for each="{advisory.links}" as="link">
 				<li>
-				<a href="{link.uri}">{link.title}</a>
-				<f:format.raw>{link.description}</f:format.raw>
+					<f:then><a href="{f:uri.resource(resource: link.asset.resource)}">{link.title}</a></f:then>
+					<f:else><a href="{link.uri}">{link.title}</a></f:else>
+					<f:format.raw>{link.description}</f:format.raw>
 				</li>
 			</f:for>
 			</ul>

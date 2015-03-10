@@ -59,3 +59,12 @@
     '@action':        'index'
     '@format':        'html'
   appendExceedingArguments: TRUE
+
+-
+  name: 'Assets'
+  uriPattern: 'asset/{@action}(.{@format})'
+  defaults:
+    '@package':       'TYPO3.IHS'
+    '@controller':    'Asset'
+    '@action':        'index'
+    '@format':        'html'

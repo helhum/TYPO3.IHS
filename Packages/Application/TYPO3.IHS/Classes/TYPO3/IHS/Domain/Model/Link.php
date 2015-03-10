@@ -8,6 +8,7 @@ namespace TYPO3\IHS\Domain\Model;
 
 use TYPO3\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
+use TYPO3\Media\Domain\Model\Asset;
 
 /**
  * @Flow\ValueObject
@@ -15,44 +16,60 @@ use Doctrine\ORM\Mapping as ORM;
 class Link {
 
 	/**
-	 * @var string
-	 * @Flow\Validate(type="NotEmpty")
-	 * @Flow\Validate(type="StringLength", options={ "minimum"=3, "maximum"=512 })
-	 */
-	protected $uri;
-
-	/**
-	 * @var string
 	 * @Flow\Validate(type="NotEmpty")
 	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=128 })
+	 * @var string
 	 */
 	protected $title;
 
 	/**
-	 * @var string
-	 * @ORM\Column(type="text")
 	 * @Flow\Validate(type="StringLength", options={ "minimum"=1, "maximum"=512 })
+	 * @ORM\Column(type="text")
+	 * @var string
 	 */
 	protected $description;
 
 	/**
-	 * @var integer
 	 * @ORM\Column(type="integer")
+	 * @var integer
 	 */
 	protected $sortKey;
 
+	/**
+	 * @Flow\Validate(type="NotEmpty")
+	 * @Flow\Validate(type="StringLength", options={ "minimum"=3, "maximum"=512 })
+	 * @ORM\Column(nullable=true)
+	 * @var string
+	 */
+	protected $uri;
+
+	/**
+	 * @ORM\Column(nullable=true)
+	 * @ORM\ManyToOne
+	 * @var Asset
+	 */
+	protected $asset;
 
 	/**
 	 * @param string $title
 	 * @param string $description
 	 * @param string $uri
 	 * @param integer $sortKey
+	 * @param Asset $asset
 	 */
-	public function __construct($uri, $title = '', $description = '', $sortKey = 0) {
+	public function __construct($uri, $title = '', $description = '', $sortKey = 0, Asset $asset = NULL) {
 		$this->uri = $uri;
 		$this->title = $title;
 		$this->description = $description;
 		$this->sortKey = $sortKey;
+		$this->asset = $asset;
+	}
+
+	/**
+	 * @return Asset
+	 */
+	public function getAsset() {
+		return $this->asset;
 	}
 
 	/**
@@ -60,6 +77,13 @@ class Link {
 	 */
 	public function getDescription() {
 		return $this->description;
+	}
+
+	/**
+	 * @return integer
+	 */
+	public function getSortKey() {
+		return $this->sortKey;
 	}
 
 	/**
@@ -74,12 +98,5 @@ class Link {
 	 */
 	public function getUri() {
 		return $this->uri;
-	}
-
-	/**
-	 * @return integer
-	 */
-	public function getSortKey() {
-		return $this->sortKey;
 	}
 }

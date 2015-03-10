@@ -16,6 +16,7 @@ $(document).ready(function() {
 		initMarkdownEditor();
 		initIssue();
 		initSolution();
+		initLink();
 	});
 
 	body.on('initSorting', function() {
@@ -110,7 +111,6 @@ function handleSaveDeletionModal() {
 
 	deleteConfirmationModal.off('show.bs.modal');
 	deleteConfirmationModal.on('show.bs.modal', function() {
-		console.log('test');
 		if (disconnectModeIsActive) {
 			$(deleteConfirmationModal).addClass('disconnect-mode');
 		} else {
@@ -191,11 +191,9 @@ function handleSaveDeletionModal() {
 		deleteConfirmationModal.find('a.remove-object').attr('href', '');
 	});
 }
-
+var autocompletionCache = {},
+	autocompletionLastTerm = {};
 function initAutocompletion() {
-	var autocompletionCache = {},
-		autocompletionLastTerm = {};
-
 	$('input.ajax').autocomplete({
 		minLength: 1,
 		max: 10,
@@ -293,6 +291,37 @@ function initIssue() {
 		}
 	});
 
+	$('input.uri').autocomplete('option', 'source', function(request, response) {
+		var propertyName = $(this.element).attr('id');
+
+		if (request.term.indexOf('asset://') == 0) {
+			var term = request.term.substring(8, request.term.length);
+			if (typeof autocompletionCache[propertyName] === 'undefined') {
+				autocompletionCache[propertyName] = {};
+			}
+			autocompletionLastTerm[propertyName] = term;
+			if (term in autocompletionCache[propertyName]) {
+				response(autocompletionCache[propertyName][term]);
+				return;
+			}
+
+			request.term = term;
+			$.getJSON($(this.element).data('ajaxurl'), request, function(data) {
+				autocompletionCache[propertyName][term] = data;
+				response(data);
+			});
+		}
+	}).on('autocompleteselect', function(event, ui) {
+		currentLink = $(event.target).parents('.link');
+		$(currentLink).find('.uri').attr('readonly', 'readonly');
+		var assetValue = $(currentLink).find('.asset').val(),
+			uriValue = $(currentLink).find('.uri').val(),
+			term = (uriValue.indexOf('asset://') == 0) ? uriValue.substring(8, uriValue.length) : uriValue;
+
+		$(currentLink).find('div.selected-asset ul').append('<li class="selected-asset" data-id="' + assetValue + '">' + term + ' <button type="button" class="delete-created-version btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> delete</button></li>');
+		initLink();
+	});
+
 	// create new versions when adding solutions
 
 	var addNewVersionsElement = $('.add-new-versions');
@@ -303,7 +332,6 @@ function initIssue() {
 			type: 'GET',
 			url: $(this).data('ajaxurl'),
 			success: function(data) {
-				console.log($('#new-versions-modal'));
 				// TODO: may not work with multiple issue instances
 				$('#new-versions-modal').find('.modal-body').html(data);
 			}
@@ -400,6 +428,15 @@ function initSolution() {
 	});
 }
 
+function initLink() {
+	$('div.selected-asset ul li button').on('click', function(event, ui) {
+		var currentLink = $(event.target).parents('.link');
+		$(currentLink).find('.asset').val('');
+		$(currentLink).find('.uri').removeAttr('readonly').val('');
+		$(currentLink).find('div.selected-asset ul li').remove();
+	});
+}
+
 function getVersionsForProduct(identifier) {
 	$.ajax({
 		type: 'GET',
@@ -486,6 +523,7 @@ function updateFixedInVersions() {
 
 			$(self.$fields).find('.new-object').removeClass('new-object');
 
+			$('body').trigger('dynamicFieldAdded');
 			$('body').trigger('initSorting');
 			init();
 		});
