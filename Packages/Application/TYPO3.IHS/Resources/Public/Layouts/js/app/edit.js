@@ -38,11 +38,16 @@ function initSorting() {
 
 	// init deletion of objects after sorting objects
 	// needed because the actions on the links are removed
-	initDeleteNewObjects();
 	handleSaveDeletionModal();
+	initDeleteNewObjects();
 
 	// reset ui
 	$('.sort-object').attr('disabled', false);
+
+	// write 0 to sortKey when empty
+	if ($('input.sort-key').val() == "") {
+		$('input.sort-key').val(0);
+	}
 
 	$('.object-collection').each(function(index, objectCollection) {
 		$(objectCollection).find('.present-fields:first > .object').each(function(index, object) {
@@ -513,9 +518,23 @@ function updateFixedInVersions() {
 			self.setIterationIndex();
 
 			var newFields = self.getHtmlForIndex(self.iterationIndex);
-			newFields = newFields.replace(/__iteratorIndex__/g, self.iterationIndex);
 			$(newFields).html(newFields);
 			$(newFields).appendTo(self.$fields);
+
+			// replace placeholder for index in various attributes
+			self.$fields.find('[id*="__iteratorIndex__"]').each(function() {
+				self.replaceIteratorIndex(this, 'id', self.iterationIndex);
+			});
+
+			self.$fields.find('[href*="__iteratorIndex__"]').each(function() {
+				self.replaceIteratorIndex(this, 'href', self.iterationIndex);
+			});
+
+			var title = self.$fields.find('.panel-title a:contains("__iteratorIndex__")');
+			var newTitle = title.text().replace(/__iteratorIndex__/g, self.iterationIndex);
+			if (title != newTitle) {
+				title.text(newTitle);
+			}
 
 			$('html, body').animate({
 				scrollTop: $(self.$fields).find('.new-object').offset().top
@@ -534,6 +553,12 @@ function updateFixedInVersions() {
 
 		this.setIterationIndex = function() {
 			this.iterationIndex = this.$fields.find('> .object').length + 1;
+		};
+
+		this.replaceIteratorIndex = function(element, attr, index) {
+			var newAttr = $(element).attr(attr);
+			newAttr = newAttr.replace(/__iteratorIndex__/g, index);
+			$(element).attr(attr, newAttr);
 		};
 
 		this.$element.children(".dynamic-fields").removeClass('dynamic-fields');
