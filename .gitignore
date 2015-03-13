@@ -2,6 +2,8 @@
 /Data/
 /Packages/Framework/
 /Packages/Libraries/
+/Packages/Application/*
+!/Packages/Application/TYPO3.IHS
 /Web/
 /bin/
 /Readme.txt
@@ -9,6 +11,7 @@
 /flow
 /flow.bat
 /.idea/
+extensions.xml
 
 # exclude everything except Routes.yaml
 /Configuration/*
