@@ -55,6 +55,7 @@ ihs {
 TYPO3.IHS.AdvisoryController.index < ihs {
 	body.content.main.controllerAction {
 		advisories = ${advisories}
+		quickFilters = ${quickFilters}
 	}
 }
 TYPO3.IHS.AdvisoryController.show < ihs {

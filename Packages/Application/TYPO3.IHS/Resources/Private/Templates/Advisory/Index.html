@@ -8,6 +8,25 @@
 <f:section name="Title">TYPO3 Security Bulletins</f:section>
 
 <f:section name="Content">
+	<p>
+	<div class="btn-toolbar">
+		<div class="btn-group">
+			<span class="btn btn-text">Quick Filter:</span>
+			<f:for each="{quickFilters}" as="quickFilter">
+				<f:if condition="{quickFilter.active}">
+					<f:then>
+						<f:link.action class="btn btn-primary" action="index" arguments='{search: quickFilter.filter}'>{quickFilter.name}</f:link.action>
+					</f:then>
+					<f:else>
+						<f:link.action class="btn btn-default" action="index" arguments='{search: quickFilter.filter}'>{quickFilter.name}</f:link.action>
+					</f:else>
+				</f:if>
+
+			</f:for>
+		</div>
+	</div>
+	</p>
+
 	<div class="advisory-visualsearch visualsearch" searchUrl="{f:uri.action(action:'index', controller:'Advisory', package:'TYPO3.IHS')}"></div>
 
 	<div class="row saved-searches-container">

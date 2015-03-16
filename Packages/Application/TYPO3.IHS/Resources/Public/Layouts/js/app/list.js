@@ -108,7 +108,7 @@ jQuery(document).ready(function() {
 			},
 			facetMatches: function(callback) {
 				callback([
-					'vulnerability type', 'product', 'product type'
+					'vulnerability type', 'product', 'product type', 'has issue'
 				]);
 			},
 			valueMatches: function(facet, searchTerm, callback) {
@@ -174,6 +174,9 @@ jQuery(document).ready(function() {
 				callback(['yes', 'no']);
 				break;
 			case 'has advisory':
+				callback(['yes', 'no']);
+				break;
+			case 'has issue':
 				callback(['yes', 'no']);
 				break;
 			case 'product':

@@ -66,6 +66,20 @@ class AdvisoryController extends ActionController {
 	public function indexAction($search = NULL) {
 		$advisories = $this->getSearchResults($search);
 
+		$quickFilters = array();
+
+		$quickFilters[0]['name'] = 'Has No Issue(s)';
+		$quickFilters[0]['filter'] = '[{"has issue":"no"}]';
+		$quickFilters[0]['active'] = FALSE;
+
+
+		foreach ($quickFilters as $key => $quickFilter) {
+			if ($quickFilter['filter'] == $search) {
+				$quickFilters[$key]['active'] = TRUE;
+			}
+		}
+
+		$this->view->assign('quickFilters', $quickFilters);
 		$this->view->assign('advisories', $advisories);
 	}
 

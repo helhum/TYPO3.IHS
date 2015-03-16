@@ -9,6 +9,7 @@ namespace TYPO3\IHS\Domain\Repository;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\Repository;
 use TYPO3\IHS\Domain\Model\Product;
+use TYPO3\Flow\Reflection\ObjectAccess;
 
 /**
  * @Flow\Scope("singleton")
@@ -52,6 +53,7 @@ class AdvisoryRepository extends Repository {
 		$vulnerabilityType = FALSE;
 		$productType = FALSE;
 		$product = FALSE;
+		$hasIssue = NULL;
 
 		if (array_key_exists("text", $searchRequest)) {
 			$term = $searchRequest["text"];
@@ -69,48 +71,77 @@ class AdvisoryRepository extends Repository {
 			$product = $searchRequest["product"];
 		}
 
+		if (array_key_exists("has issue", $searchRequest)) {
+			if ($searchRequest["has issue"] == "yes") {
+				$hasIssue = TRUE;
+			} elseif ($searchRequest["has issue"] == "no") {
+				$hasIssue = FALSE;
+			}
+		}
 
-		$constraints = array();
 		$query = $this->createQuery();
+		// workaround: query should have a getQueryBuilder() method.
+		$qb = ObjectAccess::getProperty($query, 'queryBuilder', TRUE);
+
+		$qb->leftJoin('e.issues', 'i');
 
 		if ($term) {
-			$constraints[] =
-				$query->logicalOr(
-					$query->like('title', '%' . $term . '%'),
-					$query->like('description', '%' . $term . '%'),
-					$query->like('identifier', '%' . $term . '%'),
-					$query->like('issues.abstract', '%' . $term . '%')
-				);
+			$qb
+				->andWhere(
+					$qb->expr()->orX(
+						$qb->expr()->like('e.title', ':term'),
+						$qb->expr()->like('e.identifier', ':term'),
+						$qb->expr()->like('e.description', ':term'),
+						$qb->expr()->like('i.abstract', ':term')
+					)
+				)
+				->setParameter('term', "%$term%");
+		}
+
+		if ($product OR $productType) {
+			$qb->leftJoin('i.product', 'p');
 		}
 
 		if ($productType) {
-			$constraints[] =
-				$query->equals('issues.product.type.value', $productType);
+			$qb
+				->join('p.type', 'pt')
+				->andWhere('pt.value = :productType')
+				->setParameter('productType', $productType);
 		}
 
 		if ($product) {
-			$constraints[] =
-				$query->equals('issues.product.shortName', $product);
+			$qb
+				->andWhere('p.shortName = :product')
+				->setParameter('product', $product);
 		}
 
 		if ($vulnerabilityType) {
-			$constraints[] =
-				$query->equals('issues.vulnerabilityType.value', $vulnerabilityType);
+			$qb
+				->join('i.vulnerabilityType', 't')
+				->andWhere('t.value = :vulnerabilityType')
+				->setParameter('vulnerabilityType', $vulnerabilityType);
+		}
+
+		if ($hasIssue === TRUE) {
+			$qb
+				->groupBy('e')
+				->having('COUNT(i) > 0');
+		} elseif ($hasIssue === FALSE) {
+			$qb
+				->groupBy('e')
+				->having('COUNT(i) = 0');
 		}
 
 		if ($published === TRUE) {
-			$constraints[] =
-				$query->equals('published', $published);
+			$qb
+				->andWhere('e.published = :published')
+				->setParameter('published', $product);
 		}
 
-		$query->setOrderings(array(
-				'published' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_ASCENDING,
-				'publishingDate' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING,
-				'creationDate' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING
-			)
-		);
-
-		return $query->matching($query->logicalAnd($constraints))->execute();
+		$qb->addOrderBy('e.published', 'ASC');
+		$qb->addOrderBy('e.publishingDate', 'DESC');
+		$qb->addOrderBy('e.creationDate', 'DESC');
+		return $query->execute();
 	}
 
 	/**
