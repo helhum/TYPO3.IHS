@@ -80,9 +80,7 @@
 								<strong>Affected Versions: </strong>
 							</td>
 							<td>
-								<f:for each="{issue.affectedVersions}" as="version" iteration="iterator">
-									{version.humanReadableVersionNumber}<f:if condition="{iterator.isLast}"><f:else>, </f:else></f:if>
-								</f:for>
+								<ihs:format.version>{issue.affectedVersions}</ihs:format.version>
 							</td>
 						</tr>
 						<tr>
