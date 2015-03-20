@@ -72,7 +72,6 @@ class AdvisoryController extends ActionController {
 		$quickFilters[0]['filter'] = '[{"has issue":"no"}]';
 		$quickFilters[0]['active'] = FALSE;
 
-
 		foreach ($quickFilters as $key => $quickFilter) {
 			if ($quickFilter['filter'] == $search) {
 				$quickFilters[$key]['active'] = TRUE;
@@ -137,18 +136,16 @@ class AdvisoryController extends ActionController {
 			}
 		}
 
-		if ($this->securityContext->hasRole('AuthenticatedUser')) {
-			if (count($searchRequestAsArray) > 0) {
-				$advisories = $this->advisoryRepository->findBySearchRequest($searchRequestAsArray, FALSE);
-			} else {
-				$advisories = $this->advisoryRepository->findAllOrdered();
-			}
+		$isAuthenticatedUser = $this->securityContext->hasRole('AuthenticatedUser');
+		if (count($searchRequestAsArray) > 0) {
+			$advisories = $this->advisoryRepository->findBySearchRequest($searchRequestAsArray, $isAuthenticatedUser);
 		} else {
-			if (count($searchRequestAsArray) > 0) {
-				$advisories = $this->advisoryRepository->findBySearchRequest($searchRequestAsArray, TRUE);
+			if ($isAuthenticatedUser) {
+				$advisories = $this->advisoryRepository->findAllOrdered();
 			} else {
 				$advisories = $this->advisoryRepository->findPublished();
 			}
+
 		}
 
 		return $advisories;

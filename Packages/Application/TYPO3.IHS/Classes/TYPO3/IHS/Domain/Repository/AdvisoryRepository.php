@@ -48,7 +48,7 @@ class AdvisoryRepository extends Repository {
 	 * @param boolean $published
 	 * @return Object
 	 */
-	public function findBySearchRequest($searchRequest, $published = TRUE) {
+	public function findBySearchRequest($searchRequest, $isAuthenticatedUser = FALSE) {
 		$term = FALSE;
 		$vulnerabilityType = FALSE;
 		$productType = FALSE;
@@ -132,10 +132,10 @@ class AdvisoryRepository extends Repository {
 				->having('COUNT(i) = 0');
 		}
 
-		if ($published === TRUE) {
+		if ($isAuthenticatedUser === FALSE) {
 			$qb
 				->andWhere('e.published = :published')
-				->setParameter('published', $product);
+				->setParameter('published', TRUE);
 		}
 
 		$qb->addOrderBy('e.published', 'ASC');
