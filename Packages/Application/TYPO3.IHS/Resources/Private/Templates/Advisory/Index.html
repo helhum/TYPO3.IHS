@@ -31,7 +31,7 @@
 		</f:then>
 	</f:security.ifAuthenticated>
 
-	<div class="advisory-visualsearch visualsearch" searchUrl="{f:uri.action(action:'index', controller:'Advisory', package:'TYPO3.IHS')}"></div>
+	<div class="advisory-visualsearch visualsearch" data-facets='{facets}' searchUrl="{f:uri.action(action:'index', controller:'Advisory', package:'TYPO3.IHS')}"></div>
 
 	<div class="row saved-searches-container">
 		<div class="col-md-12">

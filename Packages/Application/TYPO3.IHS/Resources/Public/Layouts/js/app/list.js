@@ -107,9 +107,8 @@ jQuery(document).ready(function() {
 				// TODO: send json to backend and build new result
 			},
 			facetMatches: function(callback) {
-				callback([
-					'vulnerability type', 'product', 'product type', 'has issue'
-				]);
+				var facets = JSON.parse($('.advisory-visualsearch').attr('data-facets'));
+				callback(facets);
 			},
 			valueMatches: function(facet, searchTerm, callback) {
 				vs_valueMatches(facet, searchTerm, callback);

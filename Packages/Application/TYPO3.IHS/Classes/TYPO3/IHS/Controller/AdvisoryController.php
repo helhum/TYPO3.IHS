@@ -78,8 +78,11 @@ class AdvisoryController extends ActionController {
 			}
 		}
 
+		$facets = $this->getVisualSearchFacets();
+
 		$this->view->assign('quickFilters', $quickFilters);
 		$this->view->assign('advisories', $advisories);
+		$this->view->assign('facets', json_encode($facets));
 	}
 
 	/**
@@ -192,5 +195,19 @@ class AdvisoryController extends ActionController {
 		$response['status'] = 'success';
 		$response['message'] = 'Disconnected the issue.';
 		return json_encode($response);
+	}
+
+	/**
+	 * @return string $response
+	 */
+	protected function getVisualSearchFacets() {
+		$facets = array('vulnerability type', 'product', 'product type');
+
+		$isAuthenticatedUser = $this->securityContext->hasRole('AuthenticatedUser');
+		if ($isAuthenticatedUser) {
+			array_push($facets, 'has issue');
+		}
+
+		return $facets;
 	}
 }
