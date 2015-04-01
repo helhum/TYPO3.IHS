@@ -140,7 +140,7 @@ class IssueController extends ActionController {
 	public function createAction(Issue $newIssue) {
 		$this->issueRepository->add($newIssue);
 		$this->addFlashMessage('Created a new issue.');
-		$this->redirect('index');
+		$this->redirect('show', 'issue', NULL, array('issue' => $newIssue));
 	}
 
 	/**
@@ -191,7 +191,7 @@ class IssueController extends ActionController {
 		$uri = $uriBuilder->uriFor('edit', ['issue' => $issue]);
 
 		$this->addFlashMessage('Updated the issue: <a href="' . $uri . '">' . $issue->getTitle() . '</a> ');
-		$this->redirect('index');
+		$this->redirect('show', 'issue', NULL, array('issue' => $issue));
 	}
 
 	/**
