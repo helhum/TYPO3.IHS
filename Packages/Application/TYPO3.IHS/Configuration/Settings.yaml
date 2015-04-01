@@ -3,6 +3,7 @@ TYPO3:
     object:
       excludeClasses:
         'simplepie.*': ['.*']
+        'erusev.*': ['.*']
     security:
       authentication:
         authenticationStrategy: oneToken
