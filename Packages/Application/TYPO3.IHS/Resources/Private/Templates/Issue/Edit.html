@@ -10,7 +10,7 @@
 
 <f:section name="Content">
 	<h1>{issue.title}</h1>
-	<f:form action="update" object="{issue}" objectName="issue" class="form-horizontal">
+	<f:form action="update" object="{issue}" objectName="issue">
 		<f:render partial="Modal/DeleteConfirmation" />
 		<f:render partial="Modal/Issue/NewVersion" />
 
@@ -21,8 +21,8 @@
 		<f:render partial="Issue/FormFields" section="Content" arguments="{object: issue, options: {products: products, solutionsAvailable: solutionsAvailable, availableProductVersions: availableProductVersions}}"/>
 
 		<hr />
-		<div class="form-group">
-			<div class="col-sm-10 col-sm-offset-2">
+		<div class="row">
+			<div class="col-md-12">
 				<f:link.action class="btn btn-default" action="index"><i class="glyphicon glyphicon-remove"></i> Cancel</f:link.action>
 				<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i> Update</button>
 			</div>

@@ -11,7 +11,7 @@
 <f:section name="Content">
 	<h1>{advisory.identifier}: {advisory.title}</h1>
 
-	<f:form action="update" object="{advisory}" objectName="advisory" class="form-horizontal">
+	<f:form action="update" object="{advisory}" objectName="advisory">
 		<f:render partial="Modal/DeleteConfirmation" />
 		<f:render partial="Modal/Issue/NewVersion" />
 
@@ -20,55 +20,61 @@
 		</f:alias>
 
 		<div class="form-group">
-			<label for="title" class="col-sm-2 control-label">Title</label>
-			<div class="col-sm-10">
-				<f:form.textfield property="title" id="title" class="form-control" />
-			</div>
+			<label for="title" class=" control-label">Title</label>
+			<f:form.textfield property="title" id="title" class="form-control" />
 		</div>
 
-		<div class="form-group">
-			<label for="abstract" class="col-sm-2 control-label">Abstract</label>
-			<div class="col-sm-10">
-				<f:form.textarea property="abstract" class="markdown" id="abstract" />
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="description" class="col-sm-2 control-label">Description</label>
-			<div class="col-sm-10">
-				<f:form.textarea property="description" class="markdown" id="description" />
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="severity" class="col-sm-2 control-label">Severity</label>
-			<div class="col-sm-10">
-				<f:form.textfield property="severity" id="severity" class="form-control" />
-			</div>
-		</div>
-
-		<f:if condition="{advisory.published}">
-			<f:then>
+		<div class="row">
+			<div class="col-md-6">
 				<div class="form-group">
-					<label for="publishingDate" class="col-sm-2 control-label">Publishingdate</label>
-					<div class="col-sm-10">
-						<f:form.textfield class="datetimepicker form-control" name="advisory[publishingDate][date]" value="{advisory.publishingDate->f:format.date(format:'d.m.Y - H:i')}" id="publishingDate" />
-					</div>
-					<f:form.hidden name="advisory[publishingDate][dateFormat]" value="d.m.Y - H:i" />
+					<label for="abstract" class="control-label">Abstract</label>
+					<f:form.textarea property="abstract" class="markdown" id="abstract" />
 				</div>
-			</f:then>
-		</f:if>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="description" class="control-label">Description</label>
+					<f:form.textarea property="description" class="markdown" id="description" />
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<f:if condition="{advisory.published}">
+				<f:then>
+					<div class="col-sm-6">
+				</f:then>
+				<f:else>
+					<div class="col-sm-12">
+				</f:else>
+			</f:if>
+
+				<div class="form-group">
+					<label for="severity" class="control-label">Severity</label>
+					<f:form.textfield property="severity" id="severity" class="form-control" />
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<f:if condition="{advisory.published}">
+					<f:then>
+						<div class="form-group">
+							<label for="publishingDate" class="control-label">Publishingdate</label>
+							<f:form.textfield class="datetimepicker form-control" name="advisory[publishingDate][date]" value="{advisory.publishingDate->f:format.date(format:'d.m.Y - H:i')}" id="publishingDate" />
+							<f:form.hidden name="advisory[publishingDate][dateFormat]" value="d.m.Y - H:i" />
+						</div>
+					</f:then>
+				</f:if>
+			</div>
+		</div>
 
 		<fieldset>
 			<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Issue', isIssue: true, legend: 'Issues', collapsIdentifierPrefix: 'issue', objects: advisory.issues, partial:'Issue/FormFields', arguments: {advisory: advisory}, options: {advisory: advisory, products: products, solutionsAvailable: 1}, propertyPrefix: 'issues.'}"/>
 		</fieldset>
 
 		<hr />
-		<div class="form-group">
-			<div class="col-sm-10 col-sm-offset-2">
-				<f:link.action class="btn btn-default" action="index"><i class="glyphicon glyphicon-remove"></i> Cancel</f:link.action>
-				<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i> Update</button>
-			</div>
+		<div class="form-group text-right">
+			<f:link.action class="btn btn-default" action="index"><i class="glyphicon glyphicon-remove"></i> Cancel</f:link.action>
+			<button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i> Update</button>
 		</div>
 	</f:form>
 </f:section>

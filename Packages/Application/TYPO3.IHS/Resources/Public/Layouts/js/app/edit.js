@@ -5,9 +5,8 @@ var currentIssue = null,
 $(document).ready(function() {
 	var body = $('body');
 
-	handleSaveDeletionModal();
 	// open collabsable when field inside has error
-	$('.f3-form-error').closest('.collapse').collapse('show');
+	$('.f3-form-error').closest('.object').addClass('has-validation-error');
 
 	//
 	body.on('dynamicFieldAdded', function() {
@@ -17,6 +16,7 @@ $(document).ready(function() {
 		initIssue();
 		initSolution();
 		initLink();
+		initEditPanel();
 	});
 
 	body.on('initSorting', function() {
@@ -32,14 +32,14 @@ $(document).ready(function() {
 	initSorting();
 });
 
+// method handles sorting of object collections
 function initSorting() {
 	var currentObject = null;
 	var direction = null;
 
 	// init deletion of objects after sorting objects
 	// needed because the actions on the links are removed
-	handleSaveDeletionModal();
-	initDeleteNewObjects();
+	initEditPanel();
 
 	// reset ui
 	$('.sort-object').attr('disabled', false);
@@ -86,22 +86,22 @@ function initSorting() {
 	});
 }
 
-function handleSaveDeletionModal() {
+// method handles save deletion with callback to the user for objectCollections
+function handleSaveDeletionModal(currentObject) {
 	var deleteConfirmationModal = $('#delete-confirmation-modal'),
-		object = '',
 		formFields = '',
 		href = '',
 		disconnectModeIsActive = '';
 
 	// trigger removing objectCollections
-	$('.toggle-delete-action').off('click');
-	$('.toggle-delete-action').on('click', function() {
+	$('.toggle-save-delete-action').off('click');
+	$('.toggle-save-delete-action').on('click', function() {
 		if ($(this).attr('data-delete-mode') == 'disconnect') {
 			disconnectModeIsActive = true;
 		} else {
 			disconnectModeIsActive = false;
 		}
-		$(this).closest('.panel').find('.delete-objectCollection:first a').click();
+		$(this).closest('.edit-panel-content').find('.delete-objectCollection:first a').click();
 	});
 
 	// show confirmation modal for deletion of objects
@@ -109,8 +109,7 @@ function handleSaveDeletionModal() {
 	$('.remove-action').on('click', function(event) {
 		event.preventDefault();
 		href = $(this).attr('href');
-		formFields = $(this).closest('.object').find('.form-group:first').parent().find('> .form-group');
-		object = $(this).closest('.object');
+		formFields = $(this).closest('.form-fields').find('.form-group');
 		deleteConfirmationModal.modal('show');
 	});
 
@@ -169,11 +168,12 @@ function handleSaveDeletionModal() {
 				success: function(data) {
 					deleteConfirmationModal.modal('hide');
 
-					var alert = $(alertPrototype).insertAfter($(object)).addClass('alert-success');
+					var alert = $(alertPrototype).insertAfter($(currentObject)).addClass('alert-success');
 					$(alert).find('.alert-message').text(data.message);
 
-					$(object).remove();
+					$(currentObject).remove();
 					$('body').trigger('initSorting');
+					closeEditPanel();
 				},
 				complete: function() {
 					$(button).button('reset')
@@ -181,7 +181,7 @@ function handleSaveDeletionModal() {
 				error: function() {
 					deleteConfirmationModal.modal('hide');
 
-					var alert = $(alertPrototype).insertAfter($(object)).addClass('alert-danger');
+					var alert = $(alertPrototype).insertAfter($(currentObject)).addClass('alert-danger');
 					$(alert).find('.alert-message').text('There was an error deleting the object.');
 				}
 			});
@@ -198,6 +198,9 @@ function handleSaveDeletionModal() {
 }
 var autocompletionCache = {},
 	autocompletionLastTerm = {};
+
+// method handles autocompletion for fields that support this feature
+// TODO: Fix cache problem where different fields use the same cache
 function initAutocompletion() {
 	$('input.ajax').autocomplete({
 		minLength: 1,
@@ -259,7 +262,9 @@ function initDatetimepicker() {
 }
 
 function initMarkdownEditor() {
-	var markdownElements = $('.markdown');
+
+
+	var markdownElements = $('.markdown').not('.object-collection .markdown');
 	markdownElements.markdown({
 		autofocus:false,
 		savable:false,
@@ -271,7 +276,7 @@ function initMarkdownEditor() {
 }
 
 function initIssue() {
-	// if there is a selected product populate autocompletion field and get versions for this product
+	// if there is a selected product: populate autocompletion field and get versions for this product
 	$('input.product-value').each(function(index, element) {
 		currentIssue = $(element).parents('.issue');
 		if ($(element).val()) {
@@ -328,7 +333,6 @@ function initIssue() {
 	});
 
 	// create new versions when adding solutions
-
 	var addNewVersionsElement = $('.add-new-versions');
 	addNewVersionsElement.off('click');
 	addNewVersionsElement.on('click', function() {
@@ -449,7 +453,7 @@ function getVersionsForProduct(identifier) {
 		data: {"identifier": identifier},
 		dataType: 'json'
 	}).success(function(data) {
-		var versions = $(currentIssue).children('.affected-versions').first();
+		var versions = $(currentIssue).find('.affected-versions').first();
 		var versionsSelect = $(versions).find('select.affectedVersions');
 		var selectedVersionsSelect = $(versions).find('.selected-affected-versions');
 		$(versionsSelect).html(''); // clear version list from prev request
@@ -513,6 +517,7 @@ function updateFixedInVersions() {
 		}
 
 		this.$button.on('click', function(event) {
+
 			event.preventDefault();
 
 			self.setIterationIndex();
@@ -530,20 +535,20 @@ function updateFixedInVersions() {
 				self.replaceIteratorIndex(this, 'href', self.iterationIndex);
 			});
 
-			var title = self.$fields.find('.panel-title a:contains("__iteratorIndex__")');
+			var title = self.$fields.find('.panel-title:contains("__iteratorIndex__")');
 			var newTitle = title.text().replace(/__iteratorIndex__/g, self.iterationIndex);
 			if (title != newTitle) {
 				title.text(newTitle);
 			}
 
-			$('html, body').animate({
-				scrollTop: $(self.$fields).find('.new-object').offset().top
-			}, 500);
+			//copy fields to edit-panel
+			openEditPanel(newTitle, $(self.$fields).find('.new-object'));
 
 			$(self.$fields).find('.new-object').removeClass('new-object');
 
 			$('body').trigger('dynamicFieldAdded');
 			$('body').trigger('initSorting');
+
 			init();
 		});
 
@@ -552,7 +557,7 @@ function updateFixedInVersions() {
 		};
 
 		this.setIterationIndex = function() {
-			this.iterationIndex = this.$fields.find('> .object').length + 1;
+			this.iterationIndex = this.$fields.find('> .object').length;
 		};
 
 		this.replaceIteratorIndex = function(element, attr, index) {
@@ -570,19 +575,91 @@ function updateFixedInVersions() {
 		$('.dynamic-fields').each(function(index, element) {
 			new DynamicField($(element).closest('.fields'));
 		});
-
-		initDeleteNewObjects();
 	}
 
 	init();
 })(jQuery);
 
-function initDeleteNewObjects() {
-	$('.additional-field .toggle-delete-action').off('click');
-	$('.additional-field .toggle-delete-action').on('click', function(event) {
-		$(event.target).closest('.panel').slideUp(250, function() {
+function initEditPanel() {
+	$('.open-in-edit-panel').off('click');
+	$('.open-in-edit-panel').on('click', function() {
+		var objectTitle = $(this).text();
+		var currentObject = $(this).closest('.object');
+
+		openEditPanel(objectTitle, currentObject);
+	});
+}
+
+function syncEditPanelChanges(currentFields) {
+	// sync input changes
+	$('.edit-panel-content input, .edit-panel-content textarea').each(function() {
+		$(this).on('change paste focusout', function() {
+			writeValue($(this))
+		});
+	});
+
+	$('.edit-panel-content select').each(function() {
+		$(this).val($(currentFields).find('select[name="' + $(this).attr('name') + '"]').val());
+
+		$(this).on('change paste focusout', function() {
+			writeValueForSelect($(this))
+		});
+	});
+
+	//find original input field and sync changes
+	function writeValue() {
+		$('.edit-panel-content input, .edit-panel-content textarea').each(function() {
+			$(currentFields).find('*[name="' + $(this).attr('name') + '"]').val($(this).val());
+		});
+	}
+
+	function writeValueForSelect() {
+		$('.edit-panel-content select').each(function() {
+			$(currentFields).find('select[name="' + $(this).attr('name') + '"]').html($(this).html());
+			$(currentFields).find('select[name="' + $(this).attr('name') + '"]').val($(this).val());
+		});
+	}
+}
+
+function openEditPanel(objectTitle, currentObject) {
+	$('body').addClass('edit-panel-open');
+	$('.edit-panel-content').html('');
+	$(currentObject).find('.form-fields').first().clone().appendTo('.edit-panel-content');
+	$(currentObject).find('.form-fields-footer').first().clone().appendTo('.edit-panel-content');
+	$(currentObject).find('textarea').each(function() {
+		$('.edit-panel-content').find('*[name="' + $(this).attr('name') + '"]').val($(this).val());
+	});
+	$('.object').removeClass('is-open');
+	$(currentObject).addClass('is-open');
+	$('.edit-panel-headline').text(objectTitle);
+
+	syncEditPanelChanges($(currentObject).find('.form-fields'));
+	initAutocompletion();
+	initDatetimepicker();
+	initMarkdownEditor();
+
+	$('.close-edit-panel, .save-and-close-edit-panel').off('click');
+	$('.close-edit-panel, .save-and-close-edit-panel').on('click', function() {
+		closeEditPanel();
+	});
+
+	// remove newly added objects
+	$('.edit-panel-content .toggle-delete-action').off('click');
+	$('.edit-panel-content .toggle-delete-action').on('click', function() {
+		closeEditPanel();
+		$(currentObject).slideUp(250, function() {
 			$(this).remove();
 			$('body').trigger('initSorting');
 		});
 	});
+
+	// handle deletion of already persisted objects
+	handleSaveDeletionModal(currentObject);
+}
+
+function closeEditPanel() {
+	$('body').removeClass('edit-panel-open');
+	$('.edit-panel-headline').html('');
+	$('.edit-panel-content').html('');
+	$('.object').removeClass('is-open');
 }

@@ -9,24 +9,26 @@
 			<div class="fields-header">
 				<f:if condition="{legend}">
 					<f:then>
-						<legend>{legend}</legend>
+						<legend>
+							<div class="add-field">
+								<button class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-plus"></i> Add {objectName}</button>
+							</div>
+							<span>
+								{legend}
+							</span>
+						</legend>
 					</f:then>
 				</f:if>
-				<div class="add-field">
-					<button class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> Add {objectName}</button>
-				</div>
+
 			</div>
 			<div class="dynamic-fields">
 				<template class="field-template" data-collablseIdentifierPrefix="{collapsIdentifierPrefix}">
 					<div class="panel panel-default object additional-field new-object">
 						<div class="panel-heading" role="tab" id="heading-{collapsIdentifierPrefix}-__iteratorIndex__">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#{collapsIdentifierPrefix}-accordion" href="#collapse-{collapsIdentifierPrefix}-__iteratorIndex__" aria-expanded="true">
-									{objectName} #__iteratorIndex__
-								</a>
+							<h4 class="panel-title open-in-edit-panel">
+								{objectName} #__iteratorIndex__
 							</h4>
-							<div class="object-actions">
-								<button type="button" class="btn btn-sm btn-danger toggle-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete {objectName}</button>
+							<div class="object-actions show-on-hover">
 								<div class="btn-group" role="group">
 									<button type="button" class="btn btn-default btn-sm sort-object" data-sort-direction="up"><i class="glyphicon glyphicon-chevron-up"></i></button>
 									<button type="button" class="btn btn-default btn-sm sort-object" data-sort-direction="down"><i class="glyphicon glyphicon-chevron-down"></i></button>
@@ -36,6 +38,15 @@
 						<div id="collapse-{collapsIdentifierPrefix}-__iteratorIndex__" class="panel-collapse collapse in" role="tabpanel">
 							<div class="panel-body collection-content field-template">
 								<f:render partial="{partial}" arguments="{arguments: arguments, options:options, propertyPrefix: '{propertyPrefix}_placeholder_.'}" section="Content" />
+								<div class="form-fields-footer">
+									<hr />
+									<div class="row">
+										<div class="col-md-12">
+											<button type="button" class="btn btn-danger toggle-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+											<button class="btn btn-primary save-and-close-edit-panel">Save and Close</button>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -47,35 +58,24 @@
 						<f:for each="{objects}" as="object" iteration="iterator">
 							<div class="panel panel-default object">
 								<div class="panel-heading" role="tab" id="heading-{collapsIdentifierPrefix}-{iterator.index}">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#{collapsIdentifierPrefix}-accordion" href="#collapse-{collapsIdentifierPrefix}-{iterator.index}" aria-expanded="true" aria-controls="collapse-{collapsIdentifierPrefix}-{iterator.index}">
-											<f:if condition="{object.title}">
-												<f:then>
-													{object.title}
-												</f:then>
-												<f:else>
-													{objectName} #{iterator.index}
-												</f:else>
-											</f:if>
-										</a>
-
-									</h4>
-									<div class="object-actions">
-										<f:if condition="{isIssue}">
+									<h4 class="panel-title open-in-edit-panel">
+										<f:if condition="{object.title}">
 											<f:then>
-												<button type="button" class="btn btn-sm btn-danger toggle-delete-action" data-delete-mode="disconnect"><i class="glyphicon glyphicon-minus"></i> Disconnect {objectName}</button>
+												{object.title}
 											</f:then>
 											<f:else>
-												<button type="button" class="btn btn-sm btn-danger toggle-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete {objectName}</button>
+												{objectName} #{iterator.index}
 											</f:else>
 										</f:if>
+									</h4>
+									<div class="object-actions">
 										<div class="btn-group" role="group">
 											<button type="button" class="btn btn-default btn-sm sort-object" data-sort-direction="up"><i class="glyphicon glyphicon-chevron-up"></i></button>
 											<button type="button" class="btn btn-default btn-sm sort-object" data-sort-direction="down"><i class="glyphicon glyphicon-chevron-down"></i></button>
 										</div>
 									</div>
 								</div>
-								<div id="collapse-{collapsIdentifierPrefix}-{iterator.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{collapsIdentifierPrefix}-{iterator.index}">
+								<div id="collapse-{collapsIdentifierPrefix}-{iterator.index}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-{collapsIdentifierPrefix}-{iterator.index}">
 									<div class="panel-body collection-content">
 										<f:if condition="{propertyPrefix}">
 											<f:then>
@@ -85,6 +85,22 @@
 												<f:render partial="{partial}" arguments="{object: object, iterationIndex: iterator.index, arguments: arguments, options: options}" section="Content"/>
 											</f:else>
 										</f:if>
+										<div class="form-fields-footer">
+											<hr />
+											<div class="row">
+												<div class="col-md-12">
+													<f:if condition="{isIssue}">
+														<f:then>
+															<button type="button" class="btn btn-danger toggle-save-delete-action" data-delete-mode="disconnect"><i class="glyphicon glyphicon-minus"></i> Disconnect</button>
+														</f:then>
+														<f:else>
+															<button type="button" class="btn btn-danger toggle-save-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+														</f:else>
+													</f:if>
+													<button class="btn btn-primary save-and-close-edit-panel">Save and Close</button>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

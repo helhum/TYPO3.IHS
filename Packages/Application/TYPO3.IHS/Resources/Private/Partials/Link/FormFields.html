@@ -5,18 +5,16 @@
 
 <f:section name="Content">
 	<div class="link">
-		<f:render section="DeleteLink" arguments="{_all}" />
+		<div class="form-fields">
+			<f:render section="DeleteLink" arguments="{_all}" />
 
-		<div class="form-group">
-			<label for="links.title" class="col-sm-2 control-label">Title</label>
-			<div class="col-sm-10">
+			<div class="form-group">
+				<label for="links.title" class="control-label">Title</label>
 				<f:form.textfield property="{propertyPrefix}title" id="links.title" class="form-control" />
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label for="links.uri" class="col-sm-2 control-label">URI</label>
-			<div class="col-sm-10">
+			<div class="form-group">
+				<label for="links.uri" class="control-label">URI</label>
 				<div class="autocomplete-field">
 					<f:form.hidden property="{propertyPrefix}asset" class="ajax-value asset" value="{object.product}" />
 					<f:form.textfield property="{propertyPrefix}uri" class="ajax form-control uri"  value="{f:if(condition:'{object.asset}', then: '{object.asset.label}', else: '{object.uri}')}" placeholder="type 'asset://' to find asset" readonly="{f:if(condition: '{object.asset}', then: 'readonly')}" additionalAttributes="{autcomplete: 'off', data-ajaxurl: '{f:uri.action(action:\'getAssetsAsJson\', controller:\'Asset\', package:\'TYPO3.IHS\')}'}" />
@@ -30,14 +28,13 @@
 					</ul>
 				</div>
 			</div>
-		</div>
 
-		<div class="form-group">
-			<label for="links.description" class="col-sm-2 control-label">Description</label>
-			<div class="col-sm-10">
+			<div class="form-group">
+				<label for="links.description" class="control-label">Description</label>
 				<f:form.textarea property="{propertyPrefix}description" id="links.description" class="form-control" />
 			</div>
 		</div>
+
 		<f:form.hidden property="{propertyPrefix}sortKey" id="links.sortKey" class="sort-key" />
 	</div>
 </f:section>
