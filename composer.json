@@ -12,7 +12,7 @@
     "typo3/party": "2.3.*",
     "typo3/eel": "2.3.*",
     "doctrine/migrations": "@dev",
-    "erusev/parsedown": "~1.1",
+    "erusev/parsedown": "1.1.x",
     "simplepie/simplepie": "~1.3",
     "typo3/neos": "1.2.*",
     "typo3/neos-nodetypes": "1.2.*",

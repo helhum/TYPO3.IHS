@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f583993923b69ee1acac051bccf89ab8",
+    "hash": "2ebe55277bef6df41f2382bca1aafdfc",
     "packages": [
         {
             "name": "composer/installers",
-            "version": "v1.0.19",
+            "version": "v1.0.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "89d77bfbee79e16653f7162c86e602cc188471db"
+                "reference": "d64e23fce42a4063d63262b19b8e7c0f3b5e4c45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/89d77bfbee79e16653f7162c86e602cc188471db",
-                "reference": "89d77bfbee79e16653f7162c86e602cc188471db",
+                "url": "https://api.github.com/repos/composer/installers/zipball/d64e23fce42a4063d63262b19b8e7c0f3b5e4c45",
+                "reference": "d64e23fce42a4063d63262b19b8e7c0f3b5e4c45",
                 "shasum": ""
             },
             "replace": {
@@ -59,9 +59,11 @@
                 "Hurad",
                 "MODX Evo",
                 "OXID",
+                "SMF",
                 "Thelia",
                 "WolfCMS",
                 "agl",
+                "aimeos",
                 "annotatecms",
                 "bitrix",
                 "cakephp",
@@ -97,7 +99,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2014-11-29 01:29:17"
+            "time": "2015-02-18 17:17:01"
         },
         {
             "name": "doctrine/annotations",
@@ -169,16 +171,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "v1.3.1",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "cf483685798a72c93bf4206e3dd6358ea07d64e7"
+                "reference": "2346085d2b027b233ae1d5de59b07440b9f288c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/cf483685798a72c93bf4206e3dd6358ea07d64e7",
-                "reference": "cf483685798a72c93bf4206e3dd6358ea07d64e7",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/2346085d2b027b233ae1d5de59b07440b9f288c8",
+                "reference": "2346085d2b027b233ae1d5de59b07440b9f288c8",
                 "shasum": ""
             },
             "require": {
@@ -189,6 +191,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": ">=3.7",
+                "predis/predis": "~0.8",
                 "satooshi/php-coveralls": "~0.6"
             },
             "type": "library",
@@ -234,7 +237,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2014-09-17 14:24:04"
+            "time": "2015-01-15 20:38:55"
         },
         {
             "name": "doctrine/collections",
@@ -512,22 +515,27 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "v1.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "2f708a85bb3aab5d99dab8be435abd73e0b18acb"
+                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/2f708a85bb3aab5d99dab8be435abd73e0b18acb",
-                "reference": "2f708a85bb3aab5d99dab8be435abd73e0b18acb",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
+                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Doctrine\\Common\\Lexer\\": "lib/"
@@ -539,19 +547,16 @@
             ],
             "authors": [
                 {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com",
-                    "homepage": "http://www.instaclick.com"
-                },
-                {
                     "name": "Roman Borschel",
                     "email": "roman@code-factory.org"
                 },
                 {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
                     "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
@@ -560,7 +565,7 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2013-01-12 18:59:04"
+            "time": "2014-09-09 13:34:57"
         },
         {
             "name": "doctrine/migrations",
@@ -568,12 +573,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "96f838b4fa93693d19196c8e24ed5f1c3972ba87"
+                "reference": "65978aa4e9ffca3bb632225ad8c6320077d80d85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/96f838b4fa93693d19196c8e24ed5f1c3972ba87",
-                "reference": "96f838b4fa93693d19196c8e24ed5f1c3972ba87",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/65978aa4e9ffca3bb632225ad8c6320077d80d85",
+                "reference": "65978aa4e9ffca3bb632225ad8c6320077d80d85",
                 "shasum": ""
             },
             "require": {
@@ -600,7 +605,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL"
+                "LGPL-2.1"
             ],
             "authors": [
                 {
@@ -618,7 +623,7 @@
                 "database",
                 "migrations"
             ],
-            "time": "2014-12-19 17:14:47"
+            "time": "2015-03-23 09:47:20"
         },
         {
             "name": "doctrine/orm",
@@ -843,17 +848,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.6.1",
+            "version": "v2.6.5",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "ef825fd9f809d275926547c9e57cbf14968793e8"
+                "reference": "53f86497ccd01677e22435cfb7262599450a90d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/ef825fd9f809d275926547c9e57cbf14968793e8",
-                "reference": "ef825fd9f809d275926547c9e57cbf14968793e8",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/53f86497ccd01677e22435cfb7262599450a90d1",
+                "reference": "53f86497ccd01677e22435cfb7262599450a90d1",
                 "shasum": ""
             },
             "require": {
@@ -862,6 +867,7 @@
             "require-dev": {
                 "psr/log": "~1.0",
                 "symfony/event-dispatcher": "~2.1",
+                "symfony/phpunit-bridge": "~2.7",
                 "symfony/process": "~2.1"
             },
             "suggest": {
@@ -896,28 +902,28 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:19:20"
+            "time": "2015-03-13 17:37:22"
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v2.5.8",
+            "version": "v2.5.10",
             "target-dir": "Symfony/Component/DomCrawler",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "afbdb416ca0096d2d6be13c6fe42d20b52656076"
+                "reference": "3860edcf7ff7e173cfe2151f0d425e610e77cc35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/afbdb416ca0096d2d6be13c6fe42d20b52656076",
-                "reference": "afbdb416ca0096d2d6be13c6fe42d20b52656076",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/3860edcf7ff7e173cfe2151f0d425e610e77cc35",
+                "reference": "3860edcf7ff7e173cfe2151f0d425e610e77cc35",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/css-selector": "~2.0"
+                "symfony/css-selector": "~2.3"
             },
             "suggest": {
                 "symfony/css-selector": ""
@@ -949,21 +955,21 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:15:53"
+            "time": "2015-01-03 08:01:13"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.5.8",
+            "version": "v2.5.10",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "b6ad726d415aa787ac4deddc75e7ad7a1bcc84bd"
+                "reference": "6eb40abc613d80828d55a40811c7a3ca491bc926"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/b6ad726d415aa787ac4deddc75e7ad7a1bcc84bd",
-                "reference": "b6ad726d415aa787ac4deddc75e7ad7a1bcc84bd",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6eb40abc613d80828d55a40811c7a3ca491bc926",
+                "reference": "6eb40abc613d80828d55a40811c7a3ca491bc926",
                 "shasum": ""
             },
             "require": {
@@ -996,15 +1002,15 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:15:53"
+            "time": "2015-01-25 04:37:39"
         },
         {
             "name": "typo3/eel",
-            "version": "2.3.1",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.Eel.git",
-                "reference": "d823e53f86d46aae35a9e85f590e11c399986afa"
+                "url": "https://git.typo3.org/Packages/TYPO3.Eel.git",
+                "reference": "1b6d9c7d4242984c9b73e94a5646e916bb58c34a"
             },
             "require": {
                 "typo3/flow": "2.3.*"
@@ -1020,15 +1026,15 @@
                 "LGPL-3.0+"
             ],
             "description": "The Embedded Expression Language (Eel) is a building block for creating Domain Specific Languages",
-            "time": "2014-12-10 23:22:30"
+            "time": "2014-12-24 11:20:39"
         },
         {
             "name": "typo3/flow",
-            "version": "2.3.1",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.Flow.git",
-                "reference": "c6f77fef8b8af9bf17db7f97f6ecd14ecf3331b9"
+                "url": "https://git.typo3.org/Packages/TYPO3.Flow.git",
+                "reference": "e6d42066b5aa8c03386ed0107b05c64fb8aeb1cb"
             },
             "require": {
                 "composer/installers": "~1.0.2",
@@ -1047,7 +1053,8 @@
                 "typo3/party": "2.3.*"
             },
             "suggest": {
-                "doctrine/data-fixtures": "To manage and execute the loading of data fixtures for the Doctrine ORM or ODM"
+                "doctrine/data-fixtures": "To manage and execute the loading of data fixtures for the Doctrine ORM or ODM",
+                "ext-curl": "To use the \\TYPO3\\Flow\\Http\\Client\\CurlEngine"
             },
             "type": "typo3-flow-framework",
             "autoload": {
@@ -1061,15 +1068,15 @@
             ],
             "description": "TYPO3 Flow Application Framework",
             "homepage": "http://flow.typo3.org",
-            "time": "2015-01-02 11:38:17"
+            "time": "2015-03-25 15:05:00"
         },
         {
             "name": "typo3/fluid",
-            "version": "2.3.1",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.Fluid.git",
-                "reference": "183b87b0b651fa6f24b462b57a057a92c10cde7e"
+                "url": "https://git.typo3.org/Packages/TYPO3.Fluid.git",
+                "reference": "1c515a99435c222a4a7f89f79fe6c380b3554acd"
             },
             "require": {
                 "typo3/flow": "2.3.*"
@@ -1085,7 +1092,7 @@
                 "LGPL-3.0+"
             ],
             "description": "Next-Generation Templating Framework for TYPO3 Flow and TYPO3 Neos, also backported to TYPO3 CMS",
-            "time": "2014-12-10 23:22:30"
+            "time": "2014-12-02 16:51:44"
         },
         {
             "name": "typo3/form",
@@ -1137,11 +1144,11 @@
         },
         {
             "name": "typo3/kickstart",
-            "version": "2.3.1",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.Kickstart.git",
-                "reference": "3f513e25faf578dcac5650e267702649d84e74ed"
+                "url": "https://git.typo3.org/Packages/TYPO3.Kickstart.git",
+                "reference": "9df0bd893d8a4e719f93ec17ac0ada2e904db5f6"
             },
             "require": {
                 "typo3/flow": "2.3.*"
@@ -1161,11 +1168,11 @@
         },
         {
             "name": "typo3/media",
-            "version": "1.2.1",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.Media.git",
-                "reference": "4d49f1da1918290820cb638dc545a53618c44f09"
+                "url": "https://git.typo3.org/Packages/TYPO3.Media.git",
+                "reference": "cb2846bdc8684062a29f920e24db5a74a0ba2619"
             },
             "require": {
                 "typo3/flow": "*",
@@ -1182,21 +1189,21 @@
                 "GPL-3.0+"
             ],
             "description": "The Media package",
-            "time": "2014-09-19 15:51:06"
+            "time": "2015-02-21 12:24:41"
         },
         {
             "name": "typo3/neos",
-            "version": "1.2.1",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.Neos.git",
-                "reference": "23675bbcaa504f3371dfa28d32756f3f16b7a5b6"
+                "url": "https://git.typo3.org/Packages/TYPO3.Neos.git",
+                "reference": "03d0ad4c9038120ec97c94941348123162d43964"
             },
             "require": {
-                "typo3/flow": "*",
+                "typo3/flow": "2.3.*",
                 "typo3/media": "1.2.*",
-                "typo3/setup": "*",
-                "typo3/twitter-bootstrap": "*",
+                "typo3/setup": "1.1.*",
+                "typo3/twitter-bootstrap": "1.0.*",
                 "typo3/typo3cr": "1.2.*",
                 "typo3/typoscript": "1.2.*"
             },
@@ -1219,15 +1226,15 @@
                 "GPL-3.0+"
             ],
             "description": "The next generation of the popular open-source CMS.",
-            "time": "2015-01-02 13:30:06"
+            "time": "2015-03-26 17:11:35"
         },
         {
             "name": "typo3/neos-kickstarter",
-            "version": "1.2.1",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.SiteKickstarter.git",
-                "reference": "885e537e0d9e2de00f5e8390a5b8ac2b58adbf6a"
+                "url": "https://git.typo3.org/Packages/TYPO3.SiteKickstarter.git",
+                "reference": "52bddb92b3ef6fe12a002e6fb0ff781e696ea948"
             },
             "require": {
                 "typo3/kickstart": "*",
@@ -1245,15 +1252,15 @@
                 "GPL-3.0+"
             ],
             "description": "A simple generator for Neos assets, like sites and plugins.",
-            "time": "2014-12-10 22:59:52"
+            "time": "2015-03-25 12:04:50"
         },
         {
             "name": "typo3/neos-nodetypes",
-            "version": "1.2.1",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.Neos.NodeTypes.git",
-                "reference": "2bccd33dde2ae216c63670dbc82a4747eb026a8e"
+                "url": "https://git.typo3.org/Packages/TYPO3.Neos.NodeTypes.git",
+                "reference": "5214499ac639f2cc3ef55936b4dace04d0c3bdea"
             },
             "require": {
                 "typo3/neos": "1.2.*"
@@ -1269,15 +1276,15 @@
                 "GPL-3.0+"
             ],
             "description": "Node type configuration for TYPO3 Neos",
-            "time": "2014-12-10 22:59:52"
+            "time": "2015-03-25 18:39:03"
         },
         {
             "name": "typo3/party",
-            "version": "2.3.1",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.Party.git",
-                "reference": "66232d6d582df1ee3ef005c921c8bcca00dcc5e5"
+                "url": "https://git.typo3.org/Packages/TYPO3.Party.git",
+                "reference": "6b359d0b9bd1c4e4d9fa9b9eace39504f7df88ee"
             },
             "require": {
                 "typo3/flow": "2.3.*"
@@ -1297,16 +1304,16 @@
         },
         {
             "name": "typo3/setup",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.Setup.git",
-                "reference": "13231c612cc9f94549a6dea3aa74d75c22e16590"
+                "url": "https://git.typo3.org/Packages/TYPO3.Setup.git",
+                "reference": "69ec8500a3861c05709a1539ad12f59643f808fb"
             },
             "require": {
-                "typo3/flow": "*",
-                "typo3/form": "*",
-                "typo3/twitter-bootstrap": "*"
+                "typo3/flow": "<3.0.0",
+                "typo3/form": "1.2.*",
+                "typo3/twitter-bootstrap": "1.0.*"
             },
             "type": "typo3-flow-package",
             "autoload": {
@@ -1319,7 +1326,7 @@
                 "LGPL-3.0+"
             ],
             "description": "An extensible setup tool for TYPO3 Flow based applications",
-            "time": "2014-10-19 15:24:59"
+            "time": "2015-03-05 09:09:07"
         },
         {
             "name": "typo3/twitter-bootstrap",
@@ -1347,11 +1354,11 @@
         },
         {
             "name": "typo3/typo3cr",
-            "version": "1.2.1",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.TYPO3CR.git",
-                "reference": "2db24e3cbfa3d0564ebaa89a1953080ba899e440"
+                "url": "https://git.typo3.org/Packages/TYPO3.TYPO3CR.git",
+                "reference": "be3348b565921db6f371be0c03aa99c1ad3861d1"
             },
             "require": {
                 "typo3/eel": "*",
@@ -1368,15 +1375,15 @@
                 "GPL-3.0+"
             ],
             "description": "Content repository based on TYPO3 Flow, specifically made for TYPO3 Neos.",
-            "time": "2014-12-18 11:11:18"
+            "time": "2015-03-14 20:01:05"
         },
         {
             "name": "typo3/typoscript",
-            "version": "1.2.1",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Packages/TYPO3.TypoScript.git",
-                "reference": "9097217dfedcbbf7c904f70674b30b74304c62a7"
+                "url": "https://git.typo3.org/Packages/TYPO3.TypoScript.git",
+                "reference": "628bb6586bd3d85b44a8b926681bcf9ff12c4dae"
             },
             "require": {
                 "typo3/eel": "*",
@@ -1393,7 +1400,7 @@
                 "GPL-3.0+"
             ],
             "description": "TypoScript is a hierarchical, prototype based processing language",
-            "time": "2014-09-12 14:41:10"
+            "time": "2015-03-24 15:09:15"
         }
     ],
     "packages-dev": [
@@ -1429,16 +1436,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.0.14",
+            "version": "2.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "ca158276c1200cc27f5409a5e338486bc0b4fc94"
+                "reference": "34cc484af1ca149188d0d9e91412191e398e0b67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ca158276c1200cc27f5409a5e338486bc0b4fc94",
-                "reference": "ca158276c1200cc27f5409a5e338486bc0b4fc94",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/34cc484af1ca149188d0d9e91412191e398e0b67",
+                "reference": "34cc484af1ca149188d0d9e91412191e398e0b67",
                 "shasum": ""
             },
             "require": {
@@ -1451,7 +1458,7 @@
             },
             "require-dev": {
                 "ext-xdebug": ">=2.1.4",
-                "phpunit/phpunit": "~4.1"
+                "phpunit/phpunit": "~4"
             },
             "suggest": {
                 "ext-dom": "*",
@@ -1470,9 +1477,6 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                ""
-            ],
             "license": [
                 "BSD-3-Clause"
             ],
@@ -1490,7 +1494,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-12-26 13:28:33"
+            "time": "2015-01-24 10:06:35"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1627,16 +1631,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "f8d5d08c56de5cfd592b3340424a81733259a876"
+                "reference": "db32c18eba00b121c145575fcbcd4d4d24e6db74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/f8d5d08c56de5cfd592b3340424a81733259a876",
-                "reference": "f8d5d08c56de5cfd592b3340424a81733259a876",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/db32c18eba00b121c145575fcbcd4d4d24e6db74",
+                "reference": "db32c18eba00b121c145575fcbcd4d4d24e6db74",
                 "shasum": ""
             },
             "require": {
@@ -1649,7 +1653,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.4-dev"
                 }
             },
             "autoload": {
@@ -1672,7 +1676,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2014-08-31 06:12:13"
+            "time": "2015-01-17 09:51:32"
         },
         {
             "name": "phpunit/phpunit",
@@ -2008,11 +2012,11 @@
         },
         {
             "name": "typo3/buildessentials",
-            "version": "2.3.1",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
-                "url": "git://git.typo3.org/Flow/BuildEssentials.git",
-                "reference": "995fb1fe7cef8d8d967ecbd100d18692d8ca77c4"
+                "url": "https://git.typo3.org/Flow/BuildEssentials.git",
+                "reference": "94b5a9dee2bf7adc6b87f519f7f7ed537bc38056"
             },
             "require": {
                 "composer/installers": "~1.0.2"
@@ -2026,7 +2030,7 @@
                 "LGPL-3.0+"
             ],
             "description": "TYPO3 Flow Build Toolchain Essentials",
-            "time": "2014-03-25 15:50:47"
+            "time": "2014-12-01 12:30:02"
         }
     ],
     "aliases": [],
