@@ -17,7 +17,7 @@
 				<label for="links.uri" class="control-label">URI</label>
 				<div class="autocomplete-field">
 					<f:form.hidden property="{propertyPrefix}asset" class="ajax-value asset" value="{object.product}" />
-					<f:form.textfield property="{propertyPrefix}uri" class="ajax form-control uri"  value="{f:if(condition:'{object.asset}', then: '{object.asset.label}', else: '{object.uri}')}" placeholder="type 'asset://' to find asset" readonly="{f:if(condition: '{object.asset}', then: 'readonly')}" additionalAttributes="{autcomplete: 'off', data-ajaxurl: '{f:uri.action(action:\'getAssetsAsJson\', controller:\'Asset\', package:\'TYPO3.IHS\')}'}" />
+					<f:form.textfield property="{propertyPrefix}uri" class="ajax form-control uri"  value="{f:if(condition:'{object.asset}', then: '{object.asset.label}', else: '{object.uri}')}" placeholder="type 'asset://' to find asset" readonly="{f:if(condition: '{object.asset}', then: 'readonly')}" additionalAttributes="{autcomplete: 'off', data-ajaxurl: '{f:uri.action(action:\'getAssetsAsJson\', controller:\'Asset\', package:\'TYPO3.IHS\')}', data-cache: 'uri'}" />
 					<i class="autocomplete-indicator glyphicon glyphicon-search"></i>
 				</div>
 				<div class="selected-asset">

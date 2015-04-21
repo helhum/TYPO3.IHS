@@ -212,8 +212,9 @@ function initAutocompletion() {
 			}
 		},
 		source: function(request, response) {
-			var propertyName = $(this.element).attr('id'),
+			var propertyName = $(this.element).data('cache'),
 				term = request.term;
+
 			if (typeof autocompletionCache[propertyName] === 'undefined') {
 				autocompletionCache[propertyName] = {};
 			}
@@ -230,7 +231,7 @@ function initAutocompletion() {
 		}
 	}).click(function() {
 		if ($(this).val()) {
-			var propertyName = $(this.element).attr('id');
+			var propertyName = $(this.element).data('cache');
 			$(this).autocomplete('search', autocompletionLastTerm[propertyName]);
 		}
 	});
@@ -302,7 +303,7 @@ function initIssue() {
 	});
 
 	$('input.uri').autocomplete('option', 'source', function(request, response) {
-		var propertyName = $(this.element).attr('id');
+		var propertyName = $(this.element).data('cache');
 
 		if (request.term.indexOf('asset://') == 0) {
 			var term = request.term.substring(8, request.term.length);

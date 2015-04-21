@@ -39,7 +39,7 @@
 				<div class="form-group">
 					<label for="vulnerabilityType" class="control-label">Vulnerability Type</label>
 					<div class="autocomplete-field">
-						<f:form.textfield property="{propertyPrefix}vulnerabilityType.value" class="ajax form-control vulnerabilityType" value="{object.vulnerabilityType.value}" placeholder="type to find vulnerability type" additionalAttributes="{autcomplete: 'off', data-ajaxurl: '{f:uri.action(action:\'getVulnerabilityTypesAsJSON\', controller:\'Issue\', package:\'TYPO3.IHS\')}'}" />
+						<f:form.textfield property="{propertyPrefix}vulnerabilityType.value" class="ajax form-control vulnerabilityType" value="{object.vulnerabilityType.value}" placeholder="type to find vulnerability type" additionalAttributes="{autcomplete: 'off', data-ajaxurl: '{f:uri.action(action:\'getVulnerabilityTypesAsJSON\', controller:\'Issue\', package:\'TYPO3.IHS\')}', data-cache: 'vulnerabilityType'}" />
 						<i class="autocomplete-indicator glyphicon glyphicon-search"></i>
 					</div>
 				</div>
@@ -58,7 +58,7 @@
 					<label for="product" class="control-label">Product</label>
 					<div class="autocomplete-field">
 						<f:form.hidden property="{propertyPrefix}product" class="ajax-value product-value" value="{object.product}" />
-						<input name="product_autocomplete" class="ajax form-control product" placeholder="type product to find" data-ajaxurl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" data-versionsurl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}" value="{object.product.label}" />
+						<input name="product_autocomplete" class="ajax form-control product" placeholder="type product to find" data-cache="product" data-ajaxurl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" data-versionsurl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}" value="{object.product.label}" />
 						<i class="autocomplete-indicator glyphicon glyphicon-search"></i>
 					</div>
 				</div>
