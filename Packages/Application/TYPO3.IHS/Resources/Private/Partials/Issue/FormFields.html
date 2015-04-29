@@ -96,7 +96,7 @@
 		</f:if>
 	</div>
 
-	<f:form.hidden property="{propertyPrefix}sortKey" id="links.sortKey" class="sort-key" />
+	<f:form.hidden property="{propertyPrefix}sortKey" class="sort-key" />
 
 	<fieldset>
 		<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link' legend: 'Links', collapsIdentifierPrefix: 'issue-{iterationIndex}-link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: object}}"/>
