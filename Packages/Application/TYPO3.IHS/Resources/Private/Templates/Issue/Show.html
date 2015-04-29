@@ -98,8 +98,14 @@
 						<div id="collapse-links-{iterator.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-links-{iterator.index}">
 							<div class="panel-body">
 								<p>
-									<f:then><a href="{f:uri.resource(resource: link.asset.resource)}">{link.title}</a></f:then>
-									<f:else><a href="{link.uri}">{link.title}</a></f:else>
+									<f:if condition="{link.asset.resource}">
+										<f:then>
+											<a href="{f:uri.resource(resource: link.asset.resource)}">{link.title}</a>
+										</f:then>
+										<f:else>
+											<a href="{link.uri}">{link.title}</a>
+										</f:else>
+									</f:if>
 								</p>
 								<p>
 									{link.description}
@@ -193,8 +199,10 @@
 											<div id="collapse-solution-{iteratorSolutions.index}-links-{iteratorSolutionLinks.index}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-solution-{iteratorSolutions.index}-links-{iteratorSolutionLinks.index}">
 												<div class="panel-body">
 													<p>
-														<f:then><a href="{f:uri.resource(resource: link.asset.resource)}">{link.title}</a></f:then>
-														<f:else><a href="{link.uri}">{link.title}</a></f:else>
+														<f:if condition="{link.asset.resource}">
+															<f:then><a href="{f:uri.resource(resource: link.asset.resource)}">{link.title}</a></f:then>
+															<f:else><a href="{link.uri}">{link.title}</a></f:else>
+														</f:if>
 													</p>
 													<p>
 														{link.description}
