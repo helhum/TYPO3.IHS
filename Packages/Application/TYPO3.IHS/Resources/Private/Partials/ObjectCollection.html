@@ -24,8 +24,8 @@
 			<div class="dynamic-fields">
 				<template class="field-template" data-collablseIdentifierPrefix="{collapsIdentifierPrefix}">
 					<div class="panel panel-default object additional-field new-object">
-						<div class="panel-heading" role="tab" id="heading-{collapsIdentifierPrefix}-__iteratorIndex__">
-							<h4 class="panel-title open-in-edit-panel">
+						<div class="panel-heading open-in-edit-panel" role="tab" id="heading-{collapsIdentifierPrefix}-__iteratorIndex__">
+							<h4 class="panel-title">
 								{objectName} #__iteratorIndex__
 							</h4>
 							<div class="object-actions show-on-hover">
@@ -57,8 +57,8 @@
 					<f:if condition="{objects}">
 						<f:for each="{objects}" as="object" iteration="iterator">
 							<div class="panel panel-default object">
-								<div class="panel-heading" role="tab" id="heading-{collapsIdentifierPrefix}-{iterator.index}">
-									<h4 class="panel-title open-in-edit-panel">
+								<div class="panel-heading open-in-edit-panel" role="tab" id="heading-{collapsIdentifierPrefix}-{iterator.index}">
+									<h4 class="panel-title">
 										<f:if condition="{object.title}">
 											<f:then>
 												{object.title}
@@ -68,7 +68,7 @@
 											</f:else>
 										</f:if>
 									</h4>
-									<div class="object-actions">
+									<div class="object-actions show-on-hover">
 										<div class="btn-group" role="group">
 											<button type="button" class="btn btn-default btn-sm sort-object" data-sort-direction="up"><i class="glyphicon glyphicon-chevron-up"></i></button>
 											<button type="button" class="btn btn-default btn-sm sort-object" data-sort-direction="down"><i class="glyphicon glyphicon-chevron-down"></i></button>

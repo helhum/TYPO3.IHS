@@ -187,20 +187,10 @@ input.f3-form-error {
 /*objectCollections*/
 
 .object {
-	margin-left: 20px;
 	border: none;
-	border-left: 1px solid #ddd;
 	box-shadow: none;
 	padding-top: 2px;
 	padding-bottom: 2px;
-}
-
-.object:first-child {
-	padding-top: 15px;
-}
-
-.object:last-child {
-	padding-bottom: 15px;
 }
 
 .object-collection legend {
@@ -210,7 +200,7 @@ input.f3-form-error {
 
 .collection-content {
 	padding: 0;
-	padding-left: 15px;
+	padding-left: 25px;
 	border: none !important;
 }
 
@@ -218,35 +208,36 @@ input.f3-form-error {
 	margin-top: 0;
 }
 
-.panel-heading {
+.object-collection .panel-heading {
 	position: relative;
 	padding-top: 3px;
 	padding-bottom: 3px;
-	border-top: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc !important;
-	/*margin-bottom: 15px;*/
+	border: none;
+	background: none;
+	cursor: pointer;
 }
 
-.panel-heading:hover .show-on-hover {
+.object-collection .panel-heading:hover .show-on-hover {
 	visibility: visible;
+}
+
+.object-collection .panel-heading:hover {
+	background-color: #F4F4F4;
+	color: #ff8700;
 }
 
 .panel-title {
 	display: inline-block;
 	width: auto;
 	max-width: 100%;
-	padding-right: 160px;
 	padding-top: 6px;
 
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-
-	cursor: pointer;
 }
 
-.panel-title:hover {
+.panel-heading.is-open > .panel-title {
 	color: #ff8700;
 }
 
@@ -261,12 +252,9 @@ input.f3-form-error {
 	border-color: transparent transparent transparent #ddd;
 }
 
-.panel-title:hover:after {
+.object-collection .panel-heading:hover .panel-title:after,
+.panel-heading.is-open > .panel-title:after {
 	border-color: transparent transparent transparent #ff8700;
-}
-
-.object.is-open .panel-title {
-	color: #ff8700;
 }
 
 .object-collection .form-fields {

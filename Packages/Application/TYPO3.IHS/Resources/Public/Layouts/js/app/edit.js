@@ -65,7 +65,9 @@ function initSorting() {
 
 	// sort object
 	$('.sort-object').off('click');
-	$('.sort-object').on('click', function() {
+	$('.sort-object').on('click', function(event) {
+		event.preventDefault();
+		event.stopPropagation();
 		direction = $(this).attr('data-sort-direction');
 		currentObject = $(this).closest('.panel');
 		var clonedObject = $(currentObject).clone();
@@ -589,7 +591,11 @@ function initEditPanel() {
 		var objectTitle = $(this).text();
 		var currentObject = $(this).closest('.object');
 
-		openEditPanel(objectTitle, currentObject);
+		if ($(this).hasClass('is-open')) {
+			closeEditPanel();
+		} else {
+			openEditPanel(objectTitle, currentObject);
+		}
 	});
 }
 
@@ -632,8 +638,8 @@ function openEditPanel(objectTitle, currentObject) {
 	$(currentObject).find('textarea').each(function() {
 		$('.edit-panel-content').find('*[name="' + $(this).attr('name') + '"]').val($(this).val());
 	});
-	$('.object').removeClass('is-open');
-	$(currentObject).addClass('is-open');
+	$('.panel-heading').removeClass('is-open');
+	$(currentObject).find('.panel-heading').first().addClass('is-open');
 	$('.edit-panel-headline').text(objectTitle);
 
 	syncEditPanelChanges($(currentObject).find('.form-fields'));
@@ -665,5 +671,5 @@ function closeEditPanel() {
 	$('body').removeClass('edit-panel-open');
 	$('.edit-panel-headline').html('');
 	$('.edit-panel-content').html('');
-	$('.object').removeClass('is-open');
+	$('.panel-heading').removeClass('is-open');
 }
