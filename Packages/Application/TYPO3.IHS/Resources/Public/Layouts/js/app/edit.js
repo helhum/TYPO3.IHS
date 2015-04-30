@@ -405,6 +405,7 @@ function initSolution() {
 					$(createdVersions).each(function(key, value) {
 						$(currentVersionsField).append('<option value="' + value.identifier + '">' + value.versionAsString + '</option>');
 						$(currentVersionsField).find('option[value="' + value.identifier + '"]').prop('selected', true);
+						$(currentVersionsField).trigger('focusout');
 
 						// add new version to list of created versions
 						$(currentSolution).find('div.created-versions ul').append('<li class="created-version" data-version-id="' + value.identifier + '">' + value.versionAsString + ' <button type="button" class="delete-created-version btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> delete</button></li>')
