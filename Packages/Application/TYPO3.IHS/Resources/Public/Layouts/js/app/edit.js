@@ -333,81 +333,6 @@ function initIssue() {
 		initLink();
 	});
 
-	// create new versions when adding solutions
-	var addNewVersionsElement = $('.add-new-versions');
-	addNewVersionsElement.off('click');
-	addNewVersionsElement.on('click', function() {
-		$('#new-versions-modal').children('.modal-body').html('loading...');
-		$.ajax({
-			type: 'GET',
-			url: $(this).data('ajaxurl'),
-			success: function(data) {
-				// TODO: may not work with multiple issue instances
-				$('#new-versions-modal').find('.modal-body').html(data);
-			}
-		});
-
-		currentIssue = $(this).parents('.issue');
-		currentSolution = $(this).parents('.solution');
-		currentVersionsField = $(currentSolution).find('select.fixedInVersions');
-	});
-
-	var createVersionsElement = $('.create-versions');
-	createVersionsElement.off('click');
-	createVersionsElement.on('click', function(event) {
-		event.preventDefault();
-		$(this).button('loading');
-		$('#version-modal').find('.modal-body .status-message').remove();
-
-		var versions = $('#product-new-versions').val().split('\n');
-		var versionsJSON = JSON.stringify(versions);
-		var productIdentifier = $(currentIssue).find('.product-value').val();
-
-		$.ajax({
-			type: 'GET',
-			url: $(this).attr('href'),
-			dataType: 'json',
-			data: {versions: versionsJSON, product: productIdentifier},
-			success: function(data) {
-				if (data.status = 'success') {
-					//todo add productversions to select fields
-					var createdVersions = data.createdVersions;
-					$(createdVersions).each(function(key, value) {
-						$(currentVersionsField).append('<option value="' + value.identifier + '">' + value.versionAsString + '</option>');
-						$(currentVersionsField).find('option[value="' + value.identifier + '"]').prop('selected', true);
-
-						// add new version to list of created versions
-						$(currentSolution).find('div.created-versions ul').append('<li class="created-version" data-version-id="' + value.identifier + '">' + value.versionAsString + ' <button type="button" class="delete-created-version btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> delete</button></li>')
-						$(currentSolution).find('div.created-versions-outer').show();
-
-						// add click action for new versions to delete them
-						$('div.created-versions li[data-version-id="' + value.identifier + '"] .delete-created-version').on('click', function() {
-							var button = $(this);
-							$.ajax({
-								type: "GET",
-								url: $('.created-versions').attr('data-delete-url'),
-								dataType: "json",
-								data: {'productVersion': value.identifier, 'product': productIdentifier},
-								success: function() {
-									$(button).closest('.created-version').remove();
-									$(currentVersionsField).find('option[value="' + value.identifier + '"]').remove();
-
-									if ($(currentSolution).find('.created-versions-outer ul li').length === 0) {
-										$(currentSolution).find('div.created-versions-outer').hide();
-									}
-								}
-							});
-						});
-					});
-					$('#product-new-versions').val('');
-					$('#new-versions-modal').find('.modal-body').append('<p class="status-message">' + data.message + '</p>');
-				}
-			},
-			complete: function() {
-				$('.create-versions').button('reset')
-			}
-		});
-	});
 
 	$('.affectedVersions').on('change', function(event) {
 		currentIssue = $(event.target).parents('.issue');
@@ -436,6 +361,83 @@ function initSolution() {
 			}
 		}
 	});
+
+	// create new versions when adding solutions
+	var addNewVersionsElement = $('.add-new-versions');
+	addNewVersionsElement.off('click');
+	addNewVersionsElement.on('click', function() {
+		$('#new-versions-modal').children('.modal-body').html('loading...');
+		$.ajax({
+			type: 'GET',
+			url: $(this).data('ajaxurl'),
+			success: function(data) {
+				// TODO: may not work with multiple issue instances
+				$('#new-versions-modal').find('.modal-body').html(data);
+			}
+		});
+
+		currentSolution = $(this).closest('.form-fields');
+		currentVersionsField = $(currentSolution).find('select.fixedInVersions');
+	});
+
+	var createVersionsElement = $('.create-versions');
+	createVersionsElement.off('click');
+	createVersionsElement.on('click', function(event) {
+		event.preventDefault();
+		$(this).button('loading');
+		$('#version-modal').find('.modal-body .status-message').remove();
+
+		var versions = $('#product-new-versions').val().split('\n');
+		var versionsJSON = JSON.stringify(versions);
+		var productIdentifier = $(currentSolution).find('.product-value').val();
+
+		$.ajax({
+			type: 'GET',
+			url: $(this).attr('href'),
+			dataType: 'json',
+			data: {versions: versionsJSON, product: productIdentifier},
+			success: function(data) {
+				if (data.status = 'success') {
+					//todo add productversions to select fields
+					var createdVersions = data.createdVersions;
+					$(createdVersions).each(function(key, value) {
+						$(currentVersionsField).append('<option value="' + value.identifier + '">' + value.versionAsString + '</option>');
+						$(currentVersionsField).find('option[value="' + value.identifier + '"]').prop('selected', true);
+
+						// add new version to list of created versions
+						$(currentSolution).find('div.created-versions ul').append('<li class="created-version" data-version-id="' + value.identifier + '">' + value.versionAsString + ' <button type="button" class="delete-created-version btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> delete</button></li>')
+						$(currentSolution).find('div.created-versions-outer').show();
+
+						// add click action for new versions to delete them
+						$('div.created-versions li[data-version-id="' + value.identifier + '"] .delete-created-version').on('click', function() {
+							var button = $(this);
+							$(button).button('loading');
+							$.ajax({
+								type: "GET",
+								url: $('.created-versions').attr('data-delete-url'),
+								dataType: "json",
+								data: {'productVersion': value.identifier, 'product': productIdentifier},
+								success: function() {
+									$(button).closest('.created-version').remove();
+									$(currentVersionsField).find('option[value="' + value.identifier + '"]').remove();
+
+									if ($(currentSolution).find('.created-versions-outer ul li').length === 0) {
+										$(currentSolution).find('div.created-versions-outer').hide();
+									}
+								}
+							});
+						});
+					});
+					$('#product-new-versions').val('');
+					$('#new-versions-modal').find('.modal-body').append('<div class="alert alert-success"><p class="status-message">' + data.message + '</p></div>');
+				}
+			},
+			complete: function() {
+				$('.create-versions').button('reset')
+			}
+		});
+	});
+
 }
 
 function initLink() {
@@ -638,6 +640,7 @@ function openEditPanel(objectTitle, currentObject) {
 	initAutocompletion();
 	initDatetimepicker();
 	initMarkdownEditor();
+	initSolution();
 
 	$('.close-edit-panel, .save-and-close-edit-panel').off('click');
 	$('.close-edit-panel, .save-and-close-edit-panel').on('click', function() {

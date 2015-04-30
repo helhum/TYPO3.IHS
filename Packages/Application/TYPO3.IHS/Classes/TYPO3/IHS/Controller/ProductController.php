@@ -174,7 +174,7 @@ class ProductController extends ActionController {
 			$this->persistenceManager->persistAll();
 
 			if ($i > 0) {
-				$response['message'] = 'Version(s) has been created.';
+				$response['message'] = 'Version(s) has been created and selected.';
 			} else {
 				$response['message'] = 'No new version has been created.';
 			}
