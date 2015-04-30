@@ -665,6 +665,33 @@ function openEditPanel(objectTitle, currentObject) {
 
 	// handle deletion of already persisted objects
 	handleSaveDeletionModal(currentObject);
+
+	$('.edit-panel').on('DOMMouseScroll mousewheel scrollstart', function(ev) {
+		var $this = $(this),
+			scrollTop = this.scrollTop,
+			scrollHeight = this.scrollHeight,
+			height = $this.outerHeight(),
+			delta = (ev.type == 'DOMMouseScroll' ?
+			ev.originalEvent.detail * -40 :
+				ev.originalEvent.wheelDelta),
+			up = delta > 0;
+
+		var prevent = function() {
+			ev.stopPropagation();
+			ev.preventDefault();
+			ev.returnValue = false;
+			return false;
+		};
+
+		if (up && scrollTop <= 0) {
+			return prevent();
+		}
+
+		if (!up && (scrollTop + height) >= scrollHeight) {
+			return prevent();
+		}
+
+	});
 }
 
 function closeEditPanel() {
