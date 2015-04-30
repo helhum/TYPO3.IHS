@@ -195,7 +195,6 @@ input.f3-form-error {
 
 .object-collection legend {
 	font-size: 16px;
-	font-weight: bold;
 }
 
 .collection-content {
@@ -298,7 +297,7 @@ input.f3-form-error {
 
 .fields-header .add-field {
 	display: inline-block;
-	margin-right: 10px;
+	margin-right: 5px;
 }
 
 
