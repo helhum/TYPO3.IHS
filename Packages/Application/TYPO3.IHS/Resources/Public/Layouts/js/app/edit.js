@@ -124,8 +124,8 @@ function handleSaveDeletionModal(currentObject) {
 		}
 
 		$(formFields).each(function(index, item) {
-			var label = $(item).find('label').text();
-			var value = $(item).find('input').val();
+			var label = $(item).find('label').first().text();
+			var value = $(item).find('input[type!="hidden"]').first().val();
 
 			if (typeof value === 'undefined') {
 				value = $(item).find('textarea').val();
