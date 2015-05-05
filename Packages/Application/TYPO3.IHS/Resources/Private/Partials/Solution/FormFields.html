@@ -40,7 +40,7 @@
 					<div class="form-group">
 						<label for="solution-fixedInVersions" class="control-label">Fixed in versions</label>
 						<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" class="form-control fixedInVersions" />
-						<f:form.hidden property="product" class="ajax-value product-value" value="{arguments.issue.product}" />
+						<f:form.hidden property="{propertyPrefix}product" class="ajax-value product-value" value="{arguments.issue.product}" />
 						<div class="col-sm-12">
 							<button class="btn btn-default add-new-versions" type="button" data-toggle="modal" data-ajaxurl="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#new-versions-modal"><i class="glyphicon glyphicon-plus"></i> Add new Version</button>
 							<div class="created-versions-outer">
