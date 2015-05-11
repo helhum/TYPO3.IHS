@@ -444,6 +444,7 @@ function initSolution() {
 }
 
 function initLink() {
+	$('div.selected-asset ul li button').off('click');
 	$('div.selected-asset ul li button').on('click', function(event, ui) {
 		var currentLink = $(event.target).parents('.link');
 		$(currentLink).find('.asset').val('');
@@ -648,6 +649,8 @@ function openEditPanel(objectTitle, currentObject) {
 	initDatetimepicker();
 	initMarkdownEditor();
 	initSolution();
+	initIssue();
+	initLink();
 
 	$('.close-edit-panel, .save-and-close-edit-panel').off('click');
 	$('.close-edit-panel, .save-and-close-edit-panel').on('click', function() {
@@ -667,32 +670,35 @@ function openEditPanel(objectTitle, currentObject) {
 	// handle deletion of already persisted objects
 	handleSaveDeletionModal(currentObject);
 
-	$('.edit-panel').on('DOMMouseScroll mousewheel scrollstart', function(ev) {
-		var $this = $(this),
-			scrollTop = this.scrollTop,
-			scrollHeight = this.scrollHeight,
-			height = $this.outerHeight(),
-			delta = (ev.type == 'DOMMouseScroll' ?
-			ev.originalEvent.detail * -40 :
-				ev.originalEvent.wheelDelta),
-			up = delta > 0;
-
-		var prevent = function() {
-			ev.stopPropagation();
-			ev.preventDefault();
-			ev.returnValue = false;
-			return false;
-		};
-
-		if (up && scrollTop <= 0) {
-			return prevent();
-		}
-
-		if (!up && (scrollTop + height) >= scrollHeight) {
-			return prevent();
-		}
-
-	});
+	// prevent scrolling on left panel while scrolling in the edit panel
+	//$('.edit-panel, .edit-panel textarea, .edit-panel select').on('DOMMouseScroll mousewheel scrollstart', function(ev) {
+	//	//console.log($(ev.target), $(ev.target).closest('.form-group').length);
+	//	var $this = $(this),
+	//		scrollTop = this.scrollTop,
+	//		scrollHeight = this.scrollHeight,
+	//		height = $this.outerHeight(),
+	//		delta = (ev.type == 'DOMMouseScroll' ?
+	//		ev.originalEvent.detail * -40 :
+	//			ev.originalEvent.wheelDelta),
+	//		up = delta > 0;
+	//
+	//	var prevent = function() {
+	//		//if ($(ev.target).closest('.form-group').length > 0)
+	//		//	return true;
+	//		ev.stopPropagation();
+	//		ev.preventDefault();
+	//		ev.returnValue = false;
+	//		return false;
+	//	};
+	//
+	//	if (up && scrollTop <= 0) {
+	//		return prevent();
+	//	}
+	//
+	//	if (!up && (scrollTop + height) >= scrollHeight) {
+	//		return prevent();
+	//	}
+	//});
 }
 
 function closeEditPanel() {
