@@ -101,6 +101,18 @@ body.edit-panel-open .edit-panel {
 	padding-bottom: 40px;
 }
 
+@media screen and (max-width: 1400px) {
+	body.edit-panel-open .edit-panel .col-lg-6 {
+		width: 100% !important;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	body.edit-panel-open .edit-panel .col-md-6 {
+		width: 100% !important;
+	}
+}
+
 .close-edit-panel {
 	display: none;
 	position: fixed;
