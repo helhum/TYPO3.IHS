@@ -8,6 +8,8 @@
 	<div class="form-fields issue">
 		<f:render section="DeleteIssue" arguments="{_all}" />
 
+		<f:form.hidden name="{propertyPrefix}identifier" class="current-issue" value="{object}" />
+
 		<div class="form-group">
 			<label for="title" class="control-label">Title</label>
 			<f:form.textfield property="{propertyPrefix}title" id="title" class="form-control" value="{object.title}" />

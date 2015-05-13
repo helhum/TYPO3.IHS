@@ -463,6 +463,7 @@ function getVersionsForProduct(identifier) {
 		var versions = $(currentIssue).find('.affected-versions').first();
 		var versionsSelect = $(versions).find('select.affectedVersions');
 		var selectedVersionsSelect = $(versions).find('.selected-affected-versions');
+		var issueIdentifier = $(currentIssue).find('input.current-issue').first().val();
 		$(versionsSelect).html(''); // clear version list from prev request
 		$(versions).slideDown(); // show versions selector
 
@@ -477,27 +478,41 @@ function getVersionsForProduct(identifier) {
 				$($(versionsSelect).children('option[value="' + value + '"]')[0]).prop('selected', true);
 			});
 		}
-		$(currentIssue).find('.solution').each(function(indexInArray, value) {
-			var solution = $(value),
-				fixedInVersions = $(solution.find('.fixedInVersions'));
 
-			fixedInVersions.html('');
-			$(data).each(function(key, data) {
-				fixedInVersions.append('<option value="' + data.id + '">' + data.value + '</option>');
-			});
+		// update versions for affected solutions
+		$('.fixed-in-versions').each(function() {
+			if ($(this).find('input.current-issue').val() == issueIdentifier) {
+				var solution = $(this);
+				var fixedInVersions = $(solution.find('.fixedInVersions'));
+
+				fixedInVersions.html('');
+				$(data).each(function(key, data) {
+					fixedInVersions.append('<option value="' + data.id + '">' + data.value + '</option>');
+				});
+			}
 		});
 	});
 }
 
 function updateFixedInVersions() {
-	var issue = $(currentIssue),
-		affectedVersions = $(issue.find('.affectedVersions option:selected'));
-	issue.find('.solution .fixedInVersions option').css('display', 'block');
+	var issue = $(currentIssue);
+	var affectedVersions = $(issue).find('.affectedVersions option:selected');
+	var issueIdentifier = $(issue).find('input.current-issue').first().val();
+
+	$('.fixed-in-versions').each(function() {
+		if ($(this).find('input.current-issue').val() == issueIdentifier) {
+			$(this).find('.fixedInVersions option').css('display', 'block');
+		}
+	});
 
 	affectedVersions.each(function(indexInArray, value) {
-		var version = issue.find('.solution .fixedInVersions option[value="' + $(value).val() + '"]');
-		version.removeAttr('selected');
-		version.css('display', 'none');
+		$('.fixed-in-versions').each(function() {
+			if ($(this).find('input.current-issue').val() == issueIdentifier) {
+				var version = $(this).find('.fixedInVersions option[value="' + $(value).val() + '"]');
+				version.removeAttr('selected');
+				version.css('display', 'none');
+			}
+		});
 	});
 }
 
@@ -669,36 +684,6 @@ function openEditPanel(objectTitle, currentObject) {
 
 	// handle deletion of already persisted objects
 	handleSaveDeletionModal(currentObject);
-
-	// prevent scrolling on left panel while scrolling in the edit panel
-	//$('.edit-panel, .edit-panel textarea, .edit-panel select').on('DOMMouseScroll mousewheel scrollstart', function(ev) {
-	//	//console.log($(ev.target), $(ev.target).closest('.form-group').length);
-	//	var $this = $(this),
-	//		scrollTop = this.scrollTop,
-	//		scrollHeight = this.scrollHeight,
-	//		height = $this.outerHeight(),
-	//		delta = (ev.type == 'DOMMouseScroll' ?
-	//		ev.originalEvent.detail * -40 :
-	//			ev.originalEvent.wheelDelta),
-	//		up = delta > 0;
-	//
-	//	var prevent = function() {
-	//		//if ($(ev.target).closest('.form-group').length > 0)
-	//		//	return true;
-	//		ev.stopPropagation();
-	//		ev.preventDefault();
-	//		ev.returnValue = false;
-	//		return false;
-	//	};
-	//
-	//	if (up && scrollTop <= 0) {
-	//		return prevent();
-	//	}
-	//
-	//	if (!up && (scrollTop + height) >= scrollHeight) {
-	//		return prevent();
-	//	}
-	//});
 }
 
 function closeEditPanel() {
