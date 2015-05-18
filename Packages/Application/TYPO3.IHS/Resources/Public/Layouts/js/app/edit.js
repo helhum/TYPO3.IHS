@@ -335,7 +335,7 @@ function initIssue() {
 		initLink();
 	});
 
-
+	$('.affectedVersions').off('change');
 	$('.affectedVersions').on('change', function(event) {
 		currentIssue = $(event.target).parents('.issue');
 		updateFixedInVersions();
@@ -348,11 +348,20 @@ function initIssue() {
 }
 
 function initSolution() {
-	$('.fixedInVersions').each(function(indexInArray, value) {
-		var fixedInVersions = $(value);
-		if (fixedInVersions.children('option').length == 1 && fixedInVersions.children('option').val() == "") {
-			var issue = $(fixedInVersions).parents('.issue'),
-				affectedVersions = $(issue).find('.affectedVersions');
+	// update fixedInVersions list if none is set
+	$('.fixed-in-versions').each(function(indexInArray, value) {
+		var fixedInVersions = $(value).find('.fixedInVersions');
+		var issueIdentifier = $(value).find('input.current-issue').val();
+		var amountOfFixedInVersions = fixedInVersions.children('option').length;
+		if (amountOfFixedInVersions == 1 && fixedInVersions.children('option').val() == "" || amountOfFixedInVersions == 0) {
+			var issue = "";
+			// find the matching issue
+			$('input.issue.current-issue').each(function() {
+				if ($(this).val() == issueIdentifier) {
+					issue = $(this).closest('.form-fields')
+				}
+			});
+			var affectedVersions = $(issue).find('.affectedVersions');
 
 			if ($(affectedVersions).children('option').length > 1 || $(affectedVersions).children('option').val() != "") {
 				fixedInVersions.html('');
@@ -494,17 +503,21 @@ function getVersionsForProduct(identifier) {
 	});
 }
 
+// updates the fixed in versions for every solution
+// depending on the current selected affected versions
 function updateFixedInVersions() {
 	var issue = $(currentIssue);
 	var affectedVersions = $(issue).find('.affectedVersions option:selected');
 	var issueIdentifier = $(issue).find('input.current-issue').first().val();
 
+	// reset by showing all possible versions
 	$('.fixed-in-versions').each(function() {
 		if ($(this).find('input.current-issue').val() == issueIdentifier) {
 			$(this).find('.fixedInVersions option').css('display', 'block');
 		}
 	});
 
+	// hide affected versions in the solutions
 	affectedVersions.each(function(indexInArray, value) {
 		$('.fixed-in-versions').each(function() {
 			if ($(this).find('input.current-issue').val() == issueIdentifier) {
@@ -539,7 +552,6 @@ function updateFixedInVersions() {
 		}
 
 		this.$button.on('click', function(event) {
-
 			event.preventDefault();
 
 			self.setIterationIndex();
@@ -563,7 +575,13 @@ function updateFixedInVersions() {
 				title.text(newTitle);
 			}
 
-			//copy fields to edit-panel
+			// solution - clear list of fixed in versions
+			// list is added in initSolution()
+			$(self.$fields).find('.new-object .fixed-in-versions').each(function() {
+				$(this).find('.fixedInVersions').html("");
+			});
+
+			// copy fields to edit-panel
 			openEditPanel(newTitle, $(self.$fields).find('.new-object'));
 
 			$(self.$fields).find('.new-object').removeClass('new-object');
