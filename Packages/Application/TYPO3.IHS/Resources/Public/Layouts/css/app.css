@@ -62,11 +62,6 @@ a.btn-primary, a.btn-danger, a.btn-success {
 }
 
 /*layout*/
-.body-bg {
-	margin-bottom: 0;
-	overflow: visible;
-}
-
 div#content {
 	margin-bottom: 70px;
 }

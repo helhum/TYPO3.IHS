@@ -1,3 +1,8 @@
 ul.nav li.dropdown:hover > ul.dropdown-menu {
 	display: block;
 }
+
+.body-bg {
+	margin-bottom: 0;
+	overflow: visible;
+}
