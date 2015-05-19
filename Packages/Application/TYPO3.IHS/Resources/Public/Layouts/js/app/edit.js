@@ -469,22 +469,26 @@ function getVersionsForProduct(identifier) {
 		data: {"identifier": identifier},
 		dataType: 'json'
 	}).success(function(data) {
-		var versions = $(currentIssue).find('.affected-versions').first();
-		var versionsSelect = $(versions).find('select.affectedVersions');
-		var selectedVersionsSelect = $(versions).find('.selected-affected-versions');
+		var affectedVersionsContainer = $(currentIssue).find('.affected-versions').first();
+		var affectedVersionsSelect = $(affectedVersionsContainer).find('select.affectedVersions');
+		var selectedAffectedVersions = $(affectedVersionsContainer).find('.selected-affected-versions');
 		var issueIdentifier = $(currentIssue).find('input.current-issue').first().val();
-		$(versionsSelect).html(''); // clear version list from prev request
-		$(versions).slideDown(); // show versions selector
+		$(affectedVersionsSelect).html(''); // clear version list from prev request
+		$(affectedVersionsContainer).slideDown(); // show versions selector
 
 		// append versions from ajax request to the selector
 		$(data).each(function(key, data) {
-			$(versionsSelect).append('<option value="' + data.id + '">' + data.value + '</option>');
+			$(affectedVersionsSelect).append('<option value="' + data.id + '">' + data.value + '</option>');
 		});
+
+		// trigger focusout of the affected versions to trigger syncing in the edit-panel
+		$(affectedVersionsSelect).trigger('focusout');
+
 		// select options
-		if ($(selectedVersionsSelect).html().trim() != '') {
+		if ($(selectedAffectedVersions).html().trim() != '') {
 			var selectedVersions = JSON.parse($('.selected-affected-versions').html());
 			$(selectedVersions).each(function(key, value) {
-				$($(versionsSelect).children('option[value="' + value + '"]')[0]).prop('selected', true);
+				$($(affectedVersionsSelect).children('option[value="' + value + '"]')[0]).prop('selected', true);
 			});
 		}
 
