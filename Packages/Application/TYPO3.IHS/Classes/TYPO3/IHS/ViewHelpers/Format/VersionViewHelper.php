@@ -77,10 +77,14 @@ class VersionViewHelper extends AbstractViewHelper {
 					}
 					$groupVersions = false;
 				}
-			} else {
-				if ($results[count($results) - 1] != $versions[$i]) {
+			} elseif (isset($results[count($results) - 1])) {
+				if (is_array($results[count($results) - 1]) && $results[count($results) - 1][1] != $versions[$i]
+					|| !is_array($results[count($results) - 1]) && $results[count($results) - 1] != $versions[$i])
+				{
 					$results[] = $versions[$i];
 				}
+			} else {
+				$results[] = $versions[$i];
 			}
 		}
 
