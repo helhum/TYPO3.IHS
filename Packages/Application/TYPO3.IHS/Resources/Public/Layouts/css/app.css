@@ -61,6 +61,10 @@ a.btn-primary, a.btn-danger, a.btn-success {
 	visibility: hidden;
 }
 
+.ui-menu .ui-menu-item.ui-state-focus {
+	font-weight: normal !important;
+}
+
 /*layout*/
 div#content {
 	margin-bottom: 70px;
