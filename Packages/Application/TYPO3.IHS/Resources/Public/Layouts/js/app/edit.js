@@ -639,34 +639,19 @@ function initEditPanel() {
 }
 
 function syncEditPanelChanges(currentFields) {
-	// sync input changes
 	$('.edit-panel-content input, .edit-panel-content textarea').each(function() {
-		$(this).on('change paste focusout', function() {
-			writeValue($(this))
-		});
+		$(currentFields).find('*[name="' + $(this).attr('name') + '"]').val($(this).val());
 	});
 
 	$('.edit-panel-content select').each(function() {
-		$(this).val($(currentFields).find('select[name="' + $(this).attr('name') + '"]').val());
-
-		$(this).on('change paste focusout', function() {
-			writeValueForSelect($(this))
-		});
+		$(currentFields).find('select[name="' + $(this).attr('name') + '"]').html($(this).html());
+		$(currentFields).find('select[name="' + $(this).attr('name') + '"]').val($(this).val());
 	});
 
-	//find original input field and sync changes
-	function writeValue() {
-		$('.edit-panel-content input, .edit-panel-content textarea').each(function() {
-			$(currentFields).find('*[name="' + $(this).attr('name') + '"]').val($(this).val());
-		});
-	}
-
-	function writeValueForSelect() {
-		$('.edit-panel-content select').each(function() {
-			$(currentFields).find('select[name="' + $(this).attr('name') + '"]').html($(this).html());
-			$(currentFields).find('select[name="' + $(this).attr('name') + '"]').val($(this).val());
-		});
-	}
+	// sync the title field to the displayed title in the left panel
+	$('input[data-sync-form-field="title"]').each(function() {
+		$(currentFields).find('*[data-sync-form-field="title"]').first().text($(this).val());
+	});
 }
 
 function openEditPanel(objectTitle, currentObject) {
@@ -677,11 +662,13 @@ function openEditPanel(objectTitle, currentObject) {
 	$(currentObject).find('textarea').each(function() {
 		$('.edit-panel-content').find('*[name="' + $(this).attr('name') + '"]').val($(this).val());
 	});
+	$(currentObject).find('select').each(function() {
+		$('.edit-panel-content').find('select[name="' + $(this).attr('name') + '"]').val($(this).val());
+	});
 	$('.panel-heading').removeClass('is-open');
 	$(currentObject).find('.panel-heading').first().addClass('is-open');
 	$('.edit-panel-headline').text(objectTitle);
 
-	syncEditPanelChanges($(currentObject).find('.form-fields'));
 	initAutocompletion();
 	initDatetimepicker();
 	initMarkdownEditor();
@@ -691,6 +678,7 @@ function openEditPanel(objectTitle, currentObject) {
 
 	$('.close-edit-panel, .save-and-close-edit-panel').off('click');
 	$('.close-edit-panel, .save-and-close-edit-panel').on('click', function() {
+		syncEditPanelChanges($(currentObject));
 		closeEditPanel();
 	});
 

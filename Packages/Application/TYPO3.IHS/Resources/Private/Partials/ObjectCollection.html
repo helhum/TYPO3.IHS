@@ -61,7 +61,7 @@
 									<h4 class="panel-title">
 										<f:if condition="{object.title}">
 											<f:then>
-												{object.title}
+												<span data-sync-form-field="title">{object.title}</span>
 											</f:then>
 											<f:else>
 												{objectName} #{iterator.index}
