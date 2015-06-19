@@ -140,7 +140,7 @@ class IssueController extends ActionController {
 	public function createAction(Issue $newIssue) {
 		$this->issueRepository->add($newIssue);
 		$this->addFlashMessage('Created a new issue.');
-		$this->redirect('show', 'issue', NULL, array('issue' => $newIssue));
+		$this->redirect('edit', 'issue', NULL, array('issue' => $newIssue));
 	}
 
 	/**
