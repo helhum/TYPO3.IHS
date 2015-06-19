@@ -676,9 +676,14 @@ function openEditPanel(objectTitle, currentObject) {
 	initIssue();
 	initLink();
 
-	$('.close-edit-panel, .save-and-close-edit-panel').off('click');
-	$('.close-edit-panel, .save-and-close-edit-panel').on('click', function() {
+	$('.save-and-close-edit-panel').off('click');
+	$('.save-and-close-edit-panel').on('click', function() {
 		syncEditPanelChanges($(currentObject));
+		closeEditPanel();
+	});
+
+	$('.close-edit-panel').off('click');
+	$('.close-edit-panel').on('click', function() {
 		closeEditPanel();
 	});
 

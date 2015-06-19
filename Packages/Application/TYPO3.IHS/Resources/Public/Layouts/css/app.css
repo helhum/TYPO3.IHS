@@ -117,18 +117,16 @@ body.edit-panel-open .edit-panel {
 	}
 }
 
-.close-edit-panel {
+.edit-panel-arrow {
 	display: none;
 	position: fixed;
 	top: 0;
 	margin-left: -40px;
 	height: 100%;
 	width: 20px;
-
-	cursor: pointer;
 }
 
-.close-edit-panel:after {
+.edit-panel-arrow:after {
 	position: absolute;
 	content: " ";
 	top: 50%;
@@ -137,11 +135,7 @@ body.edit-panel-open .edit-panel {
 	border-color: transparent transparent transparent #A9A9A9;
 }
 
-.close-edit-panel:hover:after {
-	border-color: transparent transparent transparent #ff8700;
-}
-
-body.edit-panel-open .close-edit-panel {
+body.edit-panel-open .edit-panel-arrow {
 	display: block;
 }
 

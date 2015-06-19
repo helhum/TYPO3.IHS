@@ -41,8 +41,12 @@
 								<div class="form-fields-footer">
 									<hr />
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-md-4">
 											<button type="button" class="btn btn-danger toggle-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+
+										</div>
+										<div class="col-md-8 text-right">
+											<button class="btn btn-default close-edit-panel"><i class="glyphicon glyphicon-remove"></i>Close</button>
 											<button class="btn btn-primary save-and-close-edit-panel">Save and Close</button>
 										</div>
 									</div>
@@ -88,7 +92,7 @@
 										<div class="form-fields-footer">
 											<hr />
 											<div class="row">
-												<div class="col-md-12">
+												<div class="col-md-4">
 													<f:if condition="{isIssue}">
 														<f:then>
 															<button type="button" class="btn btn-danger toggle-save-delete-action" data-delete-mode="disconnect"><i class="glyphicon glyphicon-minus"></i> Disconnect</button>
@@ -97,6 +101,9 @@
 															<button type="button" class="btn btn-danger toggle-save-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete</button>
 														</f:else>
 													</f:if>
+												</div>
+												<div class="col-md-8 text-right">
+													<button class="btn btn-default close-edit-panel"><i class="glyphicon glyphicon-remove"></i>Close</button>
 													<button class="btn btn-primary save-and-close-edit-panel">Save and Close</button>
 												</div>
 											</div>
