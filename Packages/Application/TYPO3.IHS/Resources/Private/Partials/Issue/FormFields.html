@@ -34,7 +34,7 @@
 			<div class="col-md-6 col-sm-12">
 				<div class="form-group">
 					<label for="severity" class="control-label">Severity</label>
-					<f:form.textfield property="{propertyPrefix}severity" id="severity" class="form-control" value="{object.severity}" />
+					<f:form.select property="{propertyPrefix}severity" class="form-control" id="severity" options="{low: 'Low', medium: 'Medium', high: 'High', critical: 'Critical'}" value="{object.severity}"/>
 				</div>
 			</div>
 			<div class="col-md-6 col-sm-12">
