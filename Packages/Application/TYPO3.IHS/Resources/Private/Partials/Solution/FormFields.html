@@ -8,8 +8,6 @@
 		<div class="form-fields">
 			<f:render section="DeleteSolution" arguments="{_all}" />
 
-			<f:form.hidden property="{propertyPrefix}issue" value="{arguments.issue}" />
-
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group">
@@ -41,7 +39,7 @@
 						<label for="solution-fixedInVersions" class="control-label">Fixed in versions</label>
 						<f:form.select property="{propertyPrefix}fixedInVersions" id="solution-fixedInVersions" options="{arguments.issue.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.fixedInVersions}" class="form-control fixedInVersions" />
 						<f:form.hidden name="{propertyPrefix}product" class="ajax-value product-value" value="{arguments.issue.product}" />
-						<f:form.hidden name="{propertyPrefix}issue" class="current-issue" value="{arguments.issue}" />
+						<f:form.hidden name="{propertyPrefix}issue" class="parent-issue" value="{arguments.issue}" />
 						<div class="col-sm-12">
 							<button class="btn btn-default add-new-versions" type="button" data-toggle="modal" data-ajaxurl="{f:uri.action(action:'newVersion', controller:'Product', package:'TYPO3.IHS')}" data-target="#new-versions-modal"><i class="glyphicon glyphicon-plus"></i> Add new Version</button>
 							<div class="created-versions-outer">

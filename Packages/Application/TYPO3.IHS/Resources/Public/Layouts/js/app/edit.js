@@ -298,10 +298,6 @@ function initIssue() {
 	$('input.product').on('autocompleteselect', function(event, ui) {
 		currentIssue = $(event.target).parents('.issue');
 		getVersionsForProduct(ui.item.id);
-	}).on('keyup', function() {
-		if ($(this).val() == '') {
-			$('#affected-versions').slideUp();
-		}
 	});
 
 	$('input.uri').autocomplete('option', 'source', function(request, response) {
@@ -349,14 +345,14 @@ function initIssue() {
 
 function initSolution() {
 	// update fixedInVersions list if none is set
-	$('.fixed-in-versions').each(function(indexInArray, value) {
-		var fixedInVersions = $(value).find('.fixedInVersions');
-		var issueIdentifier = $(value).find('input.current-issue').val();
+	$('.fixed-in-versions').each(function(indexInArray, fixedInVersionsSelectField) {
+		var fixedInVersions = $(fixedInVersionsSelectField).find('.fixedInVersions');
+		var issueIdentifier = $(fixedInVersionsSelectField).find('input.parent-issue').val();
 		var amountOfFixedInVersions = fixedInVersions.children('option').length;
 		if (amountOfFixedInVersions == 1 && fixedInVersions.children('option').val() == "" || amountOfFixedInVersions == 0) {
 			var issue = "";
 			// find the matching issue
-			$('input.issue.current-issue').each(function() {
+			$('input.current-issue').each(function() {
 				if ($(this).val() == issueIdentifier) {
 					issue = $(this).closest('.form-fields')
 				}
@@ -374,9 +370,9 @@ function initSolution() {
 	});
 
 	// create new versions when adding solutions
-	var addNewVersionsElement = $('.add-new-versions');
-	addNewVersionsElement.off('click');
-	addNewVersionsElement.on('click', function() {
+	var addNewVersionsButton = $('.add-new-versions');
+	addNewVersionsButton.off('click');
+	addNewVersionsButton.on('click', function() {
 		$('#new-versions-modal').children('.modal-body').html('loading...');
 		$.ajax({
 			type: 'GET',
@@ -391,9 +387,9 @@ function initSolution() {
 		currentVersionsField = $(currentSolution).find('select.fixedInVersions');
 	});
 
-	var createVersionsElement = $('.create-versions');
-	createVersionsElement.off('click');
-	createVersionsElement.on('click', function(event) {
+	var createVersionsButton = $('.create-versions');
+	createVersionsButton.off('click');
+	createVersionsButton.on('click', function(event) {
 		event.preventDefault();
 		$(this).button('loading');
 		$('#version-modal').find('.modal-body .status-message').remove();
@@ -409,12 +405,13 @@ function initSolution() {
 			data: {versions: versionsJSON, product: productIdentifier},
 			success: function(data) {
 				if (data.status = 'success') {
-					//todo add productversions to select fields
 					var createdVersions = data.createdVersions;
 					$(createdVersions).each(function(key, value) {
+						// add and select new version in the current solution
+						$(currentIssue).find('select.affectedVersions').append('<option value="' + value.identifier + '">' + value.versionAsString + '</option>');
+						$(currentIssue).closest('.issue-outer').find('select.fixedInVersions').append('<option value="' + value.identifier + '">' + value.versionAsString + '</option>');
 						$(currentVersionsField).append('<option value="' + value.identifier + '">' + value.versionAsString + '</option>');
 						$(currentVersionsField).find('option[value="' + value.identifier + '"]').prop('selected', true);
-						$(currentVersionsField).trigger('focusout');
 
 						// add new version to list of created versions
 						$(currentSolution).find('div.created-versions ul').append('<li class="created-version" data-version-id="' + value.identifier + '">' + value.versionAsString + ' <button type="button" class="delete-created-version btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> delete</button></li>')
@@ -432,6 +429,8 @@ function initSolution() {
 								success: function() {
 									$(button).closest('.created-version').remove();
 									$(currentVersionsField).find('option[value="' + value.identifier + '"]').remove();
+									$(currentIssue).find('select.affectedVersions').find('option[value="' + value.identifier + '"]').remove();
+									$(currentIssue).closest('.issue-outer').find('select.fixedInVersions').find('option[value="' + value.identifier + '"]').remove();
 
 									if ($(currentSolution).find('.created-versions-outer ul li').length === 0) {
 										$(currentSolution).find('div.created-versions-outer').hide();
@@ -494,7 +493,7 @@ function getVersionsForProduct(identifier) {
 
 		// update versions for affected solutions
 		$('.fixed-in-versions').each(function() {
-			if ($(this).find('input.current-issue').val() == issueIdentifier) {
+			if ($(this).find('input.parent-issue').val() == issueIdentifier) {
 				var solution = $(this);
 				var fixedInVersions = $(solution.find('.fixedInVersions'));
 
@@ -516,7 +515,7 @@ function updateFixedInVersions() {
 
 	// reset by showing all possible versions
 	$('.fixed-in-versions').each(function() {
-		if ($(this).find('input.current-issue').val() == issueIdentifier) {
+		if ($(this).find('input.parent-issue').val() == issueIdentifier) {
 			$(this).find('.fixedInVersions option').css('display', 'block');
 		}
 	});
@@ -524,7 +523,7 @@ function updateFixedInVersions() {
 	// hide affected versions in the solutions
 	affectedVersions.each(function(indexInArray, value) {
 		$('.fixed-in-versions').each(function() {
-			if ($(this).find('input.current-issue').val() == issueIdentifier) {
+			if ($(this).find('input.parent-issue').val() == issueIdentifier) {
 				var version = $(this).find('.fixedInVersions option[value="' + $(value).val() + '"]');
 				version.removeAttr('selected');
 				version.css('display', 'none');

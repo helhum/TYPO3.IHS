@@ -5,116 +5,118 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<div class="form-fields issue">
-		<f:render section="DeleteIssue" arguments="{_all}" />
+	<div class="issue-outer">
+		<div class="form-fields issue">
+			<f:render section="DeleteIssue" arguments="{_all}" />
 
-		<f:form.hidden name="{propertyPrefix}identifier" class="current-issue issue" value="{object}" />
+			<f:form.hidden name="{propertyPrefix}identifier" class="current-issue" value="{object}" />
 
-		<div class="form-group">
-			<label for="title" class="control-label">Title</label>
-			<f:form.textfield property="{propertyPrefix}title" additionalAttributes="{data-sync-form-field: 'title'}" id="title" class="form-control" value="{object.title}" />
-		</div>
-
-		<div class="row">
-			<div class="col-lg-6 col-md-12">
-				<div class="form-group">
-					<label for="abstract" class="control-label">Abstract</label>
-					<f:form.textarea property="{propertyPrefix}abstract" class="markdown" id="abstract" value="{object.abstract}" />
-				</div>
+			<div class="form-group">
+				<label for="title" class="control-label">Title</label>
+				<f:form.textfield property="{propertyPrefix}title" additionalAttributes="{data-sync-form-field: 'title'}" id="title" class="form-control" value="{object.title}" />
 			</div>
-			<div class="col-lg-6 col-md-12">
-				<div class="form-group">
-					<label for="description" class="control-label">Description</label>
-					<f:form.textarea property="{propertyPrefix}description" class="markdown" id="description" value="{object.description}" />
-				</div>
-			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-md-6 col-sm-12">
-				<div class="form-group">
-					<label for="severity" class="control-label">Severity</label>
-					<f:form.select property="{propertyPrefix}severity" class="form-control" id="severity" options="{low: 'Low', medium: 'Medium', high: 'High', critical: 'Critical'}" value="{object.severity}"/>
+			<div class="row">
+				<div class="col-lg-6 col-md-12">
+					<div class="form-group">
+						<label for="abstract" class="control-label">Abstract</label>
+						<f:form.textarea property="{propertyPrefix}abstract" class="markdown" id="abstract" value="{object.abstract}" />
+					</div>
 				</div>
-			</div>
-			<div class="col-md-6 col-sm-12">
-				<div class="form-group">
-					<label for="vulnerabilityType" class="control-label">Vulnerability Type</label>
-					<div class="autocomplete-field">
-						<f:form.textfield property="{propertyPrefix}vulnerabilityType.value" class="ajax form-control vulnerabilityType" value="{object.vulnerabilityType.value}" placeholder="type to find vulnerability type" additionalAttributes="{autcomplete: 'off', data-ajaxurl: '{f:uri.action(action:\'getVulnerabilityTypesAsJSON\', controller:\'Issue\', package:\'TYPO3.IHS\')}', data-cache: 'vulnerabilityType'}" />
-						<i class="autocomplete-indicator glyphicon glyphicon-search"></i>
+				<div class="col-lg-6 col-md-12">
+					<div class="form-group">
+						<label for="description" class="control-label">Description</label>
+						<f:form.textarea property="{propertyPrefix}description" class="markdown" id="description" value="{object.description}" />
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-md-6 col-sm-12">
-				<div class="form-group">
-					<label for="reporter" class="control-label">Reporter</label>
-					<f:form.textfield property="{propertyPrefix}reporter" id="reporter" value="{object.reporter}" class="form-control" />
+			<div class="row">
+				<div class="col-md-6 col-sm-12">
+					<div class="form-group">
+						<label for="severity" class="control-label">Severity</label>
+						<f:form.select property="{propertyPrefix}severity" class="form-control" id="severity" options="{low: 'Low', medium: 'Medium', high: 'High', critical: 'Critical'}" value="{object.severity}"/>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-6 col-sm-12">
-				<div class="form-group">
-					<label for="product" class="control-label">Product</label>
-					<div class="autocomplete-field">
-						<f:form.hidden property="{propertyPrefix}product" class="ajax-value product-value" value="{object.product}" />
-						<input name="product_autocomplete" class="ajax form-control product" placeholder="type product to find" data-cache="product" data-ajaxurl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" data-versionsurl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}" value="{object.product.label}" />
-						<i class="autocomplete-indicator glyphicon glyphicon-search"></i>
+				<div class="col-md-6 col-sm-12">
+					<div class="form-group">
+						<label for="vulnerabilityType" class="control-label">Vulnerability Type</label>
+						<div class="autocomplete-field">
+							<f:form.textfield property="{propertyPrefix}vulnerabilityType.value" class="ajax form-control vulnerabilityType" value="{object.vulnerabilityType.value}" placeholder="type to find vulnerability type" additionalAttributes="{autcomplete: 'off', data-ajaxurl: '{f:uri.action(action:\'getVulnerabilityTypesAsJSON\', controller:\'Issue\', package:\'TYPO3.IHS\')}', data-cache: 'vulnerabilityType'}" />
+							<i class="autocomplete-indicator glyphicon glyphicon-search"></i>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="row">
-			<div class="col-md-4">
-				<div class="affected-versions form-group">
-					<label for="affectedVersions" class="control-label">Affected Versions</label>
-					<f:form.select property="{propertyPrefix}affectedVersions" class="affectedVersions form-control" options="{object.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.affectedVersions}" />
-					<div class="selected-affected-versions">
-						<ihs:form.lastSubmittedValue property="{propertyPrefix}affectedVersions" />
+			<div class="row">
+				<div class="col-md-6 col-sm-12">
+					<div class="form-group">
+						<label for="reporter" class="control-label">Reporter</label>
+						<f:form.textfield property="{propertyPrefix}reporter" id="reporter" value="{object.reporter}" class="form-control" />
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-12">
+					<div class="form-group">
+						<label for="product" class="control-label">Product</label>
+						<div class="autocomplete-field">
+							<f:form.hidden property="{propertyPrefix}product" class="ajax-value product-value" value="{object.product}" />
+							<input name="product_autocomplete" class="ajax form-control product" placeholder="type product to find" data-cache="product" data-ajaxurl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" data-versionsurl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}" value="{object.product.label}" />
+							<i class="autocomplete-indicator glyphicon glyphicon-search"></i>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="CVE" class="control-label">CVE</label>
-					<f:form.textfield property="{propertyPrefix}CVE" id="CVE" value="{object.cve}" class="form-control"/>
+
+			<div class="row">
+				<div class="col-md-4">
+					<div class="affected-versions form-group">
+						<label for="affectedVersions" class="control-label">Affected Versions</label>
+						<f:form.select property="{propertyPrefix}affectedVersions" class="affectedVersions form-control" options="{object.product.versions}" optionLabelField="humanReadableVersionNumber" size="5" multiple="multiple" value="{object.affectedVersions}" />
+						<div class="selected-affected-versions">
+							<ihs:form.lastSubmittedValue property="{propertyPrefix}affectedVersions" />
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="CVE" class="control-label">CVE</label>
+						<f:form.textfield property="{propertyPrefix}CVE" id="CVE" value="{object.cve}" class="form-control"/>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="CVSS" class="control-label">CVSS</label>
+						<f:form.textfield property="{propertyPrefix}CVSS" id="CVSS" value="{object.cvss}" class="form-control"/>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="CVSS" class="control-label">CVSS</label>
-					<f:form.textfield property="{propertyPrefix}CVSS" id="CVSS" value="{object.cvss}" class="form-control"/>
-				</div>
-			</div>
+
+			<f:if condition="advisory">
+				<f:then>
+					<f:form.hidden property="{propertyPrefix}advisory" value="{options.advisory}" />
+				</f:then>
+			</f:if>
 		</div>
 
-		<f:if condition="advisory">
+		<f:form.hidden property="{propertyPrefix}sortKey" class="sort-key" />
+
+		<fieldset>
+			<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link' legend: 'Links', collapsIdentifierPrefix: 'issue-{iterationIndex}-link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: object}}"/>
+		</fieldset>
+
+		<f:if condition="{options.solutionsAvailable}">
 			<f:then>
-				<f:form.hidden property="{propertyPrefix}advisory" value="{options.advisory}" />
+				<fieldset>
+					<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Solution', legend: 'Solutions', collapsIdentifierPrefix: 'issue-{iterationIndex}-solution', options: options , objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
+				</fieldset>
 			</f:then>
+			<f:else>
+				<legend>Solutions</legend>
+				<p>You can add a solution after the issue has been created.</p>
+			</f:else>
 		</f:if>
 	</div>
-
-	<f:form.hidden property="{propertyPrefix}sortKey" class="sort-key" />
-
-	<fieldset>
-		<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Link' legend: 'Links', collapsIdentifierPrefix: 'issue-{iterationIndex}-link', objects: object.links, partial:'Link/FormFields', propertyPrefix: '{propertyPrefix}links.', arguments: {issue: object}}"/>
-	</fieldset>
-
-	<f:if condition="{options.solutionsAvailable}">
-		<f:then>
-			<fieldset>
-				<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Solution', legend: 'Solutions', collapsIdentifierPrefix: 'issue-{iterationIndex}-solution', options: options , objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
-			</fieldset>
-		</f:then>
-		<f:else>
-			<legend>Solutions</legend>
-			<p>You can add a solution after the issue has been created.</p>
-		</f:else>
-	</f:if>
 </f:section>
 
 <f:section name="DeleteIssue">
