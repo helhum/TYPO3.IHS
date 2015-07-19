@@ -5,7 +5,7 @@
       xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers">
 
 <f:section name="Content">
-	<div class="issue-outer">
+	<div class="issue-outer <f:if condition='{options.solutionsAvailable}'>existing-issue</f:if>">
 		<div class="form-fields issue">
 			<f:render section="DeleteIssue" arguments="{_all}" />
 
@@ -113,9 +113,10 @@
 			</f:then>
 			<f:else>
 				<legend>Solutions</legend>
-				<p>You can add a solution after the issue has been created.</p>
+				<p>You can add a <strong>solution</strong> after the issue has been created.</p>
 			</f:else>
 		</f:if>
+		<p class="no-solutions-note">You can add a <strong>solution</strong> after the issue has been created.</p>
 	</div>
 </f:section>
 

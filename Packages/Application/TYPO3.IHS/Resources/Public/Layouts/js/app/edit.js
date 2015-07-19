@@ -587,7 +587,9 @@ function updateFixedInVersions() {
 			// copy fields to edit-panel
 			openEditPanel(newTitle, $(self.$fields).find('.new-object'));
 
+			$(self.$fields).find('.new-object .existing-issue').removeClass('existing-issue');
 			$(self.$fields).find('.new-object').removeClass('new-object');
+
 
 			$('body').trigger('dynamicFieldAdded');
 			$('body').trigger('initSorting');

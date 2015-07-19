@@ -195,7 +195,6 @@ input.f3-form-error {
 }
 
 /*objectCollections*/
-
 .object {
 	border: none;
 	box-shadow: none;
@@ -356,6 +355,25 @@ select.product {
 .created-versions-outer {
 	display: none;
 }
+
+.issue-outer .Solution-group {
+	display: none;
+}
+
+.issue-outer .no-solutions-note {
+	display: block;
+
+	margin-top: 10px;
+}
+
+.issue-outer.existing-issue .Solution-group {
+	display: block;
+}
+
+.issue-outer.existing-issue .no-solutions-note {
+	display: none;
+}
+
 
 /*content - visualsearch*/
 
