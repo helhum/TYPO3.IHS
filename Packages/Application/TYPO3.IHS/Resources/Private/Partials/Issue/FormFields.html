@@ -111,12 +111,10 @@
 					<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Solution', legend: 'Solutions', collapsIdentifierPrefix: 'issue-{iterationIndex}-solution', options: options , objects: object.solutions, partial:'Solution/FormFields', arguments: {issue: object}, propertyPrefix: '{propertyPrefix}solutions.', delete: {controller: 'list'}}"/>
 				</fieldset>
 			</f:then>
-			<f:else>
-				<legend>Solutions</legend>
-				<p>You can add a <strong>solution</strong> after the issue has been created.</p>
-			</f:else>
 		</f:if>
-		<p class="no-solutions-note">You can add a <strong>solution</strong> after the issue has been created.</p>
+		<div class="alert alert-info no-solutions-not">
+			<p>You can add a <strong>solution</strong> after the issue has been created.</p>
+		</div>
 	</div>
 </f:section>
 
