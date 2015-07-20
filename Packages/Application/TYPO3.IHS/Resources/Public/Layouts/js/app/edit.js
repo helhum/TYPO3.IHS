@@ -258,7 +258,7 @@ function initAutocompletion() {
 
 function initDatetimepicker() {
 	$('input.datetimepicker').datetimepicker({
-		timeFormat: 'hh:mm',
+		timeFormat: 'HH:mm',
 		dateFormat: 'dd.mm.yy',
 		separator: ' - '
 	});
