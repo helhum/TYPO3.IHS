@@ -1,7 +1,7 @@
 {namespace neos=TYPO3\Neos\ViewHelpers}
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 <f:if condition="{items}">
-	<div class="breadcrumb-section hidden-xs hidden-sm">
+	<section class="breadcrumb-section hidden-xs hidden-sm">
 		<div class="container">
 			<ol{attributes -> f:format.raw()}>
 			<f:for each="{items}" as="item" reverse="TRUE">
@@ -18,5 +18,5 @@
 			</f:for>
 			</ol>
 		</div>
-	</div>
+	</section>
 </f:if>

@@ -25,7 +25,6 @@
 		<f:section name="body">
 			<div class="body-bg{f:if(condition:themeNavigationtype, then:' body-bg-{themeNavigationtype}')}">
 				<neos:link.node node="{node}"  class="sr-only sr-only-focusable" section="content">
-
 				</neos:link.node>
 				<f:if condition="{showHeader}">
 					<f:render partial="Navigation/Main" arguments="{_all}" />
@@ -63,14 +62,14 @@
 			<f:if condition="{showFooter}">
 				<f:render partial="Structure/Footer" arguments="{_all}"/>
 			</f:if>
-			<div class="meta-section">
+			<footer class="meta-section">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-4"><ts:render path="parts.footerMenu" /></div>
 						<div class="col-md-8 copyright">&copy; 2015 TYPO3 Security Team</div>
 					</div>
 				</div>
-			</div>
+			</footer>
 		</f:section>
 
 		<f:section name="bodyScripts">

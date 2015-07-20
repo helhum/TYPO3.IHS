@@ -6481,8 +6481,8 @@ body, html {
   font-family: "Share", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
-  line-height: 140px;
-  height: 140px;
+  line-height: 110px;
+  height: 110px;
   -webkit-transition: opacity 0.15s ease-in-out 0s;
   -o-transition: opacity 0.15s ease-in-out 0s;
   transition: opacity 0.15s ease-in-out 0s;
@@ -6636,7 +6636,7 @@ body, html {
     margin-right: 0px;
   }
   .navbar-main > li > a {
-    line-height: 140px;
+    line-height: 110px;
     padding: 0px 15px;
   }
   .navbar-main > li > a .caret {

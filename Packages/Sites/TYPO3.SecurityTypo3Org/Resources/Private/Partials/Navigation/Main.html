@@ -1,6 +1,6 @@
 {namespace neos=TYPO3\Neos\ViewHelpers}
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
-<div
+<nav
 		class="navbar navbar-{themeNavigationstyle}{f:if(condition:logoFile,then:' navbar-has-image')}{f:if(condition:themeNavigationtype, else:' navbar-top', then:' navbar-{themeNavigationtype} navbar-fixed-{themeNavigationtype}')}"
 		role="navigation">
 	<div class="container">
@@ -28,4 +28,4 @@
 			<ts:render path="parts.mainMenu" />
 		</div>
 	</div>
-</div>
+</nav>
