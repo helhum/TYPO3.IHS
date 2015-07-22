@@ -60,7 +60,7 @@
 					<div class="form-group">
 						<label for="product" class="control-label">Product</label>
 						<div class="autocomplete-field">
-							<f:form.hidden property="{propertyPrefix}product" class="ajax-value product-value" value="{object.product}" />
+							<f:form.textfield property="{propertyPrefix}product" class="ajax-value product-value hidden" value="{object.product}" />
 							<input name="product_autocomplete" class="ajax form-control product" placeholder="type product to find" data-cache="product" data-ajaxurl="{f:uri.action(action:'getProductsAsJSON', controller:'Product', package:'TYPO3.IHS')}" data-versionsurl="{f:uri.action(action:'getProductversionsAsJSON', controller:'Product', package:'TYPO3.IHS')}" value="{object.product.label}" />
 							<i class="autocomplete-indicator glyphicon glyphicon-search"></i>
 						</div>
@@ -112,7 +112,7 @@
 				</fieldset>
 			</f:then>
 		</f:if>
-		<div class="alert alert-info no-solutions-not">
+		<div class="alert alert-info no-solutions-note">
 			<p>You can add a <strong>solution</strong> after the issue has been created.</p>
 		</div>
 	</div>

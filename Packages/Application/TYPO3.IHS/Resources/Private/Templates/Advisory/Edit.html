@@ -48,7 +48,6 @@
 					<div class="col-sm-12">
 				</f:else>
 			</f:if>
-
 				<div class="form-group">
 					<label for="severity" class="control-label">Severity</label>
 					<f:form.textfield property="severity" id="severity" class="form-control" />
@@ -68,7 +67,7 @@
 		</div>
 
 		<fieldset>
-			<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Issue', isIssue: true, legend: 'Issues', collapsIdentifierPrefix: 'issue', objects: advisory.issues, partial:'Issue/FormFields', arguments: {advisory: advisory}, options: {advisory: advisory, products: products, solutionsAvailable: 1}, propertyPrefix: 'issues.'}"/>
+			<f:render partial="ObjectCollection" section="Content" arguments="{objectName: 'Issue', legend: 'Issues', collapsIdentifierPrefix: 'issue', objects: advisory.issues, partial:'Issue/FormFields', arguments: {advisory: advisory}, options: {isIssue: true, advisory: advisory, products: products, solutionsAvailable: 1}, propertyPrefix: 'issues.'}"/>
 		</fieldset>
 
 		<hr />

@@ -65,6 +65,12 @@ a.btn-primary, a.btn-danger, a.btn-success {
 	font-weight: normal !important;
 }
 
+.form-control.f3-form-error:focus {
+	border-color: #FF0000;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(255, 72, 50);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(255, 72, 50);
+}
+
 /*layout*/
 div#content {
 	margin-bottom: 70px;

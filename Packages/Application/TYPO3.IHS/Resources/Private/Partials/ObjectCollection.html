@@ -1,3 +1,4 @@
+{namespace ihs=TYPO3\IHS\ViewHelpers}
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
@@ -19,7 +20,6 @@
 						</legend>
 					</f:then>
 				</f:if>
-
 			</div>
 			<div class="dynamic-fields">
 				<template class="field-template" data-collablseIdentifierPrefix="{collapsIdentifierPrefix}">
@@ -60,7 +60,7 @@
 				<div class="present-fields">
 					<f:if condition="{objects}">
 						<f:for each="{objects}" as="object" iteration="iterator">
-							<div class="panel panel-default object">
+							<div class="panel panel-default object" data-property-prefix="[{collapsIdentifierPrefix}s][{iterator.index}]">
 								<div class="panel-heading open-in-edit-panel" role="tab" id="heading-{collapsIdentifierPrefix}-{iterator.index}">
 									<h4 class="panel-title">
 										<f:if condition="{object.title}">
@@ -93,9 +93,16 @@
 											<hr />
 											<div class="row">
 												<div class="col-md-4">
-													<f:if condition="{isIssue}">
+													<f:if condition="{options.isIssue}">
 														<f:then>
-															<button type="button" class="btn btn-danger toggle-save-delete-action" data-delete-mode="disconnect"><i class="glyphicon glyphicon-minus"></i> Disconnect</button>
+															<f:if condition="{ihs:form.isNewObject(object: object)}">
+																<f:then>
+																	<button type="button" class="btn btn-danger toggle-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+																</f:then>
+																<f:else>
+																	<button type="button" class="btn btn-danger toggle-save-delete-action" data-delete-mode="disconnect"><i class="glyphicon glyphicon-minus"></i> Disconnect</button>
+																</f:else>
+															</f:if>
 														</f:then>
 														<f:else>
 															<button type="button" class="btn btn-danger toggle-save-delete-action"><i class="glyphicon glyphicon-trash"></i> Delete</button>

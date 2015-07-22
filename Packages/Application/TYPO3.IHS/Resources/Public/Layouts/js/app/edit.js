@@ -5,7 +5,7 @@ var currentIssue = null,
 $(document).ready(function() {
 	var body = $('body');
 
-	// open collabsable when field inside has error
+	// highlight objectCollection when there are some form errors
 	$('.f3-form-error').closest('.object').addClass('has-validation-error');
 
 	//
@@ -157,6 +157,7 @@ function handleSaveDeletionModal(currentObject) {
 		});
 
 		deleteConfirmationModal.find('a.remove-object').attr('href', href);
+		deleteConfirmationModal.find('a.remove-object').off('click')
 		deleteConfirmationModal.find('a.remove-object').on('click', function(event) {
 			event.preventDefault();
 			var button = $(this);
@@ -265,8 +266,6 @@ function initDatetimepicker() {
 }
 
 function initMarkdownEditor() {
-
-
 	var markdownElements = $('.markdown').not('.object-collection .markdown');
 	markdownElements.markdown({
 		autofocus:false,
@@ -692,6 +691,9 @@ function openEditPanel(objectTitle, currentObject) {
 	$('.edit-panel-content .toggle-delete-action').off('click');
 	$('.edit-panel-content .toggle-delete-action').on('click', function() {
 		closeEditPanel();
+		var searchStatement = $(currentObject).attr('data-property-prefix');
+		// find hidden input fields added by flow
+		$(currentObject).closest('form').find('input[name*="' + searchStatement + '"]').remove();
 		$(currentObject).slideUp(250, function() {
 			$(this).remove();
 			$('body').trigger('initSorting');
