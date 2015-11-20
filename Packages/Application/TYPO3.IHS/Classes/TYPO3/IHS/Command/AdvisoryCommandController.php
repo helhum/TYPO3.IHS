@@ -255,6 +255,7 @@ class AdvisoryCommandController extends CommandController {
 					if ($this->currentIssue) {
 						$this->currentIssue->setTitle(sprintf('%s in %s', ($this->currentIssue->getVulnerabilityType() !== NULL) ? $this->currentIssue->getVulnerabilityType()->getValue() : '', ($this->currentProduct != NULL) ? $this->currentProduct->getName() : ''));
 						if ($this->isIssueValid()) {
+							$this->currentIssue->setSortKey($this->currentAdvisory->getIssues()->count());
 							$this->currentAdvisory->addIssue($this->currentIssue);
 							$this->currentIssue->setAdvisory($this->currentAdvisory);
 
