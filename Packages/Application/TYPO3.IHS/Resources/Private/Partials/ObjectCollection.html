@@ -61,6 +61,7 @@
 					<f:if condition="{objects}">
 						<f:for each="{objects}" as="object" iteration="iterator">
 							<div class="panel panel-default object" data-property-prefix="[{collapsIdentifierPrefix}s][{iterator.index}]">
+								<span class="hidden identity">{object -> f:format.identifier()}</span>
 								<div class="panel-heading open-in-edit-panel" role="tab" id="heading-{collapsIdentifierPrefix}-{iterator.index}">
 									<h4 class="panel-title">
 										<f:if condition="{object.title}">

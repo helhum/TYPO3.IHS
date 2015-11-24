@@ -174,6 +174,17 @@ function handleSaveDeletionModal(currentObject) {
 					var alert = $(alertPrototype).insertAfter($(currentObject)).addClass('alert-success');
 					$(alert).find('.alert-message').text(data.message);
 
+					$(currentObject).find('.identity').each(function (index, element) {
+						var identifierFields = $('body').find('input[value="' + $(element).html() + '"]');
+						if (identifierFields.length > 0) {
+							identifierFields.each(function(index, element) {
+								var identifierField = $(element).attr('name').replace('[__identity]', '');
+								$('body').find('input[name*="' + identifierField + '"]').remove();
+							});
+						}
+
+					});
+
 					$(currentObject).remove();
 					$('body').trigger('initSorting');
 					closeEditPanel();
