@@ -11,14 +11,14 @@ namespace TYPO3\IHS\Command;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * The Product Command Controller
  *
  * @Flow\Scope("singleton")
  */
-class ProductCommandController extends \TYPO3\Flow\Cli\CommandController {
+class ProductCommandController extends \Neos\Flow\Cli\CommandController {
 
 	/**
 	 * @Flow\Inject

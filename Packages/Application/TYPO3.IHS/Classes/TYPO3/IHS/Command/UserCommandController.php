@@ -11,44 +11,44 @@ namespace TYPO3\IHS\Command;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Security\Policy\Role;
-use TYPO3\Party\Domain\Model\Person;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Security\Policy\Role;
+use Neos\Party\Domain\Model\Person;
 
 /**
  * The User Command Controller
  *
  * @Flow\Scope("singleton")
  */
-class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
+class UserCommandController extends \Neos\Flow\Cli\CommandController {
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Security\AccountFactory
+	 * @var \Neos\Flow\Security\AccountFactory
 	 */
 	protected $accountFactory;
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Security\AccountRepository
+	 * @var \Neos\Flow\Security\AccountRepository
 	 */
 	protected $accountRepository;
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Party\Domain\Repository\PartyRepository
+	 * @var \Neos\Party\Domain\Repository\PartyRepository
 	 */
 	protected $partyRepository;
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Security\Cryptography\HashService
+	 * @var \Neos\Flow\Security\Cryptography\HashService
 	 */
 	protected $hashService;
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Security\Policy\PolicyService
+	 * @var \Neos\Flow\Security\Policy\PolicyService
 	 */
 	protected $policyService;
 
@@ -66,8 +66,8 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * @return void
 	 */
 	public function createCommand($username, $password, $firstName = '', $lastName = '', $roles = NULL) {
-		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'Typo3BackendProvider');
-		if ($account instanceof \TYPO3\Flow\Security\Account) {
+		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'Neos.Neos:Backend');
+		if ($account instanceof \Neos\Flow\Security\Account) {
 			$this->outputLine('The username "%s" is already in use', array($username));
 			$this->quit(1);
 		}
@@ -76,7 +76,7 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 //			$roleIdentifiers = array('TYPO3.IHS:Editor');
 			$roleIdentifiers = array();
 		} else {
-			$roleIdentifiers = \TYPO3\Flow\Utility\Arrays::trimExplode(',', $roles);
+			$roleIdentifiers = \Neos\Utility\Arrays::trimExplode(',', $roles);
 			foreach ($roleIdentifiers as &$role) {
 				if (strpos($role, '.') === FALSE) {
 					$role = 'TYPO3.IHS:' . $role;
@@ -89,7 +89,7 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 			$this->accountRepository->add($account);
 
 			$this->outputLine('Created account "%s".', array($username));
-		} catch (\TYPO3\Flow\Security\Exception\NoSuchRoleException $exception) {
+		} catch (\Neos\Flow\Security\Exception\NoSuchRoleException $exception) {
 			$this->outputLine($exception->getMessage());
 			$this->quit(1);
 		}
@@ -113,7 +113,7 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 		}
 
 		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'DefaultProvider');
-		if (!($account instanceof \TYPO3\Flow\Security\Account)) {
+		if (!($account instanceof \Neos\Flow\Security\Account)) {
 			$this->outputLine('The username "%s" is not in use', array($username));
 			$this->quit(1);
 		}
@@ -132,7 +132,7 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 */
 	public function setPasswordCommand($username, $password) {
 		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'DefaultProvider');
-		if (!$account instanceof \TYPO3\Flow\Security\Account) {
+		if (!$account instanceof \Neos\Flow\Security\Account) {
 			$this->outputLine('Account "%s" does not exists.', array($username));
 			$this->quit(1);
 		}
@@ -146,7 +146,7 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * Add a role to a user
 	 *
 	 * This command allows for adding a specific role to an existing user.
-	 * Currently supported roles: "TYPO3.Neos:Editor", "TYPO3.Neos:Administrator"
+	 * Currently supported roles: "Neos.Neos:Editor", "Neos.Neos:Administrator"
 	 *
 	 * @param string $username The username of the user
 	 * @param string $role Role ot be added to the user
@@ -154,7 +154,7 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 */
 	public function addRoleCommand($username, $role) {
 		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'DefaultProvider');
-		if (!$account instanceof \TYPO3\Flow\Security\Account) {
+		if (!$account instanceof \Neos\Flow\Security\Account) {
 			$this->outputLine('User "%s" does not exists.', array($username));
 			$this->quit(1);
 		}
@@ -187,7 +187,7 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 */
 	public function removeRoleCommand($username, $role) {
 		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'DefaultProvider');
-		if (!$account instanceof \TYPO3\Flow\Security\Account) {
+		if (!$account instanceof \Neos\Flow\Security\Account) {
 			$this->outputLine('User "%s" does not exists.', array($username));
 			$this->quit(1);
 		}
@@ -223,7 +223,7 @@ class UserCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 */
 	public function showCommand($username) {
 		$account = $this->accountRepository->findByAccountIdentifierAndAuthenticationProviderName($username, 'DefaultProvider');
-		if (!($account instanceof \TYPO3\Flow\Security\Account)) {
+		if (!($account instanceof \Neos\Flow\Security\Account)) {
 			$this->outputLine('The username "%s" is not in use', array($username));
 			$this->quit(1);
 		}

@@ -6,37 +6,37 @@ namespace TYPO3\IHS\View;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\View\ViewInterface;
-use TYPO3\Neos\Domain\Service\ContentContext;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\View\ViewInterface;
+use Neos\Neos\Domain\Service\ContentContext;
 
 /**
- * Trait TypoScriptViewTrait
+ * Trait FusionViewTrait
  *
  * @package TYPO3\IHS\View
  */
-trait TypoScriptViewTrait {
+trait FusionViewTrait {
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Neos\Domain\Service\ContentContextFactory
+	 * @var \Neos\Neos\Domain\Service\ContentContextFactory
 	 */
 	protected $contextFactory;
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Neos\Domain\Repository\DomainRepository
+	 * @var \Neos\Neos\Domain\Repository\DomainRepository
 	 */
 	protected $domainRepository;
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Neos\Domain\Repository\SiteRepository
+	 * @var \Neos\Neos\Domain\Repository\SiteRepository
 	 */
 	protected $siteRepository;
 
 	protected function initializeObject() {
-		$this->defaultViewObjectName = 'TYPO3\TypoScript\View\TypoScriptView';
+		$this->defaultViewObjectName = 'Neos\Fusion\View\FusionView';
 	}
 
 	/**

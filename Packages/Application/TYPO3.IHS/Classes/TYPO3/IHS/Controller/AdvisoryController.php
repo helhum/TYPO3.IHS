@@ -6,21 +6,21 @@ namespace TYPO3\IHS\Controller;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
-use TYPO3\Flow\Security\Context;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\Controller\ActionController;
+use Neos\Flow\Security\Context;
 use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\IHS\Domain\Model\Advisory;
 use TYPO3\IHS\Domain\Model\Issue;
 use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
 use TYPO3\IHS\Domain\Repository\IssueRepository;
 use TYPO3\IHS\Domain\Repository\ProductRepository;
-use TYPO3\IHS\View\TypoScriptViewTrait;
+use TYPO3\IHS\View\FusionViewTrait;
 
 class AdvisoryController extends ActionController {
 
 	use ArgumentMappingTrait;
-	use TypoScriptViewTrait;
+	use FusionViewTrait;
 
 	/**
 	 * @Flow\Inject
@@ -182,8 +182,8 @@ class AdvisoryController extends ActionController {
 	/**
 	 * @param Issue $issue
 	 * @Flow\IgnoreValidation("$issue")
-	 * @throws \TYPO3\Flow\Mvc\Exception\StopActionException
-	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 * @throws \Neos\Flow\Mvc\Exception\StopActionException
+	 * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
 	 *
 	 * @return string $response
 	 */

@@ -27,15 +27,15 @@ namespace TYPO3\IHS\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\Flow\Security\Authentication\Controller\AbstractAuthenticationController;
-use TYPO3\IHS\View\TypoScriptViewTrait;
+use Neos\Flow\Security\Authentication\Controller\AbstractAuthenticationController;
+use TYPO3\IHS\View\FusionViewTrait;
 
 /**
  * Class AuthenticationController
  */
 class LoginController extends AbstractAuthenticationController {
 
-	use TypoScriptViewTrait;
+	use FusionViewTrait;
 
 	/**
 	 * @var string
@@ -59,10 +59,10 @@ class LoginController extends AbstractAuthenticationController {
 	/**
 	 * Redirects to Advisory Controller after login
 	 *
-	 * @param \TYPO3\Flow\Mvc\ActionRequest $originalRequest The request that was intercepted by the security framework, NULL if there was none
+	 * @param \Neos\Flow\Mvc\ActionRequest $originalRequest The request that was intercepted by the security framework, NULL if there was none
 	 * @return string
 	 */
-	protected function onAuthenticationSuccess(\TYPO3\Flow\Mvc\ActionRequest $originalRequest = NULL) {
+	protected function onAuthenticationSuccess(\Neos\Flow\Mvc\ActionRequest $originalRequest = NULL) {
 		$this->redirect('Index', 'Advisory', 'TYPO3.IHS');
 	}
 }

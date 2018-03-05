@@ -1,7 +1,7 @@
 <?php
 namespace TYPO3\IHS\Tests\Functional\Domain\Service;
 
-use TYPO3\Flow\Tests\FunctionalTestCase;
+use Neos\Flow\Tests\FunctionalTestCase;
 use TYPO3\IHS\Domain\Model\Product;
 use TYPO3\IHS\Domain\Model\ProductType;
 use TYPO3\IHS\Domain\Repository\ProductRepository;

@@ -31,7 +31,7 @@ use TYPO3\IHS\Domain\Model\Issue;
 use TYPO3\IHS\Domain\Model\Product;
 use TYPO3\IHS\Domain\Model\ProductType;
 use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Class AdvisoryFactory

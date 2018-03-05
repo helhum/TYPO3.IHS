@@ -6,20 +6,20 @@ namespace TYPO3\IHS\Controller;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\Controller\ActionController;
 use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
-use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
-use TYPO3\Flow\Persistence\PersistenceManagerInterface;
+use Neos\Flow\Property\TypeConverter\PersistentObjectConverter;
+use Neos\Flow\Persistence\PersistenceManagerInterface;
 use TYPO3\IHS\Domain\Model\Product;
 use TYPO3\IHS\Domain\Model\ProductType;
 use TYPO3\IHS\Domain\Model\ProductVersion;
-use TYPO3\IHS\View\TypoScriptViewTrait;
+use TYPO3\IHS\View\FusionViewTrait;
 
 class ProductController extends ActionController {
 
 	use ArgumentMappingTrait;
-	use TypoScriptViewTrait;
+	use FusionViewTrait;
 
 	protected $supportedFormats = array("html", "json");
 
@@ -190,7 +190,7 @@ class ProductController extends ActionController {
 
 	protected function initializeDeleteVersionAction() {
 		$productVersionMappingConfiguration = $this->arguments['productVersion']->getPropertyMappingConfiguration();
-		$productVersionMappingConfiguration->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
+		$productVersionMappingConfiguration->setTypeConverterOption('Neos\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
 	}
 
 	/**

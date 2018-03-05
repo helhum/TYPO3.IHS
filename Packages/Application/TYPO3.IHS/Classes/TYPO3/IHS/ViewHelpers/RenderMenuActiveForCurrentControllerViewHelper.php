@@ -28,7 +28,7 @@ namespace TYPO3\IHS\ViewHelpers;
  ***************************************************************/
 
 
-use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
+use Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper;
 /**
  * Class AccountViewHelper
  */

@@ -1,36 +1,17 @@
+
 TYPO3:
-  Flow:
-    object:
-      excludeClasses:
-        'simplepie.*': ['.*']
-        'erusev.*': ['.*']
-    security:
-      authentication:
-        authenticationStrategy: oneToken
-        providers:
-          DefaultProvider:
-            provider: 'PersistedUsernamePasswordProvider'
-            requestPatterns:
-              controllerObjectName: 'TYPO3\IHS\Controller\.*'
-            entryPoint: 'WebRedirect'
-            entryPointOptions:
-              routeValues:
-                '@package':    'TYPO3.IHS'
-                '@controller': 'Login'
-                '@action':     'index'
-                '@format':     'html'
   IHS:
     import:
       log:
-        logger: TYPO3\Flow\Log\Logger
-        backend: TYPO3\Flow\Log\Backend\FileBackend
+        logger: Neos\Flow\Log\Logger
+        backend: Neos\Flow\Log\Backend\FileBackend
         backendOptions:
           logFileURL: '%FLOW_PATH_DATA%Logs/Ihs_Import.log'
-          createParentDirectories: TRUE
+          createParentDirectories: true
           severityThreshold: '%LOG_INFO%'
           maximumLogFileSize: 10485760
           logFilesToKeep: 1
-          logMessageOrigin: FALSE
+          logMessageOrigin: false
       advisory:
         mappings:
           -
@@ -96,5 +77,31 @@ TYPO3:
           -
             object: keep
             property: description
-            regex: '/.+/'
+            regex: /.+/
             match: 0
+Neos:
+  Flow:
+    object:
+      excludeClasses:
+        'simplepie.*':
+          - '.*'
+        'erusev.*':
+          - '.*'
+    security:
+      authentication:
+        authenticationStrategy: oneToken
+        providers:
+          DefaultProvider:
+            provider: PersistedUsernamePasswordProvider
+            requestPatterns:
+              'TYPO3.IHS:controllerObjectName':
+                pattern: ControllerObjectName
+                patternOptions:
+                  controllerObjectNamePattern: 'TYPO3\IHS\Controller\.*'
+            entryPoint: WebRedirect
+            entryPointOptions:
+              routeValues:
+                '@package': TYPO3.IHS
+                '@controller': Login
+                '@action': index
+                '@format': html

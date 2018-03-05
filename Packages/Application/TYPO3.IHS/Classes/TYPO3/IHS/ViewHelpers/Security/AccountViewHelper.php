@@ -27,8 +27,8 @@ namespace TYPO3\IHS\ViewHelpers\Security;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Class AccountViewHelper
@@ -37,7 +37,7 @@ class AccountViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Security\Context
+	 * @var \Neos\Flow\Security\Context
 	 */
 	protected $securityContext;
 

@@ -3,45 +3,34 @@
 #                                                                        #
 
 privilegeTargets:
-
-  'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
-
+  Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
     'TYPO3.IHS:AllControllerActions':
-      'matcher': 'within(TYPO3\Flow\Mvc\Controller\AbstractController) && method(public .*->(?!initialize).*Action())'
-
+      matcher: 'within(Neos\Flow\Mvc\Controller\AbstractController) && method(public .*->(?!initialize).*Action())'
     'TYPO3.IHS:WidgetControllers':
-      'matcher': 'method(TYPO3\Fluid\ViewHelpers\Widget\Controller\AutocompleteController->(index|autocomplete)Action()) || method(TYPO3\Fluid\ViewHelpers\Widget\Controller\PaginateController->indexAction()) || method(TYPO3\TYPO3CR\ViewHelpers\Widget\Controller\PaginateController->indexAction())'
-
+      matcher: 'method(Neos\FluidAdaptor\ViewHelpers\Widget\Controller\AutocompleteController->(index|autocomplete)Action()) || method(Neos\FluidAdaptor\ViewHelpers\Widget\Controller\PaginateController->indexAction()) || method(Neos\ContentRepository\ViewHelpers\Widget\Controller\PaginateController->indexAction())'
     'TYPO3.IHS:Login':
-      'matcher': 'method(TYPO3\IHS\Controller\LoginController->(index|authenticate)Action()) || method(TYPO3\Flow\Security\Authentication\Controller\AbstractAuthenticationController->authenticateAction())'
-
+      matcher: 'method(TYPO3\IHS\Controller\LoginController->(index|authenticate)Action()) || method(Neos\Flow\Security\Authentication\Controller\AbstractAuthenticationController->authenticateAction())'
     'TYPO3.IHS:Advisories':
-      'matcher': 'method(TYPO3\IHS\Controller\AdvisoryController->(index|show|rssFeed)Action()) || method(TYPO3\IHS\Controller\ProductController->(getProductTypesAsJSON|getProductsAsJSON)Action()) || method(TYPO3\IHS\Controller\IssueController->(getVulnerabilityTypesAsJSON)Action())'
-
-#    'TYPO3.IHS:Backend.GeneralAccess':
-#      'matcher': 'within(TYPO3\Flow\Mvc\Controller\AbstractController) && method(public .*->(?!initialize).*Action())'
-
+      matcher: 'method(TYPO3\IHS\Controller\AdvisoryController->(index|show|rssFeed)Action()) || method(TYPO3\IHS\Controller\ProductController->(getProductTypesAsJSON|getProductsAsJSON)Action()) || method(TYPO3\IHS\Controller\IssueController->(getVulnerabilityTypesAsJSON)Action())'
 roles:
-
-  'TYPO3.Flow:Anonymous':
+  'Neos.Flow:Anonymous':
     privileges:
       -
         privilegeTarget: 'TYPO3.IHS:WidgetControllers'
         permission: GRANT
-
       -
         privilegeTarget: 'TYPO3.IHS:Login'
         permission: GRANT
-
       -
         privilegeTarget: 'TYPO3.IHS:Advisories'
         permission: GRANT
-
   'TYPO3.IHS:Editor':
-    privileges:
-
+    parentRoles:
+      - 'TYPO3.IHS:'
   'TYPO3.IHS:Administrator':
-    parentRoles: ['TYPO3.IHS:Editor', 'TYPO3.Neos:Administrator']
+    parentRoles:
+      - 'TYPO3.IHS:Editor'
+      - 'Neos.Neos:Administrator'
     privileges:
       -
         privilegeTarget: 'TYPO3.IHS:AllControllerActions'

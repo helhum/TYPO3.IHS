@@ -11,7 +11,7 @@ namespace TYPO3\IHS\ViewHelpers\Form;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
+use Neos\FluidAdaptor\ViewHelpers\Form\AbstractFormFieldViewHelper;
 
 /**
  * Class LastSubmittedValueViewHelper

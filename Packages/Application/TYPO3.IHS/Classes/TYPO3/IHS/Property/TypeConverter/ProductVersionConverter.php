@@ -27,8 +27,8 @@ namespace TYPO3\IHS\Property\TypeConverter;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\Flow\Property\TypeConverter\ObjectConverter;
-use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
+use Neos\Flow\Property\TypeConverter\ObjectConverter;
+use Neos\Flow\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\IHS\Domain\Model\ProductVersion;
 
 /**

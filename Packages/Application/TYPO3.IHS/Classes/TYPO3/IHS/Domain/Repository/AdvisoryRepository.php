@@ -6,10 +6,10 @@ namespace TYPO3\IHS\Domain\Repository;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Repository;
 use TYPO3\IHS\Domain\Model\Product;
-use TYPO3\Flow\Reflection\ObjectAccess;
+use Neos\Utility\ObjectAccess;
 
 /**
  * @Flow\Scope("singleton")
@@ -156,7 +156,7 @@ class AdvisoryRepository extends Repository {
 		);
 
 		$query->setOrderings(array(
-				'publishingDate' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING,
+				'publishingDate' => \Neos\Flow\Persistence\QueryInterface::ORDER_DESCENDING,
 			)
 		);
 
@@ -171,9 +171,9 @@ class AdvisoryRepository extends Repository {
 	public function findAllOrdered() {
 		$query = $this->createQuery();
 		$query->setOrderings(array(
-				'published' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_ASCENDING,
-				'publishingDate' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING,
-				'creationDate' => \TYPO3\Flow\Persistence\QueryInterface::ORDER_DESCENDING
+				'published' => \Neos\Flow\Persistence\QueryInterface::ORDER_ASCENDING,
+				'publishingDate' => \Neos\Flow\Persistence\QueryInterface::ORDER_DESCENDING,
+				'creationDate' => \Neos\Flow\Persistence\QueryInterface::ORDER_DESCENDING
 			)
 		);
 

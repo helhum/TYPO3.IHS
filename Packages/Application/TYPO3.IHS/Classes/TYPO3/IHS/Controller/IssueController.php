@@ -6,9 +6,9 @@ namespace TYPO3\IHS\Controller;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
-use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\Controller\ActionController;
+use Neos\Flow\Property\TypeConverter\PersistentObjectConverter;
 use TYPO3\IHS\Controller\Mapping\ArgumentMappingTrait;
 use TYPO3\IHS\Domain\Factory\AdvisoryFactory;
 use TYPO3\IHS\Domain\Model\Issue;
@@ -16,12 +16,12 @@ use TYPO3\IHS\Domain\Model\Link;
 use TYPO3\IHS\Domain\Model\Solution;
 use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
 use TYPO3\IHS\Domain\Repository\ProductRepository;
-use TYPO3\IHS\View\TypoScriptViewTrait;
+use TYPO3\IHS\View\FusionViewTrait;
 
 class IssueController extends ActionController {
 
 	use ArgumentMappingTrait;
-	use TypoScriptViewTrait;
+	use FusionViewTrait;
 
 	protected $supportedFormats = array("html", "json");
 
@@ -243,7 +243,7 @@ class IssueController extends ActionController {
 	 * @param Issue $issue
 	 * @param Solution $solution
 	 * @Flow\IgnoreValidation("$solution")
-	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
 	 *
 	 * @return string $response
 	 */
@@ -258,14 +258,14 @@ class IssueController extends ActionController {
 	}
 
 	protected function initializeRemoveSolutionLinkAction() {
-		$this->arguments['link']->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
+		$this->arguments['link']->getPropertyMappingConfiguration()->setTypeConverterOption('Neos\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
 	}
 
 	/**
 	 * @param Solution $solution
 	 * @param Link $link
 	 * @Flow\IgnoreValidation("$link")
-	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
 	 *
 	 * @return string $response
 	 */
@@ -282,14 +282,14 @@ class IssueController extends ActionController {
 	}
 
 	protected function initializeRemoveLinkAction() {
-		$this->arguments['link']->getPropertyMappingConfiguration()->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
+		$this->arguments['link']->getPropertyMappingConfiguration()->setTypeConverterOption('Neos\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
 	}
 
 	/**
 	 * @param Issue $issue
 	 * @param Link $link
 	 * @Flow\IgnoreValidation("$link")
-	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
 	 *
 	 * @return string $response
 	 */

@@ -6,10 +6,10 @@ namespace TYPO3\IHS\Domain\Repository;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Doctrine\Repository;
-use TYPO3\Flow\Reflection\ObjectAccess;
-use TYPO3\Flow\Persistence\Doctrine\PersistenceManager;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Doctrine\Repository;
+use Neos\Utility\ObjectAccess;
+use Neos\Flow\Persistence\Doctrine\PersistenceManager;
 
 /**
  * @Flow\Scope("singleton")

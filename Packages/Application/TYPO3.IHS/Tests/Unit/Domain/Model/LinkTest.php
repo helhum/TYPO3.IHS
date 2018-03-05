@@ -9,7 +9,7 @@ namespace TYPO3\IHS\Tests\Unit\Domain\Model;
 /**
  * Testcase for Link
  */
-class LinkTest extends \TYPO3\Flow\Tests\UnitTestCase {
+class LinkTest extends \Neos\Flow\Tests\UnitTestCase {
 
 	/**
 	 * @test

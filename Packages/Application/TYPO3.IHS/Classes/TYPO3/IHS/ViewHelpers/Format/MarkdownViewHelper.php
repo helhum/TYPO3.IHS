@@ -11,12 +11,12 @@ namespace TYPO3\IHS\ViewHelpers\Format;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
+use Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class HtmlspecialcharsViewHelper
  *
- * @package TYPO3\Fluid\ViewHelpers\Format
+ * @package Neos\FluidAdaptor\ViewHelpers\Format
  */
 class MarkdownViewHelper extends AbstractViewHelper {
 

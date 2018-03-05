@@ -27,7 +27,7 @@ namespace TYPO3\IHS\Enumeration;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Class AbstractEnumeration

@@ -9,7 +9,7 @@ namespace TYPO3\IHS\Tests\Unit\Domain\Model;
 /**
  * Testcase for Advisory
  */
-class AdvisoryTest extends \TYPO3\Flow\Tests\UnitTestCase {
+class AdvisoryTest extends \Neos\Flow\Tests\UnitTestCase {
 
 	/**
 	 * @test

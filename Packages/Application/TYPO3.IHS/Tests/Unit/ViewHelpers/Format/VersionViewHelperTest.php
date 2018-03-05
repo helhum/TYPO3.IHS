@@ -30,7 +30,7 @@ namespace TYPO3\IHS\Tests\Unit\ViewHelpers\Format;
 use Doctrine\Common\Collections\ArrayCollection;
 use TYPO3\IHS\Domain\Model\ProductVersion;
 use TYPO3\IHS\ViewHelpers\Format\VersionViewHelper;
-use TYPO3\Flow\Tests\UnitTestCase;
+use Neos\Flow\Tests\UnitTestCase;
 
 /**
  * Testcase for VersionViewHelper

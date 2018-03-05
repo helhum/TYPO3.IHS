@@ -6,9 +6,9 @@ namespace TYPO3\IHS\Controller;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Controller\ActionController;
-use TYPO3\Media\Domain\Model\Asset;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\Controller\ActionController;
+use Neos\Media\Domain\Model\Asset;
 
 class AssetController extends ActionController {
 
@@ -16,12 +16,12 @@ class AssetController extends ActionController {
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Media\Domain\Repository\AssetRepository
+	 * @var \Neos\Media\Domain\Repository\AssetRepository
 	 */
 	protected $assetRepository;
 
 	/**
-	 * @var \TYPO3\Flow\Mvc\View\JsonView
+	 * @var \Neos\Flow\Mvc\View\JsonView
 	 */
 	protected $view;
 

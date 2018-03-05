@@ -11,7 +11,7 @@ namespace TYPO3\IHS\Domain\Service;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Create product with name, shortName and type with versions from packagist

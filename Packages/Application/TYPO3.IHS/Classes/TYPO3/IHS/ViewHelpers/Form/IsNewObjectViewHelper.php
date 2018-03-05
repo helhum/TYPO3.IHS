@@ -11,8 +11,8 @@ namespace TYPO3\IHS\ViewHelpers\Form;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
+use Neos\Flow\Annotations as Flow;
+use Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class IsNewObjectViewHelper
@@ -21,7 +21,7 @@ use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 class IsNewObjectViewHelper extends AbstractViewHelper {
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 * @var \Neos\Flow\Persistence\PersistenceManagerInterface
 	 */
 	protected $persistenceManager;
 

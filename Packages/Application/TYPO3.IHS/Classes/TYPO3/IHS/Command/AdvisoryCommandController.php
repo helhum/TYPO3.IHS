@@ -6,8 +6,8 @@ namespace TYPO3\IHS\Command;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Cli\CommandController;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Cli\CommandController;
 use TYPO3\IHS\Domain\Model\Advisory;
 use TYPO3\IHS\Domain\Model\Issue;
 use TYPO3\IHS\Domain\Model\Link;
@@ -17,7 +17,7 @@ use TYPO3\IHS\Domain\Model\VulnerabilityType;
 use TYPO3\IHS\Domain\Repository\AdvisoryRepository;
 use TYPO3\IHS\Domain\Repository\IssueRepository;
 use TYPO3\IHS\Domain\Repository\ProductRepository;
-use TYPO3\Flow\Persistence\PersistenceManagerInterface;
+use Neos\Flow\Persistence\PersistenceManagerInterface;
 
 /**
  * @Flow\Scope("singleton")
@@ -230,7 +230,7 @@ class AdvisoryCommandController extends CommandController {
 	 * Switch up the $currentObject when neccessary
 	 *
 	 * @param array $mapping
-	 * @throws \TYPO3\Flow\Persistence\Exception\IllegalObjectTypeException
+	 * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
 	 */
 	protected function changeCurrentObject($mapping) {
 		if ($mapping) {

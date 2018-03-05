@@ -1,6 +1,6 @@
 TYPO3\IHS\Log\ImportLoggerInterface:
   scope: singleton
-  factoryObjectName: TYPO3\Flow\Log\LoggerFactory
+  factoryObjectName: Neos\Flow\Log\LoggerFactory
   arguments:
     1:
       # Note: This cannot be changed, it is hardcoded

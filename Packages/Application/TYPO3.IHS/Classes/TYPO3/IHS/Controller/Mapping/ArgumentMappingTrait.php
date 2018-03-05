@@ -27,8 +27,8 @@ namespace TYPO3\IHS\Controller\Mapping;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\Flow\Property\PropertyMappingConfiguration;
-use TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter;
+use Neos\Flow\Property\PropertyMappingConfiguration;
+use Neos\Flow\Property\TypeConverter\PersistentObjectConverter;
 
 /**
  * Class ArgumentMappingHelper
@@ -56,11 +56,11 @@ trait ArgumentMappingTrait {
 					continue;
 				}
 				$mappingConfiguration->forProperty($property . '.' . $propertyIndex)
-					->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
+					->setTypeConverterOption('Neos\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
 					->allowAllProperties();
 
 				if ($subProperty !== NULL) {
-					$mappingConfiguration->forProperty($property . '.' . $propertyIndex . '.' . $subProperty)->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
+					$mappingConfiguration->forProperty($property . '.' . $propertyIndex . '.' . $subProperty)->setTypeConverterOption('Neos\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)->allowAllProperties();
 
 					if (($subSubProperty != NULL || $subPropertyIsCollection) && isset($requestArgument[$property][$propertyIndex][$subProperty]) && is_array($requestArgument[$property][$propertyIndex][$subProperty])) {
 						foreach (array_keys($requestArgument[$property][$propertyIndex][$subProperty]) as $subPropertyIndex) {
@@ -69,7 +69,7 @@ trait ArgumentMappingTrait {
 								continue;
 							}
 							$mappingConfiguration->forProperty($property . '.' . $propertyIndex . '.' . $subProperty . '.' . $subPropertyIndex)
-								->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
+								->setTypeConverterOption('Neos\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
 								->allowAllProperties();
 
 							if ($subSubProperty !== NULL) {
@@ -81,7 +81,7 @@ trait ArgumentMappingTrait {
 											continue;
 										}
 										$mappingConfiguration->forProperty($property . '.' . $propertyIndex . '.' . $subProperty . '.' . $subPropertyIndex . '.' . $subSubProperty . '.' . $subSubPropertyIndex)
-											->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
+											->setTypeConverterOption('Neos\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE)
 											->allowAllProperties();
 									}
 								}
@@ -102,6 +102,6 @@ trait ArgumentMappingTrait {
 	protected function allowCreationForArgumentAndProperty($argumentName, $property) {
 		/** @var PropertyMappingConfiguration $mappingConfiguration */
 		$mappingConfiguration = $this->arguments[$argumentName]->getPropertyMappingConfiguration();
-		$mappingConfiguration->forProperty($property)->setTypeConverterOption('TYPO3\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
+		$mappingConfiguration->forProperty($property)->setTypeConverterOption('Neos\Flow\Property\TypeConverter\PersistentObjectConverter', PersistentObjectConverter::CONFIGURATION_CREATION_ALLOWED, TRUE);
 	}
 }
