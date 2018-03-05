@@ -25,25 +25,25 @@ use Neos\Flow\Persistence\PersistenceManagerInterface;
 class AdvisoryCommandController extends CommandController {
 
 	/**
-	 * @Flow\inject
+	 * @Flow\Inject
 	 * @var PersistenceManagerInterface
 	 */
 	protected $persistenceManager;
 
 	/**
-	 * @Flow\inject
+	 * @Flow\Inject
 	 * @var AdvisoryRepository
 	 */
 	protected $advisoryRepository;
 
 	/**
-	 * @Flow\inject
+	 * @Flow\Inject
 	 * @var IssueRepository
 	 */
 	protected $issueRepository;
 
 	/**
-	 * @Flow\inject
+	 * @Flow\Inject
 	 * @var ProductRepository
 	 */
 	protected $productRepository;
@@ -84,8 +84,8 @@ class AdvisoryCommandController extends CommandController {
 	protected $validatedObject;
 
 	/**
-	 * @var string
-	 * @Flow\Inject(setting="import.advisory")
+	 * @var array
+	 * @Flow\InjectConfiguration(path="import.advisory")
 	 */
 	protected $settings;
 

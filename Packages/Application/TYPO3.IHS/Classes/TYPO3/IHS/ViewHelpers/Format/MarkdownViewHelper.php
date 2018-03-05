@@ -20,13 +20,12 @@ use Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper;
  */
 class MarkdownViewHelper extends AbstractViewHelper {
 
-	/**
-	 * Disable the escaping interceptor because otherwise the child nodes would be escaped before this view helper
-	 * can decode the text's entities.
-	 *
-	 * @var boolean
-	 */
-	protected $escapingInterceptorEnabled = FALSE;
+    protected $escapeChildren = false;
+
+    /**
+     * @var bool
+     */
+	protected $escapeOutput = false;
 
 	/**
 	 * Transforms markdown to HTML using Parsedown PHP library.
