@@ -2,9 +2,9 @@
 * Root TypoScript template for the security.typo3.org website
 */
 
-page = TYPO3.Neos:Page {
+page = Neos.Neos:Page {
 	head {
-		meta = TYPO3.TypoScript:Template
+		meta = Neos.Fusion:Template
 		meta {
 			templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/Page/Default.html'
 			sectionName = 'meta'
@@ -12,12 +12,12 @@ page = TYPO3.Neos:Page {
 			title = ${q(node).property('title')}
 		}
 
-		stylesheets.site = TYPO3.TypoScript:Template {
+		stylesheets.site = Neos.Fusion:Template {
 			templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/Page/Default.html'
 			sectionName = 'stylesheets'
 		}
 
-		javascripts.site = TYPO3.TypoScript:Template {
+		javascripts.site = Neos.Fusion:Template {
 			templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/Page/Default.html'
 			sectionName = 'javascripts'
 		}
@@ -29,18 +29,18 @@ page = TYPO3.Neos:Page {
 		sectionName = 'body'
 
 		parts {
-			mainMenu = TYPO3.Neos:Menu
+			mainMenu = Neos.Neos:Menu
 			mainMenu {
 				templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/TypoScriptObjects/MainMenu.html'
 				entryLevel = 1
 				maximumLevels = 2
 
-				normal.attributes.class = ${q(item.node).children('[instanceof TYPO3.Neos:Document]').count() ? 'dropdown normal' : 'normal'}
-				active.attributes.class = ${q(item.node).children('[instanceof TYPO3.Neos:Document]').count() ? 'dropdown active' : 'active'}
-				current.attributes.class = ${q(item.node).children('[instanceof TYPO3.Neos:Document]').count() ? 'dropdown active' : 'active'}
+				normal.attributes.class = ${q(item.node).children('[instanceof Neos.Neos:Document]').count() ? 'dropdown normal' : 'normal'}
+				active.attributes.class = ${q(item.node).children('[instanceof Neos.Neos:Document]').count() ? 'dropdown active' : 'active'}
+				current.attributes.class = ${q(item.node).children('[instanceof Neos.Neos:Document]').count() ? 'dropdown active' : 'active'}
 			}
 
-			subMenu = TYPO3.Neos:Menu
+			subMenu = Neos.Neos:Menu
 			subMenu {
 				templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/TypoScriptObjects/SubMenu.html'
 				entryLevel = 2
@@ -51,11 +51,11 @@ page = TYPO3.Neos:Page {
 				current.attributes.class = 'list-group-item active'
 			}
 
-			footerMenu = TYPO3.TypoScript:Template {
+			footerMenu = Neos.Fusion:Template {
 				templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/TypoScriptObjects/FooterMenu.html'
 			}
 
-			breadcrumb = TYPO3.Neos:BreadcrumbMenu
+			breadcrumb = Neos.Neos:BreadcrumbMenu
 			breadcrumb {
 				templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/TypoScriptObjects/BreadcrumbMenu.html'
 
@@ -64,16 +64,16 @@ page = TYPO3.Neos:Page {
 		}
 
 		content {
-			main = TYPO3.Neos:PrimaryContent {
+			main = Neos.Neos:PrimaryContent {
 				nodePath = 'main'
 			}
 
-			teaser = TYPO3.Neos:ContentCollection {
+			teaser = Neos.Neos:ContentCollection {
 				nodePath = 'teaser'
 			}
 		}
 
-		javascripts.site = TYPO3.TypoScript:Template {
+		javascripts.site = Neos.Fusion:Template {
 			templatePath = 'resource://TYPO3.SecurityTypo3Org/Private/Templates/Page/Default.html'
 			sectionName = 'bodyScripts'
 		}

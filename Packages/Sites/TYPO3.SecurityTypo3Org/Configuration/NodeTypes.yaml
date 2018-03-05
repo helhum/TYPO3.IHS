@@ -2,12 +2,12 @@
 # Adjust the "Page" node type:
 # Add two properties "layout" and "subpageLayout" to the default "Page" NodeType
 #
-'TYPO3.Neos.NodeTypes:Page':
+'Neos.NodeTypes:Page':
   childNodes:
     'left':
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
     'right':
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
   ui:
     inspector:
       groups:
@@ -75,7 +75,7 @@
               'defaultSubNavRight2Columns':
                 label: 'Default (Sub nav right, 2 columns)'
 
-'TYPO3.Neos:Shortcut':
+'Neos.Neos:Shortcut':
   properties:
     'hiddenForGuest':
       type: boolean
