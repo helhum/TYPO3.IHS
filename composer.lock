@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "403d363126c3a578242cc5ec9c700cae",
+    "content-hash": "513c61d159b09dcf38555c47339c48e9",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1043,7 +1043,7 @@
         },
         {
             "name": "neos/content-repository",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/typo3cr.git",
@@ -1157,7 +1157,7 @@
         },
         {
             "name": "neos/diff",
-            "version": "3.3.7",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/diff.git",
@@ -1514,7 +1514,7 @@
         },
         {
             "name": "neos/fusion",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/typoscript.git",
@@ -1744,7 +1744,7 @@
         },
         {
             "name": "neos/media",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/media.git",
@@ -1856,16 +1856,16 @@
         },
         {
             "name": "neos/media-browser",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/media-browser.git",
-                "reference": "59f1ba28584c725402e563a1421adf17182972de"
+                "reference": "5088ce4daa08981a46eced3a5e77a24729ed102e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neos/media-browser/zipball/59f1ba28584c725402e563a1421adf17182972de",
-                "reference": "59f1ba28584c725402e563a1421adf17182972de",
+                "url": "https://api.github.com/repos/neos/media-browser/zipball/5088ce4daa08981a46eced3a5e77a24729ed102e",
+                "reference": "5088ce4daa08981a46eced3a5e77a24729ed102e",
                 "shasum": ""
             },
             "require": {
@@ -1957,20 +1957,20 @@
                 "GPL-3.0-or-later"
             ],
             "description": "This module allows managing of media assets including pictures, videos, audio and documents.",
-            "time": "2018-02-23T11:31:02+00:00"
+            "time": "2018-03-05T04:12:08+00:00"
         },
         {
             "name": "neos/neos",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/neos.git",
-                "reference": "bd335f865e879783ca6d1059f831133e8b7ca7a4"
+                "reference": "727dc2aa9ed57b380b39c7cce9a097a3777805c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neos/neos/zipball/bd335f865e879783ca6d1059f831133e8b7ca7a4",
-                "reference": "bd335f865e879783ca6d1059f831133e8b7ca7a4",
+                "url": "https://api.github.com/repos/neos/neos/zipball/727dc2aa9ed57b380b39c7cce9a097a3777805c6",
+                "reference": "727dc2aa9ed57b380b39c7cce9a097a3777805c6",
                 "shasum": ""
             },
             "require": {
@@ -2088,7 +2088,7 @@
                 "GPL-3.0-or-later"
             ],
             "description": "An open source Content Application Platform based on Flow. A set of core Content Management features is resting within a larger context that allows you to build a perfectly customized experience for your users.",
-            "time": "2018-02-23T11:41:32+00:00"
+            "time": "2018-03-05T14:53:20+00:00"
         },
         {
             "name": "neos/neos-ui",
@@ -2229,16 +2229,16 @@
         },
         {
             "name": "neos/nodetypes",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/neos-nodetypes.git",
-                "reference": "70eab11a6e9659f5db1c515411d3313b558b7a56"
+                "reference": "1e406c4665bb79e722b3eb3bf1701cc7483cac86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neos/neos-nodetypes/zipball/70eab11a6e9659f5db1c515411d3313b558b7a56",
-                "reference": "70eab11a6e9659f5db1c515411d3313b558b7a56",
+                "url": "https://api.github.com/repos/neos/neos-nodetypes/zipball/1e406c4665bb79e722b3eb3bf1701cc7483cac86",
+                "reference": "1e406c4665bb79e722b3eb3bf1701cc7483cac86",
                 "shasum": ""
             },
             "require": {
@@ -2344,20 +2344,20 @@
                 "GPL-3.0-or-later"
             ],
             "description": "Node type configuration for Neos",
-            "time": "2018-02-07T17:27:34+00:00"
+            "time": "2018-03-05T04:12:08+00:00"
         },
         {
             "name": "neos/nodetypes-assetlist",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/nodetypes-assetlist.git",
-                "reference": "d8780911fcd4ccf0d5acb8042997aff0f18606d8"
+                "reference": "beb46719a76efaf6c4eed862b5b2c39f5f5563c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neos/nodetypes-assetlist/zipball/d8780911fcd4ccf0d5acb8042997aff0f18606d8",
-                "reference": "d8780911fcd4ccf0d5acb8042997aff0f18606d8",
+                "url": "https://api.github.com/repos/neos/nodetypes-assetlist/zipball/beb46719a76efaf6c4eed862b5b2c39f5f5563c8",
+                "reference": "beb46719a76efaf6c4eed862b5b2c39f5f5563c8",
                 "shasum": ""
             },
             "require": {
@@ -2450,20 +2450,20 @@
                 "GPL-3.0-or-later"
             ],
             "description": "A simple asset list node type.",
-            "time": "2018-01-24T14:31:08+00:00"
+            "time": "2018-02-26T00:31:40+00:00"
         },
         {
             "name": "neos/nodetypes-basemixins",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/nodetypes-basemixins.git",
-                "reference": "b16356579d1796c25d27afa2dee5cfab28c7d98c"
+                "reference": "a3a9918770936cc2fa8a3b6319d88ad07b1f392b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neos/nodetypes-basemixins/zipball/b16356579d1796c25d27afa2dee5cfab28c7d98c",
-                "reference": "b16356579d1796c25d27afa2dee5cfab28c7d98c",
+                "url": "https://api.github.com/repos/neos/nodetypes-basemixins/zipball/a3a9918770936cc2fa8a3b6319d88ad07b1f392b",
+                "reference": "a3a9918770936cc2fa8a3b6319d88ad07b1f392b",
                 "shasum": ""
             },
             "require": {
@@ -2556,20 +2556,20 @@
                 "GPL-3.0-or-later"
             ],
             "description": "Base mixins which are useful across projects.",
-            "time": "2018-02-03T00:22:41+00:00"
+            "time": "2018-03-04T01:52:15+00:00"
         },
         {
             "name": "neos/nodetypes-columnlayouts",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/nodetypes-columnlayouts.git",
-                "reference": "a394a2baa20652c84bbe82d52b5e475a835cc886"
+                "reference": "7a18a483f72eece441b4a6dbeaf5b5a19b8b7dc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neos/nodetypes-columnlayouts/zipball/a394a2baa20652c84bbe82d52b5e475a835cc886",
-                "reference": "a394a2baa20652c84bbe82d52b5e475a835cc886",
+                "url": "https://api.github.com/repos/neos/nodetypes-columnlayouts/zipball/7a18a483f72eece441b4a6dbeaf5b5a19b8b7dc5",
+                "reference": "7a18a483f72eece441b4a6dbeaf5b5a19b8b7dc5",
                 "shasum": ""
             },
             "require": {
@@ -2662,20 +2662,20 @@
                 "GPL-3.0-or-later"
             ],
             "description": "Various simple column layouts node type.",
-            "time": "2018-02-06T00:17:25+00:00"
+            "time": "2018-03-04T01:52:15+00:00"
         },
         {
             "name": "neos/nodetypes-contentreferences",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/nodetypes-contentreferences.git",
-                "reference": "7fe0d58cf6ce8a09b5b954eefc91f41ffbc12915"
+                "reference": "6a9f83a0426d459eadc2930e08a330a6199641da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neos/nodetypes-contentreferences/zipball/7fe0d58cf6ce8a09b5b954eefc91f41ffbc12915",
-                "reference": "7fe0d58cf6ce8a09b5b954eefc91f41ffbc12915",
+                "url": "https://api.github.com/repos/neos/nodetypes-contentreferences/zipball/6a9f83a0426d459eadc2930e08a330a6199641da",
+                "reference": "6a9f83a0426d459eadc2930e08a330a6199641da",
                 "shasum": ""
             },
             "require": {
@@ -2768,20 +2768,20 @@
                 "GPL-3.0-or-later"
             ],
             "description": "A simple content reference node type.",
-            "time": "2018-01-24T14:31:08+00:00"
+            "time": "2018-03-04T01:52:15+00:00"
         },
         {
             "name": "neos/nodetypes-form",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/nodetypes-form.git",
-                "reference": "bab0cecd6a4861d44c1744f78112616cd5104196"
+                "reference": "e31ad55e452151a91efb04fd8d120e99f762dc34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neos/nodetypes-form/zipball/bab0cecd6a4861d44c1744f78112616cd5104196",
-                "reference": "bab0cecd6a4861d44c1744f78112616cd5104196",
+                "url": "https://api.github.com/repos/neos/nodetypes-form/zipball/e31ad55e452151a91efb04fd8d120e99f762dc34",
+                "reference": "e31ad55e452151a91efb04fd8d120e99f762dc34",
                 "shasum": ""
             },
             "require": {
@@ -2875,20 +2875,20 @@
                 "GPL-3.0-or-later"
             ],
             "description": "A simple form node type.",
-            "time": "2018-01-24T14:31:08+00:00"
+            "time": "2018-02-26T00:31:40+00:00"
         },
         {
             "name": "neos/nodetypes-html",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/nodetypes-html.git",
-                "reference": "818ba42debeb2a8ea615818a6a4ca9e10fe91945"
+                "reference": "ce5569f60dc3f712f3952ebdfe631c9acb9d0d43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neos/nodetypes-html/zipball/818ba42debeb2a8ea615818a6a4ca9e10fe91945",
-                "reference": "818ba42debeb2a8ea615818a6a4ca9e10fe91945",
+                "url": "https://api.github.com/repos/neos/nodetypes-html/zipball/ce5569f60dc3f712f3952ebdfe631c9acb9d0d43",
+                "reference": "ce5569f60dc3f712f3952ebdfe631c9acb9d0d43",
                 "shasum": ""
             },
             "require": {
@@ -2981,20 +2981,20 @@
                 "GPL-3.0-or-later"
             ],
             "description": "A simple html node type.",
-            "time": "2018-01-24T14:31:08+00:00"
+            "time": "2018-02-26T00:31:40+00:00"
         },
         {
             "name": "neos/nodetypes-navigation",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/nodetypes-navigation.git",
-                "reference": "6459b65f4abc936d4b351a9b1b5e0acc3c197ec7"
+                "reference": "9182c291f267cd878400cd0734d9b6cc3511601d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neos/nodetypes-navigation/zipball/6459b65f4abc936d4b351a9b1b5e0acc3c197ec7",
-                "reference": "6459b65f4abc936d4b351a9b1b5e0acc3c197ec7",
+                "url": "https://api.github.com/repos/neos/nodetypes-navigation/zipball/9182c291f267cd878400cd0734d9b6cc3511601d",
+                "reference": "9182c291f267cd878400cd0734d9b6cc3511601d",
                 "shasum": ""
             },
             "require": {
@@ -3087,7 +3087,7 @@
                 "GPL-3.0-or-later"
             ],
             "description": "A navigation node type.",
-            "time": "2018-02-06T00:17:25+00:00"
+            "time": "2018-03-04T01:52:15+00:00"
         },
         {
             "name": "neos/party",
@@ -3256,7 +3256,7 @@
         },
         {
             "name": "neos/site-kickstarter",
-            "version": "3.3.6",
+            "version": "3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neos/neos-kickstarter.git",
@@ -4196,7 +4196,7 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.35",
+            "version": "v2.8.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
@@ -4314,7 +4314,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v2.8.35",
+            "version": "v2.8.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
@@ -4370,7 +4370,7 @@
         },
         {
             "name": "symfony/dotenv",
-            "version": "v4.0.5",
+            "version": "v4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dotenv.git",
@@ -4486,7 +4486,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.35",
+            "version": "v2.8.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
